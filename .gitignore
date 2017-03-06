@@ -29,6 +29,7 @@ build/
 *.obj
 *.rule
 *.sdf
+*.opensdf
 
 # ReSharper is a .NET coding add-in
 _ReSharper*/
