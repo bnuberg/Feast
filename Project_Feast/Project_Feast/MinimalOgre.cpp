@@ -113,9 +113,9 @@ bool MinimalOgre::go(void)
 	mCamera = mSceneMgr->createCamera("PlayerCam");
 
 	// Position it at 500 in Z direction
-	mCamera->setPosition(Ogre::Vector3(0, 0, 80));
+	mCamera->setPosition(0, 300, 500);
 	// Look back along -Z
-	mCamera->lookAt(Ogre::Vector3(0, 0, -300));
+	mCamera->lookAt(Ogre::Vector3(0, 0, 0));
 	mCamera->setNearClipDistance(5);
 
 	mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
@@ -138,18 +138,62 @@ bool MinimalOgre::go(void)
 	// load resources
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	//-------------------------------------------------------------------------------------
-	// Create the scene
-	Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
 
-	Ogre::SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	headNode->attachObject(ogreHead);
+	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
+
+	Ogre::MeshManager::getSingleton().createPlane(
+		"ground",
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane,
+		1500, 1500, 20, 20,
+		true,
+		1, 5, 5,
+		Ogre::Vector3::UNIT_Z
+		);
+	// Create the scene
+	//Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
+	Ogre::Entity* ninja = mSceneMgr->createEntity("Ninja", "ninja.mesh");
+	Ogre::Entity* groundEntity = mSceneMgr->createEntity("ground");
+
+	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
+	groundEntity->setCastShadows(false);
+	groundEntity->setMaterialName("Examples/Rockwall");
+
+	//Ogre::SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	//headNode->attachObject(ogreHead);
+
+	ninja->setCastShadows(true);
+	Ogre::SceneNode* ninjaNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(
+		Ogre::Vector3(0, 0, 0));
+	ninjaNode->attachObject(ninja);
 
 	// Set ambient light
-	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+	mSceneMgr->setAmbientLight(Ogre::ColourValue(0, 0, 0));
+	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
+	Ogre::Light* spotLight = mSceneMgr->createLight("SpotLight");
+	spotLight->setDiffuseColour(0, 0, 1.0);
+	spotLight->setSpecularColour(0, 0, 1.0);
+	spotLight->setType(Ogre::Light::LT_SPOTLIGHT);
+	spotLight->setDirection(-1, -1, 0);
+	spotLight->setPosition(Ogre::Vector3(200, 200, 0));
+	spotLight->setSpotlightRange(Ogre::Degree(35), Ogre::Degree(50));
+
+	Ogre::Light* directionalLight = mSceneMgr->createLight("DirectionalLight");
+	directionalLight->setType(Ogre::Light::LT_DIRECTIONAL);
+	directionalLight->setDiffuseColour(Ogre::ColourValue(.4, 0, 0));
+	directionalLight->setSpecularColour(Ogre::ColourValue(.4, 0, 0));
+	directionalLight->setDirection(Ogre::Vector3(0, -1, 1));
+
+	Ogre::Light* pointLight = mSceneMgr->createLight("PointLight");
+	pointLight->setType(Ogre::Light::LT_POINT);
+	pointLight->setDiffuseColour(.3, .3, .3);
+	pointLight->setSpecularColour(.3, .3, .3);
+	pointLight->setPosition(Ogre::Vector3(0, 150, 250));
 
 	// Create a light
-	Ogre::Light* l = mSceneMgr->createLight("MainLight");
-	l->setPosition(20, 80, 50);
+	//Ogre::Light* l = mSceneMgr->createLight("MainLight");
+	//l->setPosition(20, 80, 50);
 	//-------------------------------------------------------------------------------------
 	//create FrameListener
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
