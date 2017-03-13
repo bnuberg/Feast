@@ -139,17 +139,18 @@ bool MinimalOgre::go(void)
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	//-------------------------------------------------------------------------------------
 	// Create the scene
-	Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
+	mSceneMgr->setAmbientLight(Ogre::ColourValue(.25, .25, .25));
 
-	Ogre::SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	headNode->attachObject(ogreHead);
+	Ogre::Light* pointLight = mSceneMgr->createLight("PointLight");
+	pointLight->setType(Ogre::Light::LT_POINT);
+	pointLight->setPosition(250, 150, 250);
+	pointLight->setDiffuseColour(Ogre::ColourValue::White);
+	pointLight->setSpecularColour(Ogre::ColourValue::White);
 
-	// Set ambient light
-	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+	Ogre::Entity* ninjaEntity = mSceneMgr->createEntity("ninja.mesh");
+	Ogre::SceneNode* ninjaNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("NinjaNode");
+	ninjaNode->attachObject(ninjaEntity);
 
-	// Create a light
-	Ogre::Light* l = mSceneMgr->createLight("MainLight");
-	l->setPosition(20, 80, 50);
 	//-------------------------------------------------------------------------------------
 	//create FrameListener
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
@@ -236,6 +237,64 @@ bool MinimalOgre::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			mDetailsPanel->setParamValue(7, Ogre::StringConverter::toString(mCamera->getDerivedOrientation().z));
 		}
 	}
+		
+	if (!processUnbufferedInput(evt))
+		return false;
+
+	return true;
+}
+//-------------------------------------------------------------------------------------
+bool MinimalOgre::processUnbufferedInput(const Ogre::FrameEvent& fe)
+{
+	//Toggle light
+	static bool mouseDownLastFrame = false;
+	static Ogre::Real toggleTimer = 0.0;
+	static Ogre::Real rotate = .13;
+	static Ogre::Real move = 250;
+
+	bool leftMouseDown = mMouse->getMouseState().buttonDown(OIS::MB_Left);
+
+	if ((toggleTimer < 0) && mMouse->getMouseState().buttonDown(OIS::MB_Right))
+	{
+		toggleTimer  = 0.5;
+ 
+		Ogre::Light* light = mSceneMgr->getLight("PointLight");
+		light->setVisible(!light->isVisible());
+	}
+
+	mouseDownLastFrame = leftMouseDown;
+
+	toggleTimer -= fe.timeSinceLastFrame;
+
+	//Move ninja
+	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
+
+	if (mKeyboard->isKeyDown(OIS::KC_I))
+		dirVec.z -= move;
+	if (mKeyboard->isKeyDown(OIS::KC_K))
+		dirVec.z += move;
+	if (mKeyboard->isKeyDown(OIS::KC_U))
+		dirVec.y += move;
+	if (mKeyboard->isKeyDown(OIS::KC_O))
+		dirVec.y -= move;
+	if (mKeyboard->isKeyDown(OIS::KC_J))
+	{
+		if (mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+			mSceneMgr->getSceneNode("NinjaNode")->yaw(Ogre::Degree(5 * rotate));
+		else
+			dirVec.x -= move;
+	}
+	if (mKeyboard->isKeyDown(OIS::KC_L))
+	{
+		if (mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+			mSceneMgr->getSceneNode("NinjaNode")->yaw(Ogre::Degree(-5 * rotate));
+		else
+			dirVec.x += move;
+	}
+
+	mSceneMgr->getSceneNode("NinjaNode")->translate(
+		dirVec * fe.timeSinceLastFrame,
+		Ogre::Node::TS_LOCAL);
 
 	return true;
 }

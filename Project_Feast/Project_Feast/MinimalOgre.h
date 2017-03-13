@@ -77,6 +77,8 @@ protected:
 	// Ogre::WindowEventListener
 	virtual void windowResized(Ogre::RenderWindow* rw);
 	virtual void windowClosed(Ogre::RenderWindow* rw);
+private:
+	bool processUnbufferedInput(const Ogre::FrameEvent& fe);
 };
 
 #endif // #ifndef __MinimalOgre_h_
