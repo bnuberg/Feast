@@ -113,12 +113,13 @@ bool MinimalOgre::go(void)
 	mCamera = mSceneMgr->createCamera("PlayerCam");
 
 	// Position it at 500 in Z direction
-	mCamera->setPosition(Ogre::Vector3(0, 0, 80));
+	//mCamera->setPosition(Ogre::Vector3(0, 0, 80));
 	// Look back along -Z
-	mCamera->lookAt(Ogre::Vector3(0, 0, -300));
+	//mCamera->lookAt(Ogre::Vector3(0, 0, -300));
 	mCamera->setNearClipDistance(5);
 
 	mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
+	mCameraMan->setStyle(OgreBites::CameraStyle::CS_ORBIT);
 	//-------------------------------------------------------------------------------------
 	// create viewports
 	// Create one viewport, entire window
@@ -151,6 +152,8 @@ bool MinimalOgre::go(void)
 	Ogre::SceneNode* ninjaNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("NinjaNode");
 	ninjaNode->attachObject(ninjaEntity);
 
+	mCameraMan->setTarget(ninjaNode);
+	mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
 	//-------------------------------------------------------------------------------------
 	//create FrameListener
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
@@ -225,6 +228,8 @@ bool MinimalOgre::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	if (!mTrayMgr->isDialogVisible())
 	{
+		Ogre::Real dist = (mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
+		mCameraMan->setYawPitchDist(mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
 		mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
 		if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
 		{
