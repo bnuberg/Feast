@@ -138,6 +138,22 @@ bool MinimalOgre::go(void)
 	// load resources
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	//-------------------------------------------------------------------------------------
+	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
+
+	Ogre::MeshManager::getSingleton().createPlane(
+		"ground",
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane,
+		1500, 1500, 20, 20,
+		true,
+		1, 5, 5,
+		Ogre::Vector3::UNIT_Z);
+
+	Ogre::Entity* groundEntity = mSceneMgr->createEntity("ground");
+	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
+	groundEntity->setCastShadows(false);
+	groundEntity->setMaterialName("Examples/Rockwall");
+
 	// Create the scene
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(.25, .25, .25));
 
@@ -295,6 +311,9 @@ bool MinimalOgre::processUnbufferedInput(const Ogre::FrameEvent& fe)
 	mSceneMgr->getSceneNode("NinjaNode")->translate(
 		dirVec * fe.timeSinceLastFrame,
 		Ogre::Node::TS_LOCAL);
+	Ogre::Vector3 PlayerPosition = mSceneMgr->getSceneNode("NinjaNode")->_getWorldAABB().getCenter();
+	Ogre::Vector3 Offset = Ogre::Vector3(0, 100, 300);
+	mCamera->setPosition(PlayerPosition + Offset);
 
 	return true;
 }

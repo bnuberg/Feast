@@ -79,6 +79,6 @@ protected:
 	virtual void windowClosed(Ogre::RenderWindow* rw);
 private:
 	bool processUnbufferedInput(const Ogre::FrameEvent& fe);
-};
-
+}
 #endif // #ifndef __MinimalOgre_h_
+;
