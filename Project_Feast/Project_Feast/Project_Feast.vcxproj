@@ -90,9 +90,17 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="MainCamera.h" />
+    <ClInclude Include="Main.h" />
     <ClInclude Include="MinimalOgre.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="MainCamera.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
