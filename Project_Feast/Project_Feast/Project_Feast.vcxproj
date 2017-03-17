@@ -90,6 +90,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EntityTest.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainCamera.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="MinimalOgre.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainCamera.cpp" />

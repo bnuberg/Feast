@@ -1,9 +1,9 @@
 #include "MainCamera.h"
 
-//MainCamera::MainCamera()
-//	: Camera("MainCam", mSceneMgr), mCamera(0)
-//{
-//}
+MainCamera::MainCamera()
+	: Camera("MainCam", mSceneMgr), mCamera(0)
+{
+}
 
 
 MainCamera::~MainCamera()
@@ -12,7 +12,7 @@ MainCamera::~MainCamera()
 
 void MainCamera::CameraInstance()
 {
-	new GameManager();
+	/*new GameManager();*/
 	GameManager& mgr = GameManager::getSingleton();
 	GameManager* pMgr = GameManager::getSingletonPtr();
 

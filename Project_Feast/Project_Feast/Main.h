@@ -1,6 +1,7 @@
 
 #include <OgreRoot.h>
 #include <OgreWindowEventUtilities.h>
+#include "EntityTest.h"
 
 class Main
 {
@@ -15,7 +16,7 @@ protected:
 	Ogre::String mResourcesCfg;
 	Ogre::String mPluginsCfg;
 	Ogre::RenderWindow* mWindow;
-	
+	EntityTest* test;
 };
 
 

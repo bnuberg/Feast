@@ -7,6 +7,8 @@
 #include <OgreWindowEventUtilities.h>
 #include <OgreViewport.h>
 #include <OgreEntity.h>
+#include <OgreCamera.h>
+
 
 
 Main::Main()
@@ -69,13 +71,19 @@ bool Main::go()
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
-	mgr.mMainCamera->CameraInstance();
+	Ogre::Camera* mCamera;
 
-	Ogre::Viewport* vp = mWindow->addViewport(mgr.mMainCamera);
+	mCamera = mgr.mSceneMgr->createCamera("MainCam");
+
+	mCamera->setPosition(0, 0, 80);
+	mCamera->lookAt(0, 0, -300);
+	mCamera->setNearClipDistance(5);
+
+	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
 
 	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 	
-	mgr.mMainCamera->setAspectRatio(
+	mCamera->setAspectRatio(
 		Ogre::Real(vp->getActualWidth()) /
 		Ogre::Real(vp->getActualHeight()));
 
@@ -84,6 +92,8 @@ bool Main::go()
 	
 	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	headNode->attachObject(ogreHead);
+
+	test->DoStuff();
 
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 

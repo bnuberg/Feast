@@ -14,7 +14,7 @@ public:
 	static GameManager* GetSingletonPtr(void);
 	InputManager* mInputManager;
 	Ogre::SceneManager* mSceneMgr;
-	MainCamera* mMainCamera;
+	/*MainCamera* mMainCamera;*/
 };
 
 
