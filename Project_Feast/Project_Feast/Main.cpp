@@ -75,7 +75,7 @@ bool Main::go()
 
 	mCamera = mgr.mSceneMgr->createCamera("MainCam");
 
-	mCamera->setPosition(0, 0, 80);
+	mCamera->setPosition(0, 0, 300);
 	mCamera->lookAt(0, 0, -300);
 	mCamera->setNearClipDistance(5);
 
@@ -93,7 +93,8 @@ bool Main::go()
 	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	headNode->attachObject(ogreHead);
 
-	test->DoStuff();
+	// Instantiate the player
+	player->Init();
 
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
