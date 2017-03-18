@@ -2,6 +2,7 @@
 #include <OgreRoot.h>
 #include <OgreWindowEventUtilities.h>
 #include "EntityTest.h"
+#include "MainCamera.h"
 
 class Main
 {
@@ -17,6 +18,7 @@ protected:
 	Ogre::String mPluginsCfg;
 	Ogre::RenderWindow* mWindow;
 	EntityTest* test;
+	MainCamera* mMainCamera;
 };
 
 

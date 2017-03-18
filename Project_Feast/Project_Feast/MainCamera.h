@@ -3,7 +3,7 @@
 #include "GameManager.h"
 
 
-class MainCamera: public Ogre::Camera
+class MainCamera
 {
 public:
 	MainCamera();
@@ -13,6 +13,6 @@ public:
 	
 
 protected:
-	Ogre::Camera* mCamera;
+	
 };
 

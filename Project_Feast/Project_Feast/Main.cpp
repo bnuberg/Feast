@@ -65,25 +65,21 @@ bool Main::go()
 
 	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+
+	// Calls the Singleton GameManager 
 	new GameManager();
 	GameManager& mgr = GameManager::getSingleton();
 	GameManager* pMgr = GameManager::getSingletonPtr();
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
-	Ogre::Camera* mCamera;
+	mMainCamera->CameraInstance();
 
-	mCamera = mgr.mSceneMgr->createCamera("MainCam");
-
-	mCamera->setPosition(0, 0, 80);
-	mCamera->lookAt(0, 0, -300);
-	mCamera->setNearClipDistance(5);
-
-	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+	Ogre::Viewport* vp = mWindow->addViewport(mgr.mCamera);
 
 	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 	
-	mCamera->setAspectRatio(
+	mgr.mCamera->setAspectRatio(
 		Ogre::Real(vp->getActualWidth()) /
 		Ogre::Real(vp->getActualHeight()));
 

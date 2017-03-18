@@ -1,7 +1,7 @@
 #include "MainCamera.h"
 
 MainCamera::MainCamera()
-	: Camera("MainCam", mSceneMgr), mCamera(0)
+	
 {
 }
 
@@ -16,9 +16,9 @@ void MainCamera::CameraInstance()
 	GameManager& mgr = GameManager::getSingleton();
 	GameManager* pMgr = GameManager::getSingletonPtr();
 
-	mCamera = mgr.mSceneMgr->createCamera("MainCam");
+	mgr.mCamera = mgr.mSceneMgr->createCamera("MainCam");
 
-	mCamera->setPosition(0, 0, 80);
-	mCamera->lookAt(0, 0, -300);
-	mCamera->setNearClipDistance(5);
+	mgr.mCamera->setPosition(0, 0, 80);
+	mgr.mCamera->lookAt(0, 0, -300);
+	mgr.mCamera->setNearClipDistance(5);
 }
