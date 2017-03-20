@@ -1,7 +1,7 @@
 
 #include <OgreRoot.h>
 #include <OgreWindowEventUtilities.h>
-#include "EntityTest.h"
+#include "Player.h"
 #include "MainCamera.h"
 #include "InputManager.h"
 
@@ -18,7 +18,7 @@ protected:
 	Ogre::String mResourcesCfg;
 	Ogre::String mPluginsCfg;
 	Ogre::RenderWindow* mWindow;
-	EntityTest* test;
+	Player* player;
 	MainCamera* mMainCamera;
 	InputManager* mInputManager;
 	OIS::InputManager* mInput;

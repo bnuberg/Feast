@@ -96,6 +96,7 @@
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MinimalOgre.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntityTest.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

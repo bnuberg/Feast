@@ -77,6 +77,12 @@ bool Main::go()
 
 	Ogre::Viewport* vp = mWindow->addViewport(mgr.mCamera);
 
+	mCamera->setPosition(0, 0, 300);
+	mCamera->lookAt(0, 0, -300);
+	mCamera->setNearClipDistance(5);
+
+	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
+
 	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 	
 	mgr.mCamera->setAspectRatio(
@@ -89,7 +95,8 @@ bool Main::go()
 	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	headNode->attachObject(ogreHead);
 
-	test->DoStuff();
+	// Instantiate the player
+	player->Init();
 
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
