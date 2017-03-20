@@ -4,8 +4,8 @@ template<> GameManager* Ogre::Singleton<GameManager>::msSingleton = 0;
 
 GameManager::GameManager()
 	:mSceneMgr(0),
-	mInputManager(0),
-	mCamera(0)
+	mCamera(0),
+	mWindow(0)
 	
 {
 	

@@ -22,6 +22,7 @@ mPluginsCfg(Ogre::StringUtil::BLANK)
 
 Main::~Main()
 {
+	
 	delete mRoot;
 }
 
@@ -98,21 +99,8 @@ bool Main::go()
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
 	
-	mInputManager.InitInput(mWindow, mInput);
-	/*Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
-	OIS::ParamList pl;
-	size_t windowHnd = 0;
-	std::ostringstream windowHndStr;
-
-	mWindow->getCustomAttribute("WINDOW", &windowHnd);
-	windowHndStr << windowHnd;
-	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-	mInput = OIS::InputManager::createInputSystem(pl);
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
-
-	mKeyboard = static_cast<OIS::Keyboard*>(mInput->createInputObject(OIS::OISKeyboard, false));
-	mMouse = static_cast<OIS::Mouse*>(mInput->createInputObject(OIS::OISMouse, false));*/
+	mInputManager.InitInput(mWindow);
+	
 
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
@@ -126,11 +114,11 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 		return false;
 
 	//Need to capture/update each device
-	/*mKeyboard->capture();
-	mMouse->capture();
+	mInputManager.mKeyboard->capture();
+	mInputManager.mMouse->capture();
 
-	if (mKeyboard->isKeyDown(OIS::KC_ESCAPE))
-		return false;*/
+	if (mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
+		return false;
 
 	return true;
 }

@@ -5,16 +5,19 @@
 
 InputManager::InputManager()
 	: mMouse(0),
-	  mKeyboard(0)
+	  mKeyboard(0),
+	  mInputManager(0)
 {
 }
 
 
 InputManager::~InputManager()
 {
+	/*Ogre::WindowEventUtilities::removeWindowEventListener(mgr.mWindow, this);
+	windowClosed(mgr.mWindow);*/
 }
 
-void InputManager::InitInput(Ogre::RenderWindow* mWindow, OIS::InputManager* mInputManager)
+void InputManager::InitInput(Ogre::RenderWindow* mWindow)
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
 	OIS::ParamList pl;
@@ -30,6 +33,37 @@ void InputManager::InitInput(Ogre::RenderWindow* mWindow, OIS::InputManager* mIn
 
 	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, false));
 	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, false));
+
+	windowResized(mWindow);
+
+	//Register as a Window listener
+	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 	
+	
+}
+
+void InputManager::windowResized(Ogre::RenderWindow* rw)
+{
+	unsigned int width, height, depth;
+	int left, top;
+	rw->getMetrics(width, height, depth, left, top);
+
+	const OIS::MouseState &ms = mMouse->getMouseState();
+	ms.width = width;
+	ms.height = height;
+}
+
+void InputManager::windowClosed(Ogre::RenderWindow* rw)
+{
+	
+	
+		if (mInputManager)
+		{
+			mInputManager->destroyInputObject(mMouse);
+			mInputManager->destroyInputObject(mKeyboard);
+
+			OIS::InputManager::destroyInputSystem(mInputManager);
+			mInputManager = 0;
+		}
 	
 }
