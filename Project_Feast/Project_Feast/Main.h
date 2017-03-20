@@ -3,8 +3,9 @@
 #include <OgreWindowEventUtilities.h>
 #include "EntityTest.h"
 #include "MainCamera.h"
+#include "InputManager.h"
 
-class Main
+class Main: public Ogre::FrameListener, Ogre::WindowEventListener
 {
 public:
 	Main();
@@ -19,6 +20,12 @@ protected:
 	Ogre::RenderWindow* mWindow;
 	EntityTest* test;
 	MainCamera* mMainCamera;
+	InputManager* mInputManager;
+	OIS::InputManager* mInput;
+	OIS::Mouse* mMouse;
+	OIS::Keyboard* mKeyboard;
+	// Ogre::FrameListener
+	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 };
 
 

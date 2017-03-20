@@ -1,10 +1,10 @@
 #include "InputManager.h"
 #include <OgreLogManager.h>
+#include <OgreRenderWindow.h>
 
 
 InputManager::InputManager()
-	: mInputManager(0),
-	  mMouse(0),
+	: mMouse(0),
 	  mKeyboard(0)
 {
 }
@@ -14,7 +14,7 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::InitInput()
+void InputManager::InitInput(Ogre::RenderWindow* mWindow, OIS::InputManager* mInputManager)
 {
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
 	OIS::ParamList pl;
@@ -26,4 +26,7 @@ void InputManager::InitInput()
 	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
 	mInputManager = OIS::InputManager::createInputSystem(pl);
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
+	
+	
 }

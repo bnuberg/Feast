@@ -95,28 +95,45 @@ bool Main::go()
 
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
+	
+	/*mInputManager->InitInput(mWindow, mInput);*/
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
+	OIS::ParamList pl;
+	size_t windowHnd = 0;
+	std::ostringstream windowHndStr;
 
-	while (true)
-	{
-		Ogre::WindowEventUtilities::messagePump();
+	mWindow->getCustomAttribute("WINDOW", &windowHnd);
+	windowHndStr << windowHnd;
+	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
 
-		if (mWindow->isClosed()) return false;
+	mInput = OIS::InputManager::createInputSystem(pl);
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
 
-		if (!mRoot->renderOneFrame()) return false;
-	}
+	mKeyboard = static_cast<OIS::Keyboard*>(mInput->createInputObject(OIS::OISKeyboard, false));
+	mMouse = static_cast<OIS::Mouse*>(mInput->createInputObject(OIS::OISMouse, false));
+
+	mRoot->addFrameListener(this);
+	mRoot->startRendering();
 	
 	return true;
 }
-bool Ogre::Root::renderOneFrame()
+
+bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
-	if (!_fireFrameStarted())
+	if (mWindow->isClosed())
 		return false;
 
-	if (!_updateAllRenderTargets())
-		return false;
+	//Need to capture/update each device
+	/*mKeyboard->capture();
+	mMouse->capture();
 
-	return _fireFrameEnded();
+	if (mKeyboard->isKeyDown(OIS::KC_ESCAPE))
+		return false;*/
+
+	return true;
 }
+
+
 
 
 //Main 
