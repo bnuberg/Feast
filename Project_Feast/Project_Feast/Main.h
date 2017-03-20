@@ -5,6 +5,7 @@
 #include "MainCamera.h"
 #include "InputManager.h"
 
+
 class Main: public Ogre::FrameListener, Ogre::WindowEventListener
 {
 public:
@@ -18,14 +19,16 @@ protected:
 	Ogre::String mResourcesCfg;
 	Ogre::String mPluginsCfg;
 	Ogre::RenderWindow* mWindow;
-	Player* player;
+	Player player;
 	MainCamera* mMainCamera;
-	InputManager* mInputManager;
+	InputManager mInputManager;
 	OIS::InputManager* mInput;
 	OIS::Mouse* mMouse;
 	OIS::Keyboard* mKeyboard;
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+
+	
 };
 
 

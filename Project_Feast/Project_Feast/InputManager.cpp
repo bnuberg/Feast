@@ -27,6 +27,9 @@ void InputManager::InitInput(Ogre::RenderWindow* mWindow, OIS::InputManager* mIn
 
 	mInputManager = OIS::InputManager::createInputSystem(pl);
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
+
+	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, false));
+	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, false));
 	
 	
 }

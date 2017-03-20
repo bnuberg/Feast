@@ -4,7 +4,7 @@
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OgreRenderWindow.h>
-class InputManager : public OIS::KeyListener, public OIS::MouseListener
+class InputManager 
 {
 public:
 	InputManager();

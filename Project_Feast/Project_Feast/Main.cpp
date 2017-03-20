@@ -77,12 +77,6 @@ bool Main::go()
 
 	Ogre::Viewport* vp = mWindow->addViewport(mgr.mCamera);
 
-	mCamera->setPosition(0, 0, 300);
-	mCamera->lookAt(0, 0, -300);
-	mCamera->setNearClipDistance(5);
-
-	Ogre::Viewport* vp = mWindow->addViewport(mCamera);
-
 	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
 	
 	mgr.mCamera->setAspectRatio(
@@ -96,15 +90,16 @@ bool Main::go()
 	headNode->attachObject(ogreHead);
 
 	// Instantiate the player
-	player->Init();
+	
+	player.Init();
 
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
 	
-	/*mInputManager->InitInput(mWindow, mInput);*/
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
+	mInputManager.InitInput(mWindow, mInput);
+	/*Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
 	OIS::ParamList pl;
 	size_t windowHnd = 0;
 	std::ostringstream windowHndStr;
@@ -117,7 +112,7 @@ bool Main::go()
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
 
 	mKeyboard = static_cast<OIS::Keyboard*>(mInput->createInputObject(OIS::OISKeyboard, false));
-	mMouse = static_cast<OIS::Mouse*>(mInput->createInputObject(OIS::OISMouse, false));
+	mMouse = static_cast<OIS::Mouse*>(mInput->createInputObject(OIS::OISMouse, false));*/
 
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
