@@ -26,7 +26,7 @@ void Player::Init()
 	Ogre::Entity* playerEntity = mgr.mSceneMgr->createEntity("Body", "ninja.mesh");
 
 	// Add the node to the scene
-	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startingPosition);
+	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
 	playerNode->attachObject(playerEntity);
 }
 

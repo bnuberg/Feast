@@ -16,17 +16,15 @@ protected:
 	float enemyMaxHealth;
 	float enemeyDamage;
 	float enemyMaxDamage;
-	bool isDead;
+	bool isDead = true;
 
 	Ogre::Vector3 startPosition;
-	Ogre::Vector3 targetPosition;
-
 
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);
 	void GetDamaged(float damage);
 	void DropBodyPart();
-	void Move(Ogre::Vector3 target, const Ogre::FrameEvent& evt);
+	void Move(const Ogre::FrameEvent& evt);
 	void Die();
 	
 	

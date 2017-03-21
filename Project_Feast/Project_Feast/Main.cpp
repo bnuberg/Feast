@@ -8,6 +8,7 @@
 #include <OgreViewport.h>
 #include <OgreEntity.h>
 #include <OgreCamera.h>
+#include <OgreMeshManager.h>
 
 
 
@@ -90,6 +91,22 @@ bool Main::go()
 	
 	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	headNode->attachObject(ogreHead);*/
+
+	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -2);
+
+	Ogre::MeshManager::getSingleton().createPlane(
+		"ground",
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane,
+		1500, 1500, 20, 20,
+		true,
+		1, 5, 5,
+		Ogre::Vector3::UNIT_Z);
+
+	Ogre::Entity* groundEntity = mgr.mSceneMgr->createEntity("ground");
+	mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
+	groundEntity->setMaterialName("Examples/Rockwall");
+	groundEntity->setCastShadows(false);
 
 	// Instantiate the player
 	

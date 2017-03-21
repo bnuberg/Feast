@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include <OgreEntity.h>
 #include "Player.h"
+#include "BodyPart.h"
 
 
 Enemy::Enemy()
@@ -33,14 +34,14 @@ void Enemy::Init()
 	enemyNode->attachObject(enemyEntity);
 
 	SetHealth(10);
-	targetPosition = Ogre::Vector3 (10, 10, 10);
-
 
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
-	 Move(targetPosition, evt);
+	 Move(evt);
+
+	 GetDamaged(1);
 }
 
 void Enemy::SetHealth(float startingHealth)
@@ -74,12 +75,14 @@ void Enemy::DropBodyPart()
 	}
 }
 
-void Enemy::Move(Ogre::Vector3 target, const Ogre::FrameEvent& evt)
+void Enemy::Move(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
+
 	Ogre::Vector3 distanceVector = target - mgr.mSceneMgr->getSceneNode("Enemy")->getPosition();;
-	enemySpeed = 666;
+	enemySpeed = 10;
 	float distance = distanceVector.length();
 	
 	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
@@ -87,6 +90,7 @@ void Enemy::Move(Ogre::Vector3 target, const Ogre::FrameEvent& evt)
 	if (distance <= enemySpeed / 2500)
 	{
 		mgr.mSceneMgr->getSceneNode("Enemy")->setPosition(target);
+
 	}
 	else
 	{
@@ -96,15 +100,24 @@ void Enemy::Move(Ogre::Vector3 target, const Ogre::FrameEvent& evt)
 		mgr.mSceneMgr->getSceneNode("Enemy")->translate(
 			(distanceVector * enemySpeed) * evt.timeSinceLastFrame,
 			Ogre::Node::TS_LOCAL);
-
-		/*distanceVector *= enemySpeed;*/
 		
 	}
 }
 
 void Enemy::Die()
 {
+	GameManager& mgr = GameManager::GetSingleton();
 	
+	BodyPart bodyPart;
+	if (isDead){
+		bodyPart.Spawn();
+		isDead = false;
+
+		/*mgr.mSceneMgr->getSceneNode("Enemy")->removeAndDestroyAllChildren();
+		mgr.mSceneMgr->destroySceneNode(mgr.mSceneMgr->getSceneNode("Enemy"));*/
+	}
+	
+
 }
 
 
