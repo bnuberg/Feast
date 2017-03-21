@@ -5,6 +5,7 @@
 #include <OgreSceneManager.h>
 #include <OgreCamera.h>
 
+
 class GameManager: public Ogre::Singleton<GameManager>
 {
 public:
@@ -12,7 +13,7 @@ public:
 	~GameManager();
 	static GameManager& GetSingleton(void);
 	static GameManager* GetSingletonPtr(void);
-	/*InputManager* mInputManager;*/
+	InputManager mInputManager;
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
 	Ogre::RenderWindow* mWindow;

@@ -21,7 +21,7 @@ protected:
 	Ogre::RenderWindow* mWindow;
 	Player player;
 	MainCamera* mMainCamera;
-	InputManager mInputManager;
+	
 	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);

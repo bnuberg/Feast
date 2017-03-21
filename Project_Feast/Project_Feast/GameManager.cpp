@@ -7,6 +7,7 @@ GameManager::GameManager()
 	mCamera(0),
 	mWindow(0)
 	
+	
 {
 	
 }

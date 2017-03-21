@@ -5,7 +5,7 @@
 #include <OISMouse.h>
 #include <OgreRenderWindow.h>
 #include <OgreWindowEventUtilities.h>
-#include "GameManager.h"
+
 
 class InputManager : public Ogre::WindowEventListener
 {
