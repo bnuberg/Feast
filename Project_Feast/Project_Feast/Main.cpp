@@ -22,6 +22,7 @@ mPluginsCfg(Ogre::StringUtil::BLANK)
 
 Main::~Main()
 {
+	
 	delete mRoot;
 }
 
@@ -69,7 +70,7 @@ bool Main::go()
 	// Calls the Singleton GameManager 
 	new GameManager();
 	GameManager& mgr = GameManager::getSingleton();
-	GameManager* pMgr = GameManager::getSingletonPtr();
+	
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
@@ -84,6 +85,7 @@ bool Main::go()
 		Ogre::Real(vp->getActualHeight()));
 
 	//Create the scene
+
 	Ogre::Entity* ogreHead = mgr.mSceneMgr->createEntity("Head", "ogrehead.mesh");
 	
 	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -98,21 +100,8 @@ bool Main::go()
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
 	
-	mInputManager.InitInput(mWindow, mInput);
-	/*Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
-	OIS::ParamList pl;
-	size_t windowHnd = 0;
-	std::ostringstream windowHndStr;
-
-	mWindow->getCustomAttribute("WINDOW", &windowHnd);
-	windowHndStr << windowHnd;
-	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
-	mInput = OIS::InputManager::createInputSystem(pl);
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
-
-	mKeyboard = static_cast<OIS::Keyboard*>(mInput->createInputObject(OIS::OISKeyboard, false));
-	mMouse = static_cast<OIS::Mouse*>(mInput->createInputObject(OIS::OISMouse, false));*/
+	mgr.mInputManager.InitInput(mWindow);
+	
 
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
@@ -124,13 +113,16 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	if (mWindow->isClosed())
 		return false;
+	GameManager& mgr = GameManager::getSingleton();
 
 	//Need to capture/update each device
-	/*mKeyboard->capture();
-	mMouse->capture();
+	mgr.mInputManager.mKeyboard->capture();
+	mgr.mInputManager.mMouse->capture();
 
-	if (mKeyboard->isKeyDown(OIS::KC_ESCAPE))
-		return false;*/
+	
+
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
+		return false;
 
 	return true;
 }

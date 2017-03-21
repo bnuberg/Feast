@@ -4,15 +4,23 @@
 #include <OISKeyboard.h>
 #include <OISMouse.h>
 #include <OgreRenderWindow.h>
-class InputManager 
+#include <OgreWindowEventUtilities.h>
+
+
+class InputManager : public Ogre::WindowEventListener
 {
 public:
 	InputManager();
 	~InputManager();
-	void InitInput(Ogre::RenderWindow* mWindow, OIS::InputManager* mInputManager);
-protected:
-	/*OIS::InputManager* mInputManager;*/
+	void InitInput(Ogre::RenderWindow* mWindow);
 	OIS::Mouse* mMouse;
 	OIS::Keyboard* mKeyboard;
+protected:
+	OIS::InputManager* mInputManager;
+	
+
+	virtual void windowResized(Ogre::RenderWindow* rw);
+	virtual void windowClosed(Ogre::RenderWindow* rw);
+	
 };
 

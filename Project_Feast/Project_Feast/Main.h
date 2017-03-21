@@ -21,10 +21,8 @@ protected:
 	Ogre::RenderWindow* mWindow;
 	Player player;
 	MainCamera* mMainCamera;
-	InputManager mInputManager;
-	OIS::InputManager* mInput;
-	OIS::Mouse* mMouse;
-	OIS::Keyboard* mKeyboard;
+	
+	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
