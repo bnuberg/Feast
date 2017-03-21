@@ -11,8 +11,5 @@ public:
 
 	void CameraInstance();
 	
-
-protected:
-	
 };
 

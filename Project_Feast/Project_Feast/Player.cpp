@@ -19,15 +19,54 @@ void Player::Init()
 	GameManager* pMgr = GameManager::getSingletonPtr();
 
 	// Instantiate player variables
-	Ogre::Vector3 startingPosition = Ogre::Vector3(84, 48, 0);
+	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetHealth(10);
 
 	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = mgr.mSceneMgr->createEntity("Body", "ninja.mesh");
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "ninja.mesh");
 
 	// Add the node to the scene
-	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startingPosition);
+	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
 	playerNode->attachObject(playerEntity);
+
+	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
+	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
+}
+
+void Player::Update(const Ogre::FrameEvent& evt)
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	static Ogre::Real rotate = .13;
+	static Ogre::Real move = 250;
+
+	//Move ninja
+	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
+
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_W))
+		dirVec.z -= move;
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
+		dirVec.z += move;
+	/*if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_U))
+		dirVec.y += move;
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_O))
+		dirVec.y -= move;*/
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+			mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(5 * rotate));
+		else
+			dirVec.x -= move;
+	}
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+			mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-5 * rotate));
+		else
+			dirVec.x += move;
+	}
+
+	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
 
 void Player::Die()

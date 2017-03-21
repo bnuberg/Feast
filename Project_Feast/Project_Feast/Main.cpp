@@ -14,6 +14,7 @@
 Main::Main()
 :mRoot(0),
 mWindow(0),
+mCameraMan(0),
 mResourcesCfg(Ogre::StringUtil::BLANK),
 mPluginsCfg(Ogre::StringUtil::BLANK)
 {
@@ -76,6 +77,9 @@ bool Main::go()
 	
 	mMainCamera->CameraInstance();
 
+	mCameraMan = new OgreBites::SdkCameraMan(mgr.mCamera);   // create a default camera controller
+	mCameraMan->setStyle(OgreBites::CameraStyle::CS_ORBIT);
+
 	Ogre::Viewport* vp = mWindow->addViewport(mgr.mCamera);
 
 	vp->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
@@ -84,25 +88,24 @@ bool Main::go()
 		Ogre::Real(vp->getActualWidth()) /
 		Ogre::Real(vp->getActualHeight()));
 
-	//Create the scene
-
-	Ogre::Entity* ogreHead = mgr.mSceneMgr->createEntity("Head", "ogrehead.mesh");
+	//---Create the scene---
 	
-	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	headNode->attachObject(ogreHead);
-
 	// Instantiate the player
-	
 	player.Init();
 
+	// Create an ambient light
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
-
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
+
+
+	// Bind the cameraman to the player
+	mCameraMan->setTarget(mgr.mSceneMgr->getSceneNode("PlayerHeadNode"));
+	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
 	
+	// Initialize the input manager
 	mgr.mInputManager.InitInput(mWindow);
 	
-
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
 	
@@ -113,21 +116,33 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	if (mWindow->isClosed())
 		return false;
+
 	GameManager& mgr = GameManager::getSingleton();
 
 	//Need to capture/update each device
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
-	
-
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
+
+	if (!processUnbufferedInput(evt))
+		return false;
+
+	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
+	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
+	mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.349066), Ogre::Real(380));
+	mCameraMan->frameRenderingQueued(evt);
 
 	return true;
 }
 
+bool Main::processUnbufferedInput(const Ogre::FrameEvent& evt)
+{
+	player.Update(evt);
 
+	return true;
+}
 
 
 //Main 

@@ -5,6 +5,8 @@
 #include "MainCamera.h"
 #include "InputManager.h"
 
+#include <SdkCameraMan.h>
+
 
 class Main: public Ogre::FrameListener, Ogre::WindowEventListener
 {
@@ -21,11 +23,15 @@ protected:
 	Ogre::RenderWindow* mWindow;
 	Player player;
 	MainCamera* mMainCamera;
+
+	OgreBites::SdkCameraMan* mCameraMan;      // basic camera controller
 	
 	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
 
+private:
+	bool processUnbufferedInput(const Ogre::FrameEvent& fe);
 	
 };
 
