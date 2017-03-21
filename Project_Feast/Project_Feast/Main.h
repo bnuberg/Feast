@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "MainCamera.h"
 #include "InputManager.h"
+#include "Enemy.h"
 
 
 class Main: public Ogre::FrameListener, Ogre::WindowEventListener
@@ -21,7 +22,7 @@ protected:
 	Ogre::RenderWindow* mWindow;
 	Player player;
 	MainCamera* mMainCamera;
-	
+	Enemy enemy;
 	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);

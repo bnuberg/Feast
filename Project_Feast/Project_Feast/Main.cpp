@@ -86,14 +86,17 @@ bool Main::go()
 
 	//Create the scene
 
-	Ogre::Entity* ogreHead = mgr.mSceneMgr->createEntity("Head", "ogrehead.mesh");
+	/*Ogre::Entity* ogreHead = mgr.mSceneMgr->createEntity("Head", "ogrehead.mesh");
 	
 	Ogre::SceneNode* headNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	headNode->attachObject(ogreHead);
+	headNode->attachObject(ogreHead);*/
 
 	// Instantiate the player
 	
 	player.Init();
+
+	enemy.Init();
+
 
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 
@@ -119,6 +122,7 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
+	enemy.Update(evt);
 	
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
