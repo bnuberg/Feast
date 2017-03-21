@@ -8,6 +8,7 @@
 #include <OgreViewport.h>
 #include <OgreEntity.h>
 #include <OgreCamera.h>
+#include <OgreMeshManager.h>
 
 
 
@@ -90,10 +91,29 @@ bool Main::go()
 
 	//---Create the scene---
 	
+
+	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -2);
+
+	Ogre::MeshManager::getSingleton().createPlane(
+		"ground",
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane,
+		1500, 1500, 20, 20,
+		true,
+		1, 5, 5,
+		Ogre::Vector3::UNIT_Z);
+
+	Ogre::Entity* groundEntity = mgr.mSceneMgr->createEntity("ground");
+	mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
+	groundEntity->setMaterialName("Examples/Rockwall");
+	groundEntity->setCastShadows(false);
 	// Instantiate the player
 	player.Init();
 
+	enemy.Init();
 	// Create an ambient light
+
+
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
@@ -123,6 +143,7 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
+	enemy.Update(evt);
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 
