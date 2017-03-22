@@ -602,7 +602,7 @@ float Matth::sqrt(const int value)
 	return Matth::FIISRBOQ3C(value);
 }
 
-// My 13 year-old self's square root method. Newtonian? Accurate but slow (8 iterations)
+// My 13 year-old self's square root method. Newtonian? Accurate but slow (7 iterations)
 // Default precision is 8 iterations but can be modified.
 float Matth::sqrt(const float value, int prec)
 {
@@ -610,7 +610,7 @@ float Matth::sqrt(const float value, int prec)
 	float c = 0.0f;
 	int i = 1;
 	
-	while(c != r && i != 8)
+	while(c != r && i != prec)
 	{
 		c = value / r;
 		r = HALF * (r + c);
