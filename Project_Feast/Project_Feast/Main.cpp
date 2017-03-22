@@ -110,7 +110,7 @@ bool Main::go()
 	// Instantiate the player
 	player.Init();
 
-	enemy.Init();
+	enemyManager.Init();
 	// Create an ambient light
 
 
@@ -143,7 +143,7 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
-	enemy.Update(evt);
+	//enemyManager.Update(evt);
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 
