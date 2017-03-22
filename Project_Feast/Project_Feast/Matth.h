@@ -140,7 +140,7 @@ public:
 	
 	static int   sqrti				(const int   value);
 	static float sqrt				(const int   value);
-	static float sqrt				(const float value);
+	static float sqrt				(const float value, int prec = 8);
 	static float FIISRBOQ3C			(const float value);
 	static float sqrtWithNaturalLog (const float value);
 };
