@@ -26,6 +26,9 @@ protected:
 	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
 	void Die();
+
+	Ogre::Entity* enemyEntity;
+	Ogre::SceneNode* enemyNode;
 	
 	
 };

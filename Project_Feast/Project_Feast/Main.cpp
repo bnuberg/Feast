@@ -143,7 +143,8 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
-	//enemyManager.Update(evt);
+	enemyManager.Update(evt);
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 

@@ -7,18 +7,16 @@
 
 Enemy::Enemy()
 	:enemyHealth(0),
-	enemySpeed(0),
+	enemySpeed(10),
 	enemyMaxHealth(0),
 	enemeyDamage(0),
 	enemyMaxDamage(0)
 {
-	
 }
 
 
 Enemy::~Enemy()
 {
-	delete this;
 }
 
 void Enemy::Init()
@@ -27,10 +25,10 @@ void Enemy::Init()
 	startPosition = (0, 0, 0);
 
 	// Create a player entity with the right mesh
-	Ogre::Entity* enemyEntity = mgr.mSceneMgr->createEntity("ogrehead.mesh");
+	enemyEntity = mgr.mSceneMgr->createEntity("ogrehead.mesh");
 
 	// Add the node to the scene
-	Ogre::SceneNode* enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("Enemy", startPosition);
+	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startPosition);
 	enemyNode->attachObject(enemyEntity);
 
 	SetHealth(10);
@@ -41,7 +39,7 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	 Move(evt);
 
-	 GetDamaged(1);
+	 //GetDamaged(1);
 }
 
 void Enemy::SetHealth(float startingHealth)
@@ -81,15 +79,14 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 
-	Ogre::Vector3 distanceVector = target - mgr.mSceneMgr->getSceneNode("Enemy")->getPosition();;
-	enemySpeed = 10;
+	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	float distance = distanceVector.length();
 	
 	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
 
 	if (distance <= enemySpeed / 2500)
 	{
-		mgr.mSceneMgr->getSceneNode("Enemy")->setPosition(target);
+		enemyNode->setPosition(target);
 
 	}
 	else
@@ -97,7 +94,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 		distanceVector.normalise();
 
-		mgr.mSceneMgr->getSceneNode("Enemy")->translate(
+		enemyNode->translate(
 			(distanceVector * enemySpeed) * evt.timeSinceLastFrame,
 			Ogre::Node::TS_LOCAL);
 		

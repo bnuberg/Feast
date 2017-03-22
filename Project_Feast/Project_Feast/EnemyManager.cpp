@@ -18,11 +18,19 @@ void EnemyManager::Init()
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** Enemy Manager update call ***");
+
 	if (timer.getMilliseconds() > enemySpawnTimer)
 	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("*** Spawn Enemy ***");
+
 		SpawnEnemy();
 		timer.reset();
-		enemySpawnTimer = 100000;
+	}
+
+	for each (Enemy e in enemyList)
+	{
+		e.Update(evt);
 	}
 }
 
@@ -30,6 +38,8 @@ void EnemyManager::SpawnEnemy()
 {
 	Enemy enemy;
 	enemy.Init();
+
+	Ogre::LogManager::getSingletonPtr()->logMessage("*** Enemy initialized ***");
 
 	enemyList.push_back(enemy);
 }

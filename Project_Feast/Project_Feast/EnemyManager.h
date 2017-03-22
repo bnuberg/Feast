@@ -3,6 +3,7 @@
 #include <OgreFrameListener.h>
 #include <OgreTimer.h>
 #include "Enemy.h"
+#include "BodyPart.h"
 #include "GameManager.h"
 
 class EnemyManager
