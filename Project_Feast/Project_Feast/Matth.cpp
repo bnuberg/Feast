@@ -225,6 +225,8 @@ float Matth::deltaAngle(const float current, const float target)
 // Returns e to a given power using a Taylor series
 float Matth::exp(const float power)
 {
+	// I tried to reduce the number of operations as much as possible.
+	// Another approximation may be required.
 	float pow2 = power * power;
 	float pow3 = pow2 * power;
 	float pow4 = pow2 * pow2;

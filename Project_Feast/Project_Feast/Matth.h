@@ -18,6 +18,8 @@
 
 #define MOD 		  1000000007
 #define EPSILON       0.00000000001f
+// NB: Epsilon should be scaled with the floats it is being applied to. This is a TODO.
+
 //#define INFINITY      9999999999999f
 //#define NEGATIVE_INFINITY (-1.0f * INFINITY)
 
@@ -57,8 +59,8 @@ public:
 	static int   clampi				(const int   value, const int   min, const int   max);
 	static float clamp				(const float value, const float min, const float max);
 	static int   clamp01			(const float value);
-	static int   closestPowerOfTwo	(const float value);
-	static int   closestPowerOfTwo	(const int   value);
+	static int   closestPowerOfTwo	(const float value); // TODO
+	static int   closestPowerOfTwo	(const int   value); // TODO
 	
 	static float cos				(const float value);
 	static float sin				(const float value);
@@ -68,7 +70,7 @@ public:
 	static float sec				(const float value);
 	static float csc				(const float value);
 	
-	static float deltaAngle			(const float current, const float target);
+	static float deltaAngle			(const float current, const float target); // TODO
 	
 	static float exp				(const float power);
 	static float exps				(const int power);
@@ -83,9 +85,9 @@ public:
 	static bool  isPowerOfTwoe		(const int value);
 	
 	static float lerp				(const float start, const float end, const float value);
-	static float lerpAngle			(const float start, const float end, const float value);
+	static float lerpAngle			(const float start, const float end, const float value); // TODO
 	static float lerpUnclamped		(const float start, const float end, const float value);
-	static float inverseLerp		(const float start, const float end, const float value);
+	static float inverseLerp		(const float start, const float end, const float value); // TODO - This should be an easy one
  
 	static float log				(const int   value, const int   base);
 	static float log				(const int   value, const float base);
@@ -103,15 +105,15 @@ public:
 //	static int   mini				(const int   x, const int   y);
 //	static float min				(const float x, const float y);
 	
-	static float moveTowards		(const float current, const float target, const float maxDelta);
-	static float moveTowardsAngle	(const float current, const float target, const float maxDelta);
+	static float moveTowards		(const float current, const float target, const float maxDelta); // TODO
+	static float moveTowardsAngle	(const float current, const float target, const float maxDelta); // TODO
 	
 	static int  nextPowerOfTwo		(const int   value);
 	static int  nextPowerOfTwo		(const float value);
 	static int  nextPowerOfTwoe		(const float value);
 	
-	static float perlinNoise		(const float x, const float y);
-	static float pingPong			(const float value, const float length);
+	static float perlinNoise		(const float x, const float y);			 // TODO
+	static float pingPong			(const float value, const float length); // TODO
 	
 	static int   powi				(const int   x, const int   y);
 	static float powm				(	   int   x,       int   y);
@@ -119,7 +121,7 @@ public:
 	static float powf				(const float x, const float y);
 	static float pows				(const float x, const float y);
 	
-	static float repeat				(const float value, const float length);
+	static float repeat				(const float value, const float length); // TODO
 	
 	static int   roundi				(const float value);
 	static float round				(const float value);
