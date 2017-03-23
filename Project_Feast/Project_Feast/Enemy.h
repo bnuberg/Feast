@@ -12,9 +12,12 @@ public:
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
 
-	bool isDead = true;
+	bool isDead = false;
+	bool isDead2 = false;
 	Ogre::Entity* enemyEntity;
 	Ogre::SceneNode* enemyNode;
+
+	bool operator == (const Enemy& e) const { return e.isDead2; }
 
 protected: 
 	float enemyHealth;

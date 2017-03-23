@@ -47,13 +47,17 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 			}
 		}
 
-		if (e.isDead)
+		if (e.isDead && !e.isDead2)
 		{
-			Ogre::LogManager::getSingletonPtr()->logMessage("ENEMY IS DEAD");
 			// TODO: spawn bodypart
+			BodyPart bodypart;
+			bodypart.Spawn(e.enemyNode->getPosition());
+
+			bodyPartsList.push_back(bodypart);
 
 			// TODO: remove enemys
 			e.enemyNode->detachAllObjects();
+			e.isDead2 = true;
 			//enemyList.remove(e);
 		}
 		else

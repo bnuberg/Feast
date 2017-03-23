@@ -11,7 +11,8 @@ Enemy::Enemy()
 	enemyMaxHealth(0),
 	enemeyDamage(0),
 	enemyMaxDamage(0),
-	isDead(false)
+	isDead(false),
+	isDead2(false)
 {
 }
 
