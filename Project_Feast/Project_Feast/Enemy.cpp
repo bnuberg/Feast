@@ -24,10 +24,10 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	startPosition = (0, 0, 0);
+	startPosition = (0, 0, 20);
 
 	// Create an enemy entity with the right mesh
-	enemyEntity = mgr.mSceneMgr->createEntity("ogrehead.mesh");
+	enemyEntity = mgr.mSceneMgr->createEntity("penguin.mesh");
 
 	// Add the node to the scene
 	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startPosition);

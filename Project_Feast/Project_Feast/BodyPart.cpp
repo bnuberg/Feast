@@ -21,9 +21,10 @@ void BodyPart::Spawn(Ogre::Vector3 position)
 	Ogre::Vector3 target = Ogre::Vector3(0, 0, 0);
 
 	// Create a body part entity with the right mesh
-	Ogre::Entity* bodyPartEntity = mgr.mSceneMgr->createEntity("spine.mesh");
+	Ogre::Entity* bodyPartEntity = mgr.mSceneMgr->createEntity("cube.mesh");
 
 	// Add the node to the scene
 	Ogre::SceneNode* bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
+	bodyPartNode->setScale(0.2, 0.2, 0.2);
 }
