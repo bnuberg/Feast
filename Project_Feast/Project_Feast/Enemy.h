@@ -10,13 +10,17 @@ public:
 	~Enemy();
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
+
+	bool isDead = true;
+	Ogre::Entity* enemyEntity;
+	Ogre::SceneNode* enemyNode;
+
 protected: 
 	float enemyHealth;
 	float enemySpeed;
 	float enemyMaxHealth;
 	float enemeyDamage;
 	float enemyMaxDamage;
-	bool isDead = true;
 
 	Ogre::Vector3 startPosition;
 
@@ -26,10 +30,5 @@ protected:
 	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
 	void Die();
-
-	Ogre::Entity* enemyEntity;
-	Ogre::SceneNode* enemyNode;
-	
-	
 };
 

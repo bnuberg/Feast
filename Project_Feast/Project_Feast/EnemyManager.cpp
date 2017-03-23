@@ -13,33 +13,46 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Init()
 {
+	// Make sure the timer starts from 0
 	timer.reset();
 }
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** Enemy Manager update call ***");
+	GameManager& mgr = GameManager::getSingleton();
 
-	if (timer.getMilliseconds() > enemySpawnTimer)
+	// When the timer reaches the spawn timer, spawn an enemy and reset the timer
+	if (timer.getMilliseconds() >= enemySpawnTimer)
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("*** Spawn Enemy ***");
-
 		SpawnEnemy();
 		timer.reset();
 	}
 
-	for each (Enemy e in enemyList)
-	{
-		e.Update(evt);
-	}
+	/*for each (Enemy e in enemyList)
+	{*/
+		//if (e.isDead)
+		//	break;
+
+		//e.Update(evt);
+
+		//e.isDead = true;
+
+		//if (e.isDead)
+		//{
+		//	// TODO: spawn bodypart
+
+		//	// TODO: remove enemys
+		//	//e.enemyNode->detachAllObjects();
+		//	/*enemyList.remove(e);*/
+		//}
+	/*}*/
 }
 
+// Spawns a new enemy and adds it to the manager
 void EnemyManager::SpawnEnemy()
 {
 	Enemy enemy;
 	enemy.Init();
-
-	Ogre::LogManager::getSingletonPtr()->logMessage("*** Enemy initialized ***");
 
 	enemyList.push_back(enemy);
 }

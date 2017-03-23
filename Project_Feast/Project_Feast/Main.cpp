@@ -107,9 +107,11 @@ bool Main::go()
 	mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
 	groundEntity->setMaterialName("Examples/Rockwall");
 	groundEntity->setCastShadows(false);
+
 	// Instantiate the player
 	player.Init();
 
+	// Initialize the enemy manager
 	enemyManager.Init();
 	// Create an ambient light
 
