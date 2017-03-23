@@ -10,6 +10,7 @@ public:
 	~Enemy();
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
+	void GetDamaged(float damage);
 
 	bool isDead = true;
 	Ogre::Entity* enemyEntity;
@@ -26,7 +27,6 @@ protected:
 
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);
-	void GetDamaged(float damage);
 	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
 	void Die();

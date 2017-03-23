@@ -26,26 +26,41 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	{
 		SpawnEnemy();
 		timer.reset();
+		//enemySpawnTimer = 100000;
 	}
 
-	/*for each (Enemy e in enemyList)
-	{*/
-		//if (e.isDead)
-		//	break;
+	for each (Enemy e in enemyList)
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+		{
+			if (!e.isDead)
+			{
+				Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 
-		//e.Update(evt);
+				Ogre::Vector3 distanceVector = target - e.enemyNode->getPosition();
+				float distance = distanceVector.length();
 
-		//e.isDead = true;
+				if (distance < 200)
+				{
+					e.GetDamaged(10);
+				}
+			}
+		}
 
-		//if (e.isDead)
-		//{
-		//	// TODO: spawn bodypart
+		if (e.isDead)
+		{
+			Ogre::LogManager::getSingletonPtr()->logMessage("ENEMY IS DEAD");
+			// TODO: spawn bodypart
 
-		//	// TODO: remove enemys
-		//	//e.enemyNode->detachAllObjects();
-		//	/*enemyList.remove(e);*/
-		//}
-	/*}*/
+			// TODO: remove enemys
+			e.enemyNode->detachAllObjects();
+			//enemyList.remove(e);
+		}
+		else
+		{
+			e.Update(evt);
+		}
+	}
 }
 
 // Spawns a new enemy and adds it to the manager
@@ -57,3 +72,16 @@ void EnemyManager::SpawnEnemy()
 	enemyList.push_back(enemy);
 }
 
+void EnemyManager::DamageEnemies()
+{
+	for each (Enemy e in enemyList)
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(e.isDead));
+		if (!e.isDead)
+		{
+			Ogre::LogManager::getSingletonPtr()->logMessage("DAMAGE");
+			
+			e.isDead = true;
+		}
+	}
+}

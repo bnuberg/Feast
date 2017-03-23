@@ -15,6 +15,7 @@ public:
 	void EnemyManager::Init();
 	void EnemyManager::Update(const Ogre::FrameEvent& evt);
 	void SpawnEnemy();
+	void DamageEnemies();
 
 private:
 	std::list<Enemy> enemyList;				// List containing all enemies

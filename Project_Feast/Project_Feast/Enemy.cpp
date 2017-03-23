@@ -6,8 +6,8 @@
 
 
 Enemy::Enemy()
-	:enemyHealth(0),
-	enemySpeed(10),
+	:enemyHealth(10),
+	enemySpeed(50),
 	enemyMaxHealth(0),
 	enemeyDamage(0),
 	enemyMaxDamage(0),
@@ -57,6 +57,7 @@ void Enemy::DoDamage(float damage)
 void Enemy::GetDamaged(float damage)
 {
 	enemyHealth -= damage;
+
 	if (enemyHealth <= 0)
 	{
 		isDead = true;
@@ -80,7 +81,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	float distance = distanceVector.length();
 	
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
+	//Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
 
 	if (distance <= enemySpeed / 2500)
 	{
