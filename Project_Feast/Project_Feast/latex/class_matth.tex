@@ -252,7 +252,8 @@ The floating point value of the inverse tangent of the input.
 \item[{const float}]{x}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a5846ab2422a3d4f5968d5e0a8e135d0e}
-The two-\/parameter version of the arctangent function. Will not divide by 0. Returns 0 when the result would be infinite. 
+The two-\/parameter version of the arctangent function. Will not divide by 0.~\newline
+Returns 0 when the result would be infinite. 
 \begin{DoxyParams}{Parameters}
 {\em y} & The y coordinate \\
 \hline
@@ -425,7 +426,8 @@ The cosined value.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a94a0265fe56178120283cc50244ac8a9}
-Cotangent function, returns the ratio of the adjacent side of the input angle in radians to the opposite side. (Of a right-\/angled triangle) 
+Cotangent function, returns the ratio of the adjacent side of the input angle in radians to the opposite side.~\newline
+(Of a right-\/angled triangle) 
 \begin{DoxyParams}{Parameters}
 {\em value} & The angle in radians to be used in the operation. \\
 \hline
@@ -440,7 +442,9 @@ The result of the cotangent operation on the input.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a33e26fbbf97fe67c24a7c14196b17c01}
-Cosecant function, returns the ratio of the adjacent side of the input angle in radians to the opposite side. (Of a right-\/angled triangle) 
+Cosecant function, returns the ratio of the adjacent side of the input angle in radians to the opposite side.~\newline
+(Of a right-\/angled triangle)~\newline
+See\+: \href{https://www.mathportal.org/formulas/pdf/taylor-series-formulas.pdf}{\tt This forumla sheet} 
 \begin{DoxyParams}{Parameters}
 {\em value} & The angle in radians to be used in the operation. \\
 \hline
@@ -485,7 +489,9 @@ The value of e raised to the power of the input.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a4ee96c6fa0a8a7e0ed3ea73219104418}
-Square root function, fast inverse inverse square root based on quake 3 code (with original comments). This is probably the fastest of the square roots in this library. Takes a float, returns a float. 
+Square root function, fast inverse inverse square root based on quake 3 code (with original comments).~\newline
+This is probably the fastest of the square roots in this library.~\newline
+Takes a float, returns a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to square root. \\
 \hline
@@ -547,7 +553,10 @@ The converted value.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a0f4cf803a6e526cd3917810a5f151886}
-Linear interpolation function, performs Hermite interpolation between two values at a point. Sometimes called smoothstep or inverse interpolation. Result is undefined if end $>$= start. 
+Linear interpolation function, performs Hermite interpolation between two values at a point.~\newline
+Sometimes called smoothstep or inverse interpolation.~\newline
+Result is undefined if end $>$= start.~\newline
+See\+: \href{https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/smoothstep.xhtml}{\tt This piece of G\+L\+S\+L documentation} 
 \begin{DoxyParams}{Parameters}
 {\em start} & The first value to interpolate between. \\
 \hline
@@ -566,7 +575,8 @@ The result of the interpolation between start and end at value.
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a0b74da83e267dd3dabab08c698d945b9}
-Checking function, checks whether the input is negative or not. Takes an int. 
+Checking function, checks whether the input is negative or not.~\newline
+Takes an int. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to check the negativity of. \\
 \hline
@@ -581,7 +591,8 @@ Returns true if the value is negative (value $<$ 0).
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_abcf0f572e8d5b6ff2e7dcacb7b45f171}
-Checking function, checks whether the input is negative or not. Takes a float. 
+Checking function, checks whether the input is negative or not.~\newline
+Takes a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to check the negativity of. \\
 \hline
@@ -596,7 +607,8 @@ Returns true if the value is negative (value $<$ 0).
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_adc580377dc220725fca144b52658e90b}
-Checking function, checks whether the input is positive or not. Takes an int. 
+Checking function, checks whether the input is positive or not.~\newline
+Takes an int. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to check the positivity of. \\
 \hline
@@ -611,7 +623,8 @@ Returns true if the value is positive (value $>$ 0).
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a4bcb12e944d790f1e5279a2a67216b9c}
-Checking function, checks whether the input is positive or not. Takes a float. 
+Checking function, checks whether the input is positive or not.~\newline
+Takes a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to check the positivity of. \\
 \hline
@@ -626,7 +639,8 @@ Returns true if the value is positive (value $>$ 0).
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a0347598feecff1d5851f33324034f98c}
-Checking function, checks whether the input is a power of 2 and returns true if it is. This function is the slower of the 2. 
+Checking function, checks whether the input is a power of 2 and returns true if it is.~\newline
+This function is the slower of the 2. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to test. \\
 \hline
@@ -641,7 +655,9 @@ A boolean that is true when the input is a power of 2.
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a16bde0574496581105e37db358e81bf1}
-Checking function, checks whether the input is a power of 2 and returns true if it is. This function is the faster of the 2. 
+Checking function, checks whether the input is a power of 2 and returns true if it is.~\newline
+This function is the faster of the 2.~\newline
+See\+: \href{http://graphics.stanford.edu/~seander/bithacks.html}{\tt This Stanford webpage} 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to test. \\
 \hline
@@ -658,7 +674,8 @@ A boolean that is true when the input is a power of 2.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a656a8b2b10a5270f247bb26d7f709537}
-Linear interpolation function, interpolates between two values at a point between them. The point is clamped between the start and the end. 
+Linear interpolation function, interpolates between two values at a point between them.~\newline
+The point is clamped between the start and the end. 
 \begin{DoxyParams}{Parameters}
 {\em start} & The smaller of the two values to interpolate between. \\
 \hline
@@ -679,7 +696,8 @@ The interpolated value of the inputs at the specified point.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a6336a42efd5500e7c470a04eefbcb778}
-Linear interpolation function, interpolates between two values at a point. Does not clamp the value between the start and the end. 
+Linear interpolation function, interpolates between two values at a point.~\newline
+Does not clamp the value between the start and the end. 
 \begin{DoxyParams}{Parameters}
 {\em start} & The smaller of the two values to interpolate between. \\
 \hline
@@ -698,7 +716,8 @@ The interpolated value of the inputs at the specified point.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_af61c67de0420e844f576b2b29c9daaef}
-Conversion function, converts a float from linear space to gamma space. Approximately. 
+Conversion function, converts a float from linear space to gamma space. Approximately.~\newline
+See\+: \href{http://filmicworlds.com/blog/linear-space-lighting-i-e-gamma/}{\tt This article} 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to be converted. \\
 \hline
@@ -747,7 +766,8 @@ The natural logarithm of the input value.
 \item[{const int}]{base = {\ttfamily 10}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_afba8bc869a1847fa5ea6f2d7ddd66df8}
-Logarithm function, returns the logarithm of a specified integral value to a specified integral base. If the base is not suuplied it will use 10 as a base. 
+Logarithm function, returns the logarithm of a specified integral value to a specified integral base.~\newline
+If the base is not suuplied it will use 10 as a base. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value which the logarithm is performed on. \\
 \hline
@@ -765,7 +785,8 @@ The logarithm of value to the base base.
 \item[{const float}]{base = {\ttfamily 10.0f}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_aeee95b77e08d2b8eeb765cba3d3428ef}
-Logarithm function, returns the logarithm of a specified integral value to a specified base. If the base is not suuplied it will use 10 as a base. 
+Logarithm function, returns the logarithm of a specified integral value to a specified base.~\newline
+If the base is not suuplied it will use 10 as a base. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value which the logarithm is performed on. \\
 \hline
@@ -783,7 +804,8 @@ The logarithm of value to the base base.
 \item[{const float}]{base = {\ttfamily 10.0f}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a3b3c174cf818dafa2bb0868c0be2d91a}
-Logarithm function, returns the logarithm of a specified value to a specified base. If the base is not suuplied it will use 10 as a base. 
+Logarithm function, returns the logarithm of a specified value to a specified base.~\newline
+If the base is not suuplied it will use 10 as a base. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value which the logarithm is performed on. \\
 \hline
@@ -818,7 +840,9 @@ This value is true if one and only one of the given booleans is true.
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a14ad60da4d1beb165d75ee063507d5f5}
-Search function, finds the closest power of two larger than the given value. Takes an integral number. 
+Search function, finds the closest power of two larger than the given value.~\newline
+Takes an integral number.~\newline
+See\+: \href{https://www.hackerearth.com/practice/notes/round-a-number-to-the-next-power-of-2/}{\tt This blog} 
 \begin{DoxyParams}{Parameters}
 {\em value} & The input smaller than the next power of two. \\
 \hline
@@ -833,7 +857,8 @@ The next power of two.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_ab5995f6ad58e9f09fdc30e7978276e68}
-Search function, finds the closest power of two larger than the given value. Takes a floating point number. 
+Search function, finds the closest power of two larger than the given value.~\newline
+Takes a floating point number. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The input smaller than the next power of two. \\
 \hline
@@ -848,7 +873,10 @@ The next power of two.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a930836f29bc1538f8089ccf70a511792}
-Search function, finds the closest power of two larger than the given value. Takes a floating point number. Is faster than the other next\+Power\+Of\+Two functions. 
+Search function, finds the closest power of two larger than the given value.~\newline
+Takes a floating point number.~\newline
+Is faster than the other next\+Power\+Of\+Two functions.~\newline
+See\+: \href{http://graphics.stanford.edu/~seander/bithacks.html}{\tt This Stanford webpage} 
 \begin{DoxyParams}{Parameters}
 {\em value} & The input smaller than the next power of two. \\
 \hline
@@ -882,7 +910,8 @@ The value of x to the power y.
 \item[{const float}]{y}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a380eeb8581001889bdfe4ee92c37078a}
-Power function, returns the power of a float to another. Uses exponential and natural log functions with a precision of 5 iterations. 
+Power function, returns the power of a float to another.~\newline
+Uses exponential and natural log functions with a precision of 5 iterations. 
 \begin{DoxyParams}{Parameters}
 {\em x} & The base. \\
 \hline
@@ -918,7 +947,8 @@ The value of x to the power y.
 \item[{int}]{y}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a7954d1a0bb6c622a6f549c32d2433033}
-Power function, returns the power of an int to another. Uses the modulo method. 
+Power function, returns the power of an int to another.~\newline
+Uses the modulo method. 
 \begin{DoxyParams}{Parameters}
 {\em x} & The base. \\
 \hline
@@ -936,7 +966,8 @@ The value of x to the power y.
 \item[{const float}]{y}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a5e08b96ca233f47eb8d032f5047699e6}
-Power function, returns the power of a float to another (truncated). The human-\/logical way of finding the power of a number. 
+Power function, returns the power of a float to another (truncated).~\newline
+The human-\/logical way of finding the power of a number. 
 \begin{DoxyParams}{Parameters}
 {\em x} & The base. \\
 \hline
@@ -953,7 +984,8 @@ The value of x to the power y.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a087cbb3b6860ceb84cb18229f8e650e8}
-Rounding function, returns the value of the input rounded to the nearest integer. Returns a float. 
+Rounding function, returns the value of the input rounded to the nearest integer.~\newline
+Returns a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The input to be rounded. \\
 \hline
@@ -968,7 +1000,8 @@ The value of the input correctly rounded.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a7b01f3385d703849bb2fa5455240ee72}
-Rounding function, returns the value of the input rounded to the nearest integer. Returns an int. 
+Rounding function, returns the value of the input rounded to the nearest integer.~\newline
+Returns an int. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The input to be rounded. \\
 \hline
@@ -983,7 +1016,8 @@ The value of the input correctly rounded.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a5224f6cd5d3920845d41942471b360a5}
-Secant function, returns the ratio of the adjacent side of the input angle in radians to the opposite side. (Of a right-\/angled triangle) 
+Secant function, returns the ratio of the adjacent side of the input angle in radians to the opposite side.~\newline
+(Of a right-\/angled triangle) 
 \begin{DoxyParams}{Parameters}
 {\em value} & The angle in radians to be used in the operation. \\
 \hline
@@ -998,7 +1032,8 @@ The result of the secant operation on the input.
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_ae80bf23688c9ab836d0efe34353015b8}
-Checking function, checks the sign of the input. Takes an int. 
+Checking function, checks the sign of the input.~\newline
+Takes an int. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to check the sign of. \\
 \hline
@@ -1013,7 +1048,8 @@ Returns -\/1 if the value is negative, 1 if it is positive.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_ac023116fb53d5ae66dd98c267ffafcf2}
-Checking function, checks the sign of the input. Takes a float. 
+Checking function, checks the sign of the input.~\newline
+Takes a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to check the sign of. \\
 \hline
@@ -1043,7 +1079,8 @@ The sined value.
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_a79c7e3aac560ddf3bdc454e2dd00997d}
-Square root function, finds the square root of the input. Takes an int, returns a float. 
+Square root function, finds the square root of the input.~\newline
+Takes an int, returns a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to square root. \\
 \hline
@@ -1059,7 +1096,9 @@ The value of the input square rooted.
 \item[{int}]{prec = {\ttfamily 8}}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_aa44ccf6d43d7b3e7e37988b87fd29d23}
-Square root function, uses the Newtonian method to find the square root of a number. Developed by myself at age 15, converted from V\+B to C++ in 2017. Takes a float, returns a float. 
+Square root function, uses the Newtonian method to find the square root of a number.~\newline
+Developed by myself at age 15, converted from V\+B to C++ in 2017 (about 5 years later).~\newline
+Takes a float, returns a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to square root. \\
 \hline
@@ -1076,7 +1115,8 @@ The value of the square root of the input.
 \item[{const int}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_ab274e2dde5096d43ab5255c74bf4cab1}
-Square root function, finds the square root of the input. Takes an int, returns an int. 
+Square root function, finds the square root of the input.~\newline
+Takes an int, returns an int. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to square root. \\
 \hline
@@ -1091,7 +1131,9 @@ The value of the input square rooted.
 \item[{const float}]{value}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily [static]}}\label{class_matth_acea19471a1994e0012ef8b67d450cd65}
-Square root function, uses the natural logarithm and exponential to find an approximation for the square root of a number. Probably slow due it using the exponential function and logarithm function at precision 100. Takes a float, returns a float. 
+Square root function, uses the natural logarithm and exponential to find an approximation for the square root of a number.~\newline
+Probably slow due it using the exponential function and logarithm function at precision 100.~\newline
+Takes a float, returns a float. 
 \begin{DoxyParams}{Parameters}
 {\em value} & The value to square root. \\
 \hline

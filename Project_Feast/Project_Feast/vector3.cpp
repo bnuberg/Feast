@@ -3,8 +3,8 @@
 using namespace std;
 
 
-/** Default constructor.
-*	Produces an empty Vector3.
+/** Default constructor.\n
+*	Produces an empty Vector3.\n
 *	Its values are set to 0.
 */
 Vector3::Vector3()
@@ -14,7 +14,7 @@ Vector3::Vector3()
 	z = 0.0f;
 }
 
-/** Input constructor.
+/** Input constructor.\n
 *	Creates a Vector3 based on input parameters.
 *	@param x The x component of the vector.
 *	@param y The y component of the vector.
@@ -27,7 +27,7 @@ Vector3::Vector3(float x, float y, float z)
 	this->z = z;
 }
 
-/** Copy constructor.
+/** Copy constructor.\n
 *	Creates a new Vector3 based on an existing one.
 *	@param rhs The vector whose values will be copied.
 */
@@ -38,7 +38,7 @@ Vector3::Vector3(const Vector3& rhs)
 	z = rhs.z;
 }
 
-/** Overloaded += operator.
+/** Overloaded += operator.\n
 *	Allows one vector to be added to another and the result is stored in the first.
 *	@param v The vector we will add to the original.
 */
@@ -49,7 +49,7 @@ void Vector3::operator+= (const Vector3 &v)
 	z += v.z;
 }
 
-/** Overloaded -= operator.
+/** Overloaded -= operator.\n
 *	Allows one vector to be subtracted from another and the result is stored in the first.
 *	@param v The vector we will subtract from the original.
 */
@@ -60,7 +60,7 @@ void Vector3::operator-= (const Vector3 &v)
 	z -= v.z;
 }
 
-/** Overloaded *= operator.
+/** Overloaded *= operator.\n
 *	Allows a Vector3 to be multiplied by a float and have the result stored in the same vector.
 *	@param s The value to multiply by.
 */
@@ -71,7 +71,7 @@ void Vector3::operator*= (const float s)
 	z *= s;
 }
 
-/** Overloaded division operator.
+/** Overloaded division operator.\n
 *	Allows a vector to be divided by a float.
 *	@param s The value to divide by.
 *	@return The vector divided by the float.
@@ -81,7 +81,7 @@ Vector3 Vector3::operator/  (const float s) const
 	return Vector3(x / s, y / s, z / s);
 }
 
-/** Overloaded subtraction operator.
+/** Overloaded subtraction operator.\n
 *	Allows one vector to be subtracted from another.
 *	@param v The vector to subtract from the left hand vector.
 *	@return The result of the subtraction operation.
@@ -91,7 +91,7 @@ Vector3 Vector3::operator- (const Vector3 &v) const
 	return Vector3(x - v.x, y - v.y, z - v.z);
 }
 
-/** Overloaded addition operator.
+/** Overloaded addition operator.\n
 *	Allows 2 vectors to be added together.
 *	@param v The vector to add.
 *	@return The result of the addition operation.
@@ -101,7 +101,7 @@ Vector3 Vector3::operator+  (const Vector3 &v) const
 	return Vector3(x + v.x, y + v.y, z + v.z);
 }
 
-/** Overloaded multiplication operator.
+/** Overloaded multiplication operator.\n
 *	Allows a Vector3 to be multiplied by a float.
 *	@param s The value to multiply the vector by.
 *	@return The result of the multiplication operation.
@@ -111,7 +111,7 @@ Vector3 Vector3::operator*  (const float    s) const
 	return Vector3(x * s, y * s, z * s);
 }
 
-/** Overloaded unary minus operator.
+/** Overloaded unary minus operator.\n
 *	Allows a vector to become negative by putting the minus sign in front of it.
 *	@return The negative of this vector.
 */
@@ -120,7 +120,7 @@ Vector3 Vector3::operator- () const
 	return Vector3(x * -1, y * -1, z * -1);
 }
 
-/** Cross product operation.
+/** Cross product operation.\n
 *	Performs the cross product between 2 vectors.
 *	@param vA The first vector.
 *	@param vB The seond vector.
@@ -132,7 +132,7 @@ Vector3 Vector3::Cross(const Vector3 &vA, const Vector3 &vB)
 	return Vector3(vA.y * vB.z - vA.z * vB.y, vA.z * vB.x - vA.x * vB.z, vA.x * vB.y - vA.y * vB.x);
 }
 
-/** Dot product operation.
+/** Dot product operation.\n
 *	Performs the dot product between two vectors.
 *	@param vA The first vector.
 *	@param vB The second vector.
@@ -153,7 +153,7 @@ Vector3 Vector3::Normalize(const Vector3& v)
 	return v / Vector3::Length(v);
 }
 
-/** Length operation.
+/** Length operation.\n
 *	Finds the length of a vector. Does not use a Matth:: method.
 *	@param v The input vector.
 *	@return The length of v.
@@ -163,7 +163,7 @@ float Vector3::Length(const Vector3& v)
 	return sqrt(LengthSq(v));
 }
 
-/** Square length operation.
+/** Square length operation.\n
 *	Finds the length squared of a vector. Does not use a square root.
 *	@param v The input vector.
 *	@return The squared length of v.

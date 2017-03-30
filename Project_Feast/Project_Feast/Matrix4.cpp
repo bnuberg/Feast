@@ -39,7 +39,7 @@ Matrix4::Matrix4(float _00, float _10, float _20, float _30,
 	m[12] = _03; m[13] = _13; m[14] = _23; m[15] = _33;
 }
 
-/** Matrix4 array constructor, creates a 4x4 matrix from an array of 16 floats.
+/** Matrix4 array constructor, creates a 4x4 matrix from an array of 16 floats.\n
 *	UNTESTED.
 *	@param values The array of values to create the matrix from.
 */
@@ -69,7 +69,6 @@ const float& Matrix4::operator[] (int index) const
 	return m[index];
 }
 
-//Zero Matrix4
 /** Zero method, returns a zero-matrix.
 *	@return An empty matrix (a matrix filled with zeros).
 */
@@ -122,7 +121,7 @@ Vector3 Matrix4::GetTranslation(const Matrix4 & mat)
 	return Vector3(mat[3],mat[7],mat[11]);
 }
 
-/** Scale operation, creates an identity matrix with scale components set by an input vector.
+/** Scale operation, creates an identity matrix with scale components set by an input vector.\n
 *	Scales in x, y and z.
 *	@param scale A Vector3 containing the scale .
 *	@return An identity Matrix4 whose scale components are defined by the input vector.
@@ -154,7 +153,7 @@ Matrix4 Matrix4::SetRotationAxis(const Vector3 & axis, float angle)
 		           0.0f                     , 0.0f                     , 0.0f                     , 1.0f);
 }
 
-/** Method to transform a point vector by a given matrix.
+/** Method to transform a point vector by a given matrix.\n
 *	p and m are not modified.
 *	@param mat The transformation matrix.
 *	@param p The point vector that will be transformed.
@@ -167,9 +166,9 @@ Vector3 Matrix4::TransformPoint(const Matrix4 & mat, const Vector3 & p)
 		           mat[2] * p.x + mat[6] * p.y + mat[10] * p.z + mat[11]);
 }
 
-/** Method to transform a direction vector by a given matrix.
+/** Method to transform a direction vector by a given matrix.\n
 *	Note that matrix multiplication is non-commutative.
-	@param mat A transformation matrix.
+*	@param mat A transformation matrix.
 *	@param n A normalized direction vector to transform.
 *	@return The transformed direction vector.
 */
@@ -180,7 +179,7 @@ Vector3 Matrix4::TransformDirection(const Matrix4 & mat, const Vector3 & n)
 		           n.x * mat[2] + n.y * mat[6] + n.z * mat[10]);
 }
 
-/** Overloaded multiplication operator.
+/** Overloaded multiplication operator.\n
 *	Multiplies two matrices together.
 *	@param lhs Left matrix
 *	@param rhs Right matrix
