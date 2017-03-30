@@ -29,40 +29,41 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		//enemySpawnTimer = 100000;
 	}
 
-	for each (Enemy e in enemyList)
+	for (std::list<Enemy>::iterator e = enemyList.begin(); e != enemyList.end(); ++e)
+	//for each (Enemy e in enemyList)
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 		{
-			if (!e.isDead)
+			if (!e->isDead)
 			{
 				Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 
-				Ogre::Vector3 distanceVector = target - e.enemyNode->getPosition();
+				Ogre::Vector3 distanceVector = target - e->enemyNode->getPosition();
 				float distance = distanceVector.length();
 
 				if (distance < 200)
 				{
-					e.GetDamaged(10);
+					e->GetDamaged(10);
 				}
 			}
 		}
 
-		if (e.isDead && !e.isDead2)
+		if (e->isDead && !e->isDead2)
 		{
 			// TODO: spawn bodypart
 			BodyPart bodypart;
-			bodypart.Spawn(e.enemyNode->getPosition());
+			bodypart.Spawn(e->enemyNode->getPosition());
 
 			bodyPartsList.push_back(bodypart);
 
 			// TODO: remove enemys
-			e.enemyNode->detachAllObjects();
-			e.isDead2 = true;
-			//enemyList.remove(e);
+			e->enemyNode->detachAllObjects();
+			e->isDead2 = true;
+			//enemyList.remove(*e);
 		}
 		else
 		{
-			e.Update(evt);
+			e->Update(evt);
 		}
 	}
 }

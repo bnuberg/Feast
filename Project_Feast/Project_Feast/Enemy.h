@@ -18,6 +18,7 @@ public:
 	Ogre::SceneNode* enemyNode;
 
 	bool operator == (const Enemy& e) const { return e.isDead2; }
+	bool operator != (const Enemy& e) const { return !operator==(e); }
 
 protected: 
 	float enemyHealth;
