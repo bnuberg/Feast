@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['player',['Player',['../class_player.html',1,'']]],
-  ['pow',['pow',['../class_matth.html#ac278215a09c78414ba39aa272467daaa',1,'Matth']]],
-  ['powf',['powf',['../class_matth.html#a380eeb8581001889bdfe4ee92c37078a',1,'Matth']]],
-  ['powi',['powi',['../class_matth.html#af03a50b476584039c3cc3a0d0e3e9bd3',1,'Matth']]],
-  ['powm',['powm',['../class_matth.html#a7954d1a0bb6c622a6f549c32d2433033',1,'Matth']]],
-  ['pows',['pows',['../class_matth.html#a5e08b96ca233f47eb8d032f5047699e6',1,'Matth']]]
+  ['nextpoweroftwo',['nextPowerOfTwo',['../class_matth.html#a14ad60da4d1beb165d75ee063507d5f5',1,'Matth::nextPowerOfTwo(const int value)'],['../class_matth.html#ab5995f6ad58e9f09fdc30e7978276e68',1,'Matth::nextPowerOfTwo(const float value)']]],
+  ['nextpoweroftwoe',['nextPowerOfTwoe',['../class_matth.html#a930836f29bc1538f8089ccf70a511792',1,'Matth']]],
+  ['normalize',['Normalize',['../class_vector3.html#a4553a772b237e9cfde34221085c45f6e',1,'Vector3']]]
 ];

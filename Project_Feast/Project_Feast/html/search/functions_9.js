@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['round',['round',['../class_matth.html#a087cbb3b6860ceb84cb18229f8e650e8',1,'Matth']]],
-  ['roundi',['roundi',['../class_matth.html#a7b01f3385d703849bb2fa5455240ee72',1,'Matth']]]
+  ['nextpoweroftwo',['nextPowerOfTwo',['../class_matth.html#a14ad60da4d1beb165d75ee063507d5f5',1,'Matth::nextPowerOfTwo(const int value)'],['../class_matth.html#ab5995f6ad58e9f09fdc30e7978276e68',1,'Matth::nextPowerOfTwo(const float value)']]],
+  ['nextpoweroftwoe',['nextPowerOfTwoe',['../class_matth.html#a930836f29bc1538f8089ccf70a511792',1,'Matth']]],
+  ['normalize',['Normalize',['../class_vector3.html#a4553a772b237e9cfde34221085c45f6e',1,'Vector3']]]
 ];

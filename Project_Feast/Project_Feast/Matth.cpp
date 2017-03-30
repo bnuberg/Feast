@@ -1,8 +1,8 @@
 #include "Matth.h"
 
 /** Absolute Integer function, returns the absolute value of an integer.
-	@param value The input parameter, a positive or negative integer.
-	@return  The positive integral version of the input.
+*	@param value The input parameter, a positive or negative integer.
+*	@return  The positive integral version of the input.
 */
 int   Matth::absi(const int value)
 {
@@ -11,8 +11,8 @@ int   Matth::absi(const int value)
 }
 
 /** Absolute function, returns the floating point value of the input.
-	@param value The input parameter, a positive or negative float.
-	@return The positive version of the input parameter.
+*	@param value The input parameter, a positive or negative float.
+*	@return The positive version of the input parameter.
 */
 float  Matth::abs(const float value)
 {
@@ -21,8 +21,8 @@ float  Matth::abs(const float value)
 }
 
 /** Inverse cosine function, returns the inverse cosine of the input in radians.
-	@param value The angle, in radians, to perform the operation on.
-	@return The floating point value of the inverse cosine of the input.
+*	@param value The angle, in radians, to perform the operation on.
+*	@return The floating point value of the inverse cosine of the input.
 */
 float Matth::acos(const float value)
 {
@@ -30,8 +30,8 @@ float Matth::acos(const float value)
 }
 
 /** Inverse sine function, returns the inverse sine of the input in radians.
-	@param value The angle, in radians, to perform the operation on.
-	@return The floating point value of the inverse sine of the input.
+*	@param value The angle, in radians, to perform the operation on.
+*	@return The floating point value of the inverse sine of the input.
 */
 float Matth::asin(const float value)
 {
@@ -42,8 +42,8 @@ float Matth::asin(const float value)
 }
 
 /** Inverse tangent function, returns the inverse tangent of the input in radians.
-	@param value The angle, in radians, to perform the operation on.
-	@return The floating point value of the inverse tangent of the input.
+*	@param value The angle, in radians, to perform the operation on.
+*	@return The floating point value of the inverse tangent of the input.
 */
 float Matth::atan(const float value)
 {
@@ -52,10 +52,10 @@ float Matth::atan(const float value)
 }
 
 /** The two-parameter version of the arctangent function. Will not divide by 0.
-	Returns 0 when the result would be infinite.
-	@param y The y coordinate
-	@param x The x coordinate
-	@return The angle in radians between the positive x-axis and the point (x, y)
+*	Returns 0 when the result would be infinite.
+*	@param y The y coordinate
+*	@param x The x coordinate
+*	@return The angle in radians between the positive x-axis and the point (x, y)
 */
 float Matth::atan2(const float y, const float x)
 {
@@ -84,9 +84,9 @@ float Matth::atan2(const float y, const float x)
 }
 
 /** Approximately function, returns true if the two values are approximately equal.
-	@param x The first value.
-	@param y The second value.
-	@return A boolean that is true if both values are equal when rounded.
+*	@param x The first value.
+*	@param y The second value.
+*	@return A boolean that is true if both values are equal when rounded.
 */
 bool Matth::approximately(const float x, const float y)
 {
@@ -94,9 +94,9 @@ bool Matth::approximately(const float x, const float y)
 }
 
 /** Average function, finds the average between two values.
-	@param x The first value.
-	@param y The second value.
-	@return The mean value of x and y.
+*	@param x The first value.
+*	@param y The second value.
+*	@return The mean value of x and y.
 */
 float Matth::average(const float x, const float y)
 {
@@ -104,9 +104,9 @@ float Matth::average(const float x, const float y)
 }
 
 /** Average function, finds the average between an int and a float.
-	@param x The first value.
-	@param y The second value.
-	@return The mean value of x and y.
+*	@param x The first value.
+*	@param y The second value.
+*	@return The mean value of x and y.
 */
 float Matth::average(const int x, const float y)
 {
@@ -114,9 +114,9 @@ float Matth::average(const int x, const float y)
 }
 
 /** Average function, finds the average between two integers.
-	@param x The first value.
-	@param y The second value.
-	@return The mean value of x and y.
+*	@param x The first value.
+*	@param y The second value.
+*	@return The mean value of x and y.
 */
 float Matth::average(const int x, const int y)
 {
@@ -124,8 +124,8 @@ float Matth::average(const int x, const int y)
 }
 
 /** Ceiling function, returns an integer of the input rounded up.
-	@param value The input value.
-	@return The rounded up version of the input as an int.
+*	@param value The input value.
+*	@return The rounded up version of the input as an int.
 */
 int  Matth::ceili(const float value)
 {
@@ -133,8 +133,8 @@ int  Matth::ceili(const float value)
 }
 
 /** Ceiling function, returns a float of the input rounded up.
-	@param value The input value.
-	@return The rounded up version of the input as a float.
+*	@param value The input value.
+*	@return The rounded up version of the input as a float.
 */
 float Matth::ceil(const float value)
 {
@@ -142,10 +142,10 @@ float Matth::ceil(const float value)
 }
 
 /** Clamping function, returns the clamped value of the input between a specified maximum and a specified minimum.
-	@param value The input value.
-	@param min The minimum value.
-	@param max The maximum value.
-	@return The clamped version of the input between min and max as an integer.
+*	@param value The input value.
+*	@param min The minimum value.
+*	@param max The maximum value.
+*	@return The clamped version of the input between min and max as an integer.
 */
 int  Matth::clampi(const int value, const int min, const int max)
 {
@@ -157,10 +157,10 @@ int  Matth::clampi(const int value, const int min, const int max)
 }
 
 /** Clamping function, returns the clamped value of the input between a specified maximum and a specified minimum.
-	@param value The input value.
-	@param min The minimum value.
-	@param max The maximum value.
-	@return The clamped version of the input between min and max as a float.
+*	@param value The input value.
+*	@param min The minimum value.
+*	@param max The maximum value.
+*	@return The clamped version of the input between min and max as a float.
 */
 float Matth::clamp(const float value, const float min, const float max)
 {
@@ -172,8 +172,8 @@ float Matth::clamp(const float value, const float min, const float max)
 }
 
 /** Clamping function, returns a floating point number clamped between 0 and 1.
-	@param value The value to be clamped.
-	@return The clamped value.
+*	@param value The value to be clamped.
+*	@return The clamped value.
 */
 float Matth::clamp01(const float value)
 {
@@ -193,8 +193,8 @@ int Matth::closestPowerOfTwo(const int value)
 }
 
 /** Cosine function, returns the cosine of the input in radians.
-	@param value The angle in radians to be cosined.
-	@return The cosined value.
+*	@param value The angle in radians to be cosined.
+*	@return The cosined value.
 */
 float Matth::cos(const float value)
 {
@@ -205,8 +205,8 @@ float Matth::cos(const float value)
 }
 
 /** Sine function, returns the sine of the input in radians.
-	@param value The angle in radians to be sined.
-	@return The sined value.
+*	@param value The angle in radians to be sined.
+*	@return The sined value.
 */
 float Matth::sin(const float value)
 {
@@ -218,8 +218,8 @@ float Matth::sin(const float value)
 }
 
 /** Tangent function, returns the tangent of the input in radians.
-	@param value The angle in radians to be tangented.
-	@return The tangented value.
+*	@param value The angle in radians to be tangented.
+*	@return The tangented value.
 */
 float Matth::tan(const float value)
 {
@@ -229,9 +229,9 @@ float Matth::tan(const float value)
 }
 
 /** Cotangent function, returns the ratio of the adjacent side of the input angle in radians to the opposite side.
-	(Of a right-angled triangle)
-	@param value The angle in radians to be used in the operation.
-	@return The result of the cotangent operation on the input.
+*	(Of a right-angled triangle)
+*	@param value The angle in radians to be used in the operation.
+*	@return The result of the cotangent operation on the input.
 */
 float Matth::cot(const float value)
 {
@@ -239,9 +239,9 @@ float Matth::cot(const float value)
 }
 
 /** Secant function, returns the ratio of the adjacent side of the input angle in radians to the opposite side.
-	(Of a right-angled triangle)
-	@param value The angle in radians to be used in the operation.
-	@return The result of the secant operation on the input.
+*	(Of a right-angled triangle)
+*	@param value The angle in radians to be used in the operation.
+*	@return The result of the secant operation on the input.
 */
 float Matth::sec(const float value)
 {
@@ -250,10 +250,10 @@ float Matth::sec(const float value)
 }
 
 /** Cosecant function, returns the ratio of the adjacent side of the input angle in radians to the opposite side.
-	(Of a right-angled triangle)
-	@param value The angle in radians to be used in the operation.
-	@return The result of the cosecant operation on the input.
-	*/
+*	(Of a right-angled triangle)
+*	@param value The angle in radians to be used in the operation.
+*	@return The result of the cosecant operation on the input.
+*/
 float Matth::csc(const float value)
 {
 	// See: https://www.mathportal.org/formulas/pdf/taylor-series-formulas.pdf
@@ -267,8 +267,8 @@ float Matth::deltaAngle(const float current, const float target)
 }
 
 /** Exponential function, returns the mathematical constant e to a given power, using a Taylor series.
-	@param power The power to raise e to.
-	@return The value of e raised to the power of the input.
+*	@param power The power to raise e to.
+*	@return The value of e raised to the power of the input.
 */
 float Matth::exp(const float power)
 {
@@ -295,8 +295,8 @@ float Matth::exp(const float power)
 }
 
 /** Simple exponential function, returns e to the given power using the modulo method.
-	@param power The power to raise e to.
-	@return The value of e raised to the power of the input.
+*	@param power The power to raise e to.
+*	@return The value of e raised to the power of the input.
 */
 float Matth::exps(const int power)
 {
@@ -304,8 +304,8 @@ float Matth::exps(const int power)
 }
 
 /** Floor function, returns the integral version of a floating point input rounded down.
-	@param value The value to be rounded down.
-	@return The rounded down version of the input.
+*	@param value The value to be rounded down.
+*	@return The rounded down version of the input.
 */
 int  Matth::floori(const float value)
 {
@@ -313,8 +313,8 @@ int  Matth::floori(const float value)
 }
 
 /** Floor function, returns a floating point number rounded down.
-	@param value The value to be rounded down.
-	@return The value of the input rounded down.
+*	@param value The value to be rounded down.
+*	@return The value of the input rounded down.
 */
 float Matth::floor(const float value)
 {
@@ -324,8 +324,8 @@ float Matth::floor(const float value)
 }
 
 /** Conversion function, converts a float from linear space to gamma space. Approximately.
-	@param value The value to be converted.
-	@return The converted value.
+*	@param value The value to be converted.
+*	@return The converted value.
 */
 float Matth::linearToGammaSpace(const float value)
 {
@@ -334,8 +334,8 @@ float Matth::linearToGammaSpace(const float value)
 }
 
 /** Conversion function, converts a float from gamma space to linear space. Approximately.
-	@param value The value to be converted.
-	@return The converted value.
+*	@param value The value to be converted.
+*	@return The converted value.
 */
 float Matth::gammaToLinearSpace(const float value)
 {
@@ -343,9 +343,9 @@ float Matth::gammaToLinearSpace(const float value)
 }
 
 /** Checking function, checks whether the input is a power of 2 and returns true if it is.
-	This function is the slower of the 2.
-	@param value The value to test.
-	@return A boolean that is true when the input is a power of 2.
+*	This function is the slower of the 2.
+*	@param value The value to test.
+*	@return A boolean that is true when the input is a power of 2.
 */
 bool Matth::isPowerOfTwo(const int value)
 {
@@ -362,9 +362,9 @@ bool Matth::isPowerOfTwo(const int value)
 }
 
 /** Checking function, checks whether the input is a power of 2 and returns true if it is.
-	This function is the faster of the 2.
-	@param value The value to test.
-	@return A boolean that is true when the input is a power of 2.
+*	This function is the faster of the 2.
+*	@param value The value to test.
+*	@return A boolean that is true when the input is a power of 2.
 */
 bool Matth::isPowerOfTwoe(const int value)
 {
@@ -373,11 +373,11 @@ bool Matth::isPowerOfTwoe(const int value)
 }
 
 /** Linear interpolation function, interpolates between two values at a point between them.
-	The point is clamped between the start and the end.
-	@param start The smaller of the two values to interpolate between.
-	@param end The larger of the two values to interpolate between.
-	@param value The point at which the function interpolates.
-	@return The interpolated value of the inputs at the specified point.
+*	The point is clamped between the start and the end.
+*	@param start The smaller of the two values to interpolate between.
+*	@param end The larger of the two values to interpolate between.
+*	@param value The point at which the function interpolates.
+*	@return The interpolated value of the inputs at the specified point.
 */
 float Matth::lerp(const float start, const float end, const float value)
 {
@@ -391,11 +391,11 @@ float Matth::lerpAngle(const float start, const float end, const float value)
 }
 
 /** Linear interpolation function, interpolates between two values at a point.
-	Does not clamp the value between the start and the end.
-	@param start The smaller of the two values to interpolate between.
-	@param end The larger of the two values to interpolate between.
-	@param value The point at which the function interpolates.
-	@return The interpolated value of the inputs at the specified point.
+*	Does not clamp the value between the start and the end.
+*	@param start The smaller of the two values to interpolate between.
+*	@param end The larger of the two values to interpolate between.
+*	@param value The point at which the function interpolates.
+*	@return The interpolated value of the inputs at the specified point.
 */
 float Matth::lerpUnclamped(const float start, const float end, const float value)
 {
@@ -403,12 +403,12 @@ float Matth::lerpUnclamped(const float start, const float end, const float value
 }
 
 /** Linear interpolation function, performs Hermite interpolation between two values at a point.
-	Sometimes called smoothstep or inverse interpolation.
-	Result is undefined if end >= start.
-	@param start The first value to interpolate between.
-	@param end The second value to interpolate between.
-	@param value The point at which the values are interpolated.
-	@return The result of the interpolation between start and end at value.
+*	Sometimes called smoothstep or inverse interpolation.
+*	Result is undefined if end >= start.
+*	@param start The first value to interpolate between.
+*	@param end The second value to interpolate between.
+*	@param value The point at which the values are interpolated.
+*	@return The result of the interpolation between start and end at value.
 */
 float Matth::inverseLerp(const float start, const float end, const float value)
 {
@@ -418,10 +418,10 @@ float Matth::inverseLerp(const float start, const float end, const float value)
 }
 
 /** Logarithm function, returns the logarithm of a specified integral value to a specified integral base.
-	If the base is not suuplied it will use 10 as a base.
-	@param value The value which the logarithm is performed on.
-	@param base The base of the logarithm used in the function.
-	@return The logarithm of value to the base base.
+*	If the base is not suuplied it will use 10 as a base.
+*	@param value The value which the logarithm is performed on.
+*	@param base The base of the logarithm used in the function.
+*	@return The logarithm of value to the base base.
 */
 float Matth::log(const int value, const int base)
 {
@@ -429,10 +429,10 @@ float Matth::log(const int value, const int base)
 }
 
 /** Logarithm function, returns the logarithm of a specified integral value to a specified base.
-	If the base is not suuplied it will use 10 as a base.
-	@param value The value which the logarithm is performed on.
-	@param base The base of the logarithm used in the function.
-	@return The logarithm of value to the base base.
+*	If the base is not suuplied it will use 10 as a base.
+*	@param value The value which the logarithm is performed on.
+*	@param base The base of the logarithm used in the function.
+*	@return The logarithm of value to the base base.
 */
 float Matth::log(const int value, const float base)
 {
@@ -440,10 +440,10 @@ float Matth::log(const int value, const float base)
 }
 
 /** Logarithm function, returns the logarithm of a specified value to a specified base.
-	If the base is not suuplied it will use 10 as a base.
-	@param value The value which the logarithm is performed on.
-	@param base The base of the logarithm used in the function.
-	@return The logarithm of value to the base base.
+*	If the base is not suuplied it will use 10 as a base.
+*	@param value The value which the logarithm is performed on.
+*	@param base The base of the logarithm used in the function.
+*	@return The logarithm of value to the base base.
 */
 float Matth::log(const float value, const float base)
 {
@@ -451,8 +451,8 @@ float Matth::log(const float value, const float base)
 }
 
 /** Natural logarithm function, returns the natural logarithm of an integer.
-	@param value The value that the operation is performed on.
-	@return The natural logarithm of the input value.
+*	@param value The value that the operation is performed on.
+*	@return The natural logarithm of the input value.
 */
 float Matth::ln(const int value)
 {
@@ -461,9 +461,9 @@ float Matth::ln(const int value)
 }
 
 /** Natural logarithm function, returns the natural logarithm of a value.
-	@param value The value that the operation is performed on.
-	@param prec The precision of the function (number of loops) the default value is 3.
-	@return The natural logarithm of the input value.
+*	@param value The value that the operation is performed on.
+*	@param prec The precision of the function (number of loops) the default value is 3.
+*	@return The natural logarithm of the input value.
 */
 float Matth::ln(const float value, int prec)
 {
@@ -483,9 +483,9 @@ float Matth::ln(const float value, int prec)
 
 
 /** Comparison function, performs a logical exclusive-or operation on two given booleans.
-	@param a The first boolean.
-	@param b The second boolean.
-	@return This value is true if one and only one of the given booleans is true.
+*	@param a The first boolean.
+*	@param b The second boolean.
+*	@return This value is true if one and only one of the given booleans is true.
 */
 bool Matth::logicalXOR(const bool a, const bool b)
 {
@@ -533,9 +533,9 @@ float Matth::moveTowardsAngle(const float current, const float target, const flo
 }
 
 /** Search function, finds the closest power of two larger than the given value.
-	Takes an integral number.
-	@param value The input smaller than the next power of two.
-	@return The next power of two.
+*	Takes an integral number.
+*	@param value The input smaller than the next power of two.
+*	@return The next power of two.
 */
 int Matth::nextPowerOfTwo(const int value)
 {
@@ -550,9 +550,9 @@ int Matth::nextPowerOfTwo(const int value)
 }
 
 /** Search function, finds the closest power of two larger than the given value.
-	Takes a floating point number.
-	@param value The input smaller than the next power of two.
-	@return The next power of two.
+*	Takes a floating point number.
+*	@param value The input smaller than the next power of two.
+*	@return The next power of two.
 */
 int Matth::nextPowerOfTwo(const float value)
 {
@@ -560,10 +560,10 @@ int Matth::nextPowerOfTwo(const float value)
 }
 
 /** Search function, finds the closest power of two larger than the given value.
-	Takes a floating point number.
-	Is faster than the other nextPowerOfTwo functions.
-	@param value The input smaller than the next power of two.
-	@return The next power of two.
+*	Takes a floating point number.
+*	Is faster than the other nextPowerOfTwo functions.
+*	@param value The input smaller than the next power of two.
+*	@return The next power of two.
 */
 int Matth::nextPowerOfTwoe(const float value)
 {
@@ -592,9 +592,9 @@ float Matth::pingPong(const float value, const float length)
 }
 
 /** Power function, returns the power of an integer to another.
-	@param x The base.
-	@param y The power.
-	@return The value of x to the power y.
+*	@param x The base.
+*	@param y The power.
+*	@return The value of x to the power y.
 */
 int  Matth::powi(const int x, const int y)
 {
@@ -602,9 +602,9 @@ int  Matth::powi(const int x, const int y)
 }
 
 /** Power function, returns the power of a float to an integer.
-	@param x The float base.
-	@param y The int power.
-	@return The value of x to the power y.
+*	@param x The float base.
+*	@param y The int power.
+*	@return The value of x to the power y.
 */
 float Matth::pow(const float x, const int y)
 {
@@ -612,10 +612,10 @@ float Matth::pow(const float x, const int y)
 }
 
 /** Power function, returns the power of a float to another.
-	Uses exponential and natural log functions with a precision of 5 iterations.
-	@param x The base.
-	@param y The power.
-	@return The value of x to the power y.
+*	Uses exponential and natural log functions with a precision of 5 iterations.
+*	@param x The base.
+*	@param y The power.
+*	@return The value of x to the power y.
 */
 float Matth::powf(const float x, const float y)
 {
@@ -623,10 +623,10 @@ float Matth::powf(const float x, const float y)
 }
 
 /** Power function, returns the power of a float to another (truncated).
-	The human-logical way of finding the power of a number.
-	@param x The base.
-	@param y The power.
-	@return The value of x to the power y.
+*	The human-logical way of finding the power of a number.
+*	@param x The base.
+*	@param y The power.
+*	@return The value of x to the power y.
 */
 float Matth::pows(const float x, const float y)
 {
@@ -646,10 +646,10 @@ float Matth::pows(const float x, const float y)
 }
 
 /** Power function, returns the power of an int to another.
-	Uses the modulo method.
-	@param x The base.
-	@param y The power.
-	@return The value of x to the power y.
+*	Uses the modulo method.
+*	@param x The base.
+*	@param y The power.
+*	@return The value of x to the power y.
 */
 float Matth::powm(int x, int y)
 {
@@ -679,9 +679,9 @@ float Matth::repeat(const float value, const float length)
 }
 
 /** Rounding function, returns the value of the input rounded to the nearest integer.
-	Returns an int.
-	@param value The input to be rounded.
-	@return The value of the input correctly rounded.
+*	Returns an int.
+*	@param value The input to be rounded.
+*	@return The value of the input correctly rounded.
 */
 int  Matth::roundi(const float value)
 {
@@ -689,9 +689,9 @@ int  Matth::roundi(const float value)
 }
 
 /** Rounding function, returns the value of the input rounded to the nearest integer.
-	Returns a float.
-	@param value The input to be rounded.
-	@return The value of the input correctly rounded.
+*	Returns a float.
+*	@param value The input to be rounded.
+*	@return The value of the input correctly rounded.
 */
 float Matth::round(const float value)
 {
@@ -703,9 +703,9 @@ float Matth::round(const float value)
 }
 
 /** Checking function, checks the sign of the input.
-	Takes an int.
-	@param value The value to check the sign of.
-	@return Returns -1 if the value is negative, 1 if it is positive.
+*	Takes an int.
+*	@param value The value to check the sign of.
+*	@return Returns -1 if the value is negative, 1 if it is positive.
 */
 int Matth::sign(const int value)
 {
@@ -713,9 +713,9 @@ int Matth::sign(const int value)
 }
 
 /** Checking function, checks the sign of the input.
-	Takes a float.
-	@param value The value to check the sign of.
-	@return Returns -1 if the value is negative, 1 if it is positive.
+*	Takes a float.
+*	@param value The value to check the sign of.
+*	@return Returns -1 if the value is negative, 1 if it is positive.
 */
 int Matth::sign(const float value)
 {
@@ -723,9 +723,9 @@ int Matth::sign(const float value)
 }
 
 /** Checking function, checks whether the input is positive or not.
-	Takes an int.
-	@param value The value to check the positivity of.
-	@return Returns true if the value is positive (value > 0).
+*	Takes an int.
+*	@param value The value to check the positivity of.
+*	@return Returns true if the value is positive (value > 0).
 */
 bool Matth::isPositive(const int value)
 {
@@ -733,9 +733,9 @@ bool Matth::isPositive(const int value)
 }
 
 /** Checking function, checks whether the input is positive or not.
-	Takes a float.
-	@param value The value to check the positivity of.
-	@return Returns true if the value is positive (value > 0).
+*	Takes a float.
+*	@param value The value to check the positivity of.
+*	@return Returns true if the value is positive (value > 0).
 */
 bool Matth::isPositive(const float value)
 {
@@ -743,9 +743,9 @@ bool Matth::isPositive(const float value)
 }
 
 /** Checking function, checks whether the input is negative or not.
-	Takes an int.
-	@param value The value to check the negativity of.
-	@return Returns true if the value is negative (value < 0).
+*	Takes an int.
+*	@param value The value to check the negativity of.
+*	@return Returns true if the value is negative (value < 0).
 */
 bool Matth::isNegative(const int value)
 {
@@ -753,9 +753,9 @@ bool Matth::isNegative(const int value)
 }
 
 /** Checking function, checks whether the input is negative or not.
-	Takes a float.
-	@param value The value to check the negativity of.
-	@return Returns true if the value is negative (value < 0).
+*	Takes a float.
+*	@param value The value to check the negativity of.
+*	@return Returns true if the value is negative (value < 0).
 */
 bool Matth::isNegative(const float value)
 {
@@ -770,9 +770,9 @@ bool Matth::isNegative(const float value)
 */
 
 /** Square root function, finds the square root of the input.
-	Takes an int, returns an int.
-	@param value The value to square root.
-	@return The value of the input square rooted.
+*	Takes an int, returns an int.
+*	@param value The value to square root.
+*	@return The value of the input square rooted.
 */
 int  Matth::sqrti(const int value)
 {
@@ -780,9 +780,9 @@ int  Matth::sqrti(const int value)
 }
 
 /** Square root function, finds the square root of the input.
-	Takes an int, returns a float.
-	@param value The value to square root.
-	@return The value of the input square rooted.
+*	Takes an int, returns a float.
+*	@param value The value to square root.
+*	@return The value of the input square rooted.
 */
 float Matth::sqrt(const int value)
 {
@@ -791,11 +791,11 @@ float Matth::sqrt(const int value)
 
 
 /** Square root function, uses the Newtonian method to find the square root of a number.
-	Developed by myself at age 15, converted from VB to C++ in 2017.
-	Takes a float, returns a float.
-	@param value The value to square root.
-	@param prec The precision (number of iterations) of the function, it is 7 by default.
-	@return The value of the square root of the input.
+*	Developed by myself at age 15, converted from VB to C++ in 2017.
+*	Takes a float, returns a float.
+*	@param value The value to square root.
+*	@param prec The precision (number of iterations) of the function, it is 7 by default.
+*	@return The value of the square root of the input.
 */
 float Matth::sqrt(const float value, int prec)
 {
@@ -813,10 +813,10 @@ float Matth::sqrt(const float value, int prec)
 }
 
 /** Square root function, fast inverse inverse square root based on quake 3 code (with original comments).
-	This is probably the fastest of the square roots in this library.
-	Takes a float, returns a float.
-	@param value The value to square root.
-	@return The value of the square root of the input.
+*	This is probably the fastest of the square roots in this library.
+*	Takes a float, returns a float.
+*	@param value The value to square root.
+*	@return The value of the square root of the input.
 */
 float Matth::FIISRBOQ3C(const float value)
 {
@@ -834,13 +834,12 @@ float Matth::FIISRBOQ3C(const float value)
 	return 1.0f / y;
 }
 
-// Returns the sqaure root of the value using the natural logarithm
 /** Square root function, uses the natural logarithm and exponential to find an approximation for the
-	square root of a number.
-	Probably slow due it using the exponential function and logarithm function at precision 100.
-	Takes a float, returns a float.
-	@param value The value to square root.
-	@return The value of the square root of the input.
+*	square root of a number.
+*	Probably slow due it using the exponential function and logarithm function at precision 100.
+*	Takes a float, returns a float.
+*	@param value The value to square root.
+*	@return The value of the square root of the input.
 */
 float Matth::sqrtWithNaturalLog(const float value)
 {

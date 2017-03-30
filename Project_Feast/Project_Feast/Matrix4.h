@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vector3.h" // Vector3 class
+#include "Vector3.h" // Vector3 class
 
 // Minimal Matrix4 class
 
@@ -41,6 +41,8 @@ public:
 		float _01, float _11, float _21, float _31,
 		float _02, float _12, float _22, float _32,
 		float _03, float _13, float _23, float _33);
+		
+	Matrix4(float &values[16]);
 
 	float&			operator[]	(int index);												//get operator for a specific value within the matrix array
 	const float&	operator[]	(int index) const;											//const ^

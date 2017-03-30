@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['sec',['sec',['../class_matth.html#a5224f6cd5d3920845d41942471b360a5',1,'Matth']]],
-  ['sign',['sign',['../class_matth.html#ae80bf23688c9ab836d0efe34353015b8',1,'Matth::sign(const int value)'],['../class_matth.html#ac023116fb53d5ae66dd98c267ffafcf2',1,'Matth::sign(const float value)']]],
-  ['sin',['sin',['../class_matth.html#afa0d084b15462e8c7e54b1bf4b0af288',1,'Matth']]],
-  ['sqrt',['sqrt',['../class_matth.html#a79c7e3aac560ddf3bdc454e2dd00997d',1,'Matth::sqrt(const int value)'],['../class_matth.html#aa44ccf6d43d7b3e7e37988b87fd29d23',1,'Matth::sqrt(const float value, int prec=8)']]],
-  ['sqrti',['sqrti',['../class_matth.html#ab274e2dde5096d43ab5255c74bf4cab1',1,'Matth']]],
-  ['sqrtwithnaturallog',['sqrtWithNaturalLog',['../class_matth.html#acea19471a1994e0012ef8b67d450cd65',1,'Matth']]]
+  ['operator_2a',['operator*',['../class_vector3.html#aef0d9113f65362414488a8e48690a894',1,'Vector3']]],
+  ['operator_2a_3d',['operator*=',['../class_vector3.html#afa90067f8be9337f4274b428bb3fd39f',1,'Vector3']]],
+  ['operator_2b',['operator+',['../class_vector3.html#a1b5bb43ee5524cd793c3dc7c44ba507b',1,'Vector3']]],
+  ['operator_2b_3d',['operator+=',['../class_vector3.html#a8ca014e8dd19bb3a2d483660d9829c9b',1,'Vector3']]],
+  ['operator_2d',['operator-',['../class_vector3.html#adf9aba350d84593481892bb802190402',1,'Vector3::operator-(const Vector3 &amp;v) const '],['../class_vector3.html#a72a36c71164f1532d24ec49c3d7056fc',1,'Vector3::operator-() const ']]],
+  ['operator_2d_3d',['operator-=',['../class_vector3.html#a6b592312b3e64f655b85313afe3a5cf2',1,'Vector3']]],
+  ['operator_2f',['operator/',['../class_vector3.html#a654d3c51f2a4f1771cb5779f1a747da1',1,'Vector3']]],
+  ['operator_5b_5d',['operator[]',['../class_matrix4.html#a3e542f89134e7496dfe820ba1668b305',1,'Matrix4::operator[](int index)'],['../class_matrix4.html#ad80f68f96c8e78ea4eed23c2745d47f2',1,'Matrix4::operator[](int index) const ']]]
 ];

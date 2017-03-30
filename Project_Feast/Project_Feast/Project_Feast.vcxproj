@@ -98,9 +98,11 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Matth.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BodyPart.cpp" />
@@ -111,9 +113,11 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Matth.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
