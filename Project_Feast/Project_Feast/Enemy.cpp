@@ -6,42 +6,41 @@
 
 
 Enemy::Enemy()
-	:enemyHealth(0),
-	enemySpeed(0),
+	:enemyHealth(10),
+	enemySpeed(50),
 	enemyMaxHealth(0),
 	enemeyDamage(0),
-	enemyMaxDamage(0)
+	enemyMaxDamage(0),
+	isDead(false),
+	isDead2(false)
 {
-	
 }
 
 
 Enemy::~Enemy()
 {
-	delete this;
 }
 
 void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	startPosition = (0, 0, 0);
+	startPosition = (0, 0, 20);
 
-	// Create a player entity with the right mesh
-	Ogre::Entity* enemyEntity = mgr.mSceneMgr->createEntity("ogrehead.mesh");
+	// Create an enemy entity with the right mesh
+	enemyEntity = mgr.mSceneMgr->createEntity("penguin.mesh");
 
 	// Add the node to the scene
-	Ogre::SceneNode* enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("Enemy", startPosition);
+	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startPosition);
 	enemyNode->attachObject(enemyEntity);
 
 	SetHealth(10);
-
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	 Move(evt);
 
-	 GetDamaged(1);
+	 //GetDamaged(1);
 }
 
 void Enemy::SetHealth(float startingHealth)
@@ -54,16 +53,15 @@ void Enemy::DoDamage(float damage)
 {
 	enemyMaxDamage = damage;
 	enemeyDamage = enemyMaxDamage;
-
-	
 }
 
 void Enemy::GetDamaged(float damage)
 {
 	enemyHealth -= damage;
+
 	if (enemyHealth <= 0)
 	{
-		Die();
+		isDead = true;
 	}
 }
 
@@ -81,43 +79,35 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 
-	Ogre::Vector3 distanceVector = target - mgr.mSceneMgr->getSceneNode("Enemy")->getPosition();;
-	enemySpeed = 10;
+	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	float distance = distanceVector.length();
 	
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
+	//Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
 
 	if (distance <= enemySpeed / 2500)
 	{
-		mgr.mSceneMgr->getSceneNode("Enemy")->setPosition(target);
-
+		enemyNode->setPosition(target);
 	}
 	else
 	{
-
 		distanceVector.normalise();
 
-		mgr.mSceneMgr->getSceneNode("Enemy")->translate(
-			(distanceVector * enemySpeed) * evt.timeSinceLastFrame,
-			Ogre::Node::TS_LOCAL);
-		
+		enemyNode->translate(distanceVector * enemySpeed * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 	}
 }
 
 void Enemy::Die()
 {
-	GameManager& mgr = GameManager::GetSingleton();
+	/*GameManager& mgr = GameManager::GetSingleton();
 	
 	BodyPart bodyPart;
 	if (isDead){
 		bodyPart.Spawn();
-		isDead = false;
+		isDead = false;*/
 
 		/*mgr.mSceneMgr->getSceneNode("Enemy")->removeAndDestroyAllChildren();
 		mgr.mSceneMgr->destroySceneNode(mgr.mSceneMgr->getSceneNode("Enemy"));*/
-	}
-	
-
+	/*}*/
 }
 
 

@@ -53,17 +53,17 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		dirVec.y -= move;*/
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+		//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
 			mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(5 * rotate));
-		else
-			dirVec.x -= move;
+		//else
+		//	dirVec.x -= move;
 	}
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+		//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
 			mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-5 * rotate));
-		else
-			dirVec.x += move;
+		//else
+		//	dirVec.x += move;
 	}
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);

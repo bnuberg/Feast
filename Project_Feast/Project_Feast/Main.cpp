@@ -107,10 +107,12 @@ bool Main::go()
 	mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
 	groundEntity->setMaterialName("Examples/Rockwall");
 	groundEntity->setCastShadows(false);
+
 	// Instantiate the player
 	player.Init();
 
-	enemy.Init();
+	// Initialize the enemy manager
+	enemyManager.Init();
 	// Create an ambient light
 
 
@@ -143,7 +145,8 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
-	enemy.Update(evt);
+	enemyManager.Update(evt);
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 

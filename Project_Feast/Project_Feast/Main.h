@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "MainCamera.h"
 #include "InputManager.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
 
 #include <SdkCameraMan.h>
 
@@ -24,7 +24,7 @@ protected:
 	Ogre::RenderWindow* mWindow;
 	Player player;
 	MainCamera* mMainCamera;
-	Enemy enemy;
+	EnemyManager enemyManager;
 	OgreBites::SdkCameraMan* mCameraMan;      // basic camera controller
 	
 	
