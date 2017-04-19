@@ -5,11 +5,11 @@
 #include "MainCamera.h"
 #include "InputManager.h"
 #include "EnemyManager.h"
-
+#include <SdkTrays.h>
 #include <SdkCameraMan.h>
 
 
-class Main: public Ogre::FrameListener, Ogre::WindowEventListener
+class Main : public Ogre::FrameListener, Ogre::WindowEventListener, OgreBites::SdkTrayListener
 {
 public:
 	Main();
@@ -27,6 +27,11 @@ protected:
 	EnemyManager enemyManager;
 	OgreBites::SdkCameraMan* mCameraMan;      // basic camera controller
 	
+	Ogre::OverlaySystem *mOverlaySystem;
+		// OgreBites
+		OgreBites::InputContext mInputContext;
+		OgreBites::SdkTrayManager* mTrayMgr;
+		OgreBites::ParamsPanel* mDetailsPanel;    // sample details panel
 	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
