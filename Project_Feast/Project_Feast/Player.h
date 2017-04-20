@@ -10,17 +10,25 @@ public:
 	~Player();
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
+
+	void SetMeat(float startingMeat);
+	void IncreaseMeat(float incMeat);
+	void DecreaseMeat(float spendMeat);
+
+	void convertMeattoHealth();
+
 	void SetHealth(float startingHealth);
 	void IncreaseHealth(float heal);
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
-	float health;
+	
 
 private:
 	void Die();
 
-	
+	float meat;
+	float health;
 	float maxHealth;
 };
 
