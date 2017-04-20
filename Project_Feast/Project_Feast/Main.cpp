@@ -142,10 +142,10 @@ bool Main::go()
 	mTrayMgr->hideCursor();
 
 	Ogre::StringVector items;
-	items.push_back("Test");
+	items.push_back("Health");
 
 	mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_TOPRIGHT, "DetailsPanel", 200, items);
-	mDetailsPanel->setParamValue(0, "Test");
+	mDetailsPanel->setParamValue(0, "Health");
 	
 	
 	mRoot->addFrameListener(this);
@@ -165,15 +165,20 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 		mTrayMgr->frameRenderingQueued(evt);
-	
+
 		if (!mTrayMgr->isDialogVisible())
 		{
 			mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
 			if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
 			{
-				mDetailsPanel->setParamValue(0, "Test");
+				mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.health));
 				
 			}
+		}
+
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+		{
+			player.health--;
 		}
 
 	enemyManager.Update(evt);

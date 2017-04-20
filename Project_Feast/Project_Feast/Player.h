@@ -15,11 +15,12 @@ public:
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
+	float health;
 
 private:
 	void Die();
 
-	float health;
+	
 	float maxHealth;
 };
 
