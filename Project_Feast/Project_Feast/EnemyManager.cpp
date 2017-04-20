@@ -50,13 +50,19 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 
 		if (e->isDead && !e->isDead2)
 		{
-			// TODO: spawn bodypart
+			// Spawn bodypart
 			BodyPart bodypart;
 			bodypart.Spawn(e->enemyNode->getPosition());
 
 			bodyPartsList.push_back(bodypart);
 
-			// TODO: remove enemys
+			// Spawn meat
+			Meat meat;
+			meat.Spawn(e->enemyNode->getPosition());
+
+			meatList.push_back(meat);
+
+			// TODO: fix remove enemys
 			e->enemyNode->detachAllObjects();
 			e->isDead2 = true;
 			//enemyList.remove(*e);

@@ -99,6 +99,7 @@
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Matth.h" />
+    <ClInclude Include="Meat.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
@@ -112,6 +113,7 @@
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matth.cpp" />
+    <ClCompile Include="Meat.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
