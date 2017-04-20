@@ -112,10 +112,9 @@ bool Main::go()
 	player.Init();
 
 	// Initialize the enemy manager
-	enemyManager.Init();
+	mgr.mEnemyManager.Init();
+
 	// Create an ambient light
-
-
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
@@ -145,7 +144,7 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 
-	enemyManager.Update(evt);
+	mgr.mEnemyManager.Update(evt);
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;

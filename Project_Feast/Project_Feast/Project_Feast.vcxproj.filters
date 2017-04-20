@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Bodyparts">
+      <UniqueIdentifier>{b32ee920-60e5-40d3-bfb3-427dcc8bd3bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Bodyparts">
+      <UniqueIdentifier>{1b054b4d-582d-46f9-80b1-1f5b31410ed3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MinimalOgre.h">
@@ -42,11 +48,20 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BodyPart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Matth.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BodyPart.h">
+      <Filter>Header Files\Bodyparts</Filter>
+    </ClInclude>
+    <ClInclude Include="Arm.h">
+      <Filter>Header Files\Bodyparts</Filter>
+    </ClInclude>
+    <ClInclude Include="BodyPartManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Leg.h">
+      <Filter>Header Files\Bodyparts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,11 +92,20 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BodyPart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Matth.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyPart.cpp">
+      <Filter>Source Files\Bodyparts</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Source Files\Bodyparts</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyPartManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Leg.cpp">
+      <Filter>Source Files\Bodyparts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

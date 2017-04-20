@@ -90,12 +90,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
+    <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EntityTest.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Leg.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Matth.h" />
@@ -103,12 +106,15 @@
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
+    <ClCompile Include="BodyPartManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Leg.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matth.cpp" />

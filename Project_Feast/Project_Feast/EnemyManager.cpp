@@ -1,4 +1,6 @@
 #include "EnemyManager.h"
+#include "BodyPartManager.h"
+#include "GameManager.h"
 
 
 EnemyManager::EnemyManager()
@@ -51,10 +53,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		if (e->isDead && !e->isDead2)
 		{
 			// TODO: spawn bodypart
-			BodyPart bodypart;
-			bodypart.Spawn(e->enemyNode->getPosition());
-
-			bodyPartsList.push_back(bodypart);
+			mgr.mBodyPartManager.Spawn(e->enemyNode->getPosition());
 
 			// TODO: remove enemys
 			e->enemyNode->detachAllObjects();
