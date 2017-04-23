@@ -95,9 +95,9 @@ Matrix4 Matrix4::Identity()
 Matrix4 Matrix4::Transpose(const Matrix4& mat)
 {
 	return Matrix4(mat[0], mat[4], mat[8], mat[12],
-		           mat[1], mat[5], mat[9], mat[13],
-		           mat[2], mat[6], mat[10], mat[14],
-		           mat[3], mat[7], mat[11], mat[15]);
+				   mat[1], mat[5], mat[9], mat[13],
+				   mat[2], mat[6], mat[10], mat[14],
+				   mat[3], mat[7], mat[11], mat[15]);
 }
 
 /** Set Translation method, sets the values of the matrix that would modify the position when applied to a vector.
@@ -107,9 +107,9 @@ Matrix4 Matrix4::Transpose(const Matrix4& mat)
 Matrix4 Matrix4::SetTranslation(const Vector3 & translation)
 {
 	return Matrix4(1.0f, 0.0f, 0.0f, translation.x,
-		           0.0f, 1.0f, 0.0f, translation.y,
-		           0.0f, 0.0f, 1.0f, translation.z,
-		           0.0f, 0.0f, 0.0f, 1.0f);
+				   0.0f, 1.0f, 0.0f, translation.y,
+				   0.0f, 0.0f, 1.0f, translation.z,
+				   0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 /** Get Translation method, finds the translation component of a given matrix.
@@ -147,10 +147,10 @@ Matrix4 Matrix4::SetRotationAxis(const Vector3 & axis, float angle)
 	float S = sin(angle);
 
 	// Remember the order of operations. 
-	return Matrix4(u.x * u.x * OMC + C      , u.x * u.y * OMC - u.z * S, u.x * u.z * OMC + u.y * S, 0.0f,
-				   u.y * u.x * OMC + u.z * S, u.y * u.y * OMC + C      , u.y * u.z * OMC - u.x * S, 0.0f,
-		           u.z * u.x * OMC - u.y * S, u.z * u.y * OMC + u.x * S, u.z * u.z * OMC + C      , 0.0f,
-		           0.0f                     , 0.0f                     , 0.0f                     , 1.0f);
+	return Matrix4(u.x * u.x * OMC + C	  , u.x * u.y * OMC - u.z * S, u.x * u.z * OMC + u.y * S, 0.0f,
+				   u.y * u.x * OMC + u.z * S, u.y * u.y * OMC + C	  , u.y * u.z * OMC - u.x * S, 0.0f,
+				   u.z * u.x * OMC - u.y * S, u.z * u.y * OMC + u.x * S, u.z * u.z * OMC + C	  , 0.0f,
+				   0.0f					 , 0.0f					 , 0.0f					 , 1.0f);
 }
 
 /** Method to transform a point vector by a given matrix.\n
@@ -163,7 +163,7 @@ Vector3 Matrix4::TransformPoint(const Matrix4 & mat, const Vector3 & p)
 {
 	return Vector3(mat[0] * p.x + mat[4] * p.y + mat[8] * p.z + mat[3],
 				   mat[1] * p.x + mat[5] * p.y + mat[9] * p.z + mat[7],
-		           mat[2] * p.x + mat[6] * p.y + mat[10] * p.z + mat[11]);
+				   mat[2] * p.x + mat[6] * p.y + mat[10] * p.z + mat[11]);
 }
 
 /** Method to transform a direction vector by a given matrix.\n
@@ -175,8 +175,8 @@ Vector3 Matrix4::TransformPoint(const Matrix4 & mat, const Vector3 & p)
 Vector3 Matrix4::TransformDirection(const Matrix4 & mat, const Vector3 & n)
 {
 	return Vector3(n.x * mat[0] + n.y * mat[4] + n.z * mat[8],
-		           n.x * mat[1] + n.y * mat[5] + n.z * mat[9],
-		           n.x * mat[2] + n.y * mat[6] + n.z * mat[10]);
+				   n.x * mat[1] + n.y * mat[5] + n.z * mat[9],
+				   n.x * mat[2] + n.y * mat[6] + n.z * mat[10]);
 }
 
 /** Overloaded multiplication operator.\n
