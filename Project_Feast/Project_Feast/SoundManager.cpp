@@ -16,7 +16,7 @@ SoundManager::~SoundManager()
 SoundManager* SoundManager::GetSingletonPtr(void){ return msSingleton; }
 SoundManager& SoundManager::GetSingleton(void){ assert(msSingleton); return (*msSingleton); }
 
-void SoundManager::PlaySound(string location, bool loop = false)
+void SoundManager::PlaySound(bool loop = false)
 {
-	//engine->play2D(location, loop);
+	engine->play2D("Random3.wav", loop);
 }

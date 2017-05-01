@@ -17,7 +17,7 @@ public:
 	~SoundManager();
 	static SoundManager& GetSingleton(void);
 	static SoundManager* GetSingletonPtr(void);
-	void PlaySound(string, bool);
+	void PlaySound(bool);
 
 private:
 	irrklang::ISoundEngine* engine; 

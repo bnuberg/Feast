@@ -103,6 +103,7 @@
     <ClInclude Include="Matth.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SoundManager.h" />
   </ItemGroup>
   <ItemGroup>
