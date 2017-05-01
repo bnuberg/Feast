@@ -9,6 +9,12 @@ public:
 	Leg();
 	~Leg();
 
-	void Spawn(Ogre::Vector3 position);
+	int speedMin = 5 ;
+	int speedMax = 20;
+	int randSpeed;
+
+	virtual void Stats() override;
+	virtual void Ability();
+	
 };
 

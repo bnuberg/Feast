@@ -7,5 +7,15 @@ class BodyPart
 public:
 	BodyPart();
 	~BodyPart();
+
+	void Spawn(Ogre::Vector3 position);
+
+	virtual void Stats();
+	
+	Ogre::String mesh = "cube.mesh";
+
+private: 
+	int bodyPartHPMax;
+	int bodyPartHPMin;
 };
 
