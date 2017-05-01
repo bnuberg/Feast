@@ -50,8 +50,8 @@ public:
 
 	static Matrix4 Zero();
 
-	static Matrix4 Identity();														//create an identity matrix (all zeros excpet the leading diagonal, which is 1s)
-	static Matrix4 Transpose(const Matrix4& mat);									//move one matrix by way of another
+	static Matrix4 Identity();																//create an identity matrix (all zeros excpet the leading diagonal, which is 1s)
+	static Matrix4 Transpose(const Matrix4& mat);											//move one matrix by way of another
 
 	static Matrix4 SetTranslation(const Vector3& translation);
 	static Vector3 GetTranslation(const Matrix4& mat);
