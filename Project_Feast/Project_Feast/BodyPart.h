@@ -1,5 +1,6 @@
 #pragma once
 #include "OgreEntity.h"
+#include "OgreSubEntity.h"
 
 class BodyPart
 {
@@ -9,5 +10,12 @@ public:
 
 	void Spawn(Ogre::Vector3 position);
 
+	virtual void Stats();
+	
+	Ogre::String mesh = "cube.mesh";
+
+private: 
+	int bodyPartHPMax;
+	int bodyPartHPMin;
 };
 
