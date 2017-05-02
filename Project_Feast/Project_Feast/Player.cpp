@@ -37,34 +37,36 @@ void Player::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
+	// Get and set mouse information at the start of the update
+	OIS::MouseState ms = mgr.mInputManager.mMouse->getMouseState();
+	float currentX = ms.X.rel;
+
 	static Ogre::Real rotate = .13;
 	static Ogre::Real move = 250;
 
 	//Move ninja
 	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
 
+	// Forwards and backwards
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_W))
 		dirVec.z -= move;
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
 		dirVec.z += move;
-	/*if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_U))
-		dirVec.y += move;
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_O))
-		dirVec.y -= move;*/
+
+	// Up and Down
+	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_U))
+	//	dirVec.y += move;
+	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_O))
+	//	dirVec.y -= move;
+
+	// Left and Right
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
-	{
-		//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
-			mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(5 * rotate));
-		//else
-		//	dirVec.x -= move;
-	}
+		dirVec.x -= move;
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-	{
-		//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
-			mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-5 * rotate));
-		//else
-		//	dirVec.x += move;
-	}
+		dirVec.x += move;
+
+	// Rotate Player Yaw
+	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
