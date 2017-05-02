@@ -84,6 +84,9 @@
     <ClInclude Include="EnemyPatternManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">
@@ -138,6 +141,9 @@
       <Filter>Interfaces</Filter>
     </ClCompile>
     <ClCompile Include="EnemyPatternManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
