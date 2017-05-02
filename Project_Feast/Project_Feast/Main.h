@@ -32,6 +32,7 @@ protected:
 		OgreBites::InputContext mInputContext;
 		OgreBites::SdkTrayManager* mTrayMgr;
 		OgreBites::ParamsPanel* mDetailsPanel;    // sample details panel
+		OgreBites::Label* mLabel;    // sample details panel
 	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);

@@ -22,13 +22,11 @@ public:
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
-	
+	float health;
+	float meat;
 
 private:
 	void Die();
-
-	float meat;
-	float health;
 	float maxHealth;
 };
 

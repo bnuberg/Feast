@@ -138,14 +138,19 @@ bool Main::go()
 	mInputContext.mMouse = mgr.mInputManager.mMouse;
 
 	mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mInputContext, this);
-	mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
+	mTrayMgr->showFrameStats(OgreBites::TL_TOPLEFT);
 	mTrayMgr->hideCursor();
 
 	Ogre::StringVector items;
 	items.push_back("Health");
+	items.push_back("Meat");
+
 
 	mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_TOPRIGHT, "DetailsPanel", 200, items);
 	mDetailsPanel->setParamValue(0, "Health");
+	mDetailsPanel->setParamValue(1, "Meat");
+
+	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
 	
 	
 	mRoot->addFrameListener(this);
@@ -172,13 +177,14 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
 			{
 				mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.health));
-				
+				mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.meat));
 			}
 		}
 
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 		{
 			player.health--;
+			player.meat--;
 		}
 
 	enemyManager.Update(evt);

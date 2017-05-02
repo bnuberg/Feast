@@ -74,7 +74,7 @@ void Player::Die()
 	// TODO: restart application/scene
 }
 
-void Player::SetMeat(float startingMeat)
+void Player::SetMeat(float startingMeat = 0) 
 {
 	meat = startingMeat;
 }
