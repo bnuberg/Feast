@@ -31,7 +31,7 @@ void Enemy::Init()
 	startPosition = (0, 0, 20);
 
 	// Create an enemy entity with the right mesh
-	enemyEntity = mgr.mSceneMgr->createEntity("penguin.mesh");
+	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
 	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startPosition);

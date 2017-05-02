@@ -39,15 +39,7 @@ bool Main::go()
 #endif
 	char const* c = getenv("RESOURCE_HOME");
 	
-	if (c == NULL)
-	{
-		//well shit
-	}
-	else
-	{
-		Ogre::String s(c);
-		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
-	}
+	
 	/*Ogre::String resourcePath = getenv("RESOURCE_HOME");*/
 	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
@@ -73,7 +65,15 @@ bool Main::go()
 			}
 		}
 		//Adds a new resource folder declared by the enviroment variable RESOURCE_HOME 
-		
+		if (c == NULL)
+		{
+			//well shit
+		}
+		else
+		{
+			Ogre::String s(c);
+			Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
+		}
 
 
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
