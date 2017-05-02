@@ -151,6 +151,8 @@ bool Main::go()
 	mDetailsPanel->setParamValue(1, "Meat");
 
 	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
+
+
 	
 	
 	mRoot->addFrameListener(this);
@@ -170,6 +172,18 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
 		mTrayMgr->frameRenderingQueued(evt);
+
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+		{
+			mLabel->hide();
+			mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		}
+
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_R))
+		{
+			mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
+			mLabel->show();
+		}
 
 		if (!mTrayMgr->isDialogVisible())
 		{
