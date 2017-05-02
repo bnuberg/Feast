@@ -38,6 +38,8 @@ bool Main::go()
 	mPluginsCfg = "plugins.cfg";
 #endif
 
+	Ogre::String resourcePath = getenv ("RESOURCE_HOME");
+	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
 
 	Ogre::ConfigFile cf;
@@ -60,6 +62,9 @@ bool Main::go()
 					archName, typeName, secName);
 			}
 		}
+		//Adds a new resource folder declared by the enviroment variable RESOURCE_HOME 
+		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(resourcePath, "FileSystem", "General");
+
 
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
 		return false;
