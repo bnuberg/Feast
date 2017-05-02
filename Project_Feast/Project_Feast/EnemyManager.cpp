@@ -48,6 +48,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 					e->GetDamaged(10);
 				}
 			}
+		
 		}
 
 		if (e->isDead && !e->isDead2)
@@ -55,7 +56,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 			// TODO: spawn bodypart
 			mgr.mBodyPartManager.Spawn(e->enemyNode->getPosition());
 
-			// TODO: remove enemys
+			// TODO: remove enemies
 			e->enemyNode->detachAllObjects();
 			e->isDead2 = true;
 			//enemyList.remove(*e);

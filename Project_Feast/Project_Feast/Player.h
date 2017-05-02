@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <OgreFrameListener.h>
+#include <OgreEntity.h>
 
 class Player
 {
@@ -15,6 +16,8 @@ public:
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
+	void Pickup();
+	Ogre::Vector3 playerPosition;
 
 private:
 	void Die();

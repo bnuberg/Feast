@@ -11,7 +11,7 @@ public:
 	void Spawn(Ogre::Vector3 position);
 
 	virtual void Stats();
-	
+	Ogre::SceneNode* bodyPartNode;
 	Ogre::String mesh = "cube.mesh";
 
 private: 

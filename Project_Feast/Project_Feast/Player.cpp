@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "GameManager.h"
-#include <OgreEntity.h>
+
 
 
 Player::Player()
@@ -69,6 +69,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+
+	Pickup();
 }
 
 void Player::Die()
@@ -110,4 +112,18 @@ void Player::DecreaseMaxHealth(float permaDmg)
 {
 	maxHealth -= permaDmg;
 	DecreaseHealth(permaDmg);
+}
+
+void Player::Pickup()
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
+	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 20);
+
+	if (mgr.mBodyPartManager.isPickupAble == true && mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL))
+	{
+		// TODO equip bodypart
+	}
+	
 }
