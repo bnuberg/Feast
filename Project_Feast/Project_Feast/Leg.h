@@ -9,8 +9,8 @@ public:
 	Leg();
 	~Leg();
 
-	int speedMin = 5 ;
-	int speedMax = 20;
+	int speedMin = 200;
+	int speedMax = 300;
 	int randSpeed;
 
 	virtual void Stats() override;

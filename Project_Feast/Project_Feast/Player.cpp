@@ -255,24 +255,42 @@ void Player::DecreaseMaxHealth(float permaDmg)
 	DecreaseHealth(permaDmg);
 }
 
+void Player::SetAttack(int damage, int attackSpeed)
+{
+	playerDamage = damage;
+	playerAttackSpeed = attackSpeed;
+}
+
+void Player::SetSpeed(int speed)
+{
+	move = speed;
+}
+
 void Player::Pickup()
 {
 	GameManager& mgr = GameManager::getSingleton();
 
 	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
-	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 20);
+	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 200);
 
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL) && mgr.mBodyPartManager.b->isPickupAble)
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL))
 	{
-		if (mgr.mBodyPartManager.b->tag == "Arm")
+		Ogre::LogManager::getSingletonPtr()->logMessage("fullmetal");
+		BodyPart bodypart = mgr.mBodyPartManager.ClosestBodyPart(playerPosition);
+
+		Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.tag);
+		//Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.mesh);
+		if (bodypart.tag == "Arm")
 		{
 			equipment.EquipArm();
-			mgr.mBodyPartManager.b->pickedUp = true;
+			SetAttack(equipment.damage, equipment.attackSpeed);
+			bodypart.pickedUp = true;
 		}
-		else if (mgr.mBodyPartManager.b->tag == "Leg")
+		else if (bodypart.tag == "Leg")
 		{
 			equipment.EquipLeg();
-			mgr.mBodyPartManager.b->pickedUp = true;
+			SetSpeed(equipment.speed);
+			bodypart.pickedUp = true;
 		}
 		// TODO equip bodypart
 	}

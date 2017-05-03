@@ -3,6 +3,7 @@
 
 Equipment::Equipment()
 {
+	setPlayerStats();
 }
 
 
@@ -14,7 +15,7 @@ void Equipment::EquipArm()
 {
 	if (hasAArm == false)
 	{
-
+		
 		hasAArm = true;
 		// TODO set player arm
 	}
@@ -45,5 +46,10 @@ void Equipment::Discard()
 
 void Equipment::setPlayerStats()
 {
-
+	damage = arm.randDamage;
+	attackSpeed = arm.randAttackSpeed;
+	speed = leg.randSpeed;
 }
+
+
+
