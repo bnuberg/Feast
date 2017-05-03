@@ -39,7 +39,11 @@ bool Main::go()
 	mResourcesCfg = "resources.cfg";
 	mPluginsCfg = "plugins.cfg";
 #endif
-
+	char const* c = getenv("RESOURCE_HOME");
+	
+	
+	/*Ogre::String resourcePath = getenv("RESOURCE_HOME");*/
+	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
 
 	Ogre::ConfigFile cf;
@@ -62,6 +66,17 @@ bool Main::go()
 					archName, typeName, secName);
 			}
 		}
+		//Adds a new resource folder declared by the enviroment variable RESOURCE_HOME 
+		if (c == NULL)
+		{
+			//well shit
+		}
+		else
+		{
+			Ogre::String s(c);
+			Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
+		}
+
 
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
 		return false;
@@ -118,10 +133,9 @@ bool Main::go()
 	player.Init();
 
 	// Initialize the enemy manager
-	enemyManager.Init();
+	mgr.mEnemyManager.Init();
+
 	// Create an ambient light
-
-
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
@@ -201,7 +215,7 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			player.meat--;
 		}
 
-	enemyManager.Update(evt);
+	mgr.mEnemyManager.Update(evt);
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;

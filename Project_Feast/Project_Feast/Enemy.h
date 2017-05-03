@@ -26,8 +26,11 @@ protected:
 	float enemyMaxHealth;
 	float enemeyDamage;
 	float enemyMaxDamage;
+	float aggroRange;
+	float attackRange;
 
 	Ogre::Vector3 startPosition;
+	
 
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);

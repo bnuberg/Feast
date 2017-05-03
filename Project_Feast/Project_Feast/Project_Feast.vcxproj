@@ -90,30 +90,44 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbilityInterface.h" />
+    <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
+    <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemyPatternManager.h" />
     <ClInclude Include="EntityTest.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GroundSmashArm.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Leg.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Matth.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RangedAttackArm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbilityInterface.cpp" />
+    <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
+    <ClCompile Include="BodyPartManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemyPatternManager.cpp" />
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Leg.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matth.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RangedAttackArm.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
