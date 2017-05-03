@@ -178,6 +178,44 @@ void Player::Die()
 	// TODO: restart application/scene
 }
 
+float Player::GetHealth()
+{
+	return health;
+}
+
+float Player::GetMeat()
+{
+	return meat;
+}
+
+void Player::SetMeat(float startingMeat = 0) 
+{
+	meat = startingMeat;
+}
+
+void Player::IncreaseMeat(float incMeat)
+{
+	meat += incMeat;
+}
+
+void Player::DecreaseMeat(float spendMeat)
+{
+	if ((meat -= spendMeat) < 0)
+	{
+		meat = 0;
+	}
+	else
+	{
+		meat -= spendMeat;
+	}
+}
+
+void Player::convertMeattoHealth()
+{
+	DecreaseMeat(50);
+	IncreaseHealth(10);
+}
+
 void Player::SetHealth(float startingHealth)
 {
 	maxHealth = startingHealth;
@@ -198,6 +236,7 @@ void Player::DecreaseHealth(float dmg)
 	health -= dmg;
 	if (health <= 0)
 	{
+		health = 0;
 		Die();
 	}
 }
