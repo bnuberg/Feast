@@ -4,8 +4,8 @@
 
 Leg::Leg()
 {
-	mesh = "cube.mesh";
-	tag = "Leg";
+	mesh_ = "cube.mesh";
+	tag_ = "Leg";
 }
 
 

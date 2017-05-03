@@ -278,19 +278,19 @@ void Player::Pickup()
 		Ogre::LogManager::getSingletonPtr()->logMessage("fullmetal");
 		BodyPart bodypart = mgr.mBodyPartManager.ClosestBodyPart(playerPosition);
 
-		Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.tag);
+		Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.tag_);
 		//Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.mesh);
-		if (bodypart.tag == "Arm")
+		if (bodypart.tag_ == "Arm")
 		{
 			equipment.EquipArm();
 			SetAttack(equipment.damage, equipment.attackSpeed);
-			bodypart.pickedUp = true;
+			bodypart.picked_up_ = true;
 		}
-		else if (bodypart.tag == "Leg")
+		else if (bodypart.tag_ == "Leg")
 		{
 			equipment.EquipLeg();
 			SetSpeed(equipment.speed);
-			bodypart.pickedUp = true;
+			bodypart.picked_up_ = true;
 		}
 		// TODO equip bodypart
 	}

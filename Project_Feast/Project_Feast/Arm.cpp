@@ -4,8 +4,8 @@
 
 Arm::Arm()
 {
-	mesh = "sphere.mesh";
-	tag = "Arm";
+	mesh_ = "sphere.mesh";
+	tag_ = "Arm";
 }
 
 
