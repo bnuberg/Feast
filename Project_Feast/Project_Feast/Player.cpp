@@ -12,6 +12,9 @@ Player::~Player()
 {
 }
 
+/**	This function instantiates the nodes and the entities attached for the player
+	as well as setting the base values for the player hp and such.
+*/
 void Player::Init()
 {
 	// Create a reference to the game manager
@@ -88,6 +91,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	// Execute attack
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 	{
+		ChangeRightArmMesh("sphere.mesh");
 		InitiateSmash();
 	}
 
@@ -95,7 +99,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (isSmashing)
 	{
 		Ogre::Vector3 target = Ogre::Vector3(0, 0, 0);
-		Ogre::Vector3 globalTarget = Ogre::Vector3(0, 0, 0);
+		Ogre::Vector3 globaltarget = Ogre::Vector3(0, 0, 0);
 
 		// TODO: decide which attack is cast based on attached bodypart
 		int attack = 0;
@@ -105,19 +109,26 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		case 0: // is ground smash at player position approximately
 			target = rightarmOrigin->getPosition();
 			target -= Ogre::Vector3(0, 160, 0);
-			globalTarget = rightarmOrigin->_getDerivedPosition();
-			globalTarget -= Ogre::Vector3(0, 160, 0);
+			globaltarget = rightarmOrigin->_getDerivedPosition();
+			globaltarget -= Ogre::Vector3(0, 160, 0);
 			break;
 		case 1: // is ground smash far in front of the player position
 			target = rocketarmtargetNode->getPosition();
-			globalTarget = rocketarmtargetNode->_getDerivedPosition();
+			globaltarget = rocketarmtargetNode->_getDerivedPosition();
 			break;
 		default:
 			break;
 		}
 
-		GroundSmashAttack(evt, target, globalTarget);
+		GroundSmashAttack(evt, target, globaltarget);
 	}
+}
+
+void Player::ChangeRightArmMesh(Ogre::String meshName)
+{
+	rightarmNode->detachAllObjects();
+	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity(meshName);
+	rightarmNode->attachObject(rightarmEntity);
 }
 
 void Player::InitiateSmash()

@@ -15,8 +15,8 @@ Enemy::Enemy()
 	enemyMaxDamage(0),
 	aggroRange(0),
 	attackRange(0),
-	isDead(false),
-	isDead2(false)
+	is_dead_(false),
+	is_dead2_(false)
 {
 }
 
@@ -34,8 +34,8 @@ void Enemy::Init()
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
-	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startPosition);
-	enemyNode->attachObject(enemyEntity);
+	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(startPosition);
+	enemy_node_->attachObject(enemyEntity);
 
 	SetHealth(10);
 
@@ -74,13 +74,13 @@ void Enemy::GetDamaged(float damage)
 
 	if (enemyHealth <= 0)
 	{
-		isDead = true;
+		is_dead_ = true;
 	}
 }
 
 void Enemy::DropBodyPart()
 {
-	if (isDead)
+	if (is_dead_)
 	{
 		// TODO drop bodypart logic
 	}
@@ -98,7 +98,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 	//target = Ogre::Vector3(target.x, 20, target.z);
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
 
-	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
+	Ogre::Vector3 distanceVector = target - enemy_node_->getPosition();
 	float distance = distanceVector.length();
 	//Ogre::LogManager::getSingletonPtr()->logMessage("distanceVector pre move =" + Ogre::StringConverter::toString(distanceVector));
 	//Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
@@ -110,7 +110,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 			enemyNode->setPosition(target);
 		}*/
 
-		enemyNode->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+		enemy_node_->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 		if (distance > attackRange)
 		{
@@ -119,7 +119,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 			distanceVector.normalise();
 			//Ogre::LogManager::getSingletonPtr()->logMessage("normalised distanceVector =" + Ogre::StringConverter::toString(distanceVector));
 
-			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+			enemy_node_->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 			Ogre::LogManager::getSingletonPtr()->logMessage("distance =" + Ogre::StringConverter::toString(distance));
 			Ogre::LogManager::getSingletonPtr()->logMessage("attackrange =" + Ogre::StringConverter::toString(attackRange));
 
@@ -152,26 +152,26 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 			MoveDirection.z = -enemySpeed;
 
-			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+			enemy_node_->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
 		}
 	}
-	else if(distance > aggroRange && enemyNode->getPosition() != startPosition)
+	else if (distance > aggroRange && enemy_node_->getPosition() != startPosition)
 	{
-		Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
+		Ogre::Vector3 startDistanceVector = startPosition - enemy_node_->getPosition();
 		float startDistance = startDistanceVector.length();
 
 
-		enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+		enemy_node_->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 		MoveDirection.z = enemySpeed;
 
-		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+		enemy_node_->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
 
 		if (startDistance <= enemySpeed / 2500)
 		{
-			enemyNode->setPosition(startPosition);
+			enemy_node_->setPosition(startPosition);
 		}
 
 		else

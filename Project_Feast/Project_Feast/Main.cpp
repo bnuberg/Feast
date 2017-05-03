@@ -166,9 +166,6 @@ bool Main::go()
 
 	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
 
-
-	
-	
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
 	

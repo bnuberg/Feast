@@ -27,6 +27,9 @@ public:
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
 	void Pickup();
+
+	void ChangeRightArmMesh(Ogre::String meshName);
+
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
 	Ogre::Real move = 250;
