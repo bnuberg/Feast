@@ -1,5 +1,29 @@
 #pragma once
 
+/** @brief Matth Class used to implement maths functions quickly.
+	
+	Detailed description:
+	This is the mathematics class written with speed in mind over
+	accuracy. Most functions are working and are accurate to 4
+	decimal places. If they are not implemented then they are marked
+	with TODO and return 0.
+	@author M. Jenkinson
+	@date March 2017
+*/
+
+/*
+	Legend for suffix characters:
+
+	01 = between 0 and 1
+	10 = uses the number 10
+	2  = takes two arguments if it is a function, squared if it is a variable
+	e  = efficient
+	f  = float specific
+	i  = integer specific
+	m  = uses the modulo function
+	s  = simple, the human-logical way of doing things
+*/
+
 /*
 	This is the header file for the Matth class.
 	It is not a type-o. Matth is an abbreviation of Matthew.
@@ -58,7 +82,7 @@ public:
 	static float ceil				(const float value);
 	static int   clampi				(const int   value, const int   min, const int   max);
 	static float clamp				(const float value, const float min, const float max);
-	static int   clamp01			(const float value);
+	static float clamp01			(const float value);
 	static int   closestPowerOfTwo	(const float value); // TODO
 	static int   closestPowerOfTwo	(const int   value); // TODO
 	
@@ -87,15 +111,13 @@ public:
 	static float lerp				(const float start, const float end, const float value);
 	static float lerpAngle			(const float start, const float end, const float value); // TODO
 	static float lerpUnclamped		(const float start, const float end, const float value);
-	static float inverseLerp		(const float start, const float end, const float value); // TODO - This should be an easy one
+	static float inverseLerp		(const float start, const float end, const float value);
  
-	static float log				(const int   value, const int   base);
-	static float log				(const int   value, const float base);
-	static float log				(const float value, const float base);
+	static float log				(const int   value, const int   base = 10   );
+	static float log				(const int   value, const float base = 10.0f);
+	static float log				(const float value, const float base = 10.0f);
 	static float ln					(const int   value);
 	static float ln					(const float value, int prec = 3);
-	static float log10				(const int   value);
-	static float log10				(const float value);
 
 	static bool  logicalXOR			(const bool a, const bool b);
 	
