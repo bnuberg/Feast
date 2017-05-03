@@ -3,6 +3,7 @@
 #include <iostream>
 #include <OgreFrameListener.h>
 #include <OgreEntity.h>
+#include "Equipment.h"
 
 class Player
 {
@@ -18,7 +19,7 @@ public:
 	void DecreaseMaxHealth(float permaDmg);
 	void Pickup();
 	Ogre::Vector3 playerPosition;
-
+	Equipment equipment;
 private:
 	void Die();
 

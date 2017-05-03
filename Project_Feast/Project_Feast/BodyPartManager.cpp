@@ -10,7 +10,7 @@ BodyPartManager::BodyPartManager()
 BodyPartManager::~BodyPartManager()
 {
 }
-
+// TODO UPDATE FUNCTION
 void BodyPartManager::Spawn(Ogre::Vector3 position)
 {
 	if (rand() % 2 == 0)

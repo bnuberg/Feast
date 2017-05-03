@@ -123,6 +123,7 @@ void Player::Pickup()
 
 	if (mgr.mBodyPartManager.isPickupAble == true && mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL))
 	{
+		
 		// TODO equip bodypart
 	}
 	
