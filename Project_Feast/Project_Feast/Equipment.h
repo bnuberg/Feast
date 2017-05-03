@@ -17,6 +17,9 @@ public:
 	void EquipLeg();
 	void Discard();
 	void setPlayerStats();
+	int damage;
+	int attackSpeed;
+	int speed;
 	bool hasAArm = false;
 	bool hasALeg = false;
 	

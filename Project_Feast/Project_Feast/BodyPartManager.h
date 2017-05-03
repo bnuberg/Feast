@@ -12,8 +12,8 @@ public:
 	
 	void Spawn(Ogre::Vector3 position);
 	void IterateBodyParts(Ogre::Vector3 distance, float pickupDistance);
-	std::list<BodyPart> bodyPartsList;		// List containing all bodypart objects
-	std::list<BodyPart>::iterator b;
+	std::vector<BodyPart> bodyPartsList;		// List containing all bodypart objects
+	BodyPart ClosestBodyPart(Ogre::Vector3 center);
 private:
 	
 

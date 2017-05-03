@@ -120,8 +120,8 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 			//Ogre::LogManager::getSingletonPtr()->logMessage("normalised distanceVector =" + Ogre::StringConverter::toString(distanceVector));
 
 			enemy_node_->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-			Ogre::LogManager::getSingletonPtr()->logMessage("distance =" + Ogre::StringConverter::toString(distance));
-			Ogre::LogManager::getSingletonPtr()->logMessage("attackrange =" + Ogre::StringConverter::toString(attackRange));
+		/*	Ogre::LogManager::getSingletonPtr()->logMessage("distance =" + Ogre::StringConverter::toString(distance));
+			Ogre::LogManager::getSingletonPtr()->logMessage("attackrange =" + Ogre::StringConverter::toString(attackRange));*/
 
 			
 			//enemyNode->translate(distanceVector * enemySpeed * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
@@ -148,7 +148,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 		else
 		{
-			Ogre::LogManager::getSingletonPtr()->logMessage("stopDistance =" + Ogre::StringConverter::toString(distance));
+			/*Ogre::LogManager::getSingletonPtr()->logMessage("stopDistance =" + Ogre::StringConverter::toString(distance));*/
 
 			MoveDirection.z = -enemySpeed;
 

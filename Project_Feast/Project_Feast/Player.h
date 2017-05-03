@@ -26,6 +26,8 @@ public:
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
+	void SetAttack(int damage, int attackSpeed);
+	void SetSpeed(int speed);
 	void Pickup();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
@@ -33,7 +35,8 @@ public:
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
 	Ogre::Real move = 250;
-	float playerDamage;
+	int playerDamage;
+	int playerAttackSpeed;
 private:
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
