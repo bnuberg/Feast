@@ -13,6 +13,7 @@ public:
 	void EnemyManager::Init();
 	void EnemyManager::Update(const Ogre::FrameEvent& evt);
 	void SpawnEnemy();
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killDistance);
 	void DamageEnemies();
 
 private:
