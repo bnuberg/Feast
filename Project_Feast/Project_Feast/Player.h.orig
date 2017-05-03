@@ -2,8 +2,6 @@
 
 #include <iostream>
 #include <OgreFrameListener.h>
-#include <OgreEntity.h>
-#include "Equipment.h"
 
 class Player
 {
@@ -13,28 +11,27 @@ public:
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
 
-	float GetMeat();
 	void SetMeat(float startingMeat);
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
 
 	void convertMeattoHealth();
 
-	float GetHealth();
 	void SetHealth(float startingHealth);
 	void IncreaseHealth(float heal);
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
-	void Pickup();
-	Ogre::Vector3 playerPosition;
-	Equipment equipment;
-	Ogre::Real move = 250;
-	float playerDamage;
+	float health;
+	float meat;
+
 private:
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
+<<<<<<< HEAD
+=======
+
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
@@ -43,7 +40,7 @@ private:
 	bool smashingDown = false;
 
 	float health;
-	float meat;
+>>>>>>> Development
 	float maxHealth;
 	float rightarmSpeed = 500;
 };

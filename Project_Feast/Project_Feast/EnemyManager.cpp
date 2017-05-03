@@ -21,50 +21,16 @@ void EnemyManager::Init()
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
-	GameManager& mgr = GameManager::getSingleton();
-
 	// When the timer reaches the spawn timer, spawn an enemy and reset the timer
 	if (timer.getMilliseconds() >= enemySpawnTimer)
 	{
 		SpawnEnemy();
 		timer.reset();
-		//enemySpawnTimer = 100000;
 	}
 
 	for (std::list<Enemy>::iterator e = enemyList.begin(); e != enemyList.end(); ++e)
-	//for each (Enemy e in enemyList)
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
-		{
-			if (!e->isDead)
-			{
-				Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
-
-				Ogre::Vector3 distanceVector = target - e->enemyNode->getPosition();
-				float distance = distanceVector.length();
-
-				if (distance < 200)
-				{
-					e->GetDamaged(10);
-				}
-			}
-		
-		}
-
-		if (e->isDead && !e->isDead2)
-		{
-			// TODO: spawn bodypart
-			mgr.mBodyPartManager.Spawn(e->enemyNode->getPosition());
-
-			// TODO: remove enemies
-			e->enemyNode->detachAllObjects();
-			e->isDead2 = true;
-			//enemyList.remove(*e);
-		}
-		else
-		{
-			e->Update(evt);
-		}
+		e->Update(evt);
 	}
 }
 
@@ -75,6 +41,36 @@ void EnemyManager::SpawnEnemy()
 	enemy.Init();
 
 	enemyList.push_back(enemy);
+}
+
+void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float damageDistance)
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	for (std::list<Enemy>::iterator e = enemyList.begin(); e != enemyList.end(); ++e)
+	{
+		if (!e->isDead)
+		{
+			Ogre::Vector3 distanceVector = center - e->enemyNode->getPosition();
+			float distance = distanceVector.length();
+
+			if (distance < damageDistance)
+			{
+				e->GetDamaged(10);
+			}
+		
+		}
+
+		if (e->isDead && !e->isDead2)
+		{
+			mgr.mBodyPartManager.Spawn(e->enemyNode->getPosition());
+
+			// TODO: remove enemies
+			e->enemyNode->detachAllObjects();
+			e->isDead2 = true;
+			//enemyList.remove(*e);
+		}
+	}
 }
 
 void EnemyManager::DamageEnemies()

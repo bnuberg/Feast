@@ -4,7 +4,12 @@
 #include "Player.h"
 #include "MainCamera.h"
 #include "InputManager.h"
+<<<<<<< HEAD
+#include "EnemyManager.h"
 #include <SdkTrays.h>
+=======
+
+>>>>>>> Development
 #include <SdkCameraMan.h>
 
 

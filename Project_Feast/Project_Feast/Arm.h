@@ -10,7 +10,7 @@ public:
 	~Arm();
 
 	int attackSpeedMax = 5;
-	int attackSpeedMin = 0.5f;
+	int attackSpeedMin = 1;
 	int damageMax = 20;
 	int damageMin = 1;
 	int randDamage;
