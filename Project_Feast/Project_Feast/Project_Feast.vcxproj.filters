@@ -19,6 +19,15 @@
     <Filter Include="Header Files\Bodyparts">
       <UniqueIdentifier>{1b054b4d-582d-46f9-80b1-1f5b31410ed3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Bodyparts\Arms">
+      <UniqueIdentifier>{7a762dfa-65b0-4d9c-bb48-63942bfefa8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bodyparts\Arms">
+      <UniqueIdentifier>{01adc2c5-2744-4690-88af-432b7c685da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{6517f2ee-bb3f-4fd6-aaaa-bc6426d4769e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MinimalOgre.h">
@@ -63,6 +72,18 @@
     <ClInclude Include="Leg.h">
       <Filter>Header Files\Bodyparts</Filter>
     </ClInclude>
+    <ClInclude Include="GroundSmashArm.h">
+      <Filter>Header Files\Bodyparts\Arms</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedAttackArm.h">
+      <Filter>Header Files\Bodyparts\Arms</Filter>
+    </ClInclude>
+    <ClInclude Include="AbilityInterface.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyPatternManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">
@@ -106,6 +127,18 @@
     </ClCompile>
     <ClCompile Include="Leg.cpp">
       <Filter>Source Files\Bodyparts</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundSmashArm.cpp">
+      <Filter>Source Files\Bodyparts\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedAttackArm.cpp">
+      <Filter>Source Files\Bodyparts\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityInterface.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPatternManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
