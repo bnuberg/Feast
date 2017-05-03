@@ -178,6 +178,16 @@ void Player::Die()
 	// TODO: restart application/scene
 }
 
+float Player::GetHealth()
+{
+	return health;
+}
+
+float Player::GetMeat()
+{
+	return meat;
+}
+
 void Player::SetMeat(float startingMeat = 0) 
 {
 	meat = startingMeat;
@@ -226,6 +236,7 @@ void Player::DecreaseHealth(float dmg)
 	health -= dmg;
 	if (health <= 0)
 	{
+		health = 0;
 		Die();
 	}
 }

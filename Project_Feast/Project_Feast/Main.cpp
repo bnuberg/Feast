@@ -204,15 +204,9 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
 			if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
 			{
-				mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.health));
-				mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.meat));
+				mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.GetHealth()));
+				mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.GetMeat()));
 			}
-		}
-
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
-		{
-			player.health--;
-			player.meat--;
 		}
 
 	mgr.mEnemyManager.Update(evt);
