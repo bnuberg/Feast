@@ -42,7 +42,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	float currentX = ms.X.rel;
 
 	static Ogre::Real rotate = .13;
-	static Ogre::Real move = 250;
+	
 
 	//Move ninja
 	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
@@ -121,9 +121,18 @@ void Player::Pickup()
 	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 20);
 
-	if (mgr.mBodyPartManager.isPickupAble == true && mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL))
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL) && mgr.mBodyPartManager.b->isPickupAble)
 	{
-		
+		if (mgr.mBodyPartManager.b->tag == "Arm")
+		{
+			equipment.EquipArm();
+			mgr.mBodyPartManager.b->pickedUp = true;
+		}
+		else if (mgr.mBodyPartManager.b->tag == "Leg")
+		{
+			equipment.EquipLeg();
+			mgr.mBodyPartManager.b->pickedUp = true;
+		}
 		// TODO equip bodypart
 	}
 	

@@ -20,6 +20,8 @@ public:
 	void Pickup();
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
+	Ogre::Real move = 250;
+	float playerDamage;
 private:
 	void Die();
 

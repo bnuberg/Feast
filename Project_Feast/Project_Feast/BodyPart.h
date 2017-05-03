@@ -13,6 +13,9 @@ public:
 	virtual void Stats();
 	Ogre::SceneNode* bodyPartNode;
 	Ogre::String mesh = "cube.mesh";
+	bool isPickupAble = false;
+	bool pickedUp = false;
+	Ogre::String tag = "Bodypart";
 
 private: 
 	int bodyPartHPMax;

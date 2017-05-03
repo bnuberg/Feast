@@ -5,6 +5,7 @@
 Arm::Arm()
 {
 	mesh = "sphere.mesh";
+	tag = "Arm";
 }
 
 

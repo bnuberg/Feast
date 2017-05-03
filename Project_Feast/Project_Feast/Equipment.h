@@ -1,9 +1,11 @@
 #pragma once
 #include "Player.h"
+#include "Leg.h"
+#include "Arm.h"
 
 enum
 {
-	LeftArm, RightArm, LeftLeg, RightLeg
+	LeftArm, RightArm, Legs
 };
 class Equipment
 {
@@ -11,9 +13,15 @@ public:
 	Equipment();
 	~Equipment();
 
-	void Equip();
+	void EquipArm();
+	void EquipLeg();
 	void Discard();
+	void setPlayerStats();
+	bool hasAArm = false;
+	bool hasALeg = false;
 	Player player;
+	Leg leg;
+	Arm arm;
 	// TODO add equipment slots
 
 	// TODO equip bodyparts 

@@ -13,6 +13,7 @@ BodyPartManager::~BodyPartManager()
 // TODO UPDATE FUNCTION
 void BodyPartManager::Spawn(Ogre::Vector3 position)
 {
+	// TODO Change spawn rate of bodyparts to 10-20%
 	if (rand() % 2 == 0)
 		SpawnArm(position);
 	else
@@ -38,17 +39,26 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
 	
-	for (std::list<BodyPart>::iterator b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
+	for (b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
 	{
 
 		Ogre::Vector3 distanceVector = center - b->bodyPartNode->getPosition();
+		
 		float distance = distanceVector.length();
-
+		
 		if (distance < pickupDistance)
 		{
-			isPickupAble = true;
+			b->isPickupAble = true;
+		}
+		else
+		{
+			b->isPickupAble = false;
 		}
 		// TODO closest bodypart
+		if (b->pickedUp == true)
+		{
+			// TODO delete bodypart
+		}
 		
 	}
 }
