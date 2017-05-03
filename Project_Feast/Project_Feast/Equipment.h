@@ -1,5 +1,5 @@
 #pragma once
-#include "Player.h"
+
 #include "Leg.h"
 #include "Arm.h"
 
@@ -19,7 +19,7 @@ public:
 	void setPlayerStats();
 	bool hasAArm = false;
 	bool hasALeg = false;
-	Player player;
+	
 	Leg leg;
 	Arm arm;
 	// TODO add equipment slots

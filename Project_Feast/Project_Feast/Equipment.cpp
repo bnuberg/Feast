@@ -28,7 +28,7 @@ void Equipment::EquipLeg()
 {
 	if (hasALeg == false)
 	{
-		player.move = leg.randSpeed;
+		
 		hasALeg = true;
 	}
 	else if (hasALeg)
