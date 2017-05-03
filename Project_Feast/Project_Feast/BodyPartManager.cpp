@@ -39,9 +39,9 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
 	
-	for (b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
+	b = bodyPartsList.begin();
+	while(b != bodyPartsList.end())
 	{
-
 		Ogre::Vector3 distanceVector = center - b->bodyPartNode->getPosition();
 		
 		float distance = distanceVector.length();
@@ -57,8 +57,12 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 		// TODO closest bodypart
 		if (b->pickedUp == true)
 		{
-			// TODO delete bodypart
+			b->bodyPartNode->detachAllObjects();
+			bodyPartsList.erase(b++);
 		}
-		
+		else
+		{
+			++b;
+		}
 	}
 }

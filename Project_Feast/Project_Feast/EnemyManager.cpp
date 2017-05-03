@@ -47,7 +47,8 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float damageDista
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	for (std::list<Enemy>::iterator e = enemyList.begin(); e != enemyList.end(); ++e)
+	std::list<Enemy>::iterator e = enemyList.begin();
+	while (e != enemyList.end())
 	{
 		if (!e->isDead)
 		{
@@ -58,17 +59,20 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float damageDista
 			{
 				e->GetDamaged(10);
 			}
-		
+
 		}
 
 		if (e->isDead && !e->isDead2)
 		{
 			mgr.mBodyPartManager.Spawn(e->enemyNode->getPosition());
 
-			// TODO: remove enemies
 			e->enemyNode->detachAllObjects();
 			e->isDead2 = true;
-			//enemyList.remove(*e);
+			enemyList.erase(e++);
+		}
+		else
+		{
+			++e;
 		}
 	}
 }
