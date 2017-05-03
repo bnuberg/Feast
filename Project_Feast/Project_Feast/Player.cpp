@@ -23,7 +23,7 @@ void Player::Init()
 	SetHealth(10);
 
 	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "ninja.mesh");
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Player.mesh");
 
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
