@@ -17,9 +17,19 @@ public:
 	void DecreaseMaxHealth(float permaDmg);
 
 private:
+	void InitiateSmash();
+	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
+
+	Ogre::SceneNode* rocketarmtargetNode;
+	Ogre::SceneNode* rightarmNode;
+	Ogre::SceneNode* rightarmOrigin;
+
+	bool isSmashing = false;
+	bool smashingDown = false;
 
 	float health;
 	float maxHealth;
+	float rightarmSpeed = 500;
 };
 
