@@ -17,11 +17,11 @@ public:
 	~SoundManager();
 	static SoundManager& GetSingleton(void);
 	static SoundManager* GetSingletonPtr(void);
-	void PlaySound(bool);
+	void PlaySound(char* fileName, bool loop = false);
 
 private:
 	irrklang::ISoundEngine* engine; 
-
+	const char* path = "D:/_GT/repo/Feast/Project_Feast/Project_Feast/Sound/";
 };
 
 
