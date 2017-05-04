@@ -24,7 +24,8 @@ void BodyPartManager::Spawn(Ogre::Vector3 position)
 BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 {
 	BodyPart closestbodypart;
-	float closest = 999999;
+	//float closest = 999999;
+
 	for (std::vector<BodyPart>::iterator b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
 	{
 		if (b->isPickupAble == true)
@@ -34,11 +35,12 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 			/*Ogre::LogManager::getSingletonPtr()->logMessage(b->tag);*/
 			float distance = distanceVector.length();
 			
-			if (distance < closest)
+			if (distance < 200)
 			{
-				closestbodypart = *b;
+				b->pickedUp = true;
+				return *b;
 				/*Ogre::LogManager::getSingletonPtr()->logMessage(closestbodypart.tag);*/
-				closest = distance;
+				//closest = distance;
 			}
 		}
 	}
@@ -84,7 +86,8 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 		if (b->pickedUp == true)
 		{
 			b->bodyPartNode->detachAllObjects();
-			bodyPartsList.erase(b++);
+			b = bodyPartsList.erase(b);
+			/*bodyPartsList.erase(b++);*/
 		}
 		else
 		{
