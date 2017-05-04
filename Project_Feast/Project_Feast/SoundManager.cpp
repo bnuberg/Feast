@@ -42,6 +42,10 @@ Then add this to Main.cpp
 
 Add these lines to the place where you want to play the sound
 	SoundManager& sound = SoundManager::GetSingleton();
-	sound.PlaySound();
+	sound.PlaySound("SpellCasting.wav");
+
+	or
+
+	SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
 
 */

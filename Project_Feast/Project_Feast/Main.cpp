@@ -88,8 +88,7 @@ bool Main::go()
 	GameManager& mgr = GameManager::getSingleton();
 	
 	new SoundManager();
-	SoundManager& sound = SoundManager::getSingleton();
-	sound.PlaySound("ActionMusic.wav", false);
+	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true);
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
@@ -131,6 +130,14 @@ bool Main::go()
 	mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
 	groundEntity->setMaterialName("Examples/Rockwall");
 	groundEntity->setCastShadows(false);
+
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
+
+	// Add the node to the scene
+	Ogre::Vector3 startingPosition = Ogre::Vector3(1000, -200, 50);
+	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("hammerarm", startingPosition);
+	playerNode->attachObject(playerEntity);
 
 	// Instantiate the player
 	player.Init();
