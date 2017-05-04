@@ -72,11 +72,19 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 		if (e->is_dead_ && !e->is_dead2_)
 		{
 			mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition());
+			// Spawn bodypart
 
 			// Remove all objects and take it out of the list
 			e->enemy_node_->detachAllObjects();
 			e->is_dead2_ = true;
 			enemy_list_.erase(e++);
+			// Spawn meat
+			Meat meat;
+			meat.Spawn(e->enemyNode->getPosition());
+
+			meatList.push_back(meat);
+
+			// TODO: fix remove enemys
 		}
 		else
 		{

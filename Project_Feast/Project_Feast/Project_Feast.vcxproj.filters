@@ -87,6 +87,9 @@
     <ClInclude Include="Equipment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Meat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Equipment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Meat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

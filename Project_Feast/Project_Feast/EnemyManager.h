@@ -9,6 +9,7 @@
 #include <OgreFrameListener.h>
 #include <OgreTimer.h>
 #include "Enemy.h"
+#include "Meat.h"
 
 /** Creates and tracks all the enemy instances and bodypart instances
 */
@@ -27,5 +28,6 @@ private:
 	std::list<Enemy> enemy_list_;				// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
 	unsigned long enemy_spawn_timer_;			// The duration it takes for an enemy to spawn
+	std::list<Meat> meatList;				// List containing all meat objects
 };
 
