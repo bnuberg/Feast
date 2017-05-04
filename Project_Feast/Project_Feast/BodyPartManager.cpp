@@ -1,5 +1,6 @@
 #include "BodyPartManager.h"
 #include "GameManager.h"
+#include <random>
 
 
 BodyPartManager::BodyPartManager()
@@ -13,12 +14,26 @@ BodyPartManager::~BodyPartManager()
 // TODO UPDATE FUNCTION
 void BodyPartManager::Spawn(Ogre::Vector3 position)
 {
-	
+	int i = Random();
+	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(i));
+	if ( i > 8)
+	{
+		if (rand() % 2 == 0)
+			SpawnArm(position);
+		else
+			SpawnLeg(position);
+	}
 	// TODO Change spawn rate of bodyparts to 10-20%
-	if (rand() % 2 == 0)
-		SpawnArm(position);
-	else
-		SpawnLeg(position);
+	
+}
+
+int BodyPartManager::Random()
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(1, 25);
+	
+	return dist(mt);
 }
 
 BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
@@ -76,11 +91,12 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 		if (distance < pickupDistance)
 		{
 			b->isPickupAble = true;
-			
+			show_label_ = true;
 		}
 		else
 		{
 			b->isPickupAble = false;
+			show_label_ = false;
 		}
 		// TODO closest bodypart
 		if (b->pickedUp == true)

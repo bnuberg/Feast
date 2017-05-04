@@ -190,10 +190,15 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			mTrayMgr->clearTray(OgreBites::TL_CENTER);
 		}
 
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_R))
+		if (mgr.mBodyPartManager.show_label_ == true)
 		{
 			mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
 			mLabel->show();
+		}
+		else if (mgr.mBodyPartManager.show_label_ == false)
+		{
+			mLabel->hide();
+			mTrayMgr->clearTray(OgreBites::TL_CENTER);
 		}
 
 		if (!mTrayMgr->isDialogVisible())

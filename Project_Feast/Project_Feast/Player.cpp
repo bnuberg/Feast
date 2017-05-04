@@ -91,10 +91,9 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	// Execute attack
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 	{
-		ChangeRightArmMesh("sphere.mesh");
 		InitiateSmash();
 	}
-
+	Discard();
 	// Ground smash attack
 	if (isSmashing)
 	{
@@ -102,7 +101,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		Ogre::Vector3 globaltarget = Ogre::Vector3(0, 0, 0);
 
 		// TODO: decide which attack is cast based on attached bodypart
-		int attack = 0;
+		
 
 		switch (attack)
 		{
@@ -266,15 +265,17 @@ void Player::DecreaseMaxHealth(float permaDmg)
 	DecreaseHealth(permaDmg);
 }
 
-void Player::SetAttack(int damage, int attackSpeed)
+void Player::SetAttack()
 {
-	playerDamage = damage;
-	playerAttackSpeed = attackSpeed;
+	playerDamage = equipment.damage;
+	playerAttackSpeed = equipment.attackSpeed;
+	
 }
 
-void Player::SetSpeed(int speed)
+void Player::SetSpeed()
 {
-	move = speed;
+	
+	move = equipment.speed;
 }
 
 void Player::Pickup()
@@ -284,7 +285,7 @@ void Player::Pickup()
 	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 200);
 
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LCONTROL))
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("fullmetal");
 		BodyPart bodypart = mgr.mBodyPartManager.ClosestBodyPart(playerPosition);
@@ -294,16 +295,42 @@ void Player::Pickup()
 		if (bodypart.tag == "Arm")
 		{
 			equipment.EquipArm();
-			SetAttack(equipment.damage, equipment.attackSpeed);
+			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
 			bodypart.pickedUp = true;
+			if (bodypart.type == 1)
+			{
+				ChangeRightArmMesh("sphere.mesh");
+			}
+			attack = bodypart.type;
+			
+			SetAttack();
+			
 		}
 		else if (bodypart.tag == "Leg")
 		{
 			equipment.EquipLeg();
-			SetSpeed(equipment.speed);
+			
+			equipment.setPlayerLegStats(bodypart.randSpeed);
 			bodypart.pickedUp = true;
+			SetSpeed();
 		}
 		// TODO equip bodypart
 	}
 	
+}
+
+void Player::Discard()
+{
+	GameManager& mgr = GameManager::getSingleton();
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F))
+	{
+		equipment.DiscardArm(5, 2);
+		attack = 0;
+		ChangeRightArmMesh("cube.mesh");
+	}
+	else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_T))
+	{
+		equipment.DiscardLeg(50);
+	}
+
 }
