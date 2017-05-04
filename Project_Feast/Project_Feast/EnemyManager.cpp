@@ -1,7 +1,7 @@
 #include "EnemyManager.h"
 #include "BodyPartManager.h"
 #include "GameManager.h"
-
+#include "SoundManager.h"
 
 EnemyManager::EnemyManager()
 	:enemy_spawn_timer_(5000)
@@ -101,6 +101,9 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			// Spawn meat
 			Meat meat;
 			meat.Spawn(e->enemy_node_->getPosition());
+
+			SoundManager& sound = SoundManager::GetSingleton();
+			sound.PlaySound("Hit.wav");
 
 			meatList.push_back(meat);
 

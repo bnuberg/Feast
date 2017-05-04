@@ -5,7 +5,6 @@
 #include "BodyPart.h"
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
-#include "SoundManager.h"
 
 Enemy::Enemy()
 	:enemyHealth(10),
@@ -30,9 +29,6 @@ void Enemy::Init()
 	GameManager& mgr = GameManager::GetSingleton();
 	startPosition = (0, 0, 20);
 
-	SoundManager& sound = SoundManager::GetSingleton();
-	sound.PlaySound("Random3.wav");
-
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
@@ -42,14 +38,12 @@ void Enemy::Init()
 
 	SetHealth(10);
 
-
 	//Set aggroRange and attackRange of the enemy
 	EnemyPatternManager enemyPatternManager;
 	enemyPatternManager.BasicEnemy();
 
 	aggroRange = enemyPatternManager.setAggroR();
 	attackRange = enemyPatternManager.setAttackR();
-
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)

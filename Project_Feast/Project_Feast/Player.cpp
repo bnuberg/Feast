@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "GameManager.h"
-
+#include "SoundManager.h"
 
 
 Player::Player()
@@ -92,6 +92,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 	{
 		InitiateSmash();
+		SoundManager& sound = SoundManager::GetSingleton();
+		sound.PlaySound("SpellCasting.wav");
 	}
 	Discard();
 	// Ground smash attack
