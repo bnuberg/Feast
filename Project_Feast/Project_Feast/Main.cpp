@@ -9,7 +9,7 @@
 #include <OgreEntity.h>
 #include <OgreCamera.h>
 #include <OgreMeshManager.h>
-
+#include "SoundManager.h"
 
 
 Main::Main()
@@ -87,6 +87,9 @@ bool Main::go()
 	new GameManager();
 	GameManager& mgr = GameManager::getSingleton();
 	
+	new SoundManager();
+	SoundManager& sound = SoundManager::getSingleton();
+	sound.PlaySound("ActionMusic.wav", false);
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	

@@ -5,7 +5,7 @@
 #include "BodyPart.h"
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
-
+#include "SoundManager.h"
 
 Enemy::Enemy()
 	:enemyHealth(10),
@@ -29,6 +29,9 @@ void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
 	startPosition = (0, 0, 20);
+
+	SoundManager& sound = SoundManager::GetSingleton();
+	sound.PlaySound("Random3.wav");
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
