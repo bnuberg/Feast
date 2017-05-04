@@ -16,6 +16,8 @@ Main::Main()
 :mRoot(0),
 mWindow(0),
 mCameraMan(0),
+mTrayMgr(0),
+mDetailsPanel(0),
 mResourcesCfg(Ogre::StringUtil::BLANK),
 mPluginsCfg(Ogre::StringUtil::BLANK)
 {
@@ -37,7 +39,11 @@ bool Main::go()
 	mResourcesCfg = "resources.cfg";
 	mPluginsCfg = "plugins.cfg";
 #endif
-
+	char const* c = getenv("RESOURCE_HOME");
+	
+	
+	/*Ogre::String resourcePath = getenv("RESOURCE_HOME");*/
+	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
 
 	Ogre::ConfigFile cf;
@@ -60,14 +66,22 @@ bool Main::go()
 					archName, typeName, secName);
 			}
 		}
+		//Adds a new resource folder declared by the enviroment variable RESOURCE_HOME 
+		if (c == NULL)
+		{
+			//well shit
+		}
+		else
+		{
+			Ogre::String s(c);
+			Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
+		}
+
 
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
 		return false;
 
 	mWindow = mRoot->initialise(true, "Main");
-
-	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
-	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	// Calls the Singleton GameManager 
 	new GameManager();
@@ -76,6 +90,10 @@ bool Main::go()
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
+	// initialize the OverlaySystem (changed for 1.9)
+	mOverlaySystem = new Ogre::OverlaySystem();
+	mgr.mSceneMgr->addRenderQueueListener(mOverlaySystem);
+
 	mMainCamera->CameraInstance();
 
 	mCameraMan = new OgreBites::SdkCameraMan(mgr.mCamera);   // create a default camera controller
@@ -88,6 +106,9 @@ bool Main::go()
 	mgr.mCamera->setAspectRatio(
 		Ogre::Real(vp->getActualWidth()) /
 		Ogre::Real(vp->getActualHeight()));
+
+	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	//---Create the scene---
 	
@@ -112,10 +133,9 @@ bool Main::go()
 	player.Init();
 
 	// Initialize the enemy manager
-	enemyManager.Init();
+	mgr.mEnemyManager.Init();
+
 	// Create an ambient light
-
-
 	mgr.mSceneMgr->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
@@ -127,7 +147,25 @@ bool Main::go()
 	
 	// Initialize the input manager
 	mgr.mInputManager.InitInput(mWindow);
-	
+
+	mInputContext.mKeyboard = mgr.mInputManager.mKeyboard;
+	mInputContext.mMouse = mgr.mInputManager.mMouse;
+
+	mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mInputContext, this);
+	mTrayMgr->showFrameStats(OgreBites::TL_TOPLEFT);
+	mTrayMgr->hideCursor();
+
+	Ogre::StringVector items;
+	items.push_back("Health");
+	items.push_back("Meat");
+
+
+	mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_TOPRIGHT, "DetailsPanel", 200, items);
+	mDetailsPanel->setParamValue(0, "Health");
+	mDetailsPanel->setParamValue(1, "Meat");
+
+	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
+
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
 	
@@ -144,8 +182,36 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//Need to capture/update each device
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
+		mTrayMgr->frameRenderingQueued(evt);
 
-	enemyManager.Update(evt);
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+		{
+			mLabel->hide();
+			mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		}
+
+		if (mgr.mBodyPartManager.show_label_ == true)
+		{
+			mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
+			mLabel->show();
+		}
+		else if (mgr.mBodyPartManager.show_label_ == false)
+		{
+			mLabel->hide();
+			mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		}
+
+		if (!mTrayMgr->isDialogVisible())
+		{
+			mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
+			if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
+			{
+				mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.GetHealth()));
+				mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.GetMeat()));
+			}
+		}
+
+	mgr.mEnemyManager.Update(evt);
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
