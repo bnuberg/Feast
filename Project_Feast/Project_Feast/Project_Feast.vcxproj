@@ -98,6 +98,7 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPatternManager.h" />
     <ClInclude Include="EntityTest.h" />
+    <ClInclude Include="Equipment.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GroundSmashArm.h" />
     <ClInclude Include="InputManager.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />
     <ClCompile Include="EntityTest.cpp" />
+    <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="InputManager.cpp" />

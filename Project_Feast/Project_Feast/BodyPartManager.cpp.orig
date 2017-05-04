@@ -24,8 +24,7 @@ void BodyPartManager::Spawn(Ogre::Vector3 position)
 BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 {
 	BodyPart closestbodypart;
-	//float closest = 999999;
-
+	float closest = 999999;
 	for (std::vector<BodyPart>::iterator b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
 	{
 		if (b->isPickupAble == true)
@@ -35,12 +34,11 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 			/*Ogre::LogManager::getSingletonPtr()->logMessage(b->tag);*/
 			float distance = distanceVector.length();
 			
-			if (distance < 200)
+			if (distance < closest)
 			{
-				b->pickedUp = true;
-				return *b;
+				closestbodypart = *b;
 				/*Ogre::LogManager::getSingletonPtr()->logMessage(closestbodypart.tag);*/
-				//closest = distance;
+				closest = distance;
 			}
 		}
 	}
@@ -66,9 +64,15 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
 	
-	std::vector<BodyPart>::iterator b = bodyPartsList.begin();
+<<<<<<< HEAD
+	b = bodyPartsList.begin();
 	while(b != bodyPartsList.end())
 	{
+=======
+	for (std::vector<BodyPart>::iterator b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
+	{
+		/*Ogre::LogManager::getSingletonPtr()->logMessage(b->tag);*/
+>>>>>>> origin/EquipBodyPart
 		Ogre::Vector3 distanceVector = center - b->bodyPartNode->getPosition();
 		
 		float distance = distanceVector.length();
@@ -86,8 +90,7 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 		if (b->pickedUp == true)
 		{
 			b->bodyPartNode->detachAllObjects();
-			b = bodyPartsList.erase(b);
-			/*bodyPartsList.erase(b++);*/
+			bodyPartsList.erase(b++);
 		}
 		else
 		{
