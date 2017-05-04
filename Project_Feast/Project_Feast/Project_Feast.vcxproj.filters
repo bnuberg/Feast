@@ -48,10 +48,14 @@
     <ClInclude Include="Matth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Matrix4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
+=======
+    <ClInclude Include="EnemyPatternManager.h">
+>>>>>>> dfbe6f2db8709f6340d159c0ced1b25d201bfe4e
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,10 +93,14 @@
     <ClCompile Include="Matth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Matrix4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
+=======
+    <ClCompile Include="EnemyPatternManager.cpp">
+>>>>>>> dfbe6f2db8709f6340d159c0ced1b25d201bfe4e
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
