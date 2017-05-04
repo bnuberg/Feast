@@ -16,6 +16,10 @@ public:
 	bool isPickupAble = false;
 	bool pickedUp = false;
 	Ogre::String tag;
+	int randDamage;
+	int randAttackSpeed;
+	int randSpeed;
+	int type;
 
 private: 
 	int bodyPartHPMax;

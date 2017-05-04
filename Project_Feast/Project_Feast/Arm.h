@@ -11,10 +11,9 @@ public:
 
 	int attackSpeedMax = 5;
 	int attackSpeedMin = 1;
-	int damageMax = 20;
+	int damageMax = 10;
 	int damageMin = 1;
-	int randDamage;
-	int randAttackSpeed;
+	
 
 	virtual void Stats() override;
     virtual void Ability();

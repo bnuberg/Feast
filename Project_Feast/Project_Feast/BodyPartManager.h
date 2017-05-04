@@ -11,9 +11,11 @@ public:
 	~BodyPartManager();
 	
 	void Spawn(Ogre::Vector3 position);
+	int Random();
 	void IterateBodyParts(Ogre::Vector3 distance, float pickupDistance);
 	std::vector<BodyPart> bodyPartsList;		// List containing all bodypart objects
 	BodyPart ClosestBodyPart(Ogre::Vector3 center);
+	bool show_label_ = false;
 private:
 	
 

@@ -4,6 +4,10 @@
 
 BodyPart::BodyPart()
 {
+	if (rand() % 2 == 0)
+		type = 0;
+	else
+		type = 1;
 
 }
 
