@@ -23,11 +23,12 @@ public:
 	void SpawnEnemy();
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance);
 	void DamageEnemies();
+	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 
 private:
 	std::list<Enemy> enemy_list_;				// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
 	unsigned long enemy_spawn_timer_;			// The duration it takes for an enemy to spawn
-	std::list<Meat> meatList;				// List containing all meat objects
+	std::vector<Meat> meatList;				// List containing all meat objects
 };
 

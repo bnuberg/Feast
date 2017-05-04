@@ -34,6 +34,33 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	}
 }
 
+float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
+{
+	// Create a reference to the game manager
+	GameManager& mgr = GameManager::getSingleton();
+
+	std::vector<Meat>::iterator b = meatList.begin();
+	while (b != meatList.end())
+	{
+		Ogre::Vector3 distanceVector = center - b->bodyPartNode->getPosition();
+
+		float distance = distanceVector.length();
+		/*Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(b->isPickupAble));*/
+		if (distance < pickupDistance)
+		{
+			b->bodyPartNode->detachAllObjects();
+			b = meatList.erase(b);
+			return 5;
+			/*bodyPartsList.erase(b++);*/
+		}
+		else
+		{
+			++b;
+		}
+	}
+	return 0;
+}
+
 // Spawns a new enemy and adds it to the manager
 void EnemyManager::SpawnEnemy()
 {
