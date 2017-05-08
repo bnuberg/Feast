@@ -92,7 +92,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 	{
 		InitiateSmash();
-		SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
 	}
 	Discard();
 	// Ground smash attack
@@ -142,6 +141,8 @@ void Player::InitiateSmash()
 	{
 		isSmashing = true;
 		smashingDown = true;
+		SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
+
 	}
 	else
 	{
