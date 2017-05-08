@@ -1,0 +1,282 @@
+\hypertarget{class_matrix4}{}\section{Matrix4 Class Reference}
+\label{class_matrix4}\index{Matrix4@{Matrix4}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_matrix4_a21e70a74447b9b05cf9a06400bc9c661}{Matrix4} ()
+\item 
+\hyperlink{class_matrix4_a524a8a7fef110500b7e56abf03473018}{Matrix4} (const \hyperlink{class_matrix4}{Matrix4} \&rhs)
+\item 
+\hyperlink{class_matrix4_a378e12a6d53ad29895c9d048d7152aa9}{Matrix4} (float \+\_\+00, float \+\_\+10, float \+\_\+20, float \+\_\+30, float \+\_\+01, float \+\_\+11, float \+\_\+21, float \+\_\+31, float \+\_\+02, float \+\_\+12, float \+\_\+22, float \+\_\+32, float \+\_\+03, float \+\_\+13, float \+\_\+23, float \+\_\+33)
+\item 
+\hyperlink{class_matrix4_a33bdf9c4d086be1c5d6889154de9c2b4}{Matrix4} (float \&values\mbox{[}16\mbox{]})
+\item 
+float \& \hyperlink{class_matrix4_a3e542f89134e7496dfe820ba1668b305}{operator\mbox{[}$\,$\mbox{]}} (int index)
+\item 
+const float \& \hyperlink{class_matrix4_ad80f68f96c8e78ea4eed23c2745d47f2}{operator\mbox{[}$\,$\mbox{]}} (int index) const 
+\item 
+\hypertarget{class_matrix4_a2a7f1a5d8b2396b7ab9135ccca2b2865}{}void {\bfseries print\+Matrix4} ()\label{class_matrix4_a2a7f1a5d8b2396b7ab9135ccca2b2865}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_matrix4}{Matrix4} \hyperlink{class_matrix4_a2a4902003a3cf712cb6baf3fb87a5c97}{Zero} ()
+\item 
+static \hyperlink{class_matrix4}{Matrix4} \hyperlink{class_matrix4_ae114a47efddacad2207eadac5f532098}{Identity} ()
+\item 
+static \hyperlink{class_matrix4}{Matrix4} \hyperlink{class_matrix4_a23836c2ff14cd2ddaca541b18a75e40b}{Transpose} (const \hyperlink{class_matrix4}{Matrix4} \&mat)
+\item 
+static \hyperlink{class_matrix4}{Matrix4} \hyperlink{class_matrix4_a18a798425b4832c7798faa3d9efc2353}{Set\+Translation} (const \hyperlink{class_vector3}{Vector3} \&translation)
+\item 
+static \hyperlink{class_vector3}{Vector3} \hyperlink{class_matrix4_a89ca1ebbb17ff31088eba0717d39081f}{Get\+Translation} (const \hyperlink{class_matrix4}{Matrix4} \&mat)
+\item 
+static \hyperlink{class_matrix4}{Matrix4} \hyperlink{class_matrix4_a752879f3a6c5d5d941e9ae73e765e31e}{Set\+Scale} (const \hyperlink{class_vector3}{Vector3} \&scale)
+\item 
+static \hyperlink{class_matrix4}{Matrix4} \hyperlink{class_matrix4_abec52734ac8ee872a518d7215a4569be}{Set\+Rotation\+Axis} (const \hyperlink{class_vector3}{Vector3} \&axis, float angle)
+\item 
+static \hyperlink{class_vector3}{Vector3} \hyperlink{class_matrix4_a9689e66f64c12010784feed25a85a0ca}{Transform\+Point} (const \hyperlink{class_matrix4}{Matrix4} \&mat, const \hyperlink{class_vector3}{Vector3} \&p)
+\item 
+static \hyperlink{class_vector3}{Vector3} \hyperlink{class_matrix4_a9fe99a8a30a59bf2ff059c3e179c8571}{Transform\+Direction} (const \hyperlink{class_matrix4}{Matrix4} \&mat, const \hyperlink{class_vector3}{Vector3} \&n)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_matrix4_a2da02f7831b9bd25b272756d7e5eb90b}{}float {\bfseries m} \mbox{[}16\mbox{]}\label{class_matrix4_a2da02f7831b9bd25b272756d7e5eb90b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_matrix4_a21e70a74447b9b05cf9a06400bc9c661}{}\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\subsubsection[{Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}Matrix4\+::\+Matrix4 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_a21e70a74447b9b05cf9a06400bc9c661}
+Default \hyperlink{class_matrix4}{Matrix4} constructor, creates an empty \hyperlink{class_matrix4}{Matrix4}. \hypertarget{class_matrix4_a524a8a7fef110500b7e56abf03473018}{}\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\subsubsection[{Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}Matrix4\+::\+Matrix4 (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix4} \&}]{rhs}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_a524a8a7fef110500b7e56abf03473018}
+\hyperlink{class_matrix4}{Matrix4} copy construtor, creates a \hyperlink{class_matrix4}{Matrix4} from an existing one. 
+\begin{DoxyParams}{Parameters}
+{\em rhs} & The \hyperlink{class_matrix4}{Matrix4} to create a copy of. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_matrix4_a378e12a6d53ad29895c9d048d7152aa9}{}\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\subsubsection[{Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}Matrix4\+::\+Matrix4 (
+\begin{DoxyParamCaption}
+\item[{float}]{\+\_\+00, }
+\item[{float}]{\+\_\+10, }
+\item[{float}]{\+\_\+20, }
+\item[{float}]{\+\_\+30, }
+\item[{float}]{\+\_\+01, }
+\item[{float}]{\+\_\+11, }
+\item[{float}]{\+\_\+21, }
+\item[{float}]{\+\_\+31, }
+\item[{float}]{\+\_\+02, }
+\item[{float}]{\+\_\+12, }
+\item[{float}]{\+\_\+22, }
+\item[{float}]{\+\_\+32, }
+\item[{float}]{\+\_\+03, }
+\item[{float}]{\+\_\+13, }
+\item[{float}]{\+\_\+23, }
+\item[{float}]{\+\_\+33}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_a378e12a6d53ad29895c9d048d7152aa9}
+\hyperlink{class_matrix4}{Matrix4} values constructor, creates a \hyperlink{class_matrix4}{Matrix4} from 16 floats. 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+12} & The value in the second column and third row of the matrix. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_matrix4_a33bdf9c4d086be1c5d6889154de9c2b4}{}\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\index{Matrix4@{Matrix4}!Matrix4@{Matrix4}}
+\subsubsection[{Matrix4}]{\setlength{\rightskip}{0pt plus 5cm}Matrix4\+::\+Matrix4 (
+\begin{DoxyParamCaption}
+\item[{float \&}]{values\mbox{[}16\mbox{]}}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_a33bdf9c4d086be1c5d6889154de9c2b4}
+\hyperlink{class_matrix4}{Matrix4} array constructor, creates a 4x4 matrix from an array of 16 floats.~\newline
+U\+N\+T\+E\+S\+T\+E\+D. 
+\begin{DoxyParams}{Parameters}
+{\em values} & The array of values to create the matrix from. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_matrix4_a89ca1ebbb17ff31088eba0717d39081f}{}\index{Matrix4@{Matrix4}!Get\+Translation@{Get\+Translation}}
+\index{Get\+Translation@{Get\+Translation}!Matrix4@{Matrix4}}
+\subsubsection[{Get\+Translation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} Matrix4\+::\+Get\+Translation (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix4} \&}]{mat}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a89ca1ebbb17ff31088eba0717d39081f}
+Get Translation method, finds the translation component of a given matrix. 
+\begin{DoxyParams}{Parameters}
+{\em mat} & The input matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \hyperlink{class_vector3}{Vector3} that is the translation component of mat. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_ae114a47efddacad2207eadac5f532098}{}\index{Matrix4@{Matrix4}!Identity@{Identity}}
+\index{Identity@{Identity}!Matrix4@{Matrix4}}
+\subsubsection[{Identity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} Matrix4\+::\+Identity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_ae114a47efddacad2207eadac5f532098}
+Identity method, creates an identity matrix. \begin{DoxyReturn}{Returns}
+A matrix whose values are 1 on the leading diagonal and 0 everywhere else. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_a3e542f89134e7496dfe820ba1668b305}{}\index{Matrix4@{Matrix4}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!Matrix4@{Matrix4}}
+\subsubsection[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}float \& Matrix4\+::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\label{class_matrix4_a3e542f89134e7496dfe820ba1668b305}
+\mbox{[}\mbox{]} operator, returns the value of a float at an index. 
+\begin{DoxyParams}{Parameters}
+{\em index} & The index at which the value lies. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value at that index. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_ad80f68f96c8e78ea4eed23c2745d47f2}{}\index{Matrix4@{Matrix4}!operator\mbox{[}$\,$\mbox{]}@{operator[]}}
+\index{operator\mbox{[}$\,$\mbox{]}@{operator[]}!Matrix4@{Matrix4}}
+\subsubsection[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}const float \& Matrix4\+::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+) const}\label{class_matrix4_ad80f68f96c8e78ea4eed23c2745d47f2}
+Static \mbox{[}\mbox{]} operator, retrieves the value of a float at an index and does not modify it. 
+\begin{DoxyParams}{Parameters}
+{\em index} & The index at which the value lies. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value at that index. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_abec52734ac8ee872a518d7215a4569be}{}\index{Matrix4@{Matrix4}!Set\+Rotation\+Axis@{Set\+Rotation\+Axis}}
+\index{Set\+Rotation\+Axis@{Set\+Rotation\+Axis}!Matrix4@{Matrix4}}
+\subsubsection[{Set\+Rotation\+Axis}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} Matrix4\+::\+Set\+Rotation\+Axis (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vector3} \&}]{axis, }
+\item[{float}]{angle}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_abec52734ac8ee872a518d7215a4569be}
+Set Rotation Axis, sets up a rotation matrix about a vector by an angle. 
+\begin{DoxyParams}{Parameters}
+{\em axis} & A \hyperlink{class_vector3}{Vector3} representing an axis to rotate around. \\
+\hline
+{\em angle} & An angle in radians to rotate by. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_matrix4_a752879f3a6c5d5d941e9ae73e765e31e}{}\index{Matrix4@{Matrix4}!Set\+Scale@{Set\+Scale}}
+\index{Set\+Scale@{Set\+Scale}!Matrix4@{Matrix4}}
+\subsubsection[{Set\+Scale}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} Matrix4\+::\+Set\+Scale (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vector3} \&}]{scale}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a752879f3a6c5d5d941e9ae73e765e31e}
+Scale operation, creates an identity matrix with scale components set by an input vector.~\newline
+Scales in x, y and z. 
+\begin{DoxyParams}{Parameters}
+{\em scale} & A \hyperlink{class_vector3}{Vector3} containing the scale . \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An identity \hyperlink{class_matrix4}{Matrix4} whose scale components are defined by the input vector. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_a18a798425b4832c7798faa3d9efc2353}{}\index{Matrix4@{Matrix4}!Set\+Translation@{Set\+Translation}}
+\index{Set\+Translation@{Set\+Translation}!Matrix4@{Matrix4}}
+\subsubsection[{Set\+Translation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} Matrix4\+::\+Set\+Translation (
+\begin{DoxyParamCaption}
+\item[{const {\bf Vector3} \&}]{translation}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a18a798425b4832c7798faa3d9efc2353}
+Set Translation method, sets the values of the matrix that would modify the position when applied to a vector. 
+\begin{DoxyParams}{Parameters}
+{\em translation} & A translation vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An identity matrix whose translation values are modified by the input vector. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_a9fe99a8a30a59bf2ff059c3e179c8571}{}\index{Matrix4@{Matrix4}!Transform\+Direction@{Transform\+Direction}}
+\index{Transform\+Direction@{Transform\+Direction}!Matrix4@{Matrix4}}
+\subsubsection[{Transform\+Direction}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} Matrix4\+::\+Transform\+Direction (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix4} \&}]{mat, }
+\item[{const {\bf Vector3} \&}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a9fe99a8a30a59bf2ff059c3e179c8571}
+Method to transform a direction vector by a given matrix.~\newline
+Note that matrix multiplication is non-\/commutative. 
+\begin{DoxyParams}{Parameters}
+{\em mat} & A transformation matrix. \\
+\hline
+{\em n} & A normalized direction vector to transform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The transformed direction vector. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_a9689e66f64c12010784feed25a85a0ca}{}\index{Matrix4@{Matrix4}!Transform\+Point@{Transform\+Point}}
+\index{Transform\+Point@{Transform\+Point}!Matrix4@{Matrix4}}
+\subsubsection[{Transform\+Point}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vector3} Matrix4\+::\+Transform\+Point (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix4} \&}]{mat, }
+\item[{const {\bf Vector3} \&}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a9689e66f64c12010784feed25a85a0ca}
+Method to transform a point vector by a given matrix.~\newline
+p and m are not modified. 
+\begin{DoxyParams}{Parameters}
+{\em mat} & The transformation matrix. \\
+\hline
+{\em p} & The point vector that will be transformed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A \hyperlink{class_vector3}{Vector3} that is p transformed by m. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_a23836c2ff14cd2ddaca541b18a75e40b}{}\index{Matrix4@{Matrix4}!Transpose@{Transpose}}
+\index{Transpose@{Transpose}!Matrix4@{Matrix4}}
+\subsubsection[{Transpose}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} Matrix4\+::\+Transpose (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix4} \&}]{mat}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a23836c2ff14cd2ddaca541b18a75e40b}
+Transpose method, swaps the rows and columns of a matrix. 
+\begin{DoxyParams}{Parameters}
+{\em mat} & The matrix to be transposed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A transposed version of the input matrix. 
+\end{DoxyReturn}
+\hypertarget{class_matrix4_a2a4902003a3cf712cb6baf3fb87a5c97}{}\index{Matrix4@{Matrix4}!Zero@{Zero}}
+\index{Zero@{Zero}!Matrix4@{Matrix4}}
+\subsubsection[{Zero}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix4} Matrix4\+::\+Zero (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_matrix4_a2a4902003a3cf712cb6baf3fb87a5c97}
+Zero method, returns a zero-\/matrix. \begin{DoxyReturn}{Returns}
+An empty matrix (a matrix filled with zeros). 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Matrix4.\+h\item 
+Matrix4.\+cpp\end{DoxyCompactItemize}
