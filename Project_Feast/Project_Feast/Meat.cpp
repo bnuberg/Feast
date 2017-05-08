@@ -22,7 +22,7 @@ void Meat::Spawn(Ogre::Vector3 position)
 	Ogre::Entity* bodyPartEntity = mgr.mSceneMgr->createEntity("cube.mesh");
 
 	// Add the node to the scene
-	Ogre::SceneNode* bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
+	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
 	bodyPartNode->setScale(0.1, 0.1, 0.1);
 }

@@ -121,6 +121,11 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 		GroundSmashAttack(evt, target, globaltarget);
 	}
+
+	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
+	IncreaseMeat(meat);
+	if (GetMeat() >= 10)
+		convertMeattoHealth();
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -224,7 +229,7 @@ void Player::DecreaseMeat(float spendMeat)
 
 void Player::convertMeattoHealth()
 {
-	DecreaseMeat(50);
+	DecreaseMeat(10);
 	IncreaseHealth(10);
 }
 

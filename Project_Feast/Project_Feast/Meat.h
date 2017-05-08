@@ -8,5 +8,7 @@ public:
 	~Meat();
 
 	void Spawn(Ogre::Vector3 position);
+
+	Ogre::SceneNode* bodyPartNode;
 };
 
