@@ -11,7 +11,6 @@
 #include <OgreMeshManager.h>
 #include "SoundManager.h"
 
-
 Main::Main()
 :mRoot(0),
 mWindow(0),
@@ -26,7 +25,6 @@ mPluginsCfg(Ogre::StringUtil::BLANK)
 
 Main::~Main()
 {
-	
 	delete mRoot;
 }
 
@@ -41,8 +39,6 @@ bool Main::go()
 #endif
 	char const* c = getenv("RESOURCE_HOME");
 	
-	/*Ogre::String resourcePath = getenv("RESOURCE_HOME");*/
-	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
 
 	Ogre::ConfigFile cf;
@@ -51,30 +47,31 @@ bool Main::go()
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 
 	Ogre::String secName, typeName, archName;
-		while (seci.hasMoreElements())
-		{
-			secName = seci.peekNextKey();
-			Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
-			Ogre::ConfigFile::SettingsMultiMap::iterator i;
-			for (i = settings->begin(); i != settings->end(); ++i)
-			{
-				typeName = i->first;
-				archName = i->second;
-				Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-					archName, typeName, secName);
-			}
-		}
-		//Adds a new resource folder declared by the enviroment variable RESOURCE_HOME 
-		if (c == NULL)
-		{
-			//well shit
-		}
-		else
-		{
-			Ogre::String s(c);
-			Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
-		}
 
+	while (seci.hasMoreElements())
+	{
+		secName = seci.peekNextKey();
+		Ogre::ConfigFile::SettingsMultiMap *settings = seci.getNext();
+		Ogre::ConfigFile::SettingsMultiMap::iterator i;
+		for (i = settings->begin(); i != settings->end(); ++i)
+		{
+			typeName = i->first;
+			archName = i->second;
+			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+				archName, typeName, secName);
+		}
+	}
+
+	//Adds a new resource folder declared by the enviroment variable RESOURCE_HOME 
+	if (c == NULL)
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Please execute the MEDIA_HOME.bat file in the /resources folder");
+	}
+	else
+	{
+		Ogre::String s(c);
+		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
+	}
 
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
 		return false;
@@ -85,8 +82,8 @@ bool Main::go()
 	new GameManager();
 	GameManager& mgr = GameManager::getSingleton();
 	
-	new SoundManager();
-	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true);
+	new SoundManager(); //Instantiates the SoundManager
+	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true); //Starts the music loop
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
@@ -111,7 +108,6 @@ bool Main::go()
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	//---Create the scene---
-	
 
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -2);
 
@@ -148,7 +144,6 @@ bool Main::go()
 	Ogre::Light* light = mgr.mSceneMgr->createLight("MainLight");
 	light->setPosition(20, 80, 50);
 
-
 	// Bind the cameraman to the player
 	mCameraMan->setTarget(mgr.mSceneMgr->getSceneNode("PlayerHeadNode"));
 	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
@@ -166,7 +161,6 @@ bool Main::go()
 	Ogre::StringVector items;
 	items.push_back("Health");
 	items.push_back("Meat");
-
 
 	mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_TOPRIGHT, "DetailsPanel", 200, items);
 	mDetailsPanel->setParamValue(0, "Health");

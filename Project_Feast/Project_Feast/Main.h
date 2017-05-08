@@ -1,4 +1,3 @@
-
 #include <OgreRoot.h>
 #include <OgreWindowEventUtilities.h>
 #include "Player.h"
@@ -6,7 +5,6 @@
 #include "InputManager.h"
 #include <SdkTrays.h>
 #include <SdkCameraMan.h>
-
 
 class Main : public Ogre::FrameListener, Ogre::WindowEventListener, OgreBites::SdkTrayListener
 {
