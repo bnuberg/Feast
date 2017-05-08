@@ -9,7 +9,7 @@
 #include <OgreEntity.h>
 #include <OgreCamera.h>
 #include <OgreMeshManager.h>
-
+#include "SoundManager.h"
 
 
 Main::Main()
@@ -41,14 +41,12 @@ bool Main::go()
 #endif
 	char const* c = getenv("RESOURCE_HOME");
 	
-	
 	/*Ogre::String resourcePath = getenv("RESOURCE_HOME");*/
 	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
 
 	Ogre::ConfigFile cf;
 	cf.load(mResourcesCfg);
-
 	
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 
@@ -87,6 +85,8 @@ bool Main::go()
 	new GameManager();
 	GameManager& mgr = GameManager::getSingleton();
 	
+	new SoundManager();
+	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true);
 
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
@@ -128,6 +128,14 @@ bool Main::go()
 	mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
 	groundEntity->setMaterialName("Examples/Rockwall");
 	groundEntity->setCastShadows(false);
+
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
+
+	// Add the node to the scene
+	Ogre::Vector3 startingPosition = Ogre::Vector3(1000, -200, 50);
+	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("hammerarm", startingPosition);
+	playerNode->attachObject(playerEntity);
 
 	// Instantiate the player
 	player.Init();

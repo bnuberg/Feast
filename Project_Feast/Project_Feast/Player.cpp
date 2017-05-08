@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "GameManager.h"
-
+#include "SoundManager.h"
 
 
 Player::Player()
@@ -141,6 +141,8 @@ void Player::InitiateSmash()
 	{
 		isSmashing = true;
 		smashingDown = true;
+		SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
+
 	}
 	else
 	{

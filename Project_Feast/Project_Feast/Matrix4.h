@@ -42,7 +42,7 @@ public:
 		float _02, float _12, float _22, float _32,
 		float _03, float _13, float _23, float _33);
 		
-	Matrix4(float &values[16]);
+	Matrix4(float values[16]);
 
 	float&			operator[]	(int index);												//get operator for a specific value within the matrix array
 	const float&	operator[]	(int index) const;											//const ^

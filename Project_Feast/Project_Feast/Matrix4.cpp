@@ -43,7 +43,7 @@ Matrix4::Matrix4(float _00, float _10, float _20, float _30,
 *	UNTESTED.
 *	@param values The array of values to create the matrix from.
 */
-Matrix4::Matrix4(float &values[16])
+Matrix4::Matrix4(float values[16])
 {
 	for(int i = 0; i < 16; i++)
 	{
@@ -131,7 +131,7 @@ Matrix4 Matrix4::SetScale(const Vector3 & scale)
 	return Matrix4(	scale.x, 0.0f, 0.0f, 0.0f,
 					0.0f, scale.y, 0.0f, 0.0f,
 					0.0f, 0.0f, scale.z, 0.0f,
-					0.0f, 0.0f, 0.0f, 1.0f);
+					0.0f, 0.0f, 0.0f,    1.0f);
 }
 
 /**	Set Rotation Axis, sets up a rotation matrix about a vector by an angle.
@@ -147,10 +147,10 @@ Matrix4 Matrix4::SetRotationAxis(const Vector3 & axis, float angle)
 	float S = sin(angle);
 
 	// Remember the order of operations. 
-	return Matrix4(u.x * u.x * OMC + C	  , u.x * u.y * OMC - u.z * S, u.x * u.z * OMC + u.y * S, 0.0f,
-				   u.y * u.x * OMC + u.z * S, u.y * u.y * OMC + C	  , u.y * u.z * OMC - u.x * S, 0.0f,
+	return Matrix4(u.x * u.x * OMC + C	    , u.x * u.y * OMC - u.z * S, u.x * u.z * OMC + u.y * S, 0.0f,
+				   u.y * u.x * OMC + u.z * S, u.y * u.y * OMC + C	   , u.y * u.z * OMC - u.x * S, 0.0f,
 				   u.z * u.x * OMC - u.y * S, u.z * u.y * OMC + u.x * S, u.z * u.z * OMC + C	  , 0.0f,
-				   0.0f					 , 0.0f					 , 0.0f					 , 1.0f);
+				   0.0f					    , 0.0f		  			   , 0.0f					  , 1.0f);
 }
 
 /** Method to transform a point vector by a given matrix.\n

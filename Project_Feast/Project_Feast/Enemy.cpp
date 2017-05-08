@@ -6,7 +6,6 @@
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 
-
 Enemy::Enemy()
 	:enemyHealth(10),
 	enemySpeed(50),
@@ -39,14 +38,12 @@ void Enemy::Init()
 
 	SetHealth(10);
 
-
 	//Set aggroRange and attackRange of the enemy
 	EnemyPatternManager enemyPatternManager;
 	enemyPatternManager.BasicEnemy();
 
 	aggroRange = enemyPatternManager.setAggroR();
 	attackRange = enemyPatternManager.setAttackR();
-
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
