@@ -37,12 +37,6 @@ void SoundManager::PlaySound(char* fileName, bool loop)
 }
 
 /*
-Before you begin, add IrrKlang.dll to
-	ogre/build/sdk/bin/debug
-
-Then add this to Main.cpp
-	new SoundManager();
-
 Add these lines to the place where you want to play the sound
 	SoundManager& sound = SoundManager::GetSingleton();
 	sound.PlaySound("SpellCasting.wav");
