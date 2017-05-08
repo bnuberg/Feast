@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\Project_Feast\irrKlang\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Project_Feast\irrKlang\lib\Win32-visualStudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\irrKlang\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\irrKlang\lib\Win32-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
