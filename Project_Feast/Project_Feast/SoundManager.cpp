@@ -50,5 +50,4 @@ Add these lines to the place where you want to play the sound
 	or
 
 	SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
-
 */
