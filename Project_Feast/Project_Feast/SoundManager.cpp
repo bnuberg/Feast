@@ -23,10 +23,15 @@ SoundManager& SoundManager::GetSingleton(void)
 	return (*msSingleton); 
 }
 
+/** Plays a sound from the /Resources/Sound/ folder when given the filename.\n
+*	@param fileName is the name
+*	@param loop is if the sound should loop
+*/
 void SoundManager::PlaySound(char* fileName, bool loop)
 {
 	char result[100];
 	strcpy(result, path);
+	strcat(result, soundFolder);
 	strcat(result, fileName);
 	engine->play2D(result, loop);
 }
@@ -34,8 +39,6 @@ void SoundManager::PlaySound(char* fileName, bool loop)
 /*
 Before you begin, add IrrKlang.dll to
 	ogre/build/sdk/bin/debug
-
-Change const char* path in SoundManager.h to your path of the sound folder
 
 Then add this to Main.cpp
 	new SoundManager();

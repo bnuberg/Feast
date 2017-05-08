@@ -41,14 +41,12 @@ bool Main::go()
 #endif
 	char const* c = getenv("RESOURCE_HOME");
 	
-	
 	/*Ogre::String resourcePath = getenv("RESOURCE_HOME");*/
 	//Ogre::LogManager::getSingletonPtr()->logMessage("resourcepath =" + (resourcePath));
 	mRoot = new Ogre::Root(mPluginsCfg);
 
 	Ogre::ConfigFile cf;
 	cf.load(mResourcesCfg);
-
 	
 	Ogre::ConfigFile::SectionIterator seci = cf.getSectionIterator();
 

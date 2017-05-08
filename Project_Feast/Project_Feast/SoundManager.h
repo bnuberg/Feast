@@ -21,7 +21,8 @@ public:
 
 private:
 	irrklang::ISoundEngine* engine; 
-	const char* path = "D:/_GT/repo/Feast/Project_Feast/Project_Feast/Sound/";
+	const char* path = getenv("RESOURCE_HOME");
+	const char* soundFolder = "/Sound/";
 };
 
 
