@@ -308,6 +308,10 @@ void Player::Pickup()
 			{
 				ChangeRightArmMesh("sphere.mesh");
 			}
+			else if (bodypart.type == 0)
+			{
+				ChangeRightArmMesh("cube.mesh");
+			}
 			attack = bodypart.type;
 			
 			SetAttack();
