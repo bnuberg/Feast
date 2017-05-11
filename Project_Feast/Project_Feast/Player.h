@@ -40,7 +40,7 @@ public:
 	int playerAttackSpeed;
 	int attack = 0;
 private:
-	void InitiateSmash();
+	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
 	Ogre::SceneNode* rocketarmtargetNode;

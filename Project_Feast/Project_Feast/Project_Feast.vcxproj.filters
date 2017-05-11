@@ -28,6 +28,12 @@
     <Filter Include="Interfaces">
       <UniqueIdentifier>{6517f2ee-bb3f-4fd6-aaaa-bc6426d4769e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Abilities">
+      <UniqueIdentifier>{972e4d45-84d1-42a5-aa95-7df0b4763122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Abilities">
+      <UniqueIdentifier>{0ea0ce16-ec03-484f-a306-c74cd09a4e02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MinimalOgre.h">
@@ -96,6 +102,15 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AbilityMovement.h">
+      <Filter>Header Files\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="AbilityAttack.h">
+      <Filter>Header Files\Abilities</Filter>
+    </ClInclude>
+    <ClInclude Include="AbilityAttackAOE.h">
+      <Filter>Header Files\Abilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">
@@ -160,6 +175,15 @@
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityMovement.cpp">
+      <Filter>Source Files\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityAttack.cpp">
+      <Filter>Source Files\Abilities</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityAttackAOE.cpp">
+      <Filter>Source Files\Abilities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

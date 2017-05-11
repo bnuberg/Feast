@@ -15,7 +15,6 @@ public:
 	int damageMin = 1;
 	
 
-	virtual void Stats() override;
-    virtual void Ability();
+	void Stats() override;
 };
 

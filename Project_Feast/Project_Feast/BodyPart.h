@@ -1,6 +1,8 @@
 #pragma once
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
+#include "AbilityMovement.h"
+#include "AbilityAttack.h"
 
 class BodyPart
 {
@@ -11,6 +13,12 @@ public:
 	void Spawn(Ogre::Vector3 position);
 
 	virtual void Stats();
+
+	void AbilityTarget(Ogre::Vector3 abilityTarget);
+	Ogre::Vector3 GetAbilityTarget();
+	bool AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt);
+	void AbilityDamage(Ogre::Vector3 target);
+
 	Ogre::SceneNode* bodyPartNode;
 	Ogre::String mesh;
 	bool isPickupAble = false;
@@ -20,6 +28,10 @@ public:
 	int randAttackSpeed;
 	int randSpeed;
 	int type;
+
+protected:
+	AbilityMovement moveType;
+	AbilityAttack *attackType;
 
 private: 
 	int bodyPartHPMax;
