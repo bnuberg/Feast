@@ -26,7 +26,6 @@ mPluginsCfg(Ogre::StringUtil::BLANK)
 
 Main::~Main()
 {
-	
 	delete mRoot;
 }
 
@@ -155,8 +154,11 @@ bool Main::go()
 	
 	// Initialize the input manager
 	mgr.mInputManager.InitInput(mWindow);
+	
+	menu.Init();
 
-	mInputContext.mKeyboard = mgr.mInputManager.mKeyboard;
+
+	/*mInputContext.mKeyboard = mgr.mInputManager.mKeyboard;
 	mInputContext.mMouse = mgr.mInputManager.mMouse;
 
 	mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mInputContext, this);
@@ -172,7 +174,7 @@ bool Main::go()
 	mDetailsPanel->setParamValue(0, "Health");
 	mDetailsPanel->setParamValue(1, "Meat");
 
-	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
+	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);*/
 
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
@@ -190,39 +192,44 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//Need to capture/update each device
 	mgr.mInputManager.mKeyboard->capture();
 	mgr.mInputManager.mMouse->capture();
-		mTrayMgr->frameRenderingQueued(evt);
+		//mTrayMgr->frameRenderingQueued(evt);
 
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
-		{
-			mLabel->hide();
-			mTrayMgr->clearTray(OgreBites::TL_CENTER);
-		}
+		//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+		//{
+		//	mLabel->hide();
+		//	mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		//}
 
-		if (mgr.mBodyPartManager.show_label_ == true)
-		{
-			mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
-			mLabel->show();
-		}
-		else if (mgr.mBodyPartManager.show_label_ == false)
-		{
-			mLabel->hide();
-			mTrayMgr->clearTray(OgreBites::TL_CENTER);
-		}
+		//if (mgr.mBodyPartManager.show_label_ == true)
+		//{
+		//	mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
+		//	mLabel->show();
+		//}
+		//else if (mgr.mBodyPartManager.show_label_ == false)
+		//{
+		//	mLabel->hide();
+		//	mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		//}
 
-		if (!mTrayMgr->isDialogVisible())
-		{
-			mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
-			if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
-			{
-				mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.GetHealth()));
-				mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.GetMeat()));
-			}
-		}
+		//if (!mTrayMgr->isDialogVisible())
+		//{
+		//	mCameraMan->frameRenderingQueued(evt);   // if dialog isn't up, then update the camera
+		//	if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
+		//	{
+		//		mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.GetHealth()));
+		//		mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.GetMeat()));
+		//	}
+		//}
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_M))
+	{
+		menu.ShowControls();
+	}
 
 	mgr.mEnemyManager.Update(evt);
 
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
+	if (menu.QuitApplication()){
 		return false;
+	}
 
 	if (!processUnbufferedInput(evt))
 		return false;

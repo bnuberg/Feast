@@ -6,7 +6,7 @@
 #include "InputManager.h"
 #include <SdkTrays.h>
 #include <SdkCameraMan.h>
-
+#include "Menu.h"
 
 class Main : public Ogre::FrameListener, Ogre::WindowEventListener, OgreBites::SdkTrayListener
 {
@@ -24,7 +24,7 @@ protected:
 	Player player;
 	MainCamera* mMainCamera;
 	OgreBites::SdkCameraMan* mCameraMan;      // basic camera controller
-	
+	Menu menu;
 	Ogre::OverlaySystem *mOverlaySystem;
 		// OgreBites
 		OgreBites::InputContext mInputContext;
