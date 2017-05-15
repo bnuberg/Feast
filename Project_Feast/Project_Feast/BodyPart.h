@@ -8,7 +8,7 @@ public:
 	BodyPart();
 	~BodyPart();
 
-	void Spawn(Ogre::Vector3 position);
+	void Spawn(Ogre::Vector3 position, Ogre::String bodypart);
 
 	virtual void Stats();
 	Ogre::SceneNode* bodyPartNode;

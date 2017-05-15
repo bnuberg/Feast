@@ -17,7 +17,7 @@ BodyPart::~BodyPart()
 
 }
 
-void BodyPart::Spawn(Ogre::Vector3 position)
+void BodyPart::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
@@ -25,6 +25,14 @@ void BodyPart::Spawn(Ogre::Vector3 position)
 	Ogre::Vector3 target = Ogre::Vector3(0, 0, 0);
 
 	// Create a body part entity with the right mesh
+	if (bodypart == "groundSmash")
+	{
+		type = 0;
+	}
+	else
+	{
+		type = 1;
+	}
 	Ogre::Entity *bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
 
 	// Add the node to the scene

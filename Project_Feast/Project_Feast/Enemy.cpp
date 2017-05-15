@@ -36,12 +36,15 @@ void Enemy::Init(int enemyIdentifier)
 	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition);
 	enemy_node_->attachObject(enemyEntity);
 
+
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
-	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
+	//erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
-	SetEquipment();
+	enemyEquipment.EnemyEquipArm(erightarmNode);
+	enemyBodypart = enemyEquipment.enemyBodypart;
+	//SetEquipment();
 	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 
 	//erightarmNode->attachObject(erightarmEntity);
@@ -83,12 +86,12 @@ void Enemy::SetEquipmentMesh(Ogre::String meshName)
 
 void Enemy::SetEquipment()
 {
-	Ogre::String bodypartName;
+	/*Ogre::String bodypartName;
 
 	EnemyEquipment enemyequipment;
 	bodypartName = enemyequipment.AssignRandomBodypart();
 	Ogre::LogManager::getSingletonPtr()->logMessage("bodypartname:" + bodypartName);
-	SetEquipmentMesh(bodypartName);
+	SetEquipmentMesh(bodypartName);*/
 
 
 }

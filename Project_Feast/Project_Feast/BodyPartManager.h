@@ -10,7 +10,7 @@ public:
 	BodyPartManager();
 	~BodyPartManager();
 	
-	void Spawn(Ogre::Vector3 position);
+	void Spawn(Ogre::Vector3 position, Ogre::String bodypart);
 	int Random();
 	void IterateBodyParts(Ogre::Vector3 distance, float pickupDistance);
 	std::vector<BodyPart> bodyPartsList;		// List containing all bodypart objects
@@ -19,7 +19,7 @@ public:
 private:
 	
 
-	void SpawnArm(Ogre::Vector3 position);
+	void SpawnArm(Ogre::Vector3 position, Ogre::String bodypart);
 	void SpawnLeg(Ogre::Vector3 position);
 	
 

@@ -110,7 +110,7 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			meatList.push_back(meat);
 
 			// Spawn bodypart
-			mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition());
+			mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition(), e->enemyBodypart);
 
 			// Remove all objects and take it out of the list
 			e->enemy_node_->detachAllObjects();

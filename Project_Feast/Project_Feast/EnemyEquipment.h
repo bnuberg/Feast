@@ -9,14 +9,18 @@ public:
 	EnemyEquipment();
 	~EnemyEquipment();
 
-	void EnemyEquipArm();
+	void EnemyEquipArm(Ogre::SceneNode* enemyNode);
 	void SetEnemyArmStats(int dmg, int as);
-	Ogre::String AssignRandomBodypart();
+	void AssignRandomBodypart();
 
 	int damage;
 	int attackspeed;
 	bool once = false;
+	Ogre::String enemyBodypart;
 
 	Arm arm;
+	Ogre::SceneNode* erightarmNode;
+	Ogre::Entity* eArmEntity;
+
 
 };
