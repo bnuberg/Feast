@@ -50,9 +50,10 @@ void BodyPart::AbilityTarget(Ogre::Vector3 abilityTarget)
 	moveType.SetTarget(abilityTarget);
 }
 
-void BodyPart::AbilityGlobalTarget(Ogre::Vector3 globalTarget)
+void BodyPart::AbilityGlobalTarget(Ogre::Vector3 target)
 {
-	moveType.SetGlobalTarget(globalTarget);
+	globalTarget = target;
+	moveType.SetGlobalTarget(target);
 }
 
 Ogre::Vector3 BodyPart::GetAbilityTarget()
@@ -70,12 +71,8 @@ bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
 	return moveType.Move(node, evt);
 }
 
-void BodyPart::AbilityDamage(Ogre::Vector3 target)
+void BodyPart::AbilityDamage()
 {
-	Ogre::LogManager::getSingletonPtr()->logMessage("DO YOU GET HERE");
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.x));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.y));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.z));
 	attackType = new AbilityAttackAOE;
-	attackType->Attack(target);
+	attackType->Attack(globalTarget);
 }
