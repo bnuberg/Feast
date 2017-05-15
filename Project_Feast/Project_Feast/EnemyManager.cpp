@@ -4,7 +4,8 @@
 #include "SoundManager.h"
 
 EnemyManager::EnemyManager()
-	:enemy_spawn_timer_(5000)
+	:enemy_spawn_timer_(5000),
+	enemyIdentifier(0)
 {
 }
 
@@ -24,6 +25,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	// When the timer reaches the spawn timer, spawn an enemy and reset the timer
 	if (timer_.getMilliseconds() >= enemy_spawn_timer_)
 	{
+		enemyIdentifier++;
 		SpawnEnemy();
 		timer_.reset();
 	}
@@ -65,7 +67,7 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 void EnemyManager::SpawnEnemy()
 {
 	Enemy enemy;
-	enemy.Init();
+	enemy.Init(enemyIdentifier);
 
 	enemy_list_.push_back(enemy);
 }
@@ -112,6 +114,7 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 
 			// Remove all objects and take it out of the list
 			e->enemy_node_->detachAllObjects();
+			e->erightarmNode->detachAllObjects();
 			e->is_dead2_ = true;
 			enemy_list_.erase(e++);
 		}
