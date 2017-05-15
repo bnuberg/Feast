@@ -1,12 +1,9 @@
 #pragma once
 #include <OgreEntity.h>
 
-class AbilityAttack
+class IAbilityAttack
 {
 public:
-	AbilityAttack();
-	~AbilityAttack();
-
-	void virtual Attack(Ogre::Vector3 target);
+	virtual void Attack(Ogre::Vector3 target) = 0;
 };
 

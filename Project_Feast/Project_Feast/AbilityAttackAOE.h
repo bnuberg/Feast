@@ -1,7 +1,7 @@
 #pragma once
 #include "AbilityAttack.h"
 class AbilityAttackAOE :
-	public AbilityAttack
+	public IAbilityAttack
 {
 public:
 	AbilityAttackAOE();

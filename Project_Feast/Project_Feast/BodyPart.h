@@ -15,7 +15,9 @@ public:
 	virtual void Stats();
 
 	void AbilityTarget(Ogre::Vector3 abilityTarget);
+	void AbilityGlobalTarget(Ogre::Vector3 globalTarget);
 	Ogre::Vector3 GetAbilityTarget();
+	Ogre::Vector3 GetAbilityGlobalTarget();
 	bool AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt);
 	void AbilityDamage(Ogre::Vector3 target);
 
@@ -31,7 +33,7 @@ public:
 
 protected:
 	AbilityMovement moveType;
-	AbilityAttack *attackType;
+	IAbilityAttack *attackType;
 
 private: 
 	int bodyPartHPMax;

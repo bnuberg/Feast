@@ -106,7 +106,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 				Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(equipment.arm.GetAbilityTarget().y));
 				Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(equipment.arm.GetAbilityTarget().z));
 
-				equipment.arm.AbilityDamage(equipment.arm.GetAbilityTarget());
+				equipment.arm.AbilityDamage(equipment.arm.GetAbilityGlobalTarget());
 				smashingDown = false;
 				equipment.arm.AbilityTarget(rightarmOrigin->getPosition());
 			}
@@ -162,6 +162,7 @@ void Player::InitiateAbility()
 	{
 		//TODO: decide on target somehow
 		equipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
+		equipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
 		Ogre::LogManager::getSingletonPtr()->logMessage("ROCKET ARM TARGET NODE");
 		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->getPosition().x));
 		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->getPosition().y));

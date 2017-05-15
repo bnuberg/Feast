@@ -15,9 +15,19 @@ void AbilityMovement::SetTarget(Ogre::Vector3 abilityTarget)
 	target = abilityTarget;
 }
 
+void AbilityMovement::SetGlobalTarget(Ogre::Vector3 target)
+{
+	globalTarget = target;
+}
+
 Ogre::Vector3 AbilityMovement::GetTarget()
 {
 	return target;
+}
+
+Ogre::Vector3 AbilityMovement::GetGlobalTarget()
+{
+	return globalTarget;
 }
 
 bool AbilityMovement::Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
