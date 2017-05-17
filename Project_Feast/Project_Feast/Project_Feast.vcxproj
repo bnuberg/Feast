@@ -104,7 +104,9 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GroundSmashArm.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IScene.h" />
     <ClInclude Include="Leg.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Matth.h" />
@@ -112,8 +114,11 @@
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="RangedAttackArm.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbilityInterface.cpp" />
@@ -128,15 +133,20 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IScene.cpp" />
     <ClCompile Include="Leg.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matth.cpp" />
     <ClCompile Include="Meat.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
