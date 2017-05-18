@@ -90,12 +90,8 @@ bool Main::go()
 	mgr.mSceneMgr->addRenderQueueListener(mOverlaySystem);
 	mgr.mInputManager.InitInput(mgr.mWindow);
 	
-
 	levelLoader.InitLevelLoader();
 	
-	
-	
-
 	levelLoader.LoadScene();
 
 	mRoot->addFrameListener(this);
@@ -121,7 +117,7 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	/*mgr.ui.ShowHud(player);*/
 	 	
 	mgr.mEnemyManager.Update(evt);
-
+	mgr.ui.mTrayMgr->frameRenderingQueued(evt);
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 
