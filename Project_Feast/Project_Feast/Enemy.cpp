@@ -43,7 +43,6 @@ void Enemy::Init(int enemyIdentifier)
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
 	enemyEquipment.EnemyEquipArm(erightarmNode);
-	enemyBodypart = enemyEquipment.enemyBodypart;
 	//SetEquipment();
 	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 

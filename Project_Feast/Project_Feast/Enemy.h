@@ -26,7 +26,6 @@ public:
 
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
-	Ogre::String enemyBodypart;
 
 private:
 	float enemyHealth;

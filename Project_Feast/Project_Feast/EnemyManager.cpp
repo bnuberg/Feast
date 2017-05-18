@@ -108,9 +108,9 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			sound.PlaySound("Hit.wav");
 
 			meatList.push_back(meat);
-
 			// Spawn bodypart
-			mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition(), e->enemyBodypart);
+			//mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition(), "");
+			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
 
 			// Remove all objects and take it out of the list
 			e->enemy_node_->detachAllObjects();
