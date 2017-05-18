@@ -1,8 +1,17 @@
 #include "Dungeon.h"
+#include "GameManager.h"
 
 /** Constructor.\n
 */
-Dungeon::Dungeon(){}
+Dungeon::Dungeon()
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", "Dungeon.mesh");
+	dungeonEntity->setMaterialName("Examples/Rockwall");
+	dungeonEntity->setCastShadows(false);
+	mgr.mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
+}
 
 /** Deconstructor.\n
 */
