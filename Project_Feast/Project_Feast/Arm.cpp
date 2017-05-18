@@ -20,8 +20,3 @@ void Arm::Stats()
 	randAttackSpeed = rand() % (attackSpeedMax - attackSpeedMin + 1) + attackSpeedMin;
 }
 
-void Arm::Ability()
-{
-
-}
-

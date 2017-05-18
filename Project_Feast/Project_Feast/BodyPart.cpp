@@ -1,5 +1,6 @@
 #include "BodyPart.h"
 #include "GameManager.h"
+#include "AbilityAttackAOE.h"
 
 
 BodyPart::BodyPart()
@@ -9,6 +10,7 @@ BodyPart::BodyPart()
 	else
 		type = 1;
 
+	//attackType = new AbilityAttackAOE();
 }
 
 
@@ -41,4 +43,47 @@ void BodyPart::Spawn(Ogre::Vector3 position)
 
 void BodyPart::Stats()
 {
+}
+
+void BodyPart::AbilityTarget(Ogre::Vector3 abilityTarget)
+{
+	moveType.SetTarget(abilityTarget);
+}
+
+void BodyPart::AbilityGlobalTarget(Ogre::Vector3 target)
+{
+	globalTarget = target;
+	moveType.SetGlobalTarget(target);
+}
+
+Ogre::Vector3 BodyPart::GetAbilityTarget()
+{
+	return moveType.GetTarget();
+}
+
+Ogre::Vector3 BodyPart::GetAbilityGlobalTarget()
+{
+	return moveType.GetGlobalTarget();
+}
+
+bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
+{
+	return moveType.Move(node, evt);
+}
+
+bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, Ogre::String string)
+{
+	if (string == "global")
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Global attack");
+		return moveType.MoveGlobal(node, evt);
+	}
+	else
+		return moveType.Move(node, evt);
+}
+
+void BodyPart::AbilityDamage()
+{
+	attackType = new AbilityAttackAOE;
+	attackType->Attack(globalTarget);
 }
