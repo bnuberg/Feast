@@ -6,4 +6,3 @@ class IAbilityAttack
 public:
 	virtual void Attack(Ogre::Vector3 target) = 0;
 };
-

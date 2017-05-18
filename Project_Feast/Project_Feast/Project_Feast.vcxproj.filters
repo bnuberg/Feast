@@ -105,10 +105,10 @@
     <ClInclude Include="AbilityMovement.h">
       <Filter>Header Files\Abilities</Filter>
     </ClInclude>
-    <ClInclude Include="AbilityAttack.h">
+    <ClInclude Include="AbilityAttackAOE.h">
       <Filter>Header Files\Abilities</Filter>
     </ClInclude>
-    <ClInclude Include="AbilityAttackAOE.h">
+    <ClInclude Include="IAbilityAttack.h">
       <Filter>Header Files\Abilities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -179,10 +179,10 @@
     <ClCompile Include="AbilityMovement.cpp">
       <Filter>Source Files\Abilities</Filter>
     </ClCompile>
-    <ClCompile Include="AbilityAttack.cpp">
+    <ClCompile Include="AbilityAttackAOE.cpp">
       <Filter>Source Files\Abilities</Filter>
     </ClCompile>
-    <ClCompile Include="AbilityAttackAOE.cpp">
+    <ClCompile Include="IAbilityAttack.cpp">
       <Filter>Source Files\Abilities</Filter>
     </ClCompile>
   </ItemGroup>

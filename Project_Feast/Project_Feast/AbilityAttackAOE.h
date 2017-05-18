@@ -1,5 +1,5 @@
 #pragma once
-#include "AbilityAttack.h"
+#include "IAbilityAttack.h"
 class AbilityAttackAOE :
 	public IAbilityAttack
 {

@@ -71,6 +71,17 @@ bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
 	return moveType.Move(node, evt);
 }
 
+bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, Ogre::String string)
+{
+	if (string == "global")
+	{
+		Ogre::LogManager::getSingletonPtr()->logMessage("Global attack");
+		return moveType.MoveGlobal(node, evt);
+	}
+	else
+		return moveType.Move(node, evt);
+}
+
 void BodyPart::AbilityDamage()
 {
 	attackType = new AbilityAttackAOE;

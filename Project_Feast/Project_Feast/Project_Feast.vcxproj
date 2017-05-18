@@ -92,7 +92,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AbilityAttack.h" />
+    <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
     <ClInclude Include="AbilityMovement.h" />
@@ -119,7 +119,6 @@
     <ClInclude Include="RangedAttackArm.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AbilityAttack.cpp" />
     <ClCompile Include="AbilityAttackAOE.cpp" />
     <ClCompile Include="AbilityInterface.cpp" />
     <ClCompile Include="AbilityMovement.cpp" />
@@ -133,6 +132,7 @@
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
+    <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Leg.cpp" />
     <ClCompile Include="MainCamera.cpp" />

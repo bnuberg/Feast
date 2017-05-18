@@ -2,7 +2,7 @@
 #include "OgreEntity.h"
 #include "OgreSubEntity.h"
 #include "AbilityMovement.h"
-#include "AbilityAttack.h"
+#include "IAbilityAttack.h"
 
 class BodyPart
 {
@@ -19,6 +19,7 @@ public:
 	Ogre::Vector3 GetAbilityTarget();
 	Ogre::Vector3 GetAbilityGlobalTarget();
 	bool AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt);
+	bool AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, Ogre::String string);
 	void AbilityDamage();
 
 	Ogre::SceneNode* bodyPartNode;

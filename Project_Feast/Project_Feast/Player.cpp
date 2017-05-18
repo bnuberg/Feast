@@ -123,9 +123,17 @@ void Player::InitiateAbility()
 {
 	if (!isSmashing)
 	{
-		//TODO: decide on target somehow
-		equipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
-		equipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
+		equipment.arm.type = 1;
+		if (equipment.arm.type == 0)
+		{
+			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
+			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+		}
+		else if (equipment.arm.type == 1)
+		{
+			equipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
+			equipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
+		}
 
 		isSmashing = true;
 		smashingDown = true;

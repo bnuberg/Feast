@@ -52,3 +52,26 @@ bool AbilityMovement::Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
 
 	return false;
 }
+
+bool AbilityMovement::MoveGlobal(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
+{
+	Ogre::Vector3 distanceVector = globalTarget - node->_getDerivedPosition();
+	float distance = distanceVector.length();
+	float movementSpeed = 500;
+
+	if (distance <= movementSpeed / 1500)
+	{
+		node->setPosition(globalTarget);
+		return true;
+	}
+	else
+	{
+		distanceVector.normalise();
+
+		node->translate(distanceVector * movementSpeed * evt.timeSinceLastFrame, Ogre::Node::TS_WORLD);
+
+		return false;
+	}
+
+	return false;
+}
