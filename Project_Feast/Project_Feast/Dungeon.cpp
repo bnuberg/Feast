@@ -3,14 +3,9 @@
 
 /** Constructor.\n
 */
-Dungeon::Dungeon()
+Dungeon::Dungeon(SceneManager* sceneManager)
 {
-	GameManager& mgr = GameManager::getSingleton();
-
-	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", "Dungeon.mesh");
-	dungeonEntity->setMaterialName("Examples/Rockwall");
-	dungeonEntity->setCastShadows(false);
-	mgr.mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
+	LoadScene(sceneManager);
 }
 
 /** Deconstructor.\n
@@ -31,4 +26,19 @@ Vector3 Dungeon::GetPlayerSpawnPoint()
 Vector3 Dungeon::GetEnemySpawnPoints()
 {
 	return enemySpawnPoints;
+}
+
+/** Load Dungeon.mesh.\n
+*/
+void Dungeon::LoadScene(SceneManager* sceneManager)
+{
+	GameManager& mgr = GameManager::getSingleton();
+	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
+
+	Vector3 startingPosition = Vector3(0, 0, 0);
+	SceneNode* dungeonNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeon", startingPosition);
+	dungeonNode->attachObject(dungeonEntity);
+	dungeonNode->setScale(Vector3(4, 4, 4));
+
+	mgr.mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
 }

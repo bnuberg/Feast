@@ -7,6 +7,7 @@
 #include <OgreEntity.h>
 #include <OgreMeshManager.h>
 #include "SoundManager.h"
+#include "Dungeon.h"
 
 
 GameScene::GameScene()
@@ -37,6 +38,8 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	//---Create the scene---
+
+	Dungeon* dungeon = new Dungeon(sceneManager);
 
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -2);
 
@@ -77,8 +80,6 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	mgr.cameraMan->setTarget(sceneManager->getSceneNode("PlayerHeadNode"));
 	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
 
-	
-
 	mgr.ui.Init();
 }
 
@@ -91,6 +92,5 @@ void GameScene::Update()
 	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
 	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
 	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.349066), Ogre::Real(380));
-	
 }
 
