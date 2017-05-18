@@ -4,6 +4,8 @@
 
 
 Player::Player()
+	:dodge_cooldown_(5000),
+	move_cooldown_(200)
 {
 }
 
@@ -47,6 +49,9 @@ void Player::Init()
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
+	
+	timer_.reset();
+	dodge_timer_.reset();
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -79,20 +84,55 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	//	dirVec.x -= move;
 
+	if (timer_.getMilliseconds() >= dodge_cooldown_)
+	{
+		keypressed = false;
+	}
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed))
-			dirVec.x -= move * 4;
+		{
+			timer_.reset();
+			dodge_timer_.reset();
+			dodgeleft = true;
+			keypressed = true;
+		}
+
 		else
 			dirVec.x -= move;
+	}
+
+	if (dodgeleft)
+	{
+		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		{
+			dirVec.x -= move * 5;
+			dodgeright = false;
+		}
 	}
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed))
-			dirVec.x += move *4;
+		{
+			timer_.reset();
+			dodge_timer_.reset();
+			dodgeright = true;
+			keypressed = true;
+		}
+
 		else
 			dirVec.x += move;
+	}
+
+	if (dodgeright)
+	{
+		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		{
+			dirVec.x += move * 5;
+			dodgeleft = false;
+		}
 	}
 
 	// Rotate Player Yaw

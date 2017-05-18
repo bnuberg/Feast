@@ -3,6 +3,7 @@
 #include <iostream>
 #include <OgreFrameListener.h>
 #include <OgreEntity.h>
+#include <OgreTimer.h>
 #include "Equipment.h"
 
 class Player
@@ -49,11 +50,19 @@ private:
 
 	bool isSmashing = false;
 	bool smashingDown = false;
+
 	bool keypressed = false;
+	bool dodgeleft = false;
+	bool dodgeright = false;
 
 	float health;
 	float meat;
 	float maxHealth;
 	float rightarmSpeed = 500;
+
+	Ogre::Timer timer_;							// Ogre timer class object
+	Ogre::Timer dodge_timer_;
+	unsigned long dodge_cooldown_;			// The duration it takes for an enemy to spawn
+	unsigned long move_cooldown_;
 };
 
