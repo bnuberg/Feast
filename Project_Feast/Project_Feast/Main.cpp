@@ -73,13 +73,11 @@ bool Main::go()
 
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
 		return false;
+	// Calls the Singleton GameManager 
 	new GameManager();
 	GameManager& mgr = GameManager::getSingleton();
 	mgr.mWindow = mRoot->initialise(true, "Main");
 
-	// Calls the Singleton GameManager 
-	
-	
 	new SoundManager(); //Instantiates the SoundManager
 	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true); //Starts the music loop
 
@@ -89,15 +87,10 @@ bool Main::go()
 	mOverlaySystem = new Ogre::OverlaySystem();
 	mgr.mSceneMgr->addRenderQueueListener(mOverlaySystem);
 	mgr.mInputManager.InitInput(mgr.mWindow);
-	
 	levelLoader.InitLevelLoader();
-	
 	levelLoader.LoadScene();
-
 	mRoot->addFrameListener(this);
-
 	mRoot->startRendering();
-	
 	return true;
 }
 
@@ -107,38 +100,26 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	if (mgr.mWindow->isClosed())
 		return false;
 
-	
-
 	//Need to capture/update each device
 	mgr.mInputManager.mKeyboard->capture();
-	mgr.mInputManager.mMouse->capture();
-	
-	/*mgr.ui.mTrayMgr->frameRenderingQueued(evt);*/
-	/*mgr.ui.ShowHud(player);*/
-	 	
+	mgr.mInputManager.mMouse->capture();	
 	mgr.mEnemyManager.Update(evt);
 	mgr.ui.mTrayMgr->frameRenderingQueued(evt);
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
-
 	if (!processUnbufferedInput(evt))
 		return false;
 	levelLoader.UpdateScene();
-	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
-	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
-	/*mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.349066), Ogre::Real(380));
-	mCameraMan->frameRenderingQueued(evt);*/
-
+	/*mCameraMan->frameRenderingQueued(evt);*/
 	return true;
 }
 
 bool Main::processUnbufferedInput(const Ogre::FrameEvent& evt)
 {
 	levelLoader.gameScene.player.Update(evt);
-
 	return true;
 }
-
 
 //Main 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
