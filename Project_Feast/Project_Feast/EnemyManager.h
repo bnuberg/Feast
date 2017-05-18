@@ -26,6 +26,8 @@ public:
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance);
 	void DamageEnemies();
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
+	int enemyIdentifier;
+	void BodypartToAdd();
 
 private:
 	std::list<Enemy> enemy_list_;				// List containing all enemies

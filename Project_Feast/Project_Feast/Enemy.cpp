@@ -25,7 +25,7 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 {
 	setStartPosition(sPosition);
 	setScale(scale);
-	Init();
+	//Init();
 	SetHealth(health);
 	enemySpeed = speed;
 	enemeyDamage = damage;
@@ -37,7 +37,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init()
+void Enemy::Init(int enemyIdentifier)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 	startPosition = getStartPosition();
@@ -46,13 +46,27 @@ void Enemy::Init()
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
-	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition);
 	enemy_node_->setPosition(startPosition);
 	enemy_node_->resetOrientation();
 	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
-	
+
+	// right arm origin
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
+	//erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
+	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
+	erightarmNode->setScale(0.2, 0.2, 0.2);
+	enemyEquipment.EnemyEquipArm(erightarmNode);
+	//SetEquipment();
+	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
+
+	//erightarmNode->attachObject(erightarmEntity);
+
+	// rocket arm target
+	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
+	erocketarmtargetNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("rocketarmtargetNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition - rocketarmtargetoffset);
 
 	SetHealth(10);
 
@@ -77,6 +91,26 @@ void Enemy::SetHealth(float startingHealth)
 {
 	enemyMaxHealth = startingHealth;
 	enemyHealth = enemyMaxHealth;
+}
+
+void Enemy::SetEquipmentMesh(Ogre::String meshName)
+{
+	//TODO: change mesh of arm to arm which the enemy will spawn with
+	erightarmNode->detachAllObjects();
+	Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity(meshName);
+	erightarmNode->attachObject(erightarmEntity);
+}
+
+void Enemy::SetEquipment()
+{
+	/*Ogre::String bodypartName;
+
+	EnemyEquipment enemyequipment;
+	bodypartName = enemyequipment.AssignRandomBodypart();
+	Ogre::LogManager::getSingletonPtr()->logMessage("bodypartname:" + bodypartName);
+	SetEquipmentMesh(bodypartName);*/
+
+
 }
 
 void Enemy::DoDamage(float damage)

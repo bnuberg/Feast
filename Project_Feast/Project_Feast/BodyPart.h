@@ -10,7 +10,8 @@ public:
 	BodyPart();
 	~BodyPart();
 
-	void Spawn(Ogre::Vector3 position);
+	void Spawn(Ogre::Vector3 position, Ogre::String bodypart);
+	void Drop(Ogre::Vector3 position);
 
 	virtual void Stats();
 

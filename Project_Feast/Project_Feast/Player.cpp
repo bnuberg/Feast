@@ -252,6 +252,7 @@ void Player::Pickup()
 		{
 			equipment.EquipArm();
 			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			Ogre::LogManager::getSingletonPtr()->logMessage("player attackspeed" + std::to_string(bodypart.randAttackSpeed));
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
 			{

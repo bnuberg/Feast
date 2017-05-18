@@ -108,8 +108,11 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="EnemyEquipment.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+=======
     <ClInclude Include="AbilityMovement.h">
       <Filter>Header Files\Abilities</Filter>
     </ClInclude>
@@ -134,6 +137,7 @@
     <ClInclude Include="GameScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+>>>>>>> origin/Development
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">
@@ -199,9 +203,11 @@
     <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="EnemyEquipment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
     <ClCompile Include="AbilityMovement.cpp">
       <Filter>Source Files\Abilities</Filter>
     </ClCompile>
@@ -226,5 +232,6 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+>>>>>>> origin/Development
   </ItemGroup>
 </Project>
