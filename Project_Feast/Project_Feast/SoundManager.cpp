@@ -36,11 +36,11 @@ void SoundManager::PlaySound(char* fileName, bool loop)
 	engine->play2D(result, loop);
 }
 
-/** Plays a sound from the /Resources/Sound/ folder when given the filename.\n
+/** Plays a sound from the /Resources/Sound/ folder when given the filename with passed sound effects.\n
 *	@param fileName is the name
 *	@param loop is if the sound should loop
+*	@param effect the sound effect you want on the soundclip
 */
-
 void SoundManager::PlaySoundWithEffect(char* fileName, bool loop, Effects effect)
 {
 	char result[100];
