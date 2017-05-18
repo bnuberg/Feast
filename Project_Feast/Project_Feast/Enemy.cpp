@@ -6,6 +6,7 @@
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 
+
 Enemy::Enemy()
 	:enemyHealth(10),
 	enemySpeed(50),
@@ -15,8 +16,20 @@ Enemy::Enemy()
 	aggroRange(0),
 	attackRange(0),
 	is_dead_(false),
-	is_dead2_(false)
+	is_dead2_(false),
+	scale(1)
 {
+}
+
+Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale)
+{
+	setStartPosition(sPosition);
+	setScale(scale);
+	Init();
+	SetHealth(health);
+	enemySpeed = speed;
+	enemeyDamage = damage;
+	enemyMaxDamage = damage;
 }
 
 
@@ -27,13 +40,16 @@ Enemy::~Enemy()
 void Enemy::Init(int enemyIdentifier)
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	startPosition = (0, 0, 20);
+	startPosition = getStartPosition();
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
 	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition);
+	enemy_node_->setPosition(startPosition);
+	enemy_node_->resetOrientation();
+	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
 
@@ -54,12 +70,14 @@ void Enemy::Init(int enemyIdentifier)
 
 	SetHealth(10);
 
+
 	//Set aggroRange and attackRange of the enemy
 	EnemyPatternManager enemyPatternManager;
 	enemyPatternManager.BasicEnemy();
 
 	aggroRange = enemyPatternManager.setAggroR();
 	attackRange = enemyPatternManager.setAttackR();
+
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
@@ -111,11 +129,32 @@ void Enemy::GetDamaged(float damage)
 	}
 }
 
+Ogre::Vector3 Enemy::getStartPosition()
+{
+	return startPosition;
+}
+
+void Enemy::setStartPosition(Ogre::Vector3 position)
+{
+	position.y = 0;
+	startPosition = position;
+}
+
+float Enemy::getScale()
+{
+	return scale;
+}
+
+void Enemy::setScale(float scale)
+{
+	this->scale = scale;
+}
+
 void Enemy::DropBodyPart()
 {
 	if (is_dead_)
 	{
-		// TODO drop bodypart logic
+		// TODO drop body-part logic
 	}
 }
 
@@ -136,7 +175,8 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 	//Ogre::LogManager::getSingletonPtr()->logMessage("distanceVector pre move =" + Ogre::StringConverter::toString(distanceVector));
 	//Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(distance));
 
-	if (distance <= aggroRange){
+	if (distance <= aggroRange)
+	{
 
 		/*if (distance <= enemySpeed / 2500)
 		{
@@ -160,7 +200,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 			//enemyNode->translate(distanceVector * enemySpeed * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 		}
 
-		//Dodge when player attacks, implement when the player doesnt attack in a circle
+		//Dodge when player attacks, implement when the player doesn't attack in a circle
 
 		/*else if(attackRange - distance <= enemySpeed)
 		{

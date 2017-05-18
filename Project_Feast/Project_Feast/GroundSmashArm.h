@@ -7,6 +7,6 @@ public:
 	GroundSmashArm();
 	~GroundSmashArm();
 
-	virtual void Ability() override;
+	//virtual void Ability() override;
 };
 
