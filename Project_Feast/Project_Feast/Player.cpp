@@ -76,10 +76,24 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	//	dirVec.y -= move;
 
 	// Left and Right
+	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
+	//	dirVec.x -= move;
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
-		dirVec.x -= move;
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+			dirVec.x -= move*4;
+		else
+			dirVec.x -= move;
+	}
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-		dirVec.x += move;
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+			dirVec.x += move *4;
+		else
+			dirVec.x += move;
+	}
 
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
