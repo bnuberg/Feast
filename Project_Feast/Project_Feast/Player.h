@@ -49,6 +49,7 @@ private:
 
 	bool isSmashing = false;
 	bool smashingDown = false;
+	bool keypressed = false;
 
 	float health;
 	float meat;

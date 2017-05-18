@@ -81,15 +81,15 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
-			dirVec.x -= move*4;
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed))
+			dirVec.x -= move * 4;
 		else
 			dirVec.x -= move;
 	}
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed))
 			dirVec.x += move *4;
 		else
 			dirVec.x += move;
