@@ -10,7 +10,7 @@ class Player
 public:
 	Player();
 	~Player();
-	void Init();
+	void Init(Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0));
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions

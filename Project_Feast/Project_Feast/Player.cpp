@@ -13,14 +13,13 @@ Player::~Player()
 /**	This function instantiates the nodes and the entities attached for the player
 	as well as setting the base values for the player hp and such.
 */
-void Player::Init()
+void Player::Init(Ogre::Vector3 startingPosition)
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-	GameManager* pMgr = GameManager::getSingletonPtr();
 
 	// Instantiate player variables
-	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
+	startingPosition = Ogre::Vector3(0, 0, 0);
 	SetHealth(10);
 
 	// Create a player entity with the right mesh

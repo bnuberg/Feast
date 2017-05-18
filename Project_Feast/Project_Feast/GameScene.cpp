@@ -66,7 +66,7 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	playerNode->attachObject(playerEntity);
 
 	// Instantiate the player
-	player.Init();
+	player.Init(dungeon->GetPlayerSpawnPoint());
 
 	// Initialize the enemy manager
 	mgr.mEnemyManager.Init();
