@@ -10,6 +10,6 @@ RangedAttackArm::~RangedAttackArm()
 {
 }
 
-void RangedAttackArm::Ability()
-{
-}
+//void RangedAttackArm::Ability()
+//{
+//}

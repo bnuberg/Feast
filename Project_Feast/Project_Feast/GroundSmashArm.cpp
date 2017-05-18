@@ -10,7 +10,7 @@ GroundSmashArm::~GroundSmashArm()
 {
 }
 
-void GroundSmashArm::Ability()
-{
-
-}
+//void GroundSmashArm::Ability()
+//{
+//
+//}
