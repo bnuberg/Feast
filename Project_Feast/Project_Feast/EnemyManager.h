@@ -20,7 +20,9 @@ public:
 	~EnemyManager();
 	void EnemyManager::Init();
 	void EnemyManager::Update(const Ogre::FrameEvent& evt);
-	void SpawnEnemy();
+	void SpawnEnemy(Ogre::Vector3 position);
+	void SpawnHeavyEnemy(Ogre::Vector3 position);
+	void SpawnLightEnemy(Ogre::Vector3 position);
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance);
 	void DamageEnemies();
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
