@@ -7,6 +7,7 @@ class Enemy
 {
 public:
 	Enemy();
+	Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale = 1.0f);
 	~Enemy();
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
@@ -20,6 +21,12 @@ public:
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
 
+	Ogre::Vector3 getStartPosition();
+	void setStartPosition(Ogre::Vector3 position);
+
+	float getScale();
+	void setScale(float scale);
+
 protected: 
 	float enemyHealth;
 	float enemySpeed;
@@ -28,6 +35,7 @@ protected:
 	float enemyMaxDamage;
 	float aggroRange;
 	float attackRange;
+	float scale;
 
 	Ogre::Vector3 startPosition;
 	

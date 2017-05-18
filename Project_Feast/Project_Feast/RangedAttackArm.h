@@ -6,6 +6,6 @@ class RangedAttackArm : Arm
 public:
 	RangedAttackArm();
 	~RangedAttackArm();
-	virtual void Ability() override;
+	//virtual void Ability() override;
 };
 
