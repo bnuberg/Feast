@@ -28,13 +28,17 @@ public:
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
 
-	void setStartPosition(Ogre::Vector3 position);
+<<<<<<< HEAD
 private:
+=======
 	Ogre::Vector3 getStartPosition();
+	void setStartPosition(Ogre::Vector3 position);
 
 	float getScale();
 	void setScale(float scale);
 
+protected: 
+>>>>>>> origin/Development
 	float enemyHealth;
 	float enemySpeed;
 	float enemyMaxHealth;

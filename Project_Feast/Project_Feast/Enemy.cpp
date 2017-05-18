@@ -25,7 +25,7 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 {
 	setStartPosition(sPosition);
 	setScale(scale);
-	Init();
+	//Init();
 	SetHealth(health);
 	enemySpeed = speed;
 	enemeyDamage = damage;
