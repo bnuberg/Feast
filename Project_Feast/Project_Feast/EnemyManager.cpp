@@ -83,7 +83,6 @@ void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position)
 
 void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 {
-	position.y = 0;
 	Enemy e = Enemy(5, 75, 1, position, 0.5f);
 	enemy_list_.push_back(e);
 }
