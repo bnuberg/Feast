@@ -3,12 +3,19 @@
 #include <OgreVector3.h>
 #include <OgreFrameListener.h>
 
+class EnemyPatternManager;
+
 class Enemy
 {
 public:
 	Enemy();
 	Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale = 1.0f);
 	~Enemy();
+
+	EnemyPatternManager* epm;
+
+	int enemyNumber;
+
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
@@ -26,6 +33,7 @@ public:
 
 	float getScale();
 	void setScale(float scale);
+//	EnemyPatternManager* epm;
 
 protected: 
 	float enemyHealth;
@@ -37,6 +45,9 @@ protected:
 	float attackRange;
 	float scale;
 
+	std::vector<Ogre::Vector3> positions;
+	std::vector<bool> blockages;
+
 	Ogre::Vector3 startPosition;
 	
 
@@ -46,4 +57,3 @@ protected:
 	void Move(const Ogre::FrameEvent& evt);
 	void Die();
 };
-

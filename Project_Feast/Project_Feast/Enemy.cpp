@@ -3,9 +3,11 @@
 #include <OgreEntity.h>
 #include "Player.h"
 #include "BodyPart.h"
-#include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
+#include "EnemyPatternManager.h"
 
+
+int enemyCount = 0;
 
 Enemy::Enemy()
 	:enemyHealth(10),
@@ -35,12 +37,28 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 
 Enemy::~Enemy()
 {
+//	delete epm;
 }
 
 void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
 	startPosition = getStartPosition();
+
+	enemyNumber = enemyCount++;
+
+	for (int i = -10; i <= 10; i++)
+	{
+		for (int j = -10; j <= 10; j++)
+		{
+			positions.push_back(Ogre::Vector3(i * 100, 0, j * 100));
+			if (i % 3 == 0 && j % 3 != 0)
+				blockages.push_back(true);
+			else
+				blockages.push_back(false);
+		}
+	}
+
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
@@ -52,7 +70,8 @@ void Enemy::Init()
 	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
-	
+	epm = new EnemyPatternManager();
+	epm->createTravelGrid(positions, blockages);
 
 	SetHealth(10);
 
@@ -128,10 +147,12 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
-
 	//Ogre::Vector3 offset = (0, -20, 0);
 
 	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() + Ogre::Vector3(0, 20, 0);
+
+	epm->updateStartAndEndPositions(enemy_node_->getPosition(), target, enemyNumber);
+	std::vector<Ogre::Vector3> route = epm->getRoute();
 
 	//target = Ogre::Vector3(target.x, 20, target.z);
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
@@ -143,13 +164,15 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 	if (distance <= aggroRange)
 	{
-
-		/*if (distance <= enemySpeed / 2500)
+		
+		if(route.size() > 0)
+			enemy_node_->lookAt(route[0], Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+		else
 		{
-			enemyNode->setPosition(target);
-		}*/
-
-		enemy_node_->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+			enemy_node_->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+			Ogre::LogManager::getSingletonPtr()->logMessage("Route not found.");
+		}
+			
 
 		if (distance > attackRange)
 		{
@@ -159,32 +182,8 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 			//Ogre::LogManager::getSingletonPtr()->logMessage("normalised distanceVector =" + Ogre::StringConverter::toString(distanceVector));
 
 			enemy_node_->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-		/*	Ogre::LogManager::getSingletonPtr()->logMessage("distance =" + Ogre::StringConverter::toString(distance));
-			Ogre::LogManager::getSingletonPtr()->logMessage("attackrange =" + Ogre::StringConverter::toString(attackRange));*/
 
-			
-			//enemyNode->translate(distanceVector * enemySpeed * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 		}
-
-		//Dodge when player attacks, implement when the player doesn't attack in a circle
-
-		/*else if(attackRange - distance <= enemySpeed)
-		{
-			float dodgeOutcome = Ogre::Math::RangeRandom(0, 3);
-
-			Ogre::LogManager::getSingletonPtr()->logMessage("dodgeOutcome =" + Ogre::StringConverter::toString(dodgeOutcome));
-
-
-			if (dodgeOutcome <= 1)
-			{
-				//enemyNode->translate((enemyNode->getPosition() + (100,0,0)) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-				Ogre::LogManager::getSingletonPtr()->logMessage("beforeDodge" + Ogre::StringConverter::toString(enemyNode->getPosition()));
-				enemyNode->setPosition(enemyNode->getPosition() + Ogre::Vector3(50,0,0));
-				Ogre::LogManager::getSingletonPtr()->logMessage("afterDodge" + Ogre::StringConverter::toString(enemyNode->getPosition()));
-
-			}
-		}*/
-
 		else
 		{
 			/*Ogre::LogManager::getSingletonPtr()->logMessage("stopDistance =" + Ogre::StringConverter::toString(distance));*/
