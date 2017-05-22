@@ -4,7 +4,7 @@
 
 
 Player::Player()
-	:dodge_cooldown_(5000),
+	:dodge_cooldown_(800),
 	move_cooldown_(200)
 {
 }
@@ -74,28 +74,27 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
 		dirVec.z += move;
 
-	// Up and Down
-	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_U))
-	//	dirVec.y += move;
-	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_O))
-	//	dirVec.y -= move;
+	// Null check 
+	if (GetMeat() >= dodgemeatcost)
+		abletododge = true;
+	else
+		abletododge = false;
 
-	// Left and Right
-	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
-	//	dirVec.x -= move;
-
+	//Sets the variable false after a set amount of time
 	if (timer_.getMilliseconds() >= dodge_cooldown_)
 	{
 		keypressed = false;
 	}
 
+	//Checks if player has enough meat, executes dodge method and decreases meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed))
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed) && (abletododge))
 		{
 			timer_.reset();
 			dodge_timer_.reset();
 			dodgeleft = true;
+			DecreaseMeat(dodgemeatcost);
 			keypressed = true;
 		}
 
@@ -103,6 +102,23 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			dirVec.x -= move;
 	}
 
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed) && (abletododge))
+		{
+			timer_.reset();
+			dodge_timer_.reset();
+			dodgeright = true;
+			DecreaseMeat(dodgemeatcost);
+			keypressed = true;
+		}
+
+		else
+			dirVec.x += move;
+	}
+
+
+	//Executes the dodge
 	if (dodgeleft)
 	{
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
@@ -110,20 +126,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			dirVec.x -= move * 5;
 			dodgeright = false;
 		}
-	}
-
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed))
-		{
-			timer_.reset();
-			dodge_timer_.reset();
-			dodgeright = true;
-			keypressed = true;
-		}
-
-		else
-			dirVec.x += move;
 	}
 
 	if (dodgeright)
@@ -178,8 +180,12 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
-	if (GetMeat() >= 10)
-		convertMeattoHealth();
+
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_H)){
+		if (GetMeat() >= 10){
+			convertMeattoHealth();
+		}
+	}
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -273,7 +279,7 @@ void Player::IncreaseMeat(float incMeat)
 
 void Player::DecreaseMeat(float spendMeat)
 {
-	if ((meat -= spendMeat) < 0)
+	if ((meat - spendMeat) < 0)
 	{
 		meat = 0;
 	}

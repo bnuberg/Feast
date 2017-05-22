@@ -54,10 +54,12 @@ private:
 	bool keypressed = false;
 	bool dodgeleft = false;
 	bool dodgeright = false;
+	bool abletododge = false;
 
 	float health;
 	float meat;
 	float maxHealth;
+	float dodgemeatcost = 5;
 	float rightarmSpeed = 500;
 
 	Ogre::Timer timer_;							// Ogre timer class object
