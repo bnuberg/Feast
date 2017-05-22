@@ -1,5 +1,6 @@
 #include "EnemyPatternManager.h"
 #include "Matth.h"
+#include "Grid.h"
 
 EnemyPatternManager::EnemyPatternManager()
 	:aggroRange(0),
@@ -39,22 +40,13 @@ float EnemyPatternManager::setAttackR()
 	return attackRange;
 }
 
-// Only call this once!
-void EnemyPatternManager::createTravelGrid(std::vector<Ogre::Vector3> positions, std::vector<bool> blockages)
+void EnemyPatternManager::createTravelGrid()
 {
-	if (!gridIsSet)
-	{
-		int i = 0;
-		for (auto position : positions)
-		{
-			gridPosition thisPosition;
-			thisPosition.position = simplifyPosition2(position);
-			thisPosition.isBlocked = blockages[i];
-			grid.push_back(thisPosition);
-			i++;
-		}
-	}
-	gridIsSet = true;
+	Grid * blockagesGrid = Grid::getInstance();
+	if (blockagesGrid == nullptr)
+		return;
+
+	grid = new gridPosition[blockagesGrid->getWidth() * blockagesGrid->getHeight()];
 }
 
 // If only this was asynchronous. Call this when you want to find a path but the environment remains the same as before.
@@ -134,10 +126,10 @@ void EnemyPatternManager::pathFind(int enemyNumber)
 		if(!route.empty())
 			route.clear();
 		Ogre::LogManager::getSingletonPtr()->logMessage("end position is not the last end position.");
-		while (!foundEndPos && safetyCounter < 1000)
+		while (!foundEndPos && safetyCounter < 100)
 		{
 			//Ogre::LogManager::getSingletonPtr()->logMessage("About to check current position.");
-			checkAdjacentPositions(currentPosition, enemyNumber);
+			checkAdjacentPositions(currentPosition);
 			//Ogre::LogManager::getSingletonPtr()->logMessage("About to check next position.");
 			lastPosition = currentPosition.position;
 			findNextSquare(enemyNumber);
@@ -163,7 +155,7 @@ void EnemyPatternManager::pathFind(int enemyNumber)
 	//Ogre::LogManager::getSingletonPtr()->logMessage("Route created.");
 }
 
-void EnemyPatternManager::checkAdjacentPositions(gridPosition current, int enemyNumber)
+void EnemyPatternManager::checkAdjacentPositions(gridPosition current)
 {
 	// Create Positions
 	gridPosition above;
@@ -182,53 +174,36 @@ void EnemyPatternManager::checkAdjacentPositions(gridPosition current, int enemy
 	right.position.x = current.position.x + 1;
 	right.position.y = current.position.y;
 
-	char message[2000];
-	
+	addIfValidToOpenList(above);
+	addIfValidToOpenList(left);
+	addIfValidToOpenList(below);
+	addIfValidToOpenList(right);
+}
 
-	// See if position exists in the grid and is not blocked
-	// NB: When ordering the contents of if statements, be sure to put whichever is most likely to fail first at the start, to improve performance.
-	if (!getGridPositionAt(above.position).isBlocked && !existsInClosedList(above.position) && getGridPositionAt(above.position).position.x != invalidPosition.position.x)
+void EnemyPatternManager::addIfValidToOpenList(gridPosition &gPosition)
+{
+	Grid * blockagesGrid = Grid::getInstance();
+	if (blockagesGrid == nullptr)
+		return;
+
+	if (!blockagesGrid->isBlocked(gPosition.position) && !existsInClosedList(gPosition.position))
 	{
 		// Add that position to the open list
-		above.movCostFromStart++;
-		openList.push_back(getGridPositionAt(above.position));
-		sprintf_s(message, "Assigned up to open list. Enemy number: %d Current Position: %f, %f", enemyNumber, current.position.x, current.position.y);
-		Ogre::LogManager::getSingletonPtr()->logMessage(message);
-	}
-	if (!getGridPositionAt(left.position).isBlocked && !existsInClosedList(left.position) && getGridPositionAt(left.position).position.x != invalidPosition.position.x)
-	{
-		left.movCostFromStart++;
-		openList.push_back(getGridPositionAt(left.position));
-		sprintf_s(message, "Assigned left to open list. Enemy number: %d Current Position: %f, %f", enemyNumber, current.position.x, current.position.y);
-		Ogre::LogManager::getSingletonPtr()->logMessage(message);
-	}
-	if (!getGridPositionAt(below.position).isBlocked && !existsInClosedList(below.position) && getGridPositionAt(below.position).position.x != invalidPosition.position.x)
-	{
-		below.movCostFromStart++;
-		openList.push_back(getGridPositionAt(below.position));
-		sprintf_s(message, "Assigned down to open list. Enemy number: %d Current Position: %f, %f", enemyNumber, current.position.x, current.position.y);
-		Ogre::LogManager::getSingletonPtr()->logMessage(message);
-	}
-	if (!getGridPositionAt(right.position).isBlocked && !existsInClosedList(right.position) && getGridPositionAt(right.position).position.x != invalidPosition.position.x)
-	{
-		right.movCostFromStart++;
-		openList.push_back(getGridPositionAt(right.position));
-		sprintf_s(message, "Assigned right to open list. Enemy number: %d Current Position: %f, %f", enemyNumber, current.position.x, current.position.y);
-		Ogre::LogManager::getSingletonPtr()->logMessage(message);
+		gPosition.movCostFromStart++;
+		gridPosition gp = getGridPositionAt(gPosition.position);
+		// Assign position to grid position
+		gp.position = gPosition.position;
+		openList.push_back(gp);
 	}
 }
 
 EnemyPatternManager::gridPosition EnemyPatternManager::getGridPositionAt(Ogre::Vector2 checkPosition)
 {
-	// There must be a better way of doing this.
-	for (gridPosition gp : grid)
-	{
-		if (gp.position == checkPosition)
-		{
-			return gp;
-		}
-	}
-	return invalidPosition;
+	Grid * blockagesGrid = Grid::getInstance();
+	if (blockagesGrid == nullptr)
+		return invalidPosition;
+
+	return grid[blockagesGrid->getIndexFromPosition(checkPosition)];
 }
 
 bool EnemyPatternManager::existsInClosedList(Ogre::Vector2 checkPosition)

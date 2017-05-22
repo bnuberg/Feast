@@ -5,6 +5,7 @@
 #include "BodyPart.h"
 #include <OgreLogManager.h>
 #include "EnemyPatternManager.h"
+#include "Grid.h"
 
 
 int enemyCount = 0;
@@ -37,7 +38,6 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 
 Enemy::~Enemy()
 {
-//	delete epm;
 }
 
 void Enemy::Init()
@@ -50,18 +50,24 @@ void Enemy::Init()
 
 	enemyNumber = enemyCount++;
 
-	for (int i = -10; i <= 10; i++)
+	int width = 21;
+	int height = 21;
+	int wo2 = width / 2;
+	int ho2 = height / 2;
+
+	Grid * blockageGrid = Grid::getInstance(width, height);
+
+	if (!blockageGrid->initialized)
 	{
-		for (int j = -10; j <= 10; j++)
+		for (int i = -wo2; i <= wo2; i++)
 		{
-			positions.push_back(Ogre::Vector3(i * 100, 0, j * 100));
-			if (i % 3 == 0 && j % 3 != 0)
-				blockages.push_back(true);
-			else
-				blockages.push_back(false);
+			for (int j = -ho2; j <= ho2; j++)
+			{
+				if (i % 3 == 0 && j % 3 != 0)
+					blockageGrid->setBlockageAt(Ogre::Vector2(i, j));
+			}
 		}
 	}
-
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
@@ -74,7 +80,8 @@ void Enemy::Init()
 	enemy_node_->attachObject(enemyEntity);
 
 	epm = new EnemyPatternManager();
-	epm->createTravelGrid(positions, blockages);
+	epm->createTravelGrid();
+
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
