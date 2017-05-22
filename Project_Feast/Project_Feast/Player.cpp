@@ -75,68 +75,67 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		dirVec.z += move;
 
 	// Null check 
-	if (GetMeat() >= dodgemeatcost)
-		abletododge = true;
+	if (GetMeat() >= dodgeMeatCost)
+		ableToDodge = true;
 	else
-		abletododge = false;
+		ableToDodge = false;
 
 	//Sets the variable false after a set amount of time
 	if (timer_.getMilliseconds() >= dodge_cooldown_)
 	{
-		keypressed = false;
+		keyPressed = false;
 	}
 
 	//Checks if player has enough meat, executes dodge method and decreases meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed) && (abletododge))
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
 		{
 			timer_.reset();
 			dodge_timer_.reset();
-			dodgeleft = true;
-			DecreaseMeat(dodgemeatcost);
-			keypressed = true;
+			dodgeLeft = true;
+			DecreaseMeat(dodgeMeatCost);
+			keyPressed = true;
 		}
 
 		else
 			dirVec.x -= move;
 	}
 
+	if (dodgeLeft)
+	{
+		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		{
+			dirVec.x -= move * 5;
+			dodgeRight = false;
+		}
+	}
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keypressed) && (abletododge))
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
 		{
 			timer_.reset();
 			dodge_timer_.reset();
-			dodgeright = true;
-			DecreaseMeat(dodgemeatcost);
-			keypressed = true;
+			dodgeRight = true;
+			DecreaseMeat(dodgeMeatCost);
+			keyPressed = true;
 		}
 
 		else
 			dirVec.x += move;
 	}
 
-
-	//Executes the dodge
-	if (dodgeleft)
-	{
-		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
-		{
-			dirVec.x -= move * 5;
-			dodgeright = false;
-		}
-	}
-
-	if (dodgeright)
+	if (dodgeRight)
 	{
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
 		{
 			dirVec.x += move * 5;
-			dodgeleft = false;
+			dodgeLeft = false;
 		}
 	}
 
+	IncreaseMeat(100);
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
 
