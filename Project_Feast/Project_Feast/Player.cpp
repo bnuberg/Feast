@@ -124,7 +124,7 @@ void Player::InitiateAbility()
 {
 	if (!isSmashing)
 	{
-		equipment.arm.type = 1;
+		//equipment.arm.type = 1;
 		if (equipment.arm.type == 0)
 		{
 			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
@@ -253,14 +253,18 @@ void Player::Pickup()
 		{
 			equipment.EquipArm();
 			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			Ogre::LogManager::getSingletonPtr()->logMessage("player attackspeed" + std::to_string(bodypart.randAttackSpeed));
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
 			{
 				ChangeRightArmMesh("sphere.mesh");
+				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
 				ChangeRightArmMesh("cube.mesh");
+				equipment.arm.type = 0;
+
 			}
 			attack = bodypart.type;
 			

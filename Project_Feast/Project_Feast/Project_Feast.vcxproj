@@ -101,6 +101,7 @@
     <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPatternManager.h" />
     <ClInclude Include="EntityTest.h" />
@@ -134,6 +135,7 @@
     <ClCompile Include="BodyPartManager.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />
     <ClCompile Include="EntityTest.cpp" />

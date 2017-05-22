@@ -19,7 +19,7 @@ BodyPart::~BodyPart()
 
 }
 
-void BodyPart::Spawn(Ogre::Vector3 position)
+void BodyPart::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
@@ -27,6 +27,14 @@ void BodyPart::Spawn(Ogre::Vector3 position)
 	Ogre::Vector3 target = Ogre::Vector3(0, 0, 0);
 
 	// Create a body part entity with the right mesh
+	if (bodypart == "groundSmash")
+	{
+		type = 0;
+	}
+	else
+	{
+		type = 1;
+	}
 	Ogre::Entity *bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
 
 	// Add the node to the scene
@@ -39,6 +47,31 @@ void BodyPart::Spawn(Ogre::Vector3 position)
 	//bodyPartMat->getTechnique(0)->getPass(0)->setDiffuse(0, 1, 0, 0);
 	//bodyPartEntity->setMaterialName(bodyPartMat->getName());
 }
+
+void BodyPart::Drop(Ogre::Vector3 position)
+{
+	GameManager& mgr = GameManager::GetSingleton();
+
+	/*if (mesh == "cube.mesh")
+	{
+		type = 0;
+	}
+	else if (mesh == "sphere.mesh")
+	{
+		type = 1;
+	}*/
+
+	Ogre::Entity *bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
+
+	// Add the node to the scene
+	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
+	bodyPartNode->attachObject(bodyPartEntity);
+	bodyPartNode->setScale(0.2, 0.2, 0.2);
+
+
+}
+
+
 
 
 void BodyPart::Stats()
