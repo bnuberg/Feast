@@ -8,7 +8,6 @@ EnemyManager::EnemyManager()
 {
 }
 
-
 EnemyManager::~EnemyManager()
 {
 }
@@ -26,9 +25,8 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	{
 		// 10 is probably too far away.
 		//SpawnEnemy(Ogre::Vector3(4, 0, 4));
-		SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
+		//SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
 		//SpawnLightEnemy(Ogre::Vector3(100, 0, 300));
-
 		timer_.reset();
 	}
 
@@ -78,12 +76,14 @@ void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position)
 {
 	//				hp  spd dmg position scale
 	Enemy e = Enemy(20, 25, 10, position, 3.0f);
+	e.Init();
 	enemy_list_.push_back(e);
 }
 
 void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 {
 	Enemy e = Enemy(5, 75, 1, position, 0.5f);
+	e.Init();
 	enemy_list_.push_back(e);
 }
 
@@ -120,12 +120,13 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			meat.Spawn(e->enemy_node_->getPosition());
 
 			meatList.push_back(meat);
-
 			// Spawn bodypart
-			mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition());
+			//mgr.mBodyPartManager.Spawn(e->enemy_node_->getPosition(), "");
+			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
 
 			// Remove all objects and take it out of the list
 			e->enemy_node_->detachAllObjects();
+			e->erightarmNode->detachAllObjects();
 			e->is_dead2_ = true;
 			enemy_list_.erase(e++);
 		}

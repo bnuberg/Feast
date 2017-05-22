@@ -2,11 +2,9 @@
 #include "GameManager.h"
 #include "SoundManager.h"
 
-
 Player::Player()
 {
 }
-
 
 Player::~Player()
 {
@@ -15,21 +13,20 @@ Player::~Player()
 /**	This function instantiates the nodes and the entities attached for the player
 	as well as setting the base values for the player hp and such.
 */
-void Player::Init()
+void Player::Init(Ogre::Vector3 spawnPoint)
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-	GameManager* pMgr = GameManager::getSingletonPtr();
 
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetHealth(10);
 
-	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
-
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
+
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
 	playerNode->attachObject(playerEntity);
 
 	// player head, used to position the camera
@@ -47,6 +44,8 @@ void Player::Init()
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
+
+	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -58,7 +57,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	float currentX = ms.X.rel;
 
 	static Ogre::Real rotate = .13;
-	
 
 	//Move ninja
 	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
@@ -69,12 +67,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
 		dirVec.z += move;
 
-	// Up and Down
-	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_U))
-	//	dirVec.y += move;
-	//if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_O))
-	//	dirVec.y -= move;
-
 	// Left and Right
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 		dirVec.x -= move;
@@ -83,43 +75,36 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
-
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
 	Pickup();
+	Discard();
 
 	// Execute attack
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 	{
-		InitiateSmash();
+		InitiateAbility();
 	}
-	Discard();
+
 	// Ground smash attack
 	if (isSmashing)
 	{
-		Ogre::Vector3 target = Ogre::Vector3(0, 0, 0);
-		Ogre::Vector3 globaltarget = Ogre::Vector3(0, 0, 0);
-
-		// TODO: decide which attack is cast based on attached bodypart
-		
-
-		switch (attack)
+		if (smashingDown)
 		{
-		case 0: // is ground smash at player position approximately
-			target = rightarmOrigin->getPosition();
-			target -= Ogre::Vector3(0, 160, 0);
-			globaltarget = rightarmOrigin->_getDerivedPosition();
-			globaltarget -= Ogre::Vector3(0, 160, 0);
-			break;
-		case 1: // is ground smash far in front of the player position
-			target = rocketarmtargetNode->getPosition();
-			globaltarget = rocketarmtargetNode->_getDerivedPosition();
-			break;
-		default:
-			break;
+			if (equipment.arm.AbilityUpdate(rightarmNode, evt))
+			{
+				equipment.arm.AbilityDamage();
+				smashingDown = false;
+				equipment.arm.AbilityTarget(rightarmOrigin->getPosition());
+			}
 		}
-
-		GroundSmashAttack(evt, target, globaltarget);
+		else
+		{
+			if (equipment.arm.AbilityUpdate(rightarmNode, evt))
+			{
+				isSmashing = false;
+			}
+		}
 	}
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
@@ -135,60 +120,29 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 	rightarmNode->attachObject(rightarmEntity);
 }
 
-void Player::InitiateSmash()
+void Player::InitiateAbility()
 {
 	if (!isSmashing)
 	{
+		//equipment.arm.type = 1;
+		if (equipment.arm.type == 0)
+		{
+			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
+			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+		}
+		else if (equipment.arm.type == 1)
+		{
+			equipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
+			equipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
+		}
+
 		isSmashing = true;
 		smashingDown = true;
 		SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
-
 	}
 	else
 	{
 		// TODO: attack in progress
-	}
-}
-
-void Player::GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget)
-{
-	GameManager& mgr = GameManager::getSingleton();
-
-	Ogre::Vector3 target = Ogre::Vector3(0, 0, 0);
-
-	if (smashingDown)
-	{
-		target = localStrikeTarget;
-	}
-	else
-	{
-		target = rightarmOrigin->getPosition();
-	}
-
-	Ogre::Vector3 distanceVector = target - rightarmNode->getPosition();
-	float distance = distanceVector.length();
-
-	if (distance <= rightarmSpeed / 1500)
-	{
-		if (smashingDown)
-		{
-			rightarmNode->setPosition(target);
-			float smashradius = 200;
-			mgr.mEnemyManager.DamageEnemiesInCircle(globalStrikeTarget, smashradius);
-
-			smashingDown = false;
-		}
-		else
-		{
-			rightarmNode->setPosition(target);
-			isSmashing = false;
-		}
-	}
-	else
-	{
-		distanceVector.normalise();
-
-		rightarmNode->translate(distanceVector * rightarmSpeed * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 	}
 }
 
@@ -276,12 +230,10 @@ void Player::SetAttack()
 {
 	playerDamage = equipment.damage;
 	playerAttackSpeed = equipment.attackSpeed;
-	
 }
 
 void Player::SetSpeed()
 {
-	
 	move = equipment.speed;
 }
 
@@ -297,20 +249,22 @@ void Player::Pickup()
 		Ogre::LogManager::getSingletonPtr()->logMessage("fullmetal");
 		BodyPart bodypart = mgr.mBodyPartManager.ClosestBodyPart(playerPosition);
 
-		Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.tag);
-		//Ogre::LogManager::getSingletonPtr()->logMessage(bodypart.mesh);
 		if (bodypart.tag == "Arm")
 		{
 			equipment.EquipArm();
 			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			Ogre::LogManager::getSingletonPtr()->logMessage("player attackspeed" + std::to_string(bodypart.randAttackSpeed));
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
 			{
 				ChangeRightArmMesh("sphere.mesh");
+				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
 				ChangeRightArmMesh("cube.mesh");
+				equipment.arm.type = 0;
+
 			}
 			attack = bodypart.type;
 			
@@ -325,9 +279,7 @@ void Player::Pickup()
 			bodypart.pickedUp = true;
 			SetSpeed();
 		}
-		// TODO equip bodypart
 	}
-	
 }
 
 void Player::Discard()
@@ -343,5 +295,4 @@ void Player::Discard()
 	{
 		equipment.DiscardLeg(50);
 	}
-
 }

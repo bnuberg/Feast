@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include <SdkTrays.h>
 #include <SdkCameraMan.h>
+#include "UI.h"
+#include "LevelLoader.h"
 
 class Main : public Ogre::FrameListener, Ogre::WindowEventListener, OgreBites::SdkTrayListener
 {
@@ -18,17 +20,16 @@ protected:
 	Ogre::Root* mRoot;
 	Ogre::String mResourcesCfg;
 	Ogre::String mPluginsCfg;
-	Ogre::RenderWindow* mWindow;
+	/*Ogre::RenderWindow* mWindow;*/
 	Player player;
-	MainCamera* mMainCamera;
+	UI ui;
+	/*MainCamera* mMainCamera;*/
 	OgreBites::SdkCameraMan* mCameraMan;      // basic camera controller
-	
+	LevelLoader levelLoader;
 	Ogre::OverlaySystem *mOverlaySystem;
 		// OgreBites
-		OgreBites::InputContext mInputContext;
-		OgreBites::SdkTrayManager* mTrayMgr;
-		OgreBites::ParamsPanel* mDetailsPanel;    // sample details panel
-		OgreBites::Label* mLabel;    // sample details panel
+		
+		
 	
 	// Ogre::FrameListener
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
