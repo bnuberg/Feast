@@ -23,7 +23,7 @@ public:
 	void SpawnEnemy(Ogre::Vector3 position);
 	void SpawnHeavyEnemy(Ogre::Vector3 position);
 	void SpawnLightEnemy(Ogre::Vector3 position);
-	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance);
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage);
 	void DamageEnemies();
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	int enemyIdentifier;

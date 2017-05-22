@@ -7,7 +7,8 @@ public:
 	AbilityAttackAOE();
 	~AbilityAttackAOE();
 
-	void Attack(Ogre::Vector3 target) override;
+	void Attack(Ogre::Vector3 target, int damage) override;
+	void AttackEnemy(Ogre::Vector3 target, int damage) override;
 private:
 	float attackRadius = 200;
 };

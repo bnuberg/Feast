@@ -55,7 +55,7 @@ void Enemy::Init(int enemyIdentifier)
 
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
-	//erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
+	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
 	enemyEquipment.EnemyEquipArm(erightarmNode);
@@ -65,8 +65,8 @@ void Enemy::Init(int enemyIdentifier)
 	//erightarmNode->attachObject(erightarmEntity);
 
 	// rocket arm target
-	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
-	erocketarmtargetNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("rocketarmtargetNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition - rocketarmtargetoffset);
+	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
+	rocketarmtargetNode = erightarmNode->createChildSceneNode(startPosition - rocketarmtargetoffset);
 
 	SetHealth(10);
 
@@ -84,7 +84,54 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	 Move(evt);
 
-	 //GetDamaged(1);
+	 if (isAttacking)
+	 {
+		 if (attackDown)
+		 {
+			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 {
+				 enemyEquipment.arm.AbilityDamage();
+				 attackDown = false;
+				 enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition());
+			 }
+		 }
+		 else
+		 {
+			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 {
+				 isAttacking = false;
+			 }
+		 }
+	 }
+
+	 InitiateAbility();
+}
+
+void Enemy::InitiateAbility()
+{
+	enemyEquipment.arm.equippedByEnemy = true;
+	if (!isAttacking)
+	{
+		//equipment.arm.type = 1;
+		
+		if (enemyEquipment.arm.type == 0)
+		{
+			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
+			enemyEquipment.arm.AbilityGlobalTarget(erightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+		}
+		else if (enemyEquipment.arm.type == 1)
+		{
+			enemyEquipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
+			enemyEquipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
+		}
+
+		isAttacking = true;
+		attackDown = true;
+	}
+	else
+	{
+		// TODO: attack in progress
+	}
 }
 
 void Enemy::SetHealth(float startingHealth)
