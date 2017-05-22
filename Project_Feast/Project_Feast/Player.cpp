@@ -13,20 +13,20 @@ Player::~Player()
 /**	This function instantiates the nodes and the entities attached for the player
 	as well as setting the base values for the player hp and such.
 */
-void Player::Init(Ogre::Vector3 startingPosition)
+void Player::Init(Ogre::Vector3 spawnPoint)
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
 
 	// Instantiate player variables
-	startingPosition = Ogre::Vector3(0, 0, 0);
+	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetHealth(10);
-
-	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
 
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
+
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
 	playerNode->attachObject(playerEntity);
 
 	// player head, used to position the camera
@@ -44,6 +44,8 @@ void Player::Init(Ogre::Vector3 startingPosition)
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
+
+	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)

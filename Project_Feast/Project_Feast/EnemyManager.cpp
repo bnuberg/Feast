@@ -8,7 +8,6 @@ EnemyManager::EnemyManager()
 {
 }
 
-
 EnemyManager::~EnemyManager()
 {
 }
@@ -26,7 +25,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	{
 		// 10 is probably too far away.
 		//SpawnEnemy(Ogre::Vector3(4, 0, 4));
-		SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
+		//SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
 		//SpawnLightEnemy(Ogre::Vector3(100, 0, 300));
 
 		timer_.reset();

@@ -1,8 +1,8 @@
 #include "Time.h";
 #include "Ogre.h";
 
-void Time::Update()
+void Time::Update(const Ogre::FrameEvent& evt)
 {
-	
-	//x = mytimer->getMicroseconds() * 0.000001;
+	//unscaledDeltaTime = 1.f * evt.timeSinceLastFrame;
+	//deltaTime = timeScale * unscaledDeltaTime;
 }
