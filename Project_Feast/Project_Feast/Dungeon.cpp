@@ -9,6 +9,8 @@ Dungeon::Dungeon(SceneManager* sceneManager)
 	enemySpawnPoints[0] = Vector3(100, 0, 100);
 	enemySpawnPoints[1] = Vector3(200, 0, 300);
 	enemySpawnPoints[2] = Vector3(1000, 0, -1000);
+	enemySpawnPoints[3] = Vector3(200, 0, 300);
+	enemySpawnPoints[4] = Vector3(1000, 0, -1000);
 
 	LoadScene(sceneManager);
 	SpawnEnemies();
