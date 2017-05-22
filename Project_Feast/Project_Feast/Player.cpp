@@ -47,6 +47,8 @@ void Player::Init()
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
 
 	equipment.arm.Stats();
+
+	exists = true;
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)

@@ -63,7 +63,7 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	playerNode->attachObject(playerEntity);
 
 	// Instantiate the player
-	player.Init();
+	mgr.player.Init();
 
 	// Initialize the enemy manager
 	mgr.mEnemyManager.Init();
@@ -86,7 +86,7 @@ void GameScene::Update()
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	mgr.ui.ShowHud(player);
+	mgr.ui.ShowHud(mgr.player);
 	
 	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
 	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);

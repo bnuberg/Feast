@@ -41,6 +41,8 @@ public:
 	int playerDamage;
 	int playerAttackSpeed;
 	int attack = 0;
+
+	bool exists = false;
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);

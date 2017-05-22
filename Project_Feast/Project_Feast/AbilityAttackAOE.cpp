@@ -27,7 +27,6 @@ void AbilityAttackAOE::AttackEnemy(Ogre::Vector3 target, int damage)
 	float distance = distanceVector.length();
 	if (distance <= attackRadius)
 	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("player gets damaged by: " + std::to_string(damage));
-		//player.getDamaged(); 
+		mgr.player.DecreaseHealth(damage); 
 	}
 }
