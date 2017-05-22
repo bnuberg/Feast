@@ -6,7 +6,6 @@
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 
-
 Enemy::Enemy()
 	:enemyHealth(10),
 	enemySpeed(50),
@@ -37,26 +36,27 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init(int enemyIdentifier)
+void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
+
+	enemyID = ++mgr.mEnemyManager.totalEnemyID;
+
 	startPosition = getStartPosition();
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
-	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition);
+	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), startPosition);
 	enemy_node_->setPosition(startPosition);
 	enemy_node_->resetOrientation();
 	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
-
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
-	//erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
-	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
+	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
 	enemyEquipment.EnemyEquipArm(erightarmNode);
 	//SetEquipment();
@@ -66,7 +66,7 @@ void Enemy::Init(int enemyIdentifier)
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
-	erocketarmtargetNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("rocketarmtargetNode" + Ogre::StringConverter::toString(enemyIdentifier), startPosition - rocketarmtargetoffset);
+	erocketarmtargetNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("rocketarmtargetNode" + Ogre::StringConverter::toString(enemyID), startPosition - rocketarmtargetoffset);
 
 	SetHealth(10);
 
