@@ -212,7 +212,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 	//Ogre::Vector3 offset = (0, -20, 0);
 
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() + Ogre::Vector3(0, 20, 0);
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /*+ Ogre::Vector3(0, 20, 0)*/;
 
 	//target = Ogre::Vector3(target.x, 20, target.z);
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
