@@ -56,7 +56,7 @@ void Enemy::Init()
 
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
-	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyIdentifier))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyIdentifier), startPosition + rightarmoffset);
+	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
 	enemyEquipment.EnemyEquipArm(erightarmNode);
