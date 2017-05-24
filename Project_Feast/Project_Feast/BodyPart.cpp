@@ -118,5 +118,13 @@ bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt,
 void BodyPart::AbilityDamage()
 {
 	attackType = new AbilityAttackAOE;
-	attackType->Attack(globalTarget);
+
+	if (equippedByEnemy)
+	{
+		attackType->AttackEnemy(globalTarget, randDamage);
+	}
+	else
+	{
+		attackType->Attack(globalTarget, randDamage);
+	}
 }

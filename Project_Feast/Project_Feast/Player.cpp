@@ -45,7 +45,10 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
 
+	equipment.arm.Stats();
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
+
+	exists = true;
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -122,6 +125,7 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 
 void Player::InitiateAbility()
 {
+	equipment.arm.equippedByEnemy = false;
 	if (!isSmashing)
 	{
 		//equipment.arm.type = 1;

@@ -11,10 +11,22 @@ AbilityAttackAOE::~AbilityAttackAOE()
 {
 }
 
-void AbilityAttackAOE::Attack(Ogre::Vector3 target)
+void AbilityAttackAOE::Attack(Ogre::Vector3 target, int damage)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	// TODO: Create classes that hold the different attack types
-	mgr.mEnemyManager.DamageEnemiesInCircle(target, attackRadius);
+	mgr.mEnemyManager.DamageEnemiesInCircle(target, attackRadius, damage);
+}
+
+void AbilityAttackAOE::AttackEnemy(Ogre::Vector3 target, int damage)
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getSceneNode("PlayerNode");
+	Ogre::Vector3 distanceVector = target - playerNode->getPosition();
+	float distance = distanceVector.length();
+	if (distance <= attackRadius)
+	{
+		mgr.player.DecreaseHealth(damage); 
+	}
 }

@@ -32,6 +32,7 @@ public:
 	int randAttackSpeed;
 	int randSpeed;
 	int type;
+	bool equippedByEnemy;
 
 protected:
 	AbilityMovement moveType;
