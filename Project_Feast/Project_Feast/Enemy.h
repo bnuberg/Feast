@@ -11,7 +11,7 @@ public:
 	Enemy();
 	Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale = 1.0f);
 	~Enemy();
-	void Init(int enemyIdentifier);
+	void Init();
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
 	void SetEquipmentMesh(Ogre::String meshName);
@@ -29,6 +29,9 @@ public:
 	bool operator != (const Enemy& e) const { return !operator==(e); }
 
 	void setStartPosition(Ogre::Vector3 position);
+
+	int enemyID;
+
 private:
 	Ogre::Vector3 getStartPosition();
 
@@ -58,7 +61,6 @@ private:
 	void InitiateAbility();
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
-
 
 	Ogre::SceneNode* erocketarmtargetNode;
 	Ogre::SceneNode* erightarmOrigin;

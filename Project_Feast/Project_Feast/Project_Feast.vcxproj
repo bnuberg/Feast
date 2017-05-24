@@ -99,6 +99,7 @@
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodyPartManager.h" />
+    <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyManager.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="RangedAttackArm.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +133,7 @@
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
@@ -154,6 +157,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

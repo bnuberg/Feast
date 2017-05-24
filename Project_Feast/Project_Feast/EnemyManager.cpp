@@ -4,11 +4,9 @@
 
 
 EnemyManager::EnemyManager()
-	:enemy_spawn_timer_(5000),
-	enemyIdentifier(0)
+	:enemy_spawn_timer_(5000)
 {
 }
-
 
 EnemyManager::~EnemyManager()
 {
@@ -25,12 +23,10 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	// When the timer reaches the spawn timer, spawn an enemy and reset the timer
 	if (timer_.getMilliseconds() >= enemy_spawn_timer_)
 	{
-		enemyIdentifier++;
 		// 10 is probably too far away.
-		SpawnEnemy(Ogre::Vector3(4, 0, 4));
+		//SpawnEnemy(Ogre::Vector3(4, 0, 4));
 		//SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
 		//SpawnLightEnemy(Ogre::Vector3(100, 0, 300));
-
 		timer_.reset();
 	}
 
@@ -72,7 +68,7 @@ void EnemyManager::SpawnEnemy(Ogre::Vector3 position)
 {
 	Enemy enemy;
 	enemy.setStartPosition(position);
-	enemy.Init(enemyIdentifier);
+	enemy.Init();
 	enemy_list_.push_back(enemy);
 }
 
@@ -80,7 +76,7 @@ void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position)
 {
 	//				hp  spd dmg position scale
 	Enemy e = Enemy(20, 25, 10, position, 3.0f);
-	e.Init(enemyIdentifier);
+	e.Init();
 	enemy_list_.push_back(e);
 }
 
@@ -88,7 +84,7 @@ void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 {
 	position.y = 0;
 	Enemy e = Enemy(5, 75, 1, position, 0.5f);
-	e.Init(enemyIdentifier);
+	e.Init();
 	enemy_list_.push_back(e);
 }
 
