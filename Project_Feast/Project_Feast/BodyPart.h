@@ -13,8 +13,6 @@ public:
 	void Spawn(Ogre::Vector3 position, Ogre::String bodypart);
 	void Drop(Ogre::Vector3 position);
 
-	virtual void Stats();
-
 	void AbilityTarget(Ogre::Vector3 abilityTarget);
 	void AbilityGlobalTarget(Ogre::Vector3 globalTarget);
 	Ogre::Vector3 GetAbilityTarget();
@@ -33,10 +31,11 @@ public:
 	int randSpeed;
 	int type;
 	bool equippedByEnemy;
+	IAbilityMovement *moveType;
+	IAbilityAttack *attackType;
 
 protected:
-	AbilityMovement moveType;
-	IAbilityAttack *attackType;
+
 	Ogre::Vector3 globalTarget;
 
 private: 

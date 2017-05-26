@@ -2,19 +2,20 @@
 
 #include <OgreSceneManager.h>
 #include "OgreEntity.h"
+#include "IAbilityMovement.h"
 
-class AbilityMovement
+class AbilityMovement : public IAbilityMovement
 {
 public:
 	AbilityMovement();
 	~AbilityMovement();
 
-	void SetTarget(Ogre::Vector3 abilityTarget);
-	void SetGlobalTarget(Ogre::Vector3 globalTarget);
-	Ogre::Vector3 GetTarget();
-	Ogre::Vector3 GetGlobalTarget();
-	bool Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt);
-	bool MoveGlobal(Ogre::SceneNode* node, const Ogre::FrameEvent& evt);
+	void SetTarget(Ogre::Vector3 abilityTarget) override;
+	void SetGlobalTarget(Ogre::Vector3 globalTarget) override;
+	Ogre::Vector3 GetTarget() override;
+	Ogre::Vector3 GetGlobalTarget() override;
+	bool Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt) override;
+	bool MoveGlobal(Ogre::SceneNode* node, const Ogre::FrameEvent& evt) override;
 private:
 	Ogre::Vector3 target;
 	Ogre::Vector3 globalTarget;

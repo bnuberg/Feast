@@ -261,12 +261,12 @@ void Player::Pickup()
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
 			{
-				ChangeRightArmMesh("sphere.mesh");
+				ChangeRightArmMesh(bodypart.mesh);
 				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
-				ChangeRightArmMesh("cube.mesh");
+				ChangeRightArmMesh(bodypart.mesh);
 				equipment.arm.type = 0;
 
 			}
