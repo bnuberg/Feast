@@ -1,230 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Bodyparts">
-      <UniqueIdentifier>{b32ee920-60e5-40d3-bfb3-427dcc8bd3bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Bodyparts">
-      <UniqueIdentifier>{1b054b4d-582d-46f9-80b1-1f5b31410ed3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Bodyparts\Arms">
-      <UniqueIdentifier>{7a762dfa-65b0-4d9c-bb48-63942bfefa8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Bodyparts\Arms">
-      <UniqueIdentifier>{01adc2c5-2744-4690-88af-432b7c685da5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Interfaces">
-      <UniqueIdentifier>{6517f2ee-bb3f-4fd6-aaaa-bc6426d4769e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Abilities">
-      <UniqueIdentifier>{972e4d45-84d1-42a5-aa95-7df0b4763122}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Abilities">
-      <UniqueIdentifier>{0ea0ce16-ec03-484f-a306-c74cd09a4e02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Scenes">
-      <UniqueIdentifier>{6a474ef4-5c3b-4efc-8e2b-f50e48325167}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Scenes">
-      <UniqueIdentifier>{b33a25a2-da52-45f3-b322-beb836a915dd}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="AbilityAttackAOE.cpp" />
+    <ClCompile Include="AbilityInterface.cpp" />
+    <ClCompile Include="AbilityMovement.cpp" />
+    <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="BodyPart.cpp" />
+    <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyEquipment.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemyPatternManager.cpp" />
+    <ClCompile Include="EntityTest.cpp" />
+    <ClCompile Include="Equipment.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GroundSmashArm.cpp" />
+    <ClCompile Include="IAbilityAttack.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Leg.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="MainCamera.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Matth.cpp" />
+    <ClCompile Include="Meat.cpp" />
+    <ClCompile Include="MinimalOgre.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="RangedAttackArm.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="GenerateBodyPart.cpp" />
+    <ClCompile Include="IAbilityMovement.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MinimalOgre.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityTest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Matth.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BodyPart.h">
-      <Filter>Header Files\Bodyparts</Filter>
-    </ClInclude>
-    <ClInclude Include="Arm.h">
-      <Filter>Header Files\Bodyparts</Filter>
-    </ClInclude>
-    <ClInclude Include="BodyPartManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Leg.h">
-      <Filter>Header Files\Bodyparts</Filter>
-    </ClInclude>
-    <ClInclude Include="GroundSmashArm.h">
-      <Filter>Header Files\Bodyparts\Arms</Filter>
-    </ClInclude>
-    <ClInclude Include="RangedAttackArm.h">
-      <Filter>Header Files\Bodyparts\Arms</Filter>
-    </ClInclude>
-    <ClInclude Include="AbilityInterface.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyPatternManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Equipment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Meat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyEquipment.h">
-      <Filter>Header Files</Filter>
-    <ClInclude Include="AbilityMovement.h">
-      <Filter>Header Files\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="AbilityAttackAOE.h">
-      <Filter>Header Files\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="IAbilityAttack.h">
-      <Filter>Header Files\Abilities</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="MinimalOgre.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Matth.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BodyPart.cpp">
-      <Filter>Source Files\Bodyparts</Filter>
-    </ClCompile>
-    <ClCompile Include="Arm.cpp">
-      <Filter>Source Files\Bodyparts</Filter>
-    </ClCompile>
-    <ClCompile Include="BodyPartManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Leg.cpp">
-      <Filter>Source Files\Bodyparts</Filter>
-    </ClCompile>
-    <ClCompile Include="GroundSmashArm.cpp">
-      <Filter>Source Files\Bodyparts\Arms</Filter>
-    </ClCompile>
-    <ClCompile Include="RangedAttackArm.cpp">
-      <Filter>Source Files\Bodyparts\Arms</Filter>
-    </ClCompile>
-    <ClCompile Include="AbilityInterface.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyPatternManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Equipment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Meat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyEquipment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AbilityMovement.cpp">
-      <Filter>Source Files\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="AbilityAttackAOE.cpp">
-      <Filter>Source Files\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="IAbilityAttack.cpp">
-      <Filter>Source Files\Abilities</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
+    <ClInclude Include="IAbilityAttack.h" />
+    <ClInclude Include="AbilityAttackAOE.h" />
+    <ClInclude Include="AbilityInterface.h" />
+    <ClInclude Include="AbilityMovement.h" />
+    <ClInclude Include="Arm.h" />
+    <ClInclude Include="BodyPart.h" />
+    <ClInclude Include="BodyPartManager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyEquipment.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemyPatternManager.h" />
+    <ClInclude Include="EntityTest.h" />
+    <ClInclude Include="Equipment.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GroundSmashArm.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IScene.h" />
+    <ClInclude Include="Leg.h" />
+    <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="MainCamera.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Matth.h" />
+    <ClInclude Include="Meat.h" />
+    <ClInclude Include="MinimalOgre.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="RangedAttackArm.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="GenerateBodyPart.h" />
+    <ClInclude Include="IAbilityMovement.h" />
   </ItemGroup>
 </Project>

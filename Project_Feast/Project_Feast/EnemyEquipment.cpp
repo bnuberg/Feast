@@ -37,9 +37,11 @@ void EnemyEquipment::AssignRandomBodypart()
 	/*Placeholder for procedual generation
 	Randomly makes number and assigns number to bodypart
 	*/
-	arm.Stats();
+	arm = generateBodyPart.Generate();
+	attackspeed = arm.randAttackSpeed;
+	damage = arm.randDamage;
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("enemy attackspeed" +std::to_string(arm.randAttackSpeed));
+	/*Ogre::LogManager::getSingletonPtr()->logMessage("enemy attackspeed" +std::to_string(arm.randAttackSpeed));
 	if (arm.type == 0)
 	{
 		arm.mesh = "cube.mesh";
@@ -55,7 +57,7 @@ void EnemyEquipment::AssignRandomBodypart()
 		damage = arm.randDamage;
 		enemyBodypart = "rangedAttack";
 	}
-
+*/
 
 
 

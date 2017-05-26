@@ -92,6 +92,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
@@ -107,6 +108,7 @@
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GroundSmashArm.h" />
+    <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="Leg.h" />
@@ -138,8 +140,10 @@
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
+    <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="Leg.cpp" />

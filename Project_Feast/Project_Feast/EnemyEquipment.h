@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Arm.h"
+#include "GenerateBodyPart.h"
 
 class EnemyEquipment
 {
@@ -21,6 +22,6 @@ public:
 	Arm arm;
 	Ogre::SceneNode* erightarmNode;
 	Ogre::Entity* eArmEntity;
-
+	GenerateBodyPart generateBodyPart;
 
 };
