@@ -51,6 +51,7 @@ private:
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
+	float playerShoulderHeight = 160;
 
 	bool isSmashing = false;
 	bool smashingDown = false;

@@ -34,7 +34,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
 
 	// right arm origin
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 160, 0);
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);
 	rightarmOrigin = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmOrigin", startingPosition + rightarmoffset);
 	rightarmNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmNode", startingPosition + rightarmoffset);
 	rightarmNode->setScale(0.2, 0.2, 0.2);
@@ -131,8 +131,8 @@ void Player::InitiateAbility()
 		//equipment.arm.type = 1;
 		if (equipment.arm.type == 0)
 		{
-			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
-			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
+			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
 		}
 		else if (equipment.arm.type == 1)
 		{
