@@ -18,6 +18,8 @@ public:
 	static SoundManager& GetSingleton(void);
 	static SoundManager* GetSingletonPtr(void);
 	void PlaySound(char* fileName, bool loop = false);
+	enum Effects {None, Distortion, Chorus, Echo, Flanger, Gargle };
+	void PlaySoundWithEffect(char* fileName, bool loop = false, Effects = Effects::None);
 
 private:
 	irrklang::ISoundEngine* engine; 

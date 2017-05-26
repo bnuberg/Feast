@@ -7,6 +7,7 @@
 #include <OgreEntity.h>
 #include <OgreMeshManager.h>
 #include "SoundManager.h"
+#include "Dungeon.h"
 
 
 GameScene::GameScene()
@@ -38,21 +39,7 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 
 	//---Create the scene---
 
-	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, -2);
-
-	Ogre::MeshManager::getSingleton().createPlane(
-		"ground",
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		plane,
-		1500, 1500, 20, 20,
-		true,
-		1, 5, 5,
-		Ogre::Vector3::UNIT_Z);
-
-	Ogre::Entity* groundEntity = sceneManager->createEntity("ground");
-	sceneManager->getRootSceneNode()->createChildSceneNode()->attachObject(groundEntity);
-	groundEntity->setMaterialName("Examples/Rockwall");
-	groundEntity->setCastShadows(false);
+	Dungeon* dungeon = new Dungeon(sceneManager);
 
 	// Create a player entity with the right mesh
 	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
@@ -63,7 +50,7 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	playerNode->attachObject(playerEntity);
 
 	// Instantiate the player
-	player.Init();
+	mgr.player.Init(dungeon->GetPlayerSpawnPoint());
 
 	// Initialize the enemy manager
 	mgr.mEnemyManager.Init();
@@ -77,8 +64,6 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	mgr.cameraMan->setTarget(sceneManager->getSceneNode("PlayerHeadNode"));
 	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
 
-	
-
 	mgr.ui.Init();
 }
 
@@ -86,11 +71,10 @@ void GameScene::Update()
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	mgr.ui.ShowHud(player);
+	mgr.ui.ShowHud(mgr.player);
 	
 	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
 	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
 	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.349066), Ogre::Real(380));
-	
 }
 

@@ -30,6 +30,7 @@ public:
 	int randAttackSpeed;
 	int randSpeed;
 	int type;
+	bool equippedByEnemy;
 	IAbilityMovement *moveType;
 	IAbilityAttack *attackType;
 

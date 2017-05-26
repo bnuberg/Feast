@@ -21,6 +21,7 @@ public:
 	EnemyManager mEnemyManager;
 	BodyPartManager mBodyPartManager;
 	UI ui;
+	Player player;
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
 	Ogre::RenderWindow* mWindow;

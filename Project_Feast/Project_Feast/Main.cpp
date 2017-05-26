@@ -117,7 +117,13 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 bool Main::processUnbufferedInput(const Ogre::FrameEvent& evt)
 {
-	levelLoader.gameScene.player.Update(evt);
+	GameManager& mgr = GameManager::getSingleton();
+
+	if (mgr.player.exists)
+	{
+		mgr.player.Update(evt);
+	}
+
 	return true;
 }
 

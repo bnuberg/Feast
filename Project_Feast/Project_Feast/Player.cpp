@@ -13,21 +13,20 @@ Player::~Player()
 /**	This function instantiates the nodes and the entities attached for the player
 	as well as setting the base values for the player hp and such.
 */
-void Player::Init()
+void Player::Init(Ogre::Vector3 spawnPoint)
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-	GameManager* pMgr = GameManager::getSingletonPtr();
 
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetHealth(10);
 
-	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
-
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
+
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
 	playerNode->attachObject(playerEntity);
 
 	// player head, used to position the camera
@@ -35,7 +34,7 @@ void Player::Init()
 	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
 
 	// right arm origin
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 160, 0);
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);
 	rightarmOrigin = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmOrigin", startingPosition + rightarmoffset);
 	rightarmNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmNode", startingPosition + rightarmoffset);
 	rightarmNode->setScale(0.2, 0.2, 0.2);
@@ -45,6 +44,11 @@ void Player::Init()
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
+
+	equipment.arm.Stats();
+	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
+
+	exists = true;
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -121,13 +125,14 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 
 void Player::InitiateAbility()
 {
+	equipment.arm.equippedByEnemy = false;
 	if (!isSmashing)
 	{
 		//equipment.arm.type = 1;
 		if (equipment.arm.type == 0)
 		{
-			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
-			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
+			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
 		}
 		else if (equipment.arm.type == 1)
 		{
