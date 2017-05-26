@@ -45,7 +45,6 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
 
-	equipment.arm.Stats();
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 
 	exists = true;

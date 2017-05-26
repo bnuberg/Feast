@@ -33,6 +33,7 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAbilityAttack.h" />
@@ -68,5 +69,6 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityMovement.h" />
+    <ClInclude Include="Dungeon.h" />
   </ItemGroup>
 </Project>

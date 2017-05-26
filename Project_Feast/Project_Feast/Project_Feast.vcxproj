@@ -92,6 +92,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
