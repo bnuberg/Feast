@@ -4,6 +4,8 @@
 #include "stdafx.h"
 
 #include "gtest/gtest.h"
+//
+//#include "BodyPart.h"
 
 TEST(testMath, myCubeTest)
 {
@@ -15,7 +17,7 @@ TEST(gfg, sdfdffg)
 	EXPECT_EQ(1000, 1000);
 }
 
-int _tmain(int argc, _TCHAR* argv[])
-{
-	return 0;
-}
+//int _tmain(int argc, _TCHAR* argv[])
+//{
+//	return 0;
+//}

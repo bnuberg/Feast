@@ -20,7 +20,7 @@ public:
 	void DecreaseMeat(float spendMeat);
 	void convertMeattoHealth();
 
-	// Helalth functions
+	// Health functions
 	float GetHealth();
 	void SetHealth(float startingHealth);
 	void IncreaseHealth(float heal);
