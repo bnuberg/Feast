@@ -4,7 +4,8 @@
 
 
 EnemyManager::EnemyManager()
-	:enemy_spawn_timer_(5000)
+	:enemy_spawn_timer_(5000),
+	bleedTick(1000)
 {
 }
 
@@ -16,6 +17,7 @@ void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
 	timer_.reset();
+	bleedTimer.reset();
 }
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
@@ -33,7 +35,23 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	for (std::list<Enemy>::iterator e = enemy_list_.begin(); e != enemy_list_.end(); ++e)
 	{
 		e->Update(evt);
+		//Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(bleedTimer.getMilliseconds()));
+
+		if (bleedTimer.getMilliseconds() > bleedTick)
+		{
+			
+			if (e->is_bleeding)
+			{
+				Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(e->enemyID));
+				e->GetDamaged(20);
+				Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(e->enemyID) + "got damaged");
+
+				
+			}
+			bleedTimer.reset();
+		}
 	}
+
 }
 
 float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
@@ -109,6 +127,13 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			if (distance < killdistance)
 			{
 				e->GetDamaged(damage);
+
+				if (!e->is_bleeding)
+				{
+					e->is_bleeding = true;
+					e->AddBleedParticles();
+				}
+				
 			}
 
 		}

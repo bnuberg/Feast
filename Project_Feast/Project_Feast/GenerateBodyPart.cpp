@@ -1,5 +1,6 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
+#include "GameManager.h"
 
 
 GenerateBodyPart::GenerateBodyPart()
@@ -55,6 +56,11 @@ void GenerateBodyPart::PickMovementTemplates()
 			/*Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(arm.type));*/
 		}
 	}
+}
+
+void GenerateBodyPart::GenerateModifier()
+{
+	//ToDO: add different modifiers on spawn
 }
 
 void GenerateBodyPart::Combine()
