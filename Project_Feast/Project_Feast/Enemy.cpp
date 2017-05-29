@@ -42,6 +42,7 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	EnemyAI enemyAI;
 	enemyAI.StateSelecter(evt, enemy_node_);
+	enemyAI.enemyDodge(evt, enemy_node_);
 	//GetDamaged(1);
 }
 

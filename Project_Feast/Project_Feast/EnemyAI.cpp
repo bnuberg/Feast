@@ -30,7 +30,7 @@ void EnemyAI::Update(const Ogre::FrameEvent& evt)
 {
 	
 }
-
+// Methode to find the distance to the player from an enemy and return it as a vector.
 Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 {
 	GameManager& mgr = GameManager::GetSingleton();
@@ -38,27 +38,31 @@ Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	return distanceVector;
 }
+//Methode to get the position of the target and return it as vector.
 Ogre::Vector3 EnemyAI::EnemyTarget()
 {
 	GameManager& mgr = GameManager::GetSingleton();
 	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /* + Ogre::Vector3(0, 20, 0)*/;
 	return target;
 }
+//State selecter for the enemy behaviour
 void EnemyAI::StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode)
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
+	Ogre::Vector3 MoveDirection (0, 0, 0);
 
+	// When the distance to the player is less than the aggro range it will aggro
 	if (DistanceToPlayer(enemyNode).length() <= aggroRange)
 	{
 		AggroState(evt, MoveDirection, enemyNode);
 	}
+	// When the player is outside the aggro range and the enemy isn't at the start position it will go to idle state
 	else if (DistanceToPlayer(enemyNode).length() > aggroRange && enemyNode->getPosition() != startPosition)
 	{
 		IdleState(evt, MoveDirection, enemyNode);
 	}
 }
-
+//Aggro state so the enemy walks to the player when it is in range
 void EnemyAI::AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
 	enemyNode->lookAt(EnemyTarget(), Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
@@ -74,12 +78,9 @@ void EnemyAI::AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirectio
 		AttackState(evt, MoveDirection, enemyNode);
 	}
 }
+// Attack state so that the enemy stays withing a radius of the player and doesnt come closer
 void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
-
-	
-	enemyDodge(evt,MoveDirection, enemyNode);
-
 	if (timer_.getMilliseconds() >= attackTimer)
 	{
 		//attack 
@@ -90,6 +91,7 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
+//Idle state so the enemy will walk back to spawn when it's too far from the player.
 void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
 	Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
@@ -112,31 +114,34 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	}
 }
 
-void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode){
+void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
+	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
 	GameManager& mgr = GameManager::GetSingleton();
+	if (DistanceToPlayer(enemyNode).length() > attackRange){
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE)){
+			enemyAllowedToDodge = true;
+			dodgeTimer.reset();
+		}
+		if (enemyAllowedToDodge == true)
+		{
 
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE)){
-		enemyAllowedToDodge = true;
-		dodgeTimer.reset();
-	}
-	if (enemyAllowedToDodge == true)
-	{
-		
-		float dodgeChance = Ogre::Math::RangeRandom(0, 9);
-		/*if (dodgeChance > 8)
-		{*/
+			float dodgeChance = Ogre::Math::RangeRandom(0, 9);
+			/*if (dodgeChance > 8)
+			{*/
 
 			if (dodgeTimer.getMilliseconds() <= dodgeTime)
 			{
 				enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 				MoveDirection.z = enemySpeed * 5;
 				enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-				dodgeTimer.reset();	
+
 			}
 			else if (dodgeTimer.getMilliseconds() >= dodgeTime)
 			{
 				enemyAllowedToDodge = false;
+				dodgeTimer.reset();
 			}
-		//}
+			//}
+		}
 	}
 }

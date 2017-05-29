@@ -102,7 +102,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 		// TODO: decide which attack is cast based on attached bodypart
 		
-
 		switch (attack)
 		{
 		case 0: // is ground smash at player position approximately

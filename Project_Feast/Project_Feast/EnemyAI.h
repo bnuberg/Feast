@@ -14,8 +14,8 @@ public:
 	void StateSelecter(const Ogre::FrameEvent& evt);
 	Ogre::Vector3 DistanceToPlayer(Ogre::SceneNode* enemyNode);
 	Ogre::Vector3 startPosition;
-	void Move(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	void StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
+	void enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	void Test();
 	
 private:
@@ -36,7 +36,7 @@ protected:
 	void IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
 	void AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
 	void AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
-	void enemyDodge(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
+	
 	
 	
 
