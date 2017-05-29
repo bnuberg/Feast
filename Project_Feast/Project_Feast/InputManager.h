@@ -15,6 +15,7 @@ public:
 	void InitInput(Ogre::RenderWindow* mWindow);
 	OIS::Mouse* mMouse;
 	OIS::Keyboard* mKeyboard;
+	OIS::KeyListener* mKeyListner;
 protected:
 	OIS::InputManager* mInputManager;
 	
