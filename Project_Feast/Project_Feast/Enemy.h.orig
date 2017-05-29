@@ -11,7 +11,7 @@ public:
 	Enemy();
 	Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale = 1.0f);
 	~Enemy();
-	void Init();
+	void Init(int enemyIdentifier);
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
 	void SetEquipmentMesh(Ogre::String meshName);
@@ -28,16 +28,17 @@ public:
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
 
-	void setStartPosition(Ogre::Vector3 position);
-
-	int enemyID;
-
+<<<<<<< HEAD
 private:
+=======
 	Ogre::Vector3 getStartPosition();
+	void setStartPosition(Ogre::Vector3 position);
 
 	float getScale();
 	void setScale(float scale);
 
+protected: 
+>>>>>>> origin/Development
 	float enemyHealth;
 	float enemySpeed;
 	float enemyMaxHealth;
@@ -47,20 +48,16 @@ private:
 	float attackRange;
 	float scale;
 
-	bool isAttacking = false;
-	bool attackDown = false;
-
 	Ogre::Vector3 startPosition;
-	Ogre::SceneNode* rocketarmtargetNode;
 	
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);
 	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
 	void Die();
-	void InitiateAbility();
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
+
 
 	Ogre::SceneNode* erocketarmtargetNode;
 	Ogre::SceneNode* erightarmOrigin;

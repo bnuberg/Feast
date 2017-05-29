@@ -12,16 +12,17 @@ BodyPartManager::~BodyPartManager()
 {
 }
 // TODO UPDATE FUNCTION
-void BodyPartManager::Spawn(Ogre::Vector3 position)
+void BodyPartManager::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 {
+
 	int i = Random();
 	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(i));
 	if ( i > 8)
 	{
-		if (rand() % 2 == 0)
-			SpawnArm(position);
-		else
-			SpawnLeg(position);
+		/*if (rand() % 2 == 0)*/
+			SpawnArm(position, bodypart);
+		/*else
+			SpawnLeg(position);*/
 	}
 	// TODO Change spawn rate of bodyparts to 10-20%
 	
@@ -62,17 +63,27 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 	return closestbodypart;
 }
 
-void BodyPartManager::SpawnArm(Ogre::Vector3 position)
+void BodyPartManager::SpawnArm(Ogre::Vector3 position, Ogre::String bodypart)
 {
 	Arm arm;
-	arm.Spawn(position);
+	arm.Spawn(position, bodypart);
 	bodyPartsList.push_back(arm);
+}
+
+void BodyPartManager::DropArm(Ogre::Vector3 position, Arm arm)
+{
+	int i = Random();
+	if (i > 8)
+	{
+		arm.Drop(position);
+		bodyPartsList.push_back(arm);
+	}
 }
 
 void BodyPartManager::SpawnLeg(Ogre::Vector3 position)
 {
 	Leg leg;
-	leg.Spawn(position);
+	leg.Spawn(position, "");
 	bodyPartsList.push_back(leg);
 }
 
