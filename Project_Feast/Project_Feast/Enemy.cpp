@@ -25,7 +25,7 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	startPosition = (0, 0, 20);
+	startPosition = (0, 0, 0);
 	
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");

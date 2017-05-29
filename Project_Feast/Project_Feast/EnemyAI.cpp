@@ -51,6 +51,7 @@ void EnemyAI::StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyN
 	GameManager& mgr = GameManager::GetSingleton();
 	Ogre::Vector3 MoveDirection (0, 0, 0);
 
+	
 	// When the distance to the player is less than the aggro range it will aggro
 	if (DistanceToPlayer(enemyNode).length() <= aggroRange)
 	{
@@ -88,7 +89,6 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 		timer_.reset();
 	}
 	MoveDirection.z = -enemySpeed;
-
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
 //Idle state so the enemy will walk back to spawn when it's too far from the player.
@@ -103,7 +103,6 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	MoveDirection.z = enemySpeed;
 
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-
 
 	if (startDistance <= enemySpeed / 2500)
 	{
@@ -126,13 +125,12 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 		{
 
 			float dodgeChance = Ogre::Math::RangeRandom(0, 9);
-			/*if (dodgeChance > 8)
-			{*/
+			if (dodgeChance > 8)
+			{
 
 			if (dodgeTimer.getMilliseconds() <= dodgeTime)
 			{
-				enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-				MoveDirection.z = enemySpeed * 5;
+				MoveDirection.z = -enemySpeed * 5;  
 				enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
 			}
@@ -141,7 +139,7 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 				enemyAllowedToDodge = false;
 				dodgeTimer.reset();
 			}
-			//}
+			}
 		}
 	}
 }
