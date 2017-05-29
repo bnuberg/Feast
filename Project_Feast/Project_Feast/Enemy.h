@@ -38,6 +38,7 @@ private:
 	float getScale();
 	void setScale(float scale);
 
+	float enemyHeight;
 	float enemyHealth;
 	float enemySpeed;
 	float enemyMaxHealth;
@@ -50,6 +51,7 @@ private:
 	bool isAttacking = false;
 	bool attackDown = false;
 
+	Ogre::Vector3 fakeStartPosition;
 	Ogre::Vector3 startPosition;
 	Ogre::SceneNode* rocketarmtargetNode;
 	

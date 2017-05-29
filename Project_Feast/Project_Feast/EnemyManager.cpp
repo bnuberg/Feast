@@ -16,6 +16,10 @@ void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
 	timer_.reset();
+
+	SpawnEnemy(Ogre::Vector3(0, 0, 0));
+	SpawnEnemy(Ogre::Vector3(100, 0, 100));
+	SpawnEnemy(Ogre::Vector3(-100, 0, -100));
 }
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
