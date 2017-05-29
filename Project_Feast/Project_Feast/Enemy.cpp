@@ -44,22 +44,21 @@ void Enemy::Init()
 
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
 
-	startPosition = getStartPosition();
-
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
-	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), startPosition);
-	enemy_node_->setPosition(startPosition);
+	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition);
+	enemy_node_->setPosition(fakeStartPosition);
 	enemy_node_->resetOrientation();
 	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
 	// right arm origin
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
-	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
-	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
+	enemyHeight = 50;
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, enemyHeight, 0);
+	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
+	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
 	enemyEquipment.EnemyEquipArm(erightarmNode);
 	//SetEquipment();
@@ -69,7 +68,11 @@ void Enemy::Init()
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
-	rocketarmtargetNode = erightarmNode->createChildSceneNode(startPosition - rocketarmtargetoffset);
+	rocketarmtargetNode = erightarmNode->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
+
+	// All nodes added, translate enemy to start position
+	enemy_node_->translate(startPosition, Ogre::Node::TS_LOCAL);
+
 
 	SetHealth(10);
 
@@ -119,8 +122,8 @@ void Enemy::InitiateAbility()
 		
 		if (enemyEquipment.arm.type == 0)
 		{
-			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
-			enemyEquipment.arm.AbilityGlobalTarget(erightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, enemyHeight, 0));
+			enemyEquipment.arm.AbilityGlobalTarget(erightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, enemyHeight, 0));
 		}
 		else if (enemyEquipment.arm.type == 1)
 		{
@@ -199,7 +202,6 @@ Ogre::Vector3 Enemy::getStartPosition()
 
 void Enemy::setStartPosition(Ogre::Vector3 position)
 {
-	position.y = 0;
 	startPosition = position;
 }
 
