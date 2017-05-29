@@ -20,7 +20,6 @@ public:
 	void SetAttack();
 	void SetEquipment();
 
-	Ogre::Vector3 startPosition;
 	bool is_dead_ = false;
 	bool is_dead2_ = false;
 	Ogre::Entity* enemyEntity;
@@ -36,8 +35,6 @@ public:
 	int enemyID;
 private:
 	Ogre::Timer timer_;
-
-
 	
 	Ogre::Vector3 getStartPosition();
 

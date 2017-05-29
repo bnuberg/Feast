@@ -201,7 +201,6 @@ void Enemy::DropBodyPart()
 	}
 }
 
-	{
 void Enemy::Die()
 {
 	/*GameManager& mgr = GameManager::GetSingleton();
