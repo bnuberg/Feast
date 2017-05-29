@@ -6,7 +6,6 @@
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 
-
 Enemy::Enemy()
 	:enemyHealth(10),
 	enemySpeed(50),
@@ -25,7 +24,7 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 {
 	setStartPosition(sPosition);
 	setScale(scale);
-	Init();
+	//Init();
 	SetHealth(health);
 	enemySpeed = speed;
 	enemeyDamage = damage;
@@ -40,19 +39,35 @@ Enemy::~Enemy()
 void Enemy::Init()
 {
 	GameManager& mgr = GameManager::GetSingleton();
+
+	enemyID = ++mgr.mEnemyManager.totalEnemyID;
+
 	startPosition = getStartPosition();
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
 
 	// Add the node to the scene
-	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), startPosition);
 	enemy_node_->setPosition(startPosition);
 	enemy_node_->resetOrientation();
 	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
-	
+	// right arm origin
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 50, 0);
+	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
+	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), startPosition + rightarmoffset);
+	erightarmNode->setScale(0.2, 0.2, 0.2);
+	enemyEquipment.EnemyEquipArm(erightarmNode);
+	//SetEquipment();
+	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
+
+	//erightarmNode->attachObject(erightarmEntity);
+
+	// rocket arm target
+	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
+	rocketarmtargetNode = erightarmNode->createChildSceneNode(startPosition - rocketarmtargetoffset);
 
 	SetHealth(10);
 
@@ -70,13 +85,80 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	 Move(evt);
 
-	 //GetDamaged(1);
+	 if (isAttacking)
+	 {
+		 if (attackDown)
+		 {
+			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 {
+				 enemyEquipment.arm.AbilityDamage();
+				 attackDown = false;
+				 enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition());
+			 }
+		 }
+		 else
+		 {
+			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 {
+				 isAttacking = false;
+			 }
+		 }
+	 }
+
+	 InitiateAbility();
+}
+
+void Enemy::InitiateAbility()
+{
+	enemyEquipment.arm.equippedByEnemy = true;
+	if (!isAttacking)
+	{
+		//equipment.arm.type = 1;
+		
+		if (enemyEquipment.arm.type == 0)
+		{
+			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
+			enemyEquipment.arm.AbilityGlobalTarget(erightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+		}
+		else if (enemyEquipment.arm.type == 1)
+		{
+			enemyEquipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
+			enemyEquipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
+		}
+
+		isAttacking = true;
+		attackDown = true;
+	}
+	else
+	{
+		// TODO: attack in progress
+	}
 }
 
 void Enemy::SetHealth(float startingHealth)
 {
 	enemyMaxHealth = startingHealth;
 	enemyHealth = enemyMaxHealth;
+}
+
+void Enemy::SetEquipmentMesh(Ogre::String meshName)
+{
+	//TODO: change mesh of arm to arm which the enemy will spawn with
+	erightarmNode->detachAllObjects();
+	Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity(meshName);
+	erightarmNode->attachObject(erightarmEntity);
+}
+
+void Enemy::SetEquipment()
+{
+	/*Ogre::String bodypartName;
+
+	EnemyEquipment enemyequipment;
+	bodypartName = enemyequipment.AssignRandomBodypart();
+	Ogre::LogManager::getSingletonPtr()->logMessage("bodypartname:" + bodypartName);
+	SetEquipmentMesh(bodypartName);*/
+
+
 }
 
 void Enemy::DoDamage(float damage)
@@ -131,7 +213,7 @@ void Enemy::Move(const Ogre::FrameEvent& evt)
 
 	//Ogre::Vector3 offset = (0, -20, 0);
 
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() + Ogre::Vector3(0, 20, 0);
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /*+ Ogre::Vector3(0, 20, 0)*/;
 
 	//target = Ogre::Vector3(target.x, 20, target.z);
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;

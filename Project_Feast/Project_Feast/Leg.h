@@ -13,7 +13,7 @@ public:
 	int speedMax = 250;
 	
 
-	virtual void Stats() override;
+	
 	virtual void Ability();
 	
 };

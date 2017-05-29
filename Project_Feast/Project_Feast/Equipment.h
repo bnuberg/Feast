@@ -2,6 +2,7 @@
 
 #include "Leg.h"
 #include "Arm.h"
+#include "GenerateBodyPart.h"
 
 enum
 {
@@ -26,6 +27,7 @@ public:
 	bool hasALeg = false;
 	bool once = false;
 	bool once2 = false;
+	GenerateBodyPart generateArm;
 	Leg leg;
 	Arm arm;
 	// TODO add equipment slots
