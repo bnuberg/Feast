@@ -6,6 +6,11 @@
 EnemyManager::EnemyManager()
 	:enemy_spawn_timer_(5000)
 {
+	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 300);
+	enemySpawnPoints[1] = Ogre::Vector3(200, 0, 100);
+	enemySpawnPoints[2] = Ogre::Vector3(-200, 0, 100);
+	enemySpawnPoints[3] = Ogre::Vector3(100, 0, 200);
+	enemySpawnPoints[4] = Ogre::Vector3(-100, 0, 200);
 }
 
 EnemyManager::~EnemyManager()
@@ -16,24 +21,71 @@ void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
 	timer_.reset();
+	waveAliveTimer.reset();
 }
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
-	// When the timer reaches the spawn timer, spawn an enemy and reset the timer
-	if (timer_.getMilliseconds() >= enemy_spawn_timer_)
+	GameManager& mgr = GameManager::getSingleton();
+
+	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+	if (enemy_list_.size() <= 0 && isWaveAlive)
 	{
-		// 10 is probably too far away.
-		//SpawnEnemy(Ogre::Vector3(4, 0, 4));
-		//SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
-		//SpawnLightEnemy(Ogre::Vector3(100, 0, 300));
+		isWaveAlive = false;
+		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
 		timer_.reset();
 	}
 
-	for (std::list<Enemy>::iterator e = enemy_list_.begin(); e != enemy_list_.end(); ++e)
+	if (isWaveAlive)
+	{
+		waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
+	}
+
+	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
+	{
+		SpawnWave();
+
+		timer_.reset();
+	}
+
+	std::list<Enemy>::iterator e = enemy_list_.begin();
+	while (e != enemy_list_.end())
 	{
 		e->Update(evt);
+		// If the enemy is dead but not yet removed remove him.
+		if (e->is_dead_ && !e->is_dead2_)
+		{
+			// Spawn meat
+			Meat meat;
+			meat.Spawn(e->enemy_node_->getPosition());
+			meatList.push_back(meat);
+
+			// Spawn bodypart
+			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
+
+			// Remove all objects and take it out of the list
+			e->enemy_node_->detachAllObjects();
+			e->erightarmNode->detachAllObjects();
+			e->is_dead2_ = true;
+			enemy_list_.erase(e++);
+		}
+		else
+		{
+			++e;
+		}
 	}
+}
+
+void EnemyManager::SpawnWave()
+{
+	for each (Ogre::Vector3 position in enemySpawnPoints)
+	{
+		SpawnEnemy(position);
+	}
+
+	waveAliveTimer.reset();
+	waveCount++;
+	isWaveAlive = true;
 }
 
 float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
@@ -94,11 +146,10 @@ void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 */
 void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage)
 {
-	GameManager& mgr = GameManager::getSingleton();
+	/*GameManager& mgr = GameManager::getSingleton();*/
 
 	// The iterator is used to go over all the enmies in the list
-	std::list<Enemy>::iterator e = enemy_list_.begin();
-	while (e != enemy_list_.end())
+	for (std::list<Enemy>::iterator e = enemy_list_.begin(); e != enemy_list_.end(); ++e)
 	{
 		// If the enemy isn't dead damage it
 		if (!e->is_dead_)
@@ -111,28 +162,6 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 				e->GetDamaged(damage);
 			}
 
-		}
-
-		// If the enemy is dead but not yet removed remove him.
-		if (e->is_dead_ && !e->is_dead2_)
-		{
-			// Spawn meat
-			Meat meat;
-			meat.Spawn(e->enemy_node_->getPosition());
-			meatList.push_back(meat);
-
-			// Spawn bodypart
-			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
-
-			// Remove all objects and take it out of the list
-			e->enemy_node_->detachAllObjects();
-			e->erightarmNode->detachAllObjects();
-			e->is_dead2_ = true;
-			enemy_list_.erase(e++);
-		}
-		else
-		{
-			++e;
 		}
 	}
 }

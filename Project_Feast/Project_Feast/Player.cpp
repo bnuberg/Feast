@@ -3,6 +3,8 @@
 #include "SoundManager.h"
 
 Player::Player()
+:dodge_cooldown_(800),
+move_cooldown_(200)
 {
 }
 
@@ -11,7 +13,7 @@ Player::~Player()
 }
 
 /**	This function instantiates the nodes and the entities attached for the player
-	as well as setting the base values for the player hp and such.
+as well as setting the base values for the player hp and such.
 */
 void Player::Init(Ogre::Vector3 spawnPoint)
 {
@@ -48,6 +50,8 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 
 	exists = true;
+	timer_.reset();
+	dodge_timer_.reset();
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -69,11 +73,66 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
 		dirVec.z += move;
 
-	// Left and Right
+	// Null check 
+	if (GetMeat() >= dodgeMeatCost)
+		ableToDodge = true;
+	else
+		ableToDodge = false;
+
+	//Sets the variable false after a set amount of time
+	if (timer_.getMilliseconds() >= dodge_cooldown_)
+	{
+		keyPressed = false;
+	}
+
+	//Checks if player has enough meat, executes dodge method and decreases meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
-		dirVec.x -= move;
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
+		{
+			timer_.reset();
+			dodge_timer_.reset();
+			dodgeLeft = true;
+			DecreaseMeat(dodgeMeatCost);
+			keyPressed = true;
+		}
+
+		else
+			dirVec.x -= move;
+	}
+
+	if (dodgeLeft)
+	{
+		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		{
+			dirVec.x -= move * 5;
+			dodgeRight = false;
+		}
+	}
+
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-		dirVec.x += move;
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
+		{
+			timer_.reset();
+			dodge_timer_.reset();
+			dodgeRight = true;
+			DecreaseMeat(dodgeMeatCost);
+			keyPressed = true;
+		}
+
+		else
+			dirVec.x += move;
+	}
+
+	if (dodgeRight)
+	{
+		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		{
+			dirVec.x += move * 5;
+			dodgeLeft = false;
+		}
+	}
 
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
@@ -111,8 +170,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
-	if (GetMeat() >= 10)
-		convertMeattoHealth();
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -164,7 +221,7 @@ float Player::GetMeat()
 	return meat;
 }
 
-void Player::SetMeat(float startingMeat = 0) 
+void Player::SetMeat(float startingMeat = 0)
 {
 	meat = startingMeat;
 }
@@ -176,7 +233,7 @@ void Player::IncreaseMeat(float incMeat)
 
 void Player::DecreaseMeat(float spendMeat)
 {
-	if ((meat -= spendMeat) < 0)
+	if ((meat - spendMeat) < 0)
 	{
 		meat = 0;
 	}
@@ -270,14 +327,14 @@ void Player::Pickup()
 
 			}
 			attack = bodypart.type;
-			
+
 			SetAttack();
-			
+
 		}
 		else if (bodypart.tag == "Leg")
 		{
 			equipment.EquipLeg();
-			
+
 			equipment.setPlayerLegStats(bodypart.randSpeed);
 			bodypart.pickedUp = true;
 			SetSpeed();
