@@ -135,7 +135,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		convertMeattoHealth();
 	}
 
-	if (GetMeat() == 100){
+	if (GetMeat() == 100)
+	{
 		move = 220;
 	}
 	else

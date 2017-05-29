@@ -33,17 +33,10 @@ protected:
 	float enemyMaxHealth;
 	float enemeyDamage;
 	float enemyMaxDamage;
-	float aggroRange;
-	float attackRange;
-	unsigned long attackTimer;
-
-	
-	
 
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);
 	void DropBodyPart();
-	void Move(const Ogre::FrameEvent& evt);
 	void Die();
 };
 
