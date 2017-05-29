@@ -19,10 +19,10 @@ void BodyPartManager::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(i));
 	if ( i > 8)
 	{
-		if (rand() % 2 == 0)
+		/*if (rand() % 2 == 0)*/
 			SpawnArm(position, bodypart);
-		else
-			SpawnLeg(position);
+		/*else
+			SpawnLeg(position);*/
 	}
 	// TODO Change spawn rate of bodyparts to 10-20%
 	

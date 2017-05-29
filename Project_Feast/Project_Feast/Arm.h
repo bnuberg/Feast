@@ -9,12 +9,6 @@ public:
 	Arm();
 	~Arm();
 
-	int attackSpeedMax = 5;
-	int attackSpeedMin = 1;
-	int damageMax = 10;
-	int damageMin = 1;
 	
-
-	void Stats() override;
 };
 

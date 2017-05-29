@@ -92,6 +92,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
@@ -99,7 +101,6 @@
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodyPartManager.h" />
-    <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyManager.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GroundSmashArm.h" />
+    <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="Leg.h" />
@@ -123,7 +125,6 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="RangedAttackArm.h" />
-    <ClInclude Include="Time.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -141,8 +142,10 @@
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
+    <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IScene.cpp" />
     <ClCompile Include="Leg.cpp" />
@@ -157,7 +160,6 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
-    <ClCompile Include="Time.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

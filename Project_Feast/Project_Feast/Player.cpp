@@ -34,7 +34,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
 
 	// right arm origin
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, 160, 0);
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);
 	rightarmOrigin = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmOrigin", startingPosition + rightarmoffset);
 	rightarmNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmNode", startingPosition + rightarmoffset);
 	rightarmNode->setScale(0.2, 0.2, 0.2);
@@ -46,6 +46,8 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
+
+	exists = true;
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -122,13 +124,14 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 
 void Player::InitiateAbility()
 {
+	equipment.arm.equippedByEnemy = false;
 	if (!isSmashing)
 	{
 		//equipment.arm.type = 1;
 		if (equipment.arm.type == 0)
 		{
-			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, 160, 0));
-			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, 160, 0));
+			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
+			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
 		}
 		else if (equipment.arm.type == 1)
 		{
@@ -257,12 +260,12 @@ void Player::Pickup()
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
 			{
-				ChangeRightArmMesh("sphere.mesh");
+				ChangeRightArmMesh(bodypart.mesh);
 				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
-				ChangeRightArmMesh("cube.mesh");
+				ChangeRightArmMesh(bodypart.mesh);
 				equipment.arm.type = 0;
 
 			}

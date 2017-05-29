@@ -58,13 +58,18 @@ private:
 	std::vector<Ogre::Vector3> positions;
 	std::vector<bool> blockages;
 
+	bool isAttacking = false;
+	bool attackDown = false;
+
 	Ogre::Vector3 startPosition;
+	Ogre::SceneNode* rocketarmtargetNode;
 	
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);
 	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
 	void Die();
+	void InitiateAbility();
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 
