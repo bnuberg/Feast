@@ -17,9 +17,11 @@ public:
 	void SetEquipmentMesh(Ogre::String meshName);
 	void SetAttack();
 	void SetEquipment();
+	void AddBleedParticles();
 
 	bool is_dead_ = false;
 	bool is_dead2_ = false;
+	bool is_bleeding = false;
 	Ogre::Entity* enemyEntity;
 	Ogre::SceneNode* enemy_node_;
 	EnemyEquipment enemyEquipment;

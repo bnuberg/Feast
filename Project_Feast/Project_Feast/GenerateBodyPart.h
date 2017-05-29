@@ -19,6 +19,7 @@ public:
 	void RandomStats();
 	void PickAttackTemplate();
 	void PickMovementTemplates();
+	void GenerateModifier();
 	void Combine();
 	
 	Arm Generate();

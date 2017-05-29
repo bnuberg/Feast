@@ -10,6 +10,7 @@
 #include <OgreTimer.h>
 #include "Enemy.h"
 #include "Meat.h"
+#include "DamageOverTime.h"
 
 /** Creates and tracks all the enemy instances and bodypart instances
 */
@@ -28,11 +29,17 @@ public:
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	void BodypartToAdd();
 	int totalEnemyID = 0;
+	DamageOverTime DoT;
 
 private:
 	std::list<Enemy> enemy_list_;		// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
 	unsigned long enemy_spawn_timer_;			// The duration it takes for an enemy to spawn
+	Ogre::Timer bleedTimer;
+	unsigned long bleedTick;
+	Ogre::Timer bleed_duration_timer;
+	unsigned long bleed_duration;
 	std::vector<Meat> meatList;					// List containing all meat objects
+
 };
 

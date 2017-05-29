@@ -5,6 +5,8 @@
 #include "BodyPart.h"
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
+#include <OgreParticleSystem.h>
+
 
 Enemy::Enemy()
 	:enemyHealth(10),
@@ -135,6 +137,15 @@ void Enemy::InitiateAbility()
 	}
 }
 
+void Enemy::AddBleedParticles()
+{
+	GameManager& mgr = GameManager::GetSingleton();
+
+	Ogre::ParticleSystem* ps1 = mgr.mSceneMgr->createParticleSystem("particle1" + Ogre::StringConverter::toString(enemyID), "Examples/GreenyNimbus");
+	enemy_node_->attachObject(ps1);
+
+}
+
 void Enemy::SetHealth(float startingHealth)
 {
 	enemyMaxHealth = startingHealth;
@@ -175,6 +186,10 @@ void Enemy::GetDamaged(float damage)
 	{
 		is_dead_ = true;
 	}
+
+	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(enemyHealth));
+	Ogre::LogManager::getSingletonPtr()->logMessage("enemy is ded" + Ogre::StringConverter::toString(is_dead_));
+
 }
 
 Ogre::Vector3 Enemy::getStartPosition()
