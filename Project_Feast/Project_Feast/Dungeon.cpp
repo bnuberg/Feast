@@ -25,6 +25,7 @@ Vector3 Dungeon::GetPlayerSpawnPoint()
 */
 void Dungeon::LoadScene(SceneManager* sceneManager)
 {
+	
 	GameManager& mgr = GameManager::getSingleton();
 	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
 

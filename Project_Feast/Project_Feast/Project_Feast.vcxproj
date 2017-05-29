@@ -120,6 +120,7 @@
     <ClInclude Include="Meat.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rarity.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="GameScene.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
     <ClCompile Include="UI.cpp" />
