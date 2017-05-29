@@ -135,7 +135,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
-	IncreaseMeat(100);
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
 
