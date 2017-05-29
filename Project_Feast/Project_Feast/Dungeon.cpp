@@ -26,11 +26,11 @@ Vector3 Dungeon::GetPlayerSpawnPoint()
 void Dungeon::LoadScene(SceneManager* sceneManager)
 {
 	GameManager& mgr = GameManager::getSingleton();
-	//Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
+	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
 
 	Vector3 startingPosition = Vector3(0, 0, 0);
-	//SceneNode* dungeonNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeon", startingPosition);
-	//dungeonNode->attachObject(dungeonEntity);
+	SceneNode* dungeonNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeon", startingPosition);
+	dungeonNode->attachObject(dungeonEntity);
 	dungeonNode->setScale(dungeonScale);
 
 	sceneManager->setAmbientLight(Ogre::ColourValue(.8, .8, .8));
