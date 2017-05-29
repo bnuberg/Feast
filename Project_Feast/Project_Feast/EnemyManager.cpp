@@ -26,6 +26,8 @@ void EnemyManager::Init()
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
+	GameManager& mgr = GameManager::getSingleton();
+
 	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
 	if (enemy_list_.size() <= 0 && isWaveAlive)
 	{
@@ -46,9 +48,31 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		timer_.reset();
 	}
 
-	for (std::list<Enemy>::iterator e = enemy_list_.begin(); e != enemy_list_.end(); ++e)
+	std::list<Enemy>::iterator e = enemy_list_.begin();
+	while (e != enemy_list_.end())
 	{
 		e->Update(evt);
+		// If the enemy is dead but not yet removed remove him.
+		if (e->is_dead_ && !e->is_dead2_)
+		{
+			// Spawn meat
+			Meat meat;
+			meat.Spawn(e->enemy_node_->getPosition());
+			meatList.push_back(meat);
+
+			// Spawn bodypart
+			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
+
+			// Remove all objects and take it out of the list
+			e->enemy_node_->detachAllObjects();
+			e->erightarmNode->detachAllObjects();
+			e->is_dead2_ = true;
+			enemy_list_.erase(e++);
+		}
+		else
+		{
+			++e;
+		}
 	}
 }
 
@@ -122,11 +146,10 @@ void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 */
 void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage)
 {
-	GameManager& mgr = GameManager::getSingleton();
+	/*GameManager& mgr = GameManager::getSingleton();*/
 
 	// The iterator is used to go over all the enmies in the list
-	std::list<Enemy>::iterator e = enemy_list_.begin();
-	while (e != enemy_list_.end())
+	for (std::list<Enemy>::iterator e = enemy_list_.begin(); e != enemy_list_.end(); ++e)
 	{
 		// If the enemy isn't dead damage it
 		if (!e->is_dead_)
@@ -139,28 +162,6 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 				e->GetDamaged(damage);
 			}
 
-		}
-
-		// If the enemy is dead but not yet removed remove him.
-		if (e->is_dead_ && !e->is_dead2_)
-		{
-			// Spawn meat
-			Meat meat;
-			meat.Spawn(e->enemy_node_->getPosition());
-			meatList.push_back(meat);
-
-			// Spawn bodypart
-			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
-
-			// Remove all objects and take it out of the list
-			e->enemy_node_->detachAllObjects();
-			e->erightarmNode->detachAllObjects();
-			e->is_dead2_ = true;
-			enemy_list_.erase(e++);
-		}
-		else
-		{
-			++e;
 		}
 	}
 }
