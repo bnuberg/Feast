@@ -15,9 +15,10 @@ Player::~Player()
 */
 void Player::Init(Ogre::Vector3 spawnPoint)
 {
+	
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-
+	
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetHealth(10);
@@ -28,7 +29,6 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	// Create a player entity with the right mesh
 	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
 	playerNode->attachObject(playerEntity);
-
 	// player head, used to position the camera
 	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
 	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);

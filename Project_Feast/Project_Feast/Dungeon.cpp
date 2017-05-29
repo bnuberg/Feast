@@ -32,6 +32,7 @@ Vector3 Dungeon::GetPlayerSpawnPoint()
 */
 void Dungeon::LoadScene(SceneManager* sceneManager)
 {
+	
 	GameManager& mgr = GameManager::getSingleton();
 	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
 
@@ -39,7 +40,6 @@ void Dungeon::LoadScene(SceneManager* sceneManager)
 	SceneNode* dungeonNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeon", startingPosition);
 	dungeonNode->attachObject(dungeonEntity);
 	dungeonNode->setScale(Vector3(4, 4, 4));
-
 	mgr.mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
 }
 

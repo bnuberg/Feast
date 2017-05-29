@@ -22,6 +22,7 @@ public:
 	void AbilityDamage();
 
 	Ogre::SceneNode* bodyPartNode;
+	Ogre::Entity *bodyPartEntity;
 	Ogre::String mesh;
 	bool isPickupAble = false;
 	bool pickedUp = false;

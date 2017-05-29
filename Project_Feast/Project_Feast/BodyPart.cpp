@@ -29,7 +29,7 @@ void BodyPart::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 	{
 		type = 1;
 	}
-	Ogre::Entity *bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
+	bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
 
 	// Add the node to the scene
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
@@ -48,7 +48,6 @@ void BodyPart::Drop(Ogre::Vector3 position)
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
 	bodyPartNode->setScale(0.2, 0.2, 0.2);
-
 
 }
 

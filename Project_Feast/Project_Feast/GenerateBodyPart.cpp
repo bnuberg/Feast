@@ -2,6 +2,7 @@
 #include "AbilityAttackAOE.h"
 
 
+
 GenerateBodyPart::GenerateBodyPart()
 {
 
@@ -13,13 +14,14 @@ GenerateBodyPart::~GenerateBodyPart()
 
 }
 
-void GenerateBodyPart::RandomStats()
+void GenerateBodyPart::SetRarity()
 {
-	arm.randDamage = rand() % (damageMax - damageMin + 1) + damageMin;
-	arm.randAttackSpeed = rand() % (attackSpeedMax - attackSpeedMin + 1) + attackSpeedMin;
+	rarity.RarityPicker();
+	arm.randDamage = rarity.GetDamageValue();
+	arm.randSpeed = rarity.GetSpeedValue();
 }
 
-void GenerateBodyPart::PickAttackTemplate()
+void GenerateBodyPart::SetAttackTemplate()
 {
 	attackTypeEnum = static_cast<AttackTypeEnum>(rand() % TotalAttackTypes);
 	switch (attackTypeEnum){
@@ -32,7 +34,7 @@ void GenerateBodyPart::PickAttackTemplate()
 	
 }
 
-void GenerateBodyPart::PickMovementTemplates()
+void GenerateBodyPart::SetMovementTemplates()
 {
 	movementTypeEnum = static_cast<MovementTypeEnum>(rand() % TotalMovementTypes);
 
@@ -45,6 +47,7 @@ void GenerateBodyPart::PickMovementTemplates()
 			{
 				arm.type = 0;
 				arm.mesh = "cube.mesh";
+				
 				/*Ogre::LogManager::getSingletonPtr()->logMessage("Pepe");*/
 			}
 			else
@@ -57,11 +60,15 @@ void GenerateBodyPart::PickMovementTemplates()
 	}
 }
 
+void GenerateBodyPart::SetModifier()
+{
+}
+
 void GenerateBodyPart::Combine()
 {
-	RandomStats();
-	PickAttackTemplate();
-	PickMovementTemplates();
+	SetRarity();
+	SetAttackTemplate();
+	SetMovementTemplates();
 	
 }
 
