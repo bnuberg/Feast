@@ -14,10 +14,13 @@ public:
 	void BasicEnemy();
 	float setAggroR();
 	float setAttackR();
+	unsigned long setAttackT();
+	void attackPattern();
 
 private:
 	float aggroRange;
 	float attackRange;
+	unsigned long attackTimer;
 
 
 

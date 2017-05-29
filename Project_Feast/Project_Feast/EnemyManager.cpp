@@ -1,4 +1,5 @@
 #include "EnemyManager.h"
+#include "EnemyAI.h"
 #include "BodyPartManager.h"
 #include "GameManager.h"
 #include "SoundManager.h"

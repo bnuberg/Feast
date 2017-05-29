@@ -50,6 +50,8 @@ private:
 	bool isSmashing = false;
 	bool smashingDown = false;
 
+	bool ableToHeal;
+
 	float health;
 	float meat;
 	float maxHealth;
