@@ -10,22 +10,24 @@ class Player
 public:
 	Player();
 	~Player();
-	void Init();
+	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
 	void Update(const Ogre::FrameEvent& evt);
 
+	// Meat functions
 	float GetMeat();
 	void SetMeat(float startingMeat);
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
-
 	void convertMeattoHealth();
 
+	// Helalth functions
 	float GetHealth();
 	void SetHealth(float startingHealth);
 	void IncreaseHealth(float heal);
 	void DecreaseHealth(float dmg);
 	void IncreaseMaxHealth(float permaHeal);
 	void DecreaseMaxHealth(float permaDmg);
+
 	void SetAttack();
 	void SetSpeed();
 	void Pickup();
@@ -39,13 +41,17 @@ public:
 	int playerDamage;
 	int playerAttackSpeed;
 	int attack = 0;
+
+	bool exists = false;
 private:
-	void InitiateSmash();
+	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
+
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
+	float playerShoulderHeight = 160;
 
 	bool isSmashing = false;
 	bool smashingDown = false;
@@ -57,4 +63,3 @@ private:
 	float maxHealth;
 	float rightarmSpeed = 500;
 };
-
