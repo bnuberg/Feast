@@ -28,10 +28,16 @@ public:
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	void BodypartToAdd();
 	int totalEnemyID = 0;
+	bool isWaveAlive = false;
+	int waveCount = 0;
+	float waveTimeSpent;
 
 private:
-	std::list<Enemy> enemy_list_;		// List containing all enemies
+	void EnemyManager::SpawnWave();
+	Ogre::Vector3 enemySpawnPoints[5];
+	std::list<Enemy> enemy_list_;				// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
+	Ogre::Timer waveAliveTimer;
 	unsigned long enemy_spawn_timer_;			// The duration it takes for an enemy to spawn
 	std::vector<Meat> meatList;					// List containing all meat objects
 };

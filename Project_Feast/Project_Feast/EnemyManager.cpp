@@ -6,6 +6,11 @@
 EnemyManager::EnemyManager()
 	:enemy_spawn_timer_(5000)
 {
+	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 300);
+	enemySpawnPoints[1] = Ogre::Vector3(200, 0, 100);
+	enemySpawnPoints[2] = Ogre::Vector3(-200, 0, 100);
+	enemySpawnPoints[3] = Ogre::Vector3(100, 0, 200);
+	enemySpawnPoints[4] = Ogre::Vector3(-100, 0, 200);
 }
 
 EnemyManager::~EnemyManager()
@@ -16,17 +21,28 @@ void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
 	timer_.reset();
+	waveAliveTimer.reset();
 }
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
-	// When the timer reaches the spawn timer, spawn an enemy and reset the timer
-	if (timer_.getMilliseconds() >= enemy_spawn_timer_)
+	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+	if (enemy_list_.size() <= 0 && isWaveAlive)
 	{
-		// 10 is probably too far away.
-		//SpawnEnemy(Ogre::Vector3(4, 0, 4));
-		//SpawnHeavyEnemy(Ogre::Vector3(400, 0, 700));
-		//SpawnLightEnemy(Ogre::Vector3(100, 0, 300));
+		isWaveAlive = false;
+		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
+		timer_.reset();
+	}
+
+	if (isWaveAlive)
+	{
+		waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
+	}
+
+	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
+	{
+		SpawnWave();
+
 		timer_.reset();
 	}
 
@@ -34,6 +50,18 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	{
 		e->Update(evt);
 	}
+}
+
+void EnemyManager::SpawnWave()
+{
+	for each (Ogre::Vector3 position in enemySpawnPoints)
+	{
+		SpawnEnemy(position);
+	}
+
+	waveAliveTimer.reset();
+	waveCount++;
+	isWaveAlive = true;
 }
 
 float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
