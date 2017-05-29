@@ -111,8 +111,26 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
-	if (GetMeat() >= 10)
+	if (GetMeat() >= 10 && health != maxHealth){
+		ableToHeal = true;
+	}
+	else
+	{
+		ableToHeal = false;
+	}
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true){
 		convertMeattoHealth();
+	}
+
+	if (GetMeat() == 100)
+	{
+		move = 220;
+	}
+	else
+	{
+		move = 200;
+	}
+	
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -176,7 +194,7 @@ void Player::IncreaseMeat(float incMeat)
 
 void Player::DecreaseMeat(float spendMeat)
 {
-	if ((meat -= spendMeat) < 0)
+	if ((meat - spendMeat) < 0)
 	{
 		meat = 0;
 	}

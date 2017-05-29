@@ -16,6 +16,8 @@ public:
 	void BasicEnemy();
 	float setAggroR();
 	float setAttackR();
+	unsigned long setAttackT();
+	void attackPattern();
 
 	// Boolean is for whether or not it is blocked - only call this once. - At this point a series of operations is performed to generate route.
 	// Route can be found by calling getRoute().
@@ -26,6 +28,7 @@ public:
 private:
 	float aggroRange;
 	float attackRange;
+	unsigned long attackTimer;
 
 	Ogre::Vector3 simplifyPosition3(Ogre::Vector3 position);
 	Ogre::Vector2 simplifyPosition2(Ogre::Vector3 position);
