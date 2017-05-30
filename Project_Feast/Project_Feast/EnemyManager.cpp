@@ -46,7 +46,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
 	{
 		SpawnWave();
-
+		
 		timer_.reset();
 	}
 
@@ -54,6 +54,8 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	while (e != enemy_list_.end())
 	{
 		e->Update(evt);
+
+
 		// If the enemy is dead but not yet removed remove him.
 		if (e->is_dead_ && !e->is_dead2_)
 		{
@@ -77,19 +79,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		}
 		//Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(bleedTimer.getMilliseconds()));
 
-		if (bleedTimer.getMilliseconds() > bleedTick)
-		{
-			
-			if (e->is_bleeding)
-			{
-				Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(e->enemyID));
-				e->GetDamaged(20);
-				Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(e->enemyID) + "got damaged");
 
-				
-			}
-			bleedTimer.reset();
-		}
 	}
 
 }
@@ -181,8 +171,8 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 
 				if (!e->is_bleeding)
 				{
-					e->is_bleeding = true;
-					e->AddBleedParticles();
+					e->StartBleeding(damage);
+					
 				}
 				
 			}

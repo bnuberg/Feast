@@ -18,7 +18,10 @@ Enemy::Enemy()
 	attackRange(0),
 	is_dead_(false),
 	is_dead2_(false),
-	scale(1)
+	scale(1),
+	bleedTick(0),
+	maxBleedTick(5),
+	bleed_Timer_Max(1000)
 {
 }
 
@@ -111,6 +114,11 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 	 }
 
 	 InitiateAbility();
+
+	 if (is_bleeding)
+	 {
+		 BleedEnemy();
+	 }
 }
 
 void Enemy::InitiateAbility()
@@ -140,13 +148,42 @@ void Enemy::InitiateAbility()
 	}
 }
 
-void Enemy::AddBleedParticles()
+void Enemy::StartBleeding(int damage)
 {
 	GameManager& mgr = GameManager::GetSingleton();
+	is_bleeding = true;
+	bleedTimer.reset();
+	bleedDamage = (damage / 2) / maxBleedTick;
+	
+	if (bleedParticle == NULL){
+		bleedParticle = mgr.mSceneMgr->createParticleSystem("bleed" + Ogre::StringConverter::toString(enemyID), "Examples/GreenyNimbus");
+	}
+	enemy_node_->attachObject(bleedParticle);
 
-	Ogre::ParticleSystem* ps1 = mgr.mSceneMgr->createParticleSystem("particle1" + Ogre::StringConverter::toString(enemyID), "Examples/GreenyNimbus");
-	enemy_node_->attachObject(ps1);
+}
 
+void Enemy::RemoveBleeding()
+{
+	is_bleeding = false;
+	enemy_node_->detachObject("bleed" + Ogre::StringConverter::toString(enemyID));
+}
+
+void Enemy::BleedEnemy()
+{
+	if (bleedTimer.getMilliseconds() >= bleed_Timer_Max)
+	{
+		GetDamaged(bleedDamage);
+		Ogre::LogManager::getSingletonPtr()->logMessage("after bleed health" + Ogre::StringConverter::toString(enemyHealth));
+
+		bleedTimer.reset();
+		bleedTick++;
+
+	}
+
+	if (bleedTick >= maxBleedTick)
+	{
+		RemoveBleeding();
+	}
 }
 
 void Enemy::SetHealth(float startingHealth)
@@ -190,8 +227,6 @@ void Enemy::GetDamaged(float damage)
 		is_dead_ = true;
 	}
 
-	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(enemyHealth));
-	Ogre::LogManager::getSingletonPtr()->logMessage("enemy is ded" + Ogre::StringConverter::toString(is_dead_));
 
 }
 

@@ -17,7 +17,9 @@ public:
 	void SetEquipmentMesh(Ogre::String meshName);
 	void SetAttack();
 	void SetEquipment();
-	void AddBleedParticles();
+	void StartBleeding(int damage);
+	void RemoveBleeding();
+	void BleedEnemy();
 
 	bool is_dead_ = false;
 	bool is_dead2_ = false;
@@ -33,9 +35,16 @@ public:
 	void setStartPosition(Ogre::Vector3 position);
 
 	int enemyID;
+	int bleedTick;
+	int maxBleedTick;
 
 private:
 	Ogre::Vector3 getStartPosition();
+
+	Ogre::ParticleSystem* bleedParticle;
+	Ogre::Timer bleedTimer;
+	unsigned long bleed_Timer_Max;
+	float bleedDamage;
 
 	float getScale();
 	void setScale(float scale);
