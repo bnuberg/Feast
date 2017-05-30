@@ -12,7 +12,7 @@ EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
 	attackTimer(0),
-	dodgeTime(20),
+	dodgeTime(1000),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
 {
@@ -119,25 +119,18 @@ void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enem
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 		{
+			dodgeTimer.reset();
 			enemyAllowedToDodge = true;
 		}
 		
 
 	}	
-	//if (DistanceToPlayer(enemyNode).length() > attackRange*3)
-	//	{
-	//	enemyAllowedToDodge = false;
-	//	}
+
 	if (enemyAllowedToDodge)
 	{
-			dodgeTimer.reset();
-			enemyDodge(evt, enemyNode);
-			
+			enemyDodge(evt, enemyNode);	
 	}
-	if (dodgeTimer.getMilliseconds() > dodgeTime)
-	{
-			enemyAllowedToDodge = false;
-	}
+
 }
 
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
@@ -147,5 +140,9 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 		{
 			MoveDirection.z = -enemySpeed * 10;
 			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+		}
+		else
+		{
+			enemyAllowedToDodge = false;
 		}
 }
