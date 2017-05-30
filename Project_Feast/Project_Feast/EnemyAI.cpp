@@ -12,7 +12,7 @@ EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
 	attackTimer(0),
-	dodgeTime(2000),
+	dodgeTime(20),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
 {
@@ -24,6 +24,7 @@ EnemyAI::~EnemyAI()
 void EnemyAI::Init()
 {	
 	timer_.reset();
+	dodgeTimer.reset();
 }
 
 void EnemyAI::Update(const Ogre::FrameEvent& evt)
@@ -114,40 +115,37 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 
 	GameManager& mgr = GameManager::GetSingleton();
-	
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
-	{	
-			enemyAllowedToDodge = true;
-			Ogre::LogManager::getSingletonPtr()->logMessage(" ENEMYALLOWEDTODODGE: " + Ogre::StringConverter::toString(enemyAllowedToDodge));
-	}
-	/*if (DistanceToPlayer(enemyNode).length() > attackRange*2)
+	if (DistanceToPlayer(enemyNode).length() < attackRange)
 	{
-				enemyAllowedToDodge = false;
-	}*/
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+		{
+			enemyAllowedToDodge = true;
+		}
+		
 
+	}	
+	//if (DistanceToPlayer(enemyNode).length() > attackRange*3)
+	//	{
+	//	enemyAllowedToDodge = false;
+	//	}
 	if (enemyAllowedToDodge)
 	{
-		enemyDodge(evt, enemyNode);
+			dodgeTimer.reset();
+			enemyDodge(evt, enemyNode);
+			
 	}
-	Ogre::LogManager::getSingletonPtr()->logMessage(" ENEMYALLOWEDTODODGE: " + Ogre::StringConverter::toString(enemyAllowedToDodge));
-	
+	if (dodgeTimer.getMilliseconds() > dodgeTime)
+	{
+			enemyAllowedToDodge = false;
+	}
 }
 
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
 
-	//dodgeTimer.reset();
-
-	//	if (dodgeTimer.getMilliseconds() <= dodgeTime)
-	//	{
+		if (dodgeTimer.getMilliseconds() < dodgeTime)
+		{
 			MoveDirection.z = -enemySpeed * 10;
 			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-
-			
-		//}
-
-		//else if (dodgeTimer.getMilliseconds() >= dodgeTime)
-		//{
-		//	dodgeTimer.reset();
-		//}
+		}
 }

@@ -39,6 +39,7 @@ void Enemy::Init()
 	
 	GameManager& mgr = GameManager::GetSingleton();
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
+	enemyAI.Init();
 	
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");

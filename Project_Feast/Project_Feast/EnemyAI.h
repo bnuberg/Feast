@@ -30,7 +30,7 @@ protected:
 	float attackRange;
 	unsigned long attackTimer;
 	float dodgeChance;
-	float dodgeTime;
+	unsigned long dodgeTime;
 	bool enemyAllowedToDodge = false;
 
 	Ogre::Vector3 EnemyTarget();
