@@ -5,6 +5,7 @@
 #include <OgreTimer.h>
 #include <OgreEntity.h>
 #include "EnemyEquipment.h"
+#include "EnemyAI.h"
 
 class Enemy
 {
@@ -35,6 +36,7 @@ public:
 	int enemyID;
 private:
 	Ogre::Timer timer_;
+	EnemyAI enemyAI;
 	
 	Ogre::Vector3 getStartPosition();
 

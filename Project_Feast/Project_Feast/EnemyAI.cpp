@@ -12,7 +12,7 @@ EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
 	attackTimer(0),
-	dodgeTime(200),
+	dodgeTime(2000),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
 {
@@ -85,7 +85,6 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 	if (timer_.getMilliseconds() >= attackTimer)
 	{
 		//attack 
-
 		timer_.reset();
 	}
 	MoveDirection.z = -enemySpeed;
@@ -96,7 +95,6 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 {
 	Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
 	float startDistance = startDistanceVector.length();
-
 
 	enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
@@ -113,33 +111,43 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	}
 }
 
+void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
+
+	GameManager& mgr = GameManager::GetSingleton();
+	
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+	{	
+			enemyAllowedToDodge = true;
+			Ogre::LogManager::getSingletonPtr()->logMessage(" ENEMYALLOWEDTODODGE: " + Ogre::StringConverter::toString(enemyAllowedToDodge));
+	}
+	/*if (DistanceToPlayer(enemyNode).length() > attackRange*2)
+	{
+				enemyAllowedToDodge = false;
+	}*/
+
+	if (enemyAllowedToDodge)
+	{
+		enemyDodge(evt, enemyNode);
+	}
+	Ogre::LogManager::getSingletonPtr()->logMessage(" ENEMYALLOWEDTODODGE: " + Ogre::StringConverter::toString(enemyAllowedToDodge));
+	
+}
+
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-	GameManager& mgr = GameManager::GetSingleton();
-	if (DistanceToPlayer(enemyNode).length() > attackRange){
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE)){
-			enemyAllowedToDodge = true;
-			dodgeTimer.reset();
-		}
-		if (enemyAllowedToDodge == true)
-		{
 
-			float dodgeChance = Ogre::Math::RangeRandom(0, 9);
-			if (dodgeChance > 8)
-			{
+	//dodgeTimer.reset();
 
-			if (dodgeTimer.getMilliseconds() <= dodgeTime)
-			{
-				MoveDirection.z = -enemySpeed * 5;  
-				enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+	//	if (dodgeTimer.getMilliseconds() <= dodgeTime)
+	//	{
+			MoveDirection.z = -enemySpeed * 10;
+			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
-			}
-			else if (dodgeTimer.getMilliseconds() >= dodgeTime)
-			{
-				enemyAllowedToDodge = false;
-				dodgeTimer.reset();
-			}
-			}
-		}
-	}
+			
+		//}
+
+		//else if (dodgeTimer.getMilliseconds() >= dodgeTime)
+		//{
+		//	dodgeTimer.reset();
+		//}
 }

@@ -36,8 +36,8 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
+	
 	GameManager& mgr = GameManager::GetSingleton();
-
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
 	
 	// Create an enemy entity with the right mesh
@@ -78,9 +78,9 @@ void Enemy::Init()
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
-	EnemyAI enemyAI;
+	
 	enemyAI.StateSelecter(evt, enemy_node_);
-	enemyAI.enemyDodge(evt, enemy_node_);
+	enemyAI.enemyDodgeCheck(evt, enemy_node_);
 	 if (isAttacking)
 	 {
 		 if (attackDown)
