@@ -152,16 +152,16 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	{
 		if (smashingDown)
 		{
-			if (equipment.arm.AbilityUpdate(rightarmNode, evt))
+			if (equipment.arm.AbilityUpdate(evt))
 			{
 				equipment.arm.AbilityDamage();
 				smashingDown = false;
-				equipment.arm.AbilityTarget(rightarmOrigin->getPosition());
+				equipment.arm.AbilityReturn(rightarmOrigin);
 			}
 		}
 		else
 		{
-			if (equipment.arm.AbilityUpdate(rightarmNode, evt))
+			if (equipment.arm.AbilityUpdate(evt))
 			{
 				isSmashing = false;
 			}
@@ -184,8 +184,9 @@ void Player::InitiateAbility()
 	equipment.arm.equippedByEnemy = false;
 	if (!isSmashing)
 	{
+		equipment.arm.AbilityNode(rightarmNode);
 		//equipment.arm.type = 1;
-		if (equipment.arm.type == 0)
+		/*if (equipment.arm.type == 0)
 		{
 			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
 			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
@@ -194,7 +195,7 @@ void Player::InitiateAbility()
 		{
 			equipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
 			equipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
-		}
+		}*/
 
 		isSmashing = true;
 		smashingDown = true;

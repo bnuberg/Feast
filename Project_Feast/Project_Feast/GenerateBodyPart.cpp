@@ -1,5 +1,7 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
+#include "AbilityMovementMelee.h"
+#include "AbilityMovementRange.h"
 
 
 GenerateBodyPart::GenerateBodyPart()
@@ -39,16 +41,16 @@ void GenerateBodyPart::PickMovementTemplates()
 	switch(movementTypeEnum){
 	case TravelToPoint:
 		{
-			
-			arm.moveType = new AbilityMovement;
 			if (rand() % 2 == 0)
 			{
+				arm.moveType = new AbilityMovementMelee;
 				arm.type = 0;
 				arm.mesh = "cube.mesh";
 				/*Ogre::LogManager::getSingletonPtr()->logMessage("Pepe");*/
 			}
 			else
 			{
+				arm.moveType = new AbilityMovementRange;
 				arm.type = 1;
 				arm.mesh = "sphere.mesh";
 			}

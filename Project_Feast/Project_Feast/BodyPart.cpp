@@ -1,6 +1,5 @@
 #include "BodyPart.h"
 #include "GameManager.h"
-#include "AbilityAttackAOE.h"
 
 
 BodyPart::BodyPart()
@@ -52,51 +51,61 @@ void BodyPart::Drop(Ogre::Vector3 position)
 
 }
 
-void BodyPart::AbilityTarget(Ogre::Vector3 abilityTarget)
+//void BodyPart::AbilityTarget(Ogre::Vector3 abilityTarget)
+//{
+//	moveType->SetTarget(abilityTarget);
+//}
+//
+//void BodyPart::AbilityGlobalTarget(Ogre::Vector3 target)
+//{
+//	globalTarget = target;
+//	moveType->SetGlobalTarget(target);
+//}
+//
+//Ogre::Vector3 BodyPart::GetAbilityTarget()
+//{
+//	return moveType->GetTarget();
+//}
+//
+//Ogre::Vector3 BodyPart::GetAbilityGlobalTarget()
+//{
+//	return moveType->GetGlobalTarget();
+//}
+
+bool BodyPart::AbilityUpdate(const Ogre::FrameEvent& evt)
 {
-	moveType->SetTarget(abilityTarget);
+	return moveType->Move(evt);
 }
 
-void BodyPart::AbilityGlobalTarget(Ogre::Vector3 target)
+void BodyPart::AbilityNode(Ogre::SceneNode* node)
 {
-	globalTarget = target;
-	moveType->SetGlobalTarget(target);
+	globalTarget = moveType->SetNode(node, equippedByEnemy);
 }
 
-Ogre::Vector3 BodyPart::GetAbilityTarget()
+void BodyPart::AbilityReturn(Ogre::SceneNode* node)
 {
-	return moveType->GetTarget();
+	moveType->Return(node);
 }
 
-Ogre::Vector3 BodyPart::GetAbilityGlobalTarget()
-{
-	return moveType->GetGlobalTarget();
-}
-
-bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
-{
-	return moveType->Move(node, evt);
-}
-
-bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, Ogre::String string)
-{
-	if (string == "global")
-	{
-		Ogre::LogManager::getSingletonPtr()->logMessage("Global attack");
-		return moveType->MoveGlobal(node, evt);
-	}
-	else
-		return moveType->Move(node, evt);
-}
+//bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, Ogre::String string)
+//{
+//	if (string == "global")
+//	{
+//		Ogre::LogManager::getSingletonPtr()->logMessage("Global attack");
+//		return moveType->MoveGlobal(node, evt);
+//	}
+//	else
+//		return moveType->Move(node, evt);
+//}
 
 void BodyPart::AbilityDamage()
 {
 	if (equippedByEnemy)
 	{
-		attackType->AttackEnemy(globalTarget, randDamage);
+		attackType->AttackEnemy(globalTarget->getPosition(), randDamage);
 	}
 	else
 	{
-		attackType->Attack(globalTarget, randDamage);
+		attackType->Attack(globalTarget->getPosition(), randDamage);
 	}
 }

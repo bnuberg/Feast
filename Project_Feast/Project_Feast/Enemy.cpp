@@ -92,16 +92,16 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 	 {
 		 if (attackDown)
 		 {
-			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 if (enemyEquipment.arm.AbilityUpdate(evt))
 			 {
 				 enemyEquipment.arm.AbilityDamage();
 				 attackDown = false;
-				 enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition());
+				 enemyEquipment.arm.AbilityReturn(erightarmOrigin);
 			 }
 		 }
 		 else
 		 {
-			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 if (enemyEquipment.arm.AbilityUpdate(evt))
 			 {
 				 isAttacking = false;
 			 }
@@ -116,8 +116,9 @@ void Enemy::InitiateAbility()
 	enemyEquipment.arm.equippedByEnemy = true;
 	if (!isAttacking)
 	{
+		enemyEquipment.arm.AbilityNode(erightarmNode);
 		//equipment.arm.type = 1;
-		
+		/*
 		if (enemyEquipment.arm.type == 0)
 		{
 			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, enemyHeight, 0));
@@ -127,7 +128,7 @@ void Enemy::InitiateAbility()
 		{
 			enemyEquipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
 			enemyEquipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
-		}
+		}*/
 
 		isAttacking = true;
 		attackDown = true;

@@ -92,12 +92,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbilityMovementMelee.h" />
+    <ClInclude Include="AbilityMovementRange.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
-    <ClInclude Include="AbilityMovement.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodyPartManager.h" />
@@ -130,7 +131,8 @@
   <ItemGroup>
     <ClCompile Include="AbilityAttackAOE.cpp" />
     <ClCompile Include="AbilityInterface.cpp" />
-    <ClCompile Include="AbilityMovement.cpp" />
+    <ClCompile Include="AbilityMovementMelee.cpp" />
+    <ClCompile Include="AbilityMovementRange.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
