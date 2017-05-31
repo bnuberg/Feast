@@ -68,6 +68,8 @@ private:
 	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
 
+	bool meatToHealth = false;
+
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer dodge_timer_;
 	unsigned long dodge_cooldown_;			// The duration it takes for an enemy to spawn

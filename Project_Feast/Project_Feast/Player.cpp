@@ -134,6 +134,16 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
+	{
+		meatToHealth = true;
+		convertMeattoHealth();
+	}
+	else
+	{
+		meatToHealth = false;
+	}
+
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);

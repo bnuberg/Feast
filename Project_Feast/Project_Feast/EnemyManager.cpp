@@ -20,6 +20,7 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
+	tutorial.Init();
 	timer_.reset();
 	waveAliveTimer.reset();
 }
@@ -28,24 +29,31 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
-	if (enemy_list_.size() <= 0 && isWaveAlive)
+	if (!tutorial.isFinished)
 	{
-		isWaveAlive = false;
-		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
-		timer_.reset();
+		tutorial.Update();
 	}
-
-	if (isWaveAlive)
+	else
 	{
-		waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
-	}
+		// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+		if (enemy_list_.size() <= 0 && isWaveAlive)
+		{
+			isWaveAlive = false;
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
+			timer_.reset();
+		}
 
-	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
-	{
-		SpawnWave();
+		if (isWaveAlive)
+		{
+			waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
+		}
 
-		timer_.reset();
+		if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
+		{
+			SpawnWave();
+
+			timer_.reset();
+		}
 	}
 
 	std::list<Enemy>::iterator e = enemy_list_.begin();
@@ -74,6 +82,11 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 			++e;
 		}
 	}
+}
+
+int EnemyManager::GetEnemyCount()
+{
+	return enemy_list_.size();
 }
 
 void EnemyManager::SpawnWave()

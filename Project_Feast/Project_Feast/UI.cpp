@@ -35,28 +35,75 @@ void UI::Init()
 	mDetailsPanel->setParamValue(3, "WaveTime");
 
 	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
+	mLabel->hide();
+
+	mTutorialLabel1 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel1", "Press space to attack", 250);
+	mTutorialLabel2 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel2", "Use shift + 'a' or 'd' to dash", 300);
+	mTutorialLabel3 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel3", "You've been damaged, use 'f' to heal", 350);
+	mTutorialLabel4 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel4", "An enemy has spawned, attack him", 330);
+	mTutorialLabel5 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel5", "The first wave will spawn in a few seconds, get ready!", 500);
 	
 }
 
 void UI::ShowHud(Player player)
 {
 	GameManager& mgr = GameManager::getSingleton();
-	
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
-	{
-		mLabel->hide();
-		mTrayMgr->clearTray(OgreBites::TL_CENTER);
-	}
 
-	if (mgr.mBodyPartManager.show_label_ == true)
+	if (!mgr.mEnemyManager.tutorial.isFinished)
 	{
-		mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
-		mLabel->show();
-	}
-	else if (mgr.mBodyPartManager.show_label_ == false)
-	{
-		mLabel->hide();
+		mTutorialLabel1->hide();
+		mTutorialLabel2->hide();
+		mTutorialLabel3->hide();
+		mTutorialLabel4->hide();
+		mTutorialLabel5->hide();
 		mTrayMgr->clearTray(OgreBites::TL_CENTER);
+
+		switch (mgr.mEnemyManager.tutorial.tutorialPart)
+		{
+		case 1 :
+			mTrayMgr->moveWidgetToTray("mTutorialLabel1", OgreBites::TL_CENTER);
+			mTutorialLabel1->show();
+			break;
+		case 2 :
+			mTrayMgr->moveWidgetToTray("mTutorialLabel2", OgreBites::TL_CENTER);
+			mTutorialLabel2->show();
+			break;
+		case 3 :
+			mTrayMgr->moveWidgetToTray("mTutorialLabel3", OgreBites::TL_CENTER);
+			mTutorialLabel3->show();
+			break;
+		case 4 :
+			mTrayMgr->moveWidgetToTray("mTutorialLabel4", OgreBites::TL_CENTER);
+			mTutorialLabel4->show();
+			break;
+		case 5 :
+			mTrayMgr->moveWidgetToTray("mTutorialLabel5", OgreBites::TL_CENTER);
+			mTutorialLabel5->show();
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		mTutorialLabel5->hide();
+
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+		{
+			mLabel->hide();
+			mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		}
+
+		if (mgr.mBodyPartManager.show_label_ == true)
+		{
+			mTrayMgr->moveWidgetToTray("Text", OgreBites::TL_CENTER);
+			mLabel->show();
+		}
+		else if (mgr.mBodyPartManager.show_label_ == false)
+		{
+			mLabel->hide();
+			mTrayMgr->clearTray(OgreBites::TL_CENTER);
+		}
 	}
 
 	if (!mTrayMgr->isDialogVisible())
