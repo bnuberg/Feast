@@ -35,6 +35,7 @@ public:
 	void Discard();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
+	void ChangeArmModifier(int modifier);
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
@@ -54,6 +55,7 @@ private:
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
+	Ogre::ParticleSystem* ModifierParticle;
 	float playerShoulderHeight = 160;
 
 	bool isSmashing = false;

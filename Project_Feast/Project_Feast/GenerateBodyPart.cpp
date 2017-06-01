@@ -1,5 +1,7 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
+#include "GameManager.h"
+#include <OgreLogManager.h>
 
 
 
@@ -23,6 +25,7 @@ void GenerateBodyPart::SetRarity()
 	arm.r = rarity.R();
 	arm.g = rarity.G();
 	arm.b = rarity.B();
+
 }
 
 void GenerateBodyPart::SetAttackTemplate()
@@ -66,11 +69,13 @@ void GenerateBodyPart::SetMovementTemplates()
 
 void GenerateBodyPart::SetModifier()
 {
+	arm.randModifier = matth.random(1, 5);
 }
 
 void GenerateBodyPart::Combine()
 {
 	SetRarity();
+	SetModifier();
 	SetAttackTemplate();
 	SetMovementTemplates();
 }

@@ -34,6 +34,8 @@
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="AbilityModifier.cpp" />
+    <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="MaterialLoader.cpp" />
@@ -73,6 +75,8 @@
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="AbilityModifier.h" />
+    <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="Rarity.h" />
     <ClInclude Include="MaterialLoader.h" />

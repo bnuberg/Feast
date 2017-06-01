@@ -43,6 +43,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	rightarmNode->setScale(0.2, 0.2, 0.2);
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 	rightarmNode->attachObject(rightarmEntity);
+	//rightarmNode->attachObject(ModifierParticle);
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
@@ -197,6 +198,40 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 	rightarmEntity->setMaterial(common);
 }
 
+void Player::ChangeArmModifier(int modifier)
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	switch (modifier)
+	{
+	case 0:
+		break;
+	case 1:
+		if (ModifierParticle != NULL){
+			ModifierParticle->clear();
+		}
+		mgr.mSceneMgr->destroyParticleSystem("playerBleed");
+		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerBleed", "BleedParticle");
+		rightarmNode->attachObject(ModifierParticle);
+
+
+		break;
+	case 2:
+		if (ModifierParticle != NULL){
+			ModifierParticle->clear();
+		}
+		mgr.mSceneMgr->destroyParticleSystem("playerSlow");
+		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerSlow", "SlowParticle");
+		rightarmNode->attachObject(ModifierParticle);
+
+		break;
+	default:
+		break;
+	}
+
+	
+}
+
 void Player::InitiateAbility()
 {
 	equipment.arm.equippedByEnemy = false;
@@ -330,9 +365,8 @@ void Player::Pickup()
 
 		if (bodypart.tag == "Arm")
 		{
-
 			equipment.EquipArm();
-			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed, bodypart.randModifier);
 			equipment.arm.r = bodypart.r;
 			equipment.arm.g = bodypart.g;
 			equipment.arm.b = bodypart.b;
@@ -341,11 +375,13 @@ void Player::Pickup()
 			if (bodypart.type == 1)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
+				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
+				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 0;
 
 			}
