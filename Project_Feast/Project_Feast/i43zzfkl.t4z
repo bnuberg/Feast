@@ -25,31 +25,21 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
 
-	//Creates player parts with nodes and attach meshes
 	Ogre::SceneNode* torsoNode = playerNode->createChildSceneNode("TorsoNode", torsoSocketPosition);
-	Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
-	torsoNode->attachObject(torsoEntity);
-	torsoNode->setScale(characterScale, characterScale, -characterScale);
 
-	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);	//Used for camera
-	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
-	headNode->attachObject(headEntity);
+	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
+	Ogre::SceneNode* leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", headSocketPosition);
+	Ogre::SceneNode* rightArmNode = torsoNode->createChildSceneNode("RightArmNode", headSocketPosition);
+	Ogre::SceneNode* leftFootNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
+	Ogre::SceneNode* rightFootNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
 
-	Ogre::SceneNode* leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
-	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
-	leftArmNode->attachObject(leftArmEntity);
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
+	playerNode->attachObject(playerEntity);
 
-	Ogre::SceneNode* rightArmNode = torsoNode->createChildSceneNode("RightArmNode", rightArmSocketPosition);
-	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
-	rightArmNode->attachObject(rightArmEntity);
-
-	Ogre::SceneNode* leftFootNode = torsoNode->createChildSceneNode("LeftFootNode", leftFootSocketPosition);
-	Ogre::Entity* leftFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
-	leftFootNode->attachObject(leftFootEntity);
-
-	Ogre::SceneNode* rightFootNode = torsoNode->createChildSceneNode("RightFootNode", rightFootSocketPosition);
-	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
-	rightFootNode->attachObject(rightFootEntity);
+	// player head, used to position the camera
+	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
+	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
 
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);

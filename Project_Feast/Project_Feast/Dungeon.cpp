@@ -40,9 +40,20 @@ void Dungeon::LoadScene(SceneManager* sceneManager)
 	dungeonNode->attachObject(dungeonEntity);
 	dungeonNode->setScale(dungeonScale);
 
+	// Create an ambient light
+	sceneManager->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
+	Ogre::Light* light = sceneManager->createLight("MainLight");
+	light->setPosition(20, 80, 50);
+
+	//Create second ambient light
 	sceneManager->setAmbientLight(Ogre::ColourValue(.8, .8, .8));
-	Ogre::Light* light = sceneManager->createLight("SecondaryLight");
-	light->setPosition(20, 5000, 50);
+	Ogre::Light* light2 = sceneManager->createLight("SecondaryLight");
+	light2->setPosition(20, 5000, 50);
+
+	Ogre::Light* light3 = sceneManager->createLight("TertiaryLight");
+	light3->setType(Ogre::Light::LT_DIRECTIONAL);
+	light3->setPosition(5000, 5000, 5000);
+	light3->setDirection(-1, -1, -1);
 
 	mgr.mSceneMgr->getSceneNode("dungeon")->translate(dungeonSpawnPoint, Ogre::Node::TS_LOCAL);
 

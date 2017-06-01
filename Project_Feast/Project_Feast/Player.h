@@ -60,4 +60,20 @@ private:
 	float meat;
 	float maxHealth;
 	float rightarmSpeed = 500;
+
+	const Ogre::Real characterScale = 4;
+
+	const char* torsoMeshName = "torso.mesh";
+	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
+
+	const char* headMeshName = "head.mesh";
+	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 16, 0);
+
+	const char* armMeshName = "hand.mesh";
+	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-10, 40, 0);
+	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(10, 40, 0);
+
+	const char* footMeshName = "foot.mesh";
+	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-10, -10, 0);
+	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(10, -10, 0);
 };

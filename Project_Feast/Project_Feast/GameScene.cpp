@@ -55,13 +55,8 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	// Initialize the enemy manager
 	mgr.mEnemyManager.Init();
 
-	// Create an ambient light
-	sceneManager->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
-	Ogre::Light* light = sceneManager->createLight("MainLight");
-	light->setPosition(20, 80, 50);
-
 	// Bind the cameraman to the player
-	mgr.cameraMan->setTarget(sceneManager->getSceneNode("PlayerHeadNode"));
+	mgr.cameraMan->setTarget(sceneManager->getSceneNode("PlayerNode"));
 	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
 
 	mgr.ui.Init();
