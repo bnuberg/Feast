@@ -4,6 +4,7 @@
 #include <OgreLogManager.h>
 
 
+
 GenerateBodyPart::GenerateBodyPart()
 {
 
@@ -15,16 +16,19 @@ GenerateBodyPart::~GenerateBodyPart()
 
 }
 
-void GenerateBodyPart::RandomStats()
+void GenerateBodyPart::SetRarity()
 {
-	arm.randDamage = rand() % (damageMax - damageMin + 1) + damageMin;
-	arm.randAttackSpeed = rand() % (attackSpeedMax - attackSpeedMin + 1) + attackSpeedMin;
-	//arm.randModifier = rand() % 3;
-	arm.randModifier = matth.random(1, 3);
+	rarity.RarityPicker();
+	
+	arm.randDamage = rarity.GetDamageValue();
+	arm.randSpeed = rarity.GetSpeedValue();
+	arm.r = rarity.R();
+	arm.g = rarity.G();
+	arm.b = rarity.B();
 
 }
 
-void GenerateBodyPart::PickAttackTemplate()
+void GenerateBodyPart::SetAttackTemplate()
 {
 	attackTypeEnum = static_cast<AttackTypeEnum>(rand() % TotalAttackTypes);
 	switch (attackTypeEnum){
@@ -37,7 +41,7 @@ void GenerateBodyPart::PickAttackTemplate()
 	
 }
 
-void GenerateBodyPart::PickMovementTemplates()
+void GenerateBodyPart::SetMovementTemplates()
 {
 	movementTypeEnum = static_cast<MovementTypeEnum>(rand() % TotalMovementTypes);
 
@@ -50,6 +54,7 @@ void GenerateBodyPart::PickMovementTemplates()
 			{
 				arm.type = 0;
 				arm.mesh = "cube.mesh";
+				
 				/*Ogre::LogManager::getSingletonPtr()->logMessage("Pepe");*/
 			}
 			else
@@ -62,16 +67,17 @@ void GenerateBodyPart::PickMovementTemplates()
 	}
 }
 
-void GenerateBodyPart::GenerateModifier()
+void GenerateBodyPart::SetModifier()
 {
-	//ToDO: add different modifiers on spawn
+	arm.randModifier = matth.random(1, 5);
 }
 
 void GenerateBodyPart::Combine()
 {
-	RandomStats();
-	PickAttackTemplate();
-	PickMovementTemplates();
+	SetRarity();
+	SetModifier();
+	SetAttackTemplate();
+	SetMovementTemplates();
 	
 }
 

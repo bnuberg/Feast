@@ -25,5 +25,7 @@ public:
 	Ogre::Entity* eArmEntity;
 	GenerateBodyPart generateBodyPart;
 	Ogre::ParticleSystem* ModifierParticle;
+	Ogre::Pass* commonPass;
+	Ogre::MaterialPtr common;
 
 };

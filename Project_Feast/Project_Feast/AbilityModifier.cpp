@@ -4,7 +4,7 @@
 
 AbilityModifier::AbilityModifier()
 {
-		modifierType = rand() % 3;
+		modifierType = rand() % 5;
 }
 
 AbilityModifier::~AbilityModifier()

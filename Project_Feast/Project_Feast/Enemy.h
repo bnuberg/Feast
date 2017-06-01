@@ -43,6 +43,7 @@ public:
 	int bleedTick;
 	int maxBleedTick;
 
+
 private:
 	Ogre::Vector3 getStartPosition();
 

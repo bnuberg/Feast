@@ -74,7 +74,7 @@ void Enemy::Init()
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
-	rocketarmtargetNode = erightarmNode->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
+	rocketarmtargetNode = enemy_node_->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
 
 	// All nodes added, translate enemy to start position
 	enemy_node_->translate(startPosition, Ogre::Node::TS_LOCAL);
@@ -135,6 +135,10 @@ void Enemy::InitiateAbility()
 		}
 		else if (enemyEquipment.arm.type == 1)
 		{
+			Ogre::LogManager::getSingletonPtr()->logMessage("Enemy.cpp global target");
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->_getDerivedPosition().x));
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->_getDerivedPosition().y));
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->_getDerivedPosition().z));
 			enemyEquipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
 			enemyEquipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
 		}

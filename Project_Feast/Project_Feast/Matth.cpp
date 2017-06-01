@@ -848,6 +848,8 @@ float Matth::sqrtWithNaturalLog(const float value)
 	return Matth::exp(halfLogNum);
 }
 
+
+// generates a random number based on 2 intergers
 int Matth::random(const int min, const int max)
 {
 	std::random_device rd;
@@ -856,12 +858,3 @@ int Matth::random(const int min, const int max)
 
 	return dist(mt);
 }
-
-/*float Matth::random(const float min, const float max)
-{
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_int_distribution<float> dist(min, max);
-
-	return dist(mt);
-}*/

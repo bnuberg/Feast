@@ -11,6 +11,7 @@
 #include "Enemy.h"
 #include "Meat.h"
 #include "DamageOverTime.h"
+#include "Tutorial.h"
 
 /** Creates and tracks all the enemy instances and bodypart instances
 */
@@ -26,6 +27,7 @@ public:
 	void SpawnLightEnemy(Ogre::Vector3 position);
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
 	void DamageEnemies();
+
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	void BodypartToAdd();
 	int totalEnemyID = 0;
@@ -33,6 +35,9 @@ public:
 	bool isWaveAlive = false;
 	int waveCount = 0;
 	float waveTimeSpent;
+
+	int GetEnemyCount();
+	Tutorial tutorial;
 
 private:
 	void EnemyManager::SpawnWave();

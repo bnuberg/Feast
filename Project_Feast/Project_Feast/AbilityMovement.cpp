@@ -34,7 +34,7 @@ bool AbilityMovement::Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
 {
 	Ogre::Vector3 distanceVector = target - node->getPosition();
 	float distance = distanceVector.length();
-	float movementSpeed = 500;
+	float movementSpeed = 400;
 
 	if (distance <= movementSpeed / 200)
 	{
