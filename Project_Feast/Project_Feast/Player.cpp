@@ -37,13 +37,6 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);	//Used for camera
 	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
 	headNode->attachObject(headEntity);
-	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
-	playerNode->attachObject(playerEntity);
-	
-	// player head, used to position the camera
-	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
-	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
 
 	Ogre::SceneNode* leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
 	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
@@ -82,7 +75,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	dodge_timer_.reset();
 }
 
-void Player::checkHealth()
+void Player::CheckHealth()
 {
 	if (GetHealth() <= 0.0f)
 	{
@@ -219,7 +212,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	CheckLavaDrop(evt);
 
-	checkHealth();
+	CheckHealth();
 }
 
 void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
@@ -238,7 +231,7 @@ void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
 		if (playerPosition.y > lavaHeight){ mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(Ogre::Vector3(0, -++fallingSpeed * 9.81f, 0) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); }
 		else
 		{
-			DecreaseHealth(50.0f * evt.timeSinceLastFrame);
+			DecreaseHealth(lavaDamage * evt.timeSinceLastFrame);
 		}
 	}
 }

@@ -12,7 +12,7 @@ public:
 	Player();
 	~Player();
 	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
-	void checkHealth();
+	void CheckHealth();
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions
@@ -94,6 +94,7 @@ private:
 	Ogre::Real fallingSpeed = 0;
 	Ogre::Real dropRange = 1632;
 	Ogre::Real lavaHeight = -300;
+	Ogre::Real lavaDamage = 200;
 
 	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 100, 0);
 
