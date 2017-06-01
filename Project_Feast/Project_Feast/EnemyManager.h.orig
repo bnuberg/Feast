@@ -9,12 +9,9 @@
 #include <OgreFrameListener.h>
 #include <OgreTimer.h>
 #include "Enemy.h"
-<<<<<<< HEAD
-=======
-#include "BodyPart.h"
 #include "Meat.h"
-#include "GameManager.h"
->>>>>>> Meat
+#include "DamageOverTime.h"
+#include "Tutorial.h"
 
 /** Creates and tracks all the enemy instances and bodypart instances
 */
@@ -25,21 +22,44 @@ public:
 	~EnemyManager();
 	void EnemyManager::Init();
 	void EnemyManager::Update(const Ogre::FrameEvent& evt);
-	void SpawnEnemy();
-	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance);
+<<<<<<< HEAD
+	void SpawnEnemy(Ogre::Vector3 position, int level);
+	void SpawnHeavyEnemy(Ogre::Vector3 position, int level);
+	void SpawnLightEnemy(Ogre::Vector3 position, int level);
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage);
+=======
+	void SpawnEnemy(Ogre::Vector3 position);
+	void SpawnHeavyEnemy(Ogre::Vector3 position);
+	void SpawnLightEnemy(Ogre::Vector3 position);
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
+>>>>>>> origin/Development
 	void DamageEnemies();
 
+	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
+	void BodypartToAdd();
+	int totalEnemyID = 0;
+	DamageOverTime DoT;
+	bool isWaveAlive = false;
+	int waveCount = 0;
+	float waveTimeSpent;
+
+	int GetEnemyCount();
+	Tutorial tutorial;
+
 private:
-<<<<<<< HEAD
+	void EnemyManager::SpawnWave();
+	int numberOfEnemies = 5;
+	Ogre::Vector3 enemySpawnPoints[5];
+	int enemyLevels[5];
 	std::list<Enemy> enemy_list_;				// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
+	Ogre::Timer waveAliveTimer;
 	unsigned long enemy_spawn_timer_;			// The duration it takes for an enemy to spawn
-=======
-	std::list<Enemy> enemyList;				// List containing all enemies
-	std::list<BodyPart> bodyPartsList;		// List containing all bodypart objects
-	std::list<Meat> meatList;				// List containing all meat objects
-	Ogre::Timer timer;						// Ogre timer class object
-	unsigned long enemySpawnTimer;			// The duration it takes for an enemy to spawn
->>>>>>> Meat
+	Ogre::Timer bleedTimer;
+	unsigned long bleedTick;
+	Ogre::Timer bleed_duration_timer;
+	unsigned long bleed_duration;
+	std::vector<Meat> meatList;					// List containing all meat objects
+
 };
 
