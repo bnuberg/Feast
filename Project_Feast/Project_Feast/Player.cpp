@@ -17,12 +17,13 @@ as well as setting the base values for the player hp and such.
 */
 void Player::Init(Ogre::Vector3 spawnPoint)
 {
+	
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-
+	
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
-	SetHealth(10);
+	SetHealth(100);
 
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
@@ -30,7 +31,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	// Create a player entity with the right mesh
 	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
 	playerNode->attachObject(playerEntity);
-
+	
 	// player head, used to position the camera
 	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
 	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
@@ -187,6 +188,13 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 	rightarmNode->detachAllObjects();
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity(meshName);
 	rightarmNode->attachObject(rightarmEntity);
+
+	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	commonPass = common->getTechnique(0)->getPass(0);
+	commonPass->setAmbient(equipment.arm.r, equipment.arm.g, equipment.arm.b);
+	commonPass->setDiffuse(equipment.arm.r, equipment.arm.g, equipment.arm.b, 1);
+	commonPass->setEmissive(equipment.arm.r, equipment.arm.g, equipment.arm.b);
+	rightarmEntity->setMaterial(common);
 }
 
 void Player::InitiateAbility()
@@ -310,19 +318,24 @@ void Player::SetSpeed()
 void Player::Pickup()
 {
 	GameManager& mgr = GameManager::getSingleton();
-
+	
 	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 200);
 
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E) && CanPickUp)
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("fullmetal");
 		BodyPart bodypart = mgr.mBodyPartManager.ClosestBodyPart(playerPosition);
+		CanPickUp = false;
 
 		if (bodypart.tag == "Arm")
 		{
+
 			equipment.EquipArm();
 			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			equipment.arm.r = bodypart.r;
+			equipment.arm.g = bodypart.g;
+			equipment.arm.b = bodypart.b;
 			Ogre::LogManager::getSingletonPtr()->logMessage("player attackspeed" + std::to_string(bodypart.randAttackSpeed));
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
@@ -349,6 +362,10 @@ void Player::Pickup()
 			bodypart.pickedUp = true;
 			SetSpeed();
 		}
+	}
+	else if (!mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+	{
+		CanPickUp = true;
 	}
 }
 
