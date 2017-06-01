@@ -2,8 +2,8 @@
 #include "BodyPart.h"
 #include "Arm.h"
 #include "Rarity.h"
-
-
+#include "AbilityModifier.h"
+#include "Matth.h"
 enum AttackTypeEnum
 {
 	GroundSmash,
@@ -28,8 +28,12 @@ public:
 	AttackTypeEnum attackTypeEnum;
 	MovementTypeEnum movementTypeEnum;
 	Arm arm;
+	AbilityModifier abilityModifier;
 	int type;
 	Rarity rarity;
 	
+private:
+	Matth matth;
+
 };
 

@@ -11,11 +11,11 @@ AbilityAttackAOE::~AbilityAttackAOE()
 {
 }
 
-void AbilityAttackAOE::Attack(Ogre::Vector3 target, int damage)
+void AbilityAttackAOE::Attack(Ogre::Vector3 target, int damage, int modifier)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	mgr.mEnemyManager.DamageEnemiesInCircle(target, attackRadius, damage);
+	mgr.mEnemyManager.DamageEnemiesInCircle(target, attackRadius, damage, modifier);
 	/*Ogre::LogManager::getSingletonPtr()->logMessage("Arm Damage: " + std::to_string(damage));*/
 }
 
