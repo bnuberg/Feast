@@ -80,7 +80,7 @@ bool Main::go()
 
 	new SoundManager(); //Instantiates the SoundManager
 	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true); //Starts the music loop
-
+	Ogre::MaterialPtr commonMat = Ogre::MaterialManager::getSingleton().create("Hurt", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
 	// initialize the OverlaySystem (changed for 1.9)
@@ -89,6 +89,7 @@ bool Main::go()
 	mgr.mInputManager.InitInput(mgr.mWindow);
 	levelLoader.InitLevelLoader();
 	levelLoader.LoadScene();
+	
 	mRoot->addFrameListener(this);
 	mRoot->startRendering();
 	return true;

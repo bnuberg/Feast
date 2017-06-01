@@ -25,6 +25,12 @@ void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode, int level)
 	//TODO: tell enemy which arm they have
 	eArmEntity = mgr.mSceneMgr->createEntity(arm.mesh);
 	enemyNode->attachObject(eArmEntity);
+	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	commonPass = common->getTechnique(0)->getPass(0);
+	commonPass->setAmbient(arm.r, arm.g, arm.b);
+	commonPass->setDiffuse(arm.r, arm.g, arm.b, 1);
+	commonPass->setEmissive(arm.r, arm.g, arm.b);
+	eArmEntity->setMaterial(common);
 }
 
 void EnemyEquipment::SetEnemyArmStats(int dmg, int as)

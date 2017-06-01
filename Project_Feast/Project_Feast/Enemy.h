@@ -32,6 +32,7 @@ public:
 
 	int enemyID;
 
+
 private:
 	Ogre::Vector3 getStartPosition();
 
