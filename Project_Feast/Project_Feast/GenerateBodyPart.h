@@ -24,12 +24,13 @@ public:
 	void SetMovementTemplates();
 	void SetModifier();
 	void Combine();
-	Arm Generate();
+	Arm Generate(int level);
 	AttackTypeEnum attackTypeEnum;
 	MovementTypeEnum movementTypeEnum;
 	Arm arm;
 	int type;
 	Rarity rarity;
-	
+private:
+	int level = 0;
 };
 

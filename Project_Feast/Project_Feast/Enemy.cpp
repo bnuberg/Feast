@@ -138,7 +138,7 @@ void Enemy::InitiateAbility()
 
 void Enemy::SetStats()
 {
-	SetHealth(5 * level);
+	SetHealth(10 * level);
 	enemySpeed = 40 + 5 * level;
 }
 

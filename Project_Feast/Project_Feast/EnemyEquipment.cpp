@@ -43,7 +43,7 @@ void EnemyEquipment::AssignRandomBodypart(int level)
 	/*Placeholder for procedual generation
 	Randomly makes number and assigns number to bodypart
 	*/
-	arm = generateBodyPart.Generate();
+	arm = generateBodyPart.Generate(level);
 	attackspeed = arm.randAttackSpeed;
 	damage = arm.randDamage;
 

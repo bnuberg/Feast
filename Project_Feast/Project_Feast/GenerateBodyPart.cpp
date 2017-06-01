@@ -16,7 +16,7 @@ GenerateBodyPart::~GenerateBodyPart()
 
 void GenerateBodyPart::SetRarity()
 {
-	rarity.RarityPicker();
+	rarity.RarityPicker(level);
 	
 	arm.randDamage = rarity.GetDamageValue();
 	arm.randSpeed = rarity.GetSpeedValue();
@@ -73,12 +73,11 @@ void GenerateBodyPart::Combine()
 	SetRarity();
 	SetAttackTemplate();
 	SetMovementTemplates();
-	
 }
 
-Arm GenerateBodyPart::Generate()
+Arm GenerateBodyPart::Generate(int lvl)
 {
-	
+	level = lvl;
 	Combine();
 	return arm;
 }
