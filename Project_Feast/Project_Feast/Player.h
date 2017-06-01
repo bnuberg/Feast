@@ -84,9 +84,13 @@ private:
 	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-3, -3, 0);
 	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
 
+	void CheckLavaDrop(const Ogre::FrameEvent& evt);
 	bool doomed = false;
 	Ogre::Real fallingSpeed = 0;
-	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 0, 0);
+	Ogre::Real dropRange = 1632;
+	Ogre::Real lavaHeight = -300;
+
+	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 100, 0);
 
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer dodge_timer_;

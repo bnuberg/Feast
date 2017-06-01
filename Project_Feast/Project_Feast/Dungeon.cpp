@@ -29,40 +29,49 @@ Real Dungeon::GetFallRange()
 	return fallRange; 
 }
 
-/** Load Dungeon.mesh.\n
+/** Load Dungeon.mesh, lava mesh, wall mesh, skybox and lights.\n
 */
 void Dungeon::LoadScene(SceneManager* sceneManager)
 {
 	GameManager& mgr = GameManager::getSingleton();
-	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
-
 	Vector3 startingPosition = Vector3(0, 0, 0);
+
+	/*Platform + base lava*/
+	Entity* dungeonEntity = mgr.mSceneMgr->createEntity("Dungeonmesh", meshName);
 	SceneNode* dungeonNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeon", startingPosition);
 	dungeonNode->attachObject(dungeonEntity);
 	dungeonNode->setScale(dungeonScale);
+	dungeonNode->translate(dungeonSpawnPoint, Node::TS_LOCAL);
 
-	Entity* dungeonBoxEntity = mgr.mSceneMgr->createEntity("DungeonBoxmesh", "arenaBox.mesh");
+	/*Blocky wall*/
+	Entity* dungeonBoxEntity = mgr.mSceneMgr->createEntity("DungeonBoxmesh", boxMeshName);
 	SceneNode* dungeonBoxNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeonBox", startingPosition);
 	dungeonBoxNode->attachObject(dungeonBoxEntity);
 	dungeonBoxNode->setScale(2 * dungeonScale);
+	dungeonBoxNode->translate(dungeonSpawnPoint, Node::TS_LOCAL);
+
+	/*Lava*/
+	Entity* dungeonLavaEntity = mgr.mSceneMgr->createEntity("DungeonLavamesh", lavaMeshName);
+	SceneNode* dungeonLavaNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeonLava", startingPosition);
+	dungeonLavaNode->attachObject(dungeonLavaEntity);
+	dungeonLavaNode->setScale(8 * dungeonScale);
+	dungeonLavaNode->translate(1.5 * dungeonSpawnPoint, Node::TS_LOCAL);
 
 	// Create an ambient light
-	sceneManager->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
-	Ogre::Light* light = sceneManager->createLight("MainLight");
+	sceneManager->setAmbientLight(ColourValue(.5, .5, .5));
+	Light* light = sceneManager->createLight("MainLight");
 	light->setPosition(20, 80, 50);
 
 	//Create second ambient light
-	sceneManager->setAmbientLight(Ogre::ColourValue(.8, .8, .8));
-	Ogre::Light* light2 = sceneManager->createLight("SecondaryLight");
+	sceneManager->setAmbientLight(ColourValue(.8, .8, .8));
+	Light* light2 = sceneManager->createLight("SecondaryLight");
 	light2->setPosition(20, 5000, 50);
 
-	Ogre::Light* light3 = sceneManager->createLight("TertiaryLight");
-	light3->setType(Ogre::Light::LT_DIRECTIONAL);
+	Light* light3 = sceneManager->createLight("TertiaryLight");
+	light3->setType(Light::LT_DIRECTIONAL);
 	light3->setPosition(5000, 5000, 5000);
 	light3->setDirection(-1, -1, -0.5);
 
-	mgr.mSceneMgr->getSceneNode("dungeon")->translate(dungeonSpawnPoint, Ogre::Node::TS_LOCAL);
-	mgr.mSceneMgr->getSceneNode("dungeonBox")->translate(dungeonSpawnPoint, Ogre::Node::TS_LOCAL);
-
+	/*Skybox*/
 	mgr.mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
 }

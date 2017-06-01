@@ -191,22 +191,26 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
 
+	CheckLavaDrop(evt);
+}
+
+void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
+{
 	//Check if player needs to fall
+	GameManager& mgr = GameManager::getSingleton();
 	Ogre::Vector3 playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
-	Ogre::Real dropRange = 1632;
-	Ogre::Real lavaHeight = -320;
 	if (!doomed && playerPosition.squaredLength() > dropRange * dropRange)
 	{
 		doomed = true;
 	}
 	if (doomed)
-	{ 
+	{
 		playerPosition = (playerPosition.squaredLength() > dropRange * dropRange) ? playerPosition : playerPosition.normalisedCopy() * dropRange;
 		mgr.mSceneMgr->getSceneNode("PlayerNode")->setPosition(playerPosition);
 		if (playerPosition.y > lavaHeight){ mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(Ogre::Vector3(0, -++fallingSpeed * 9.81f, 0) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); }
-		else 
-		{ 
-			DecreaseHealth(50.0f * evt.timeSinceLastFrame); 
+		else
+		{
+			DecreaseHealth(50.0f * evt.timeSinceLastFrame);
 		}
 	}
 }
