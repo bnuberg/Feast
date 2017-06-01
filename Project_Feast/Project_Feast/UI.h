@@ -15,7 +15,11 @@ public:
 	OgreBites::SdkTrayManager* mTrayMgr;
 	OgreBites::ParamsPanel* mDetailsPanel;    // sample details panel
 	OgreBites::Label* mLabel;    // sample details panel
-	
+	OgreBites::Label* mTutorialLabel1;
+	OgreBites::Label* mTutorialLabel2;
+	OgreBites::Label* mTutorialLabel3;
+	OgreBites::Label* mTutorialLabel4;
+	OgreBites::Label* mTutorialLabel5;
 	
 };
 
