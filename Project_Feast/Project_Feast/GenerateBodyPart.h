@@ -1,6 +1,12 @@
 #pragma once
 #include "BodyPart.h"
 #include "Arm.h"
+#include "AbilityModifier.h"
+#include "Matth.h"
+
+
+
+
 enum AttackTypeEnum
 {
 	GroundSmash,
@@ -21,11 +27,15 @@ public:
 	void PickMovementTemplates();
 	void GenerateModifier();
 	void Combine();
+
+	int Random();
 	
 	Arm Generate();
 	AttackTypeEnum attackTypeEnum;
 	MovementTypeEnum movementTypeEnum;
 	Arm arm;
+	AbilityModifier abilityModifier;
+
 
 	int attackSpeedMax = 5;
 	int attackSpeedMin = 1;
@@ -33,5 +43,8 @@ public:
 	int damageMin = 1;
 	int type;
 	
+private:
+	Matth matth;
+
 };
 

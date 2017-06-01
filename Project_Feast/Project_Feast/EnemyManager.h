@@ -24,7 +24,7 @@ public:
 	void SpawnEnemy(Ogre::Vector3 position);
 	void SpawnHeavyEnemy(Ogre::Vector3 position);
 	void SpawnLightEnemy(Ogre::Vector3 position);
-	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage);
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
 	void DamageEnemies();
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	void BodypartToAdd();

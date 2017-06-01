@@ -1,6 +1,7 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
 #include "GameManager.h"
+#include <OgreLogManager.h>
 
 
 GenerateBodyPart::GenerateBodyPart()
@@ -18,6 +19,9 @@ void GenerateBodyPart::RandomStats()
 {
 	arm.randDamage = rand() % (damageMax - damageMin + 1) + damageMin;
 	arm.randAttackSpeed = rand() % (attackSpeedMax - attackSpeedMin + 1) + attackSpeedMin;
+	//arm.randModifier = rand() % 3;
+	arm.randModifier = matth.random(1, 3);
+
 }
 
 void GenerateBodyPart::PickAttackTemplate()

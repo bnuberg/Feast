@@ -11,7 +11,4 @@ public:
 	~DamageOverTime();
 
 	void AddDamageOverTime();
-
-	void UseModifier(Enemy enemy) override;
-	void UseEModifier(Player player) override;
 };

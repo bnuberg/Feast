@@ -847,3 +847,21 @@ float Matth::sqrtWithNaturalLog(const float value)
 	float halfLogNum = logNum / 2.0f;
 	return Matth::exp(halfLogNum);
 }
+
+int Matth::random(const int min, const int max)
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(min, max);
+
+	return dist(mt);
+}
+
+/*float Matth::random(const float min, const float max)
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<float> dist(min, max);
+
+	return dist(mt);
+}*/

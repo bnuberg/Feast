@@ -1,6 +1,4 @@
 #pragma once 
-#include "Enemy.h"
-#include "Player.h"
 
 class AbilityModifier
 {
@@ -14,7 +12,5 @@ public:
 
 	void AddModifier();
 
-	virtual void UseModifier(Enemy enemy);
-	virtual void UseEModifier(Player player);
 
 };

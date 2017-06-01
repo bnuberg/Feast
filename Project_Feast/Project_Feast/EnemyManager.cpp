@@ -54,6 +54,8 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	while (e != enemy_list_.end())
 	{
 		e->Update(evt);
+		Ogre::LogManager::getSingletonPtr()->logMessage("enemyID" + Ogre::StringConverter::toString(e->enemyID));
+		Ogre::LogManager::getSingletonPtr()->logMessage("enemy modifier" + Ogre::StringConverter::toString(e->enemyEquipment.modifier));
 
 
 		// If the enemy is dead but not yet removed remove him.
@@ -77,7 +79,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		{
 			++e;
 		}
-		//Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(bleedTimer.getMilliseconds()));
+		//
 
 
 	}
@@ -152,7 +154,7 @@ void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 	@param The center point around which the enemies are damaged.
 	@param The distance from the point in which the enemies are damaged.
 */
-void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage)
+void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier)
 {
 	/*GameManager& mgr = GameManager::getSingleton();*/
 
@@ -169,10 +171,14 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			{
 				e->GetDamaged(damage);
 
-				if (!e->is_bleeding)
+				if (!e->is_bleeding && modifier == 1)
 				{
 					e->StartBleeding(damage);
-					
+				}
+				if (!e->is_slowed && modifier == 2)
+				{
+					e->StartSlow();
+
 				}
 				
 			}
