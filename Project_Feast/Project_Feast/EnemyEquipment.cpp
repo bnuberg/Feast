@@ -16,11 +16,11 @@ EnemyEquipment::~EnemyEquipment()
 
 }
 
-void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode)
+void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode, int level)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
-	AssignRandomBodypart();
+	AssignRandomBodypart(level);
 
 	//TODO: tell enemy which arm they have
 	eArmEntity = mgr.mSceneMgr->createEntity(arm.mesh);
@@ -32,7 +32,7 @@ void EnemyEquipment::SetEnemyArmStats(int dmg, int as)
 	//TODO: change attack stats of enemy to the arms dmg
 }
 
-void EnemyEquipment::AssignRandomBodypart() 
+void EnemyEquipment::AssignRandomBodypart(int level) 
 {
 	/*Placeholder for procedual generation
 	Randomly makes number and assigns number to bodypart

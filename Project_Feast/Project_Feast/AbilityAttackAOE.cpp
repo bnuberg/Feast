@@ -22,17 +22,7 @@ void AbilityAttackAOE::AttackEnemy(Ogre::Vector3 target, int damage)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("AbilityAttackAOE.cpp target");
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.x));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.y));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.z));
-
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getSceneNode("PlayerNode");
-
-	Ogre::LogManager::getSingletonPtr()->logMessage("AbilityAttackAOE.cpp player");
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(playerNode->_getDerivedPosition().x));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(playerNode->_getDerivedPosition().y));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(playerNode->_getDerivedPosition().z));
 
 	Ogre::Vector3 distanceVector = target - playerNode->_getDerivedPosition();
 	float distance = distanceVector.length();

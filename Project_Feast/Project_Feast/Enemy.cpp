@@ -24,7 +24,6 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 {
 	setStartPosition(sPosition);
 	setScale(scale);
-	//Init();
 	SetHealth(health);
 	enemySpeed = speed;
 	enemeyDamage = damage;
@@ -36,11 +35,12 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init()
+void Enemy::Init(int lvl)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
+	level = lvl;
 
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
@@ -58,11 +58,7 @@ void Enemy::Init()
 	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
-	enemyEquipment.EnemyEquipArm(erightarmNode);
-	//SetEquipment();
-	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
-
-	//erightarmNode->attachObject(erightarmEntity);
+	enemyEquipment.EnemyEquipArm(erightarmNode, level);
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
@@ -71,9 +67,7 @@ void Enemy::Init()
 	// All nodes added, translate enemy to start position
 	enemy_node_->translate(startPosition, Ogre::Node::TS_LOCAL);
 
-
-	SetHealth(10);
-
+	SetStats();
 
 	//Set aggroRange and attackRange of the enemy
 	EnemyPatternManager enemyPatternManager;
@@ -140,6 +134,12 @@ void Enemy::InitiateAbility()
 	{
 		// TODO: attack in progress
 	}
+}
+
+void Enemy::SetStats()
+{
+	SetHealth(5 * level);
+	enemySpeed = 40 + 5 * level;
 }
 
 void Enemy::SetHealth(float startingHealth)

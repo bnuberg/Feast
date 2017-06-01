@@ -10,9 +10,9 @@ public:
 	EnemyEquipment();
 	~EnemyEquipment();
 
-	void EnemyEquipArm(Ogre::SceneNode* enemyNode);
+	void EnemyEquipArm(Ogre::SceneNode* enemyNode, int level);
 	void SetEnemyArmStats(int dmg, int as);
-	void AssignRandomBodypart();
+	void AssignRandomBodypart(int level);
 
 	int damage;
 	int attackspeed;
