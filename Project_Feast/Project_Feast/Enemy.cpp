@@ -66,7 +66,7 @@ void Enemy::Init(int lvl)
 	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
-	enemyEquipment.EnemyEquipArm(erightarmNode, level, enemyID);
+	enemyEquipment.EnemyEquipArm(erightarmNode, enemyID, level);
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
