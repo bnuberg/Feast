@@ -17,8 +17,7 @@ public:
 	void StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	void enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	void enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
-	void Test();
-	
+	int DodgeChance();	
 
 private:
 	Ogre::Timer timer_;
@@ -39,10 +38,6 @@ protected:
 	void AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
 	void AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
 
-	bool dodge1;
-
-	
-	
-	
-
+	bool hasDodged;
+	int chancePrecentage = 20;
 };

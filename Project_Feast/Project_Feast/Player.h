@@ -42,6 +42,7 @@ public:
 	int playerAttackSpeed;
 	int attack = 0;
 
+	bool isSmashing = false;
 	bool exists = false;
 private:
 	void InitiateAbility();
@@ -53,9 +54,7 @@ private:
 	Ogre::SceneNode* rightarmOrigin;
 	float playerShoulderHeight = 160;
 
-	bool isSmashing = false;
 	bool smashingDown = false;
-
 	bool ableToHeal;
 
 	float health;

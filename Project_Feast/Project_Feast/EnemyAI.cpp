@@ -6,6 +6,7 @@
 #include "BodyPart.h"
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
+#include <random>
 
 
 EnemyAI::EnemyAI()
@@ -115,16 +116,22 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 
 	GameManager& mgr = GameManager::GetSingleton();
-	if (DistanceToPlayer(enemyNode).length() < attackRange)
+
+	if (mgr.player.isSmashing && !hasDodged)
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+		if (DodgeChance() > 100 - chancePrecentage)
 		{
 			dodgeTimer.reset();
 			enemyAllowedToDodge = true;
 		}
-		
 
-	}	
+		hasDodged = true;
+	}
+
+	if (!mgr.player.isSmashing)
+	{
+		hasDodged = false;
+	}
 
 	if (enemyAllowedToDodge)
 	{
@@ -145,4 +152,14 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 		{
 			enemyAllowedToDodge = false;
 		}
+}
+
+int EnemyAI::DodgeChance()
+{
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(1, 100);
+
+	Ogre::LogManager::getSingletonPtr()->logMessage("fucking random: " + std::to_string(dist(mt)));
+	return dist(mt);
 }
