@@ -125,6 +125,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="RangedAttackArm.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +161,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
