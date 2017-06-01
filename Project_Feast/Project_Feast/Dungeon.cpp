@@ -41,6 +41,11 @@ void Dungeon::LoadScene(SceneManager* sceneManager)
 	dungeonNode->attachObject(dungeonEntity);
 	dungeonNode->setScale(dungeonScale);
 
+	Entity* dungeonBoxEntity = mgr.mSceneMgr->createEntity("DungeonBoxmesh", "arenaBox.mesh");
+	SceneNode* dungeonBoxNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeonBox", startingPosition);
+	dungeonBoxNode->attachObject(dungeonBoxEntity);
+	dungeonBoxNode->setScale(2 * dungeonScale);
+
 	// Create an ambient light
 	sceneManager->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
 	Ogre::Light* light = sceneManager->createLight("MainLight");
@@ -54,9 +59,10 @@ void Dungeon::LoadScene(SceneManager* sceneManager)
 	Ogre::Light* light3 = sceneManager->createLight("TertiaryLight");
 	light3->setType(Ogre::Light::LT_DIRECTIONAL);
 	light3->setPosition(5000, 5000, 5000);
-	light3->setDirection(-1, -1, -1);
+	light3->setDirection(-1, -1, -0.5);
 
 	mgr.mSceneMgr->getSceneNode("dungeon")->translate(dungeonSpawnPoint, Ogre::Node::TS_LOCAL);
+	mgr.mSceneMgr->getSceneNode("dungeonBox")->translate(dungeonSpawnPoint, Ogre::Node::TS_LOCAL);
 
 	mgr.mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
 }

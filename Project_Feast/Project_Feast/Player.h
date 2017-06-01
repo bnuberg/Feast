@@ -86,7 +86,7 @@ private:
 
 	bool doomed = false;
 	Ogre::Real fallingSpeed = 0;
-	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 220, 0);
+	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 0, 0);
 
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer dodge_timer_;

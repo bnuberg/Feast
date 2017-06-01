@@ -34,14 +34,6 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	//---Create the scene---
 	Dungeon* dungeon = new Dungeon(sceneManager);
 
-	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
-
-	// Add the node to the scene
-	Ogre::Vector3 startingPosition = Ogre::Vector3(1000, -200, 50);
-	Ogre::SceneNode* playerNode = sceneManager->getRootSceneNode()->createChildSceneNode("hammerarm", startingPosition);
-	playerNode->attachObject(playerEntity);
-
 	// Instantiate the player
 	mgr.player.Init(dungeon->GetPlayerSpawnPoint());
 
@@ -59,6 +51,6 @@ void GameScene::Update()
 	GameManager& mgr = GameManager::getSingleton();
 
 	mgr.ui.ShowHud(mgr.player);
-	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.9), Ogre::Real(680));
+	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.2), Ogre::Real(680));
 }
 

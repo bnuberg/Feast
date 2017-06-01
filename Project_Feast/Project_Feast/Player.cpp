@@ -206,7 +206,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		if (playerPosition.y > lavaHeight){ mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(Ogre::Vector3(0, -++fallingSpeed * 9.81f, 0) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); }
 		else 
 		{ 
-			DecreaseHealth(5.0f * evt.timeSinceLastFrame); 
+			DecreaseHealth(50.0f * evt.timeSinceLastFrame); 
 		}
 	}
 }
