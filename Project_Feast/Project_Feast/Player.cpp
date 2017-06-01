@@ -55,6 +55,14 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	dodge_timer_.reset();
 }
 
+void Player::checkHealth()
+{
+	if (GetHealth() <= 0.0f)
+	{
+		Die();
+	}
+}
+
 void Player::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
@@ -181,6 +189,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
+
+	checkHealth();
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -227,6 +237,30 @@ void Player::InitiateAbility()
 void Player::Die()
 {
 	// TODO: restart application/scene
+	if (!hasDied)
+	{
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
+		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+		material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+		Ogre::Rectangle2D* rect = new Ogre::Rectangle2D(true);
+		rect->setCorners(-1.0f, 1.0f, 1.0f, -1.0f);
+		rect->setMaterial("DeathScreen");
+		rect->setRenderQueueGroup(Ogre::RENDER_QUEUE_MAX);
+		rect->setBoundingBox(Ogre::AxisAlignedBox(-100000.0*Ogre::Vector3::UNIT_SCALE, 100000.0*Ogre::Vector3::UNIT_SCALE));
+
+		Ogre::AxisAlignedBox aabInf;
+		aabInf.setInfinite();
+		rect->setBoundingBox(aabInf);
+
+		GameManager& mgr = GameManager::getSingleton();
+		auto m_pSceneMgr = mgr.mSceneMgr;
+		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("DeathScreen");
+		node->attachObject(rect);
+	}
+	hasDied = true;
 }
 
 float Player::GetHealth()

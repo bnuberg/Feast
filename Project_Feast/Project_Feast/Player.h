@@ -12,6 +12,7 @@ public:
 	Player();
 	~Player();
 	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
+	void checkHealth();
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions
@@ -58,6 +59,7 @@ private:
 
 	bool isSmashing = false;
 	bool smashingDown = false;
+	bool hasDied = false;
 
 	bool keyPressed = false;
 	bool dodgeLeft = false;
