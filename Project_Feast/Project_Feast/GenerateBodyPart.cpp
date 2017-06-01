@@ -17,8 +17,12 @@ GenerateBodyPart::~GenerateBodyPart()
 void GenerateBodyPart::SetRarity()
 {
 	rarity.RarityPicker();
+	
 	arm.randDamage = rarity.GetDamageValue();
 	arm.randSpeed = rarity.GetSpeedValue();
+	arm.r = rarity.R();
+	arm.g = rarity.G();
+	arm.b = rarity.B();
 }
 
 void GenerateBodyPart::SetAttackTemplate()

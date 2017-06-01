@@ -4,6 +4,8 @@
 #include "AbilityMovement.h"
 #include "IAbilityAttack.h"
 
+
+
 class BodyPart
 {
 public:
@@ -12,7 +14,7 @@ public:
 
 	void Spawn(Ogre::Vector3 position, Ogre::String bodypart);
 	void Drop(Ogre::Vector3 position);
-
+	void LoadMaterial();
 	void AbilityTarget(Ogre::Vector3 abilityTarget);
 	void AbilityGlobalTarget(Ogre::Vector3 globalTarget);
 	Ogre::Vector3 GetAbilityTarget();
@@ -24,6 +26,7 @@ public:
 	Ogre::SceneNode* bodyPartNode;
 	Ogre::Entity *bodyPartEntity;
 	Ogre::String mesh;
+	
 	bool isPickupAble = false;
 	bool pickedUp = false;
 	Ogre::String tag;
@@ -34,7 +37,9 @@ public:
 	bool equippedByEnemy;
 	IAbilityMovement *moveType;
 	IAbilityAttack *attackType;
-
+	Ogre::Pass* commonPass;
+	Ogre::MaterialPtr common;
+	float r, g, b;
 protected:
 
 	Ogre::Vector3 globalTarget;
@@ -42,5 +47,6 @@ protected:
 private: 
 	int bodyPartHPMax;
 	int bodyPartHPMin;
+	
 };
 

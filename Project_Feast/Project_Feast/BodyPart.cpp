@@ -48,8 +48,18 @@ void BodyPart::Drop(Ogre::Vector3 position)
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
 	bodyPartNode->setScale(0.2, 0.2, 0.2);
+	
+	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	commonPass = common->getTechnique(0)->getPass(0);
+	commonPass->setAmbient(r, g, b);
+	commonPass->setDiffuse(r, g, b, 1);
+	commonPass->setEmissive(r, g, b);
+	bodyPartEntity->setMaterial(common);
+
+	Ogre::LogManager::getSingletonPtr()->logMessage("Damage: " + std::to_string(randDamage));
 
 }
+
 
 void BodyPart::AbilityTarget(Ogre::Vector3 abilityTarget)
 {
@@ -93,9 +103,11 @@ void BodyPart::AbilityDamage()
 	if (equippedByEnemy)
 	{
 		attackType->AttackEnemy(globalTarget, randDamage);
+
 	}
 	else
 	{
 		attackType->Attack(globalTarget, randDamage);
+		Ogre::LogManager::getSingletonPtr()->logMessage("AAAAAAA: " + std::to_string(randDamage));
 	}
 }

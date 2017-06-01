@@ -1,14 +1,10 @@
 #include "Rarity.h"
-#include <cstdlib>
-#include <OgreResourceGroupManager.h>
-#include <OgreMaterialManager.h>
-#include <OgreSubEntity.h>
 #include <OgreTechnique.h>
-
+#include <OgreResourceGroupManager.h>
 
 Rarity::Rarity()
 {
-	
+
 }
 
 
@@ -22,23 +18,33 @@ void Rarity::RarityPicker()
 	switch (rarityTypes){
 	case Common:
 		{
-			ApplyRarity(3, 1, 2, 1);	
+			ApplyRarity(3, 1, 2, 1);
+			ChangePass(0.2, 0.2, 0.2);
+			break;
 		}
 	case Uncommon:
 		{
 			ApplyRarity(5, 3, 4, 2);
+			ChangePass(1, 1, 1);
+			break;
 		}
 	case Rare:
 		{
 			ApplyRarity(7, 5, 6, 4);
+			ChangePass(0, 0.2, 1);
+			break;
 		}
 	case Epic:
 		{
 			ApplyRarity(9, 7, 8, 6);
+			ChangePass(0.3, 0, 0.8);
+			break;
 		}
 	case Legendary:
 		{
 			ApplyRarity(15, 9, 12, 8);
+			ChangePass(0.8, 0.4, 0);
+			break;
 		}
 	}
 }
@@ -59,10 +65,34 @@ int Rarity::GetSpeedValue()
 	return aSpeed;
 }
 
-
-Ogre::Entity* Rarity::SetRarityMaterial(Ogre::Entity* entity)
+void Rarity::LoadMaterials()
 {
-	
-
-	return entity;
+	/*common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	commonPass = common->getTechnique(0)->getPass(0);*/
+	/*commonPass->setAmbient(1, 0, 0);
+	commonPass->setDiffuse(1, 0, 1, 1);
+	commonPass->setEmissive(0.5, 0.5, 0.5);*/
 }
+
+void Rarity::ChangePass(float r, float g, float b)
+{
+	rValue = r;
+	gValue = g;
+	bValue = b;
+}
+
+float Rarity::R()
+{
+	return rValue;
+}
+
+float Rarity::G()
+{
+	return gValue;
+}
+
+float Rarity::B()
+{
+	return bValue;
+}
+

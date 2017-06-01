@@ -3,6 +3,7 @@
 #include "Arm.h"
 #include "Rarity.h"
 
+
 enum AttackTypeEnum
 {
 	GroundSmash,
@@ -23,7 +24,6 @@ public:
 	void SetMovementTemplates();
 	void SetModifier();
 	void Combine();
-	
 	Arm Generate();
 	AttackTypeEnum attackTypeEnum;
 	MovementTypeEnum movementTypeEnum;

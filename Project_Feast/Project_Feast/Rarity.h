@@ -1,5 +1,8 @@
 #pragma once
 #include <OgreEntity.h>
+#include <OgreMaterialManager.h>
+#include <OgrePass.h>
+
 
 enum RarityTypes
 {
@@ -16,13 +19,16 @@ public:
 	int GetDamageValue();
 	int GetSpeedValue();
 	Ogre::Entity* SetRarityMaterial(Ogre::Entity* entity);
-	
+	void LoadMaterials();
+	void ChangePass(float r, float g, float b);
+	float R();
+	float G();
+	float B();
+	/*Ogre::Pass* commonPass;
+	Ogre::MaterialPtr common;*/
 private:
 	int aSpeed;
 	int aDamage;
-	int r;
-	int g;
-	int b;
-	
+	float rValue, gValue, bValue;
 };
 

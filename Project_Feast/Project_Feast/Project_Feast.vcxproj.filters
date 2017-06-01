@@ -35,6 +35,7 @@
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Rarity.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAbilityAttack.h" />
@@ -72,5 +73,6 @@
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Rarity.h" />
+    <ClInclude Include="MaterialLoader.h" />
   </ItemGroup>
 </Project>
