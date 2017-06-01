@@ -52,7 +52,7 @@ private:
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
-	float playerShoulderHeight = 160;
+	float playerShoulderHeight = 55;
 
 	bool isSmashing = false;
 	bool smashingDown = false;
@@ -74,15 +74,19 @@ private:
 	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
 
 	const char* headMeshName = "head.mesh";
-	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 16, 0);
+	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 10, 0);
 
 	const char* armMeshName = "hand.mesh";
-	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-10, 40, 0);
-	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(10, 40, 0);
+	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-7, 5, 0);
+	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(7, 5, 0);
 
 	const char* footMeshName = "foot.mesh";
-	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-10, -10, 0);
-	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(10, -10, 0);
+	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-3, -3, 0);
+	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
+
+	bool doomed = false;
+	Ogre::Real fallingSpeed = 0;
+	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 220, 0);
 
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer dodge_timer_;

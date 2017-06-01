@@ -53,17 +53,19 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
 	rightFootNode->attachObject(rightFootEntity);
 
+	Ogre::SceneNode* cameraNode = playerNode->createChildSceneNode("CameraNode", cameraPosition);
+
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);
-	rightarmOrigin = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmOrigin", startingPosition + rightarmoffset);
-	rightarmNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmNode", startingPosition + rightarmoffset);
+	rightarmOrigin = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmOrigin", rightarmoffset);
+	rightarmNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmNode", rightarmoffset);
 	rightarmNode->setScale(0.2, 0.2, 0.2);
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 	rightarmNode->attachObject(rightarmEntity);
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
-	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
+	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", -rocketarmtargetoffset);
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 
@@ -188,6 +190,25 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
+
+	//Check if player needs to fall
+	Ogre::Vector3 playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
+	Ogre::Real dropRange = 1632;
+	Ogre::Real lavaHeight = -320;
+	if (!doomed && playerPosition.squaredLength() > dropRange * dropRange)
+	{
+		doomed = true;
+	}
+	if (doomed)
+	{ 
+		playerPosition = (playerPosition.squaredLength() > dropRange * dropRange) ? playerPosition : playerPosition.normalisedCopy() * dropRange;
+		mgr.mSceneMgr->getSceneNode("PlayerNode")->setPosition(playerPosition);
+		if (playerPosition.y > lavaHeight){ mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(Ogre::Vector3(0, -++fallingSpeed * 9.81f, 0) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); }
+		else 
+		{ 
+			DecreaseHealth(5.0f * evt.timeSinceLastFrame); 
+		}
+	}
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)

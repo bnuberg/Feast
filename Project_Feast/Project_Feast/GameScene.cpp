@@ -9,15 +9,9 @@
 #include "SoundManager.h"
 #include "Dungeon.h"
 
+GameScene::GameScene(){}
 
-GameScene::GameScene()
-{
-}
-
-
-GameScene::~GameScene()
-{
-}
+GameScene::~GameScene(){}
 
 void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow* mWindow)
 {
@@ -38,7 +32,6 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	//---Create the scene---
-
 	Dungeon* dungeon = new Dungeon(sceneManager);
 
 	// Create a player entity with the right mesh
@@ -56,8 +49,7 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	mgr.mEnemyManager.Init();
 
 	// Bind the cameraman to the player
-	mgr.cameraMan->setTarget(sceneManager->getSceneNode("PlayerNode"));
-	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
+	mgr.cameraMan->setTarget(sceneManager->getSceneNode("CameraNode"));
 
 	mgr.ui.Init();
 }
@@ -67,9 +59,6 @@ void GameScene::Update()
 	GameManager& mgr = GameManager::getSingleton();
 
 	mgr.ui.ShowHud(mgr.player);
-	
-	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
-	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
-	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.349066), Ogre::Real(380));
+	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.9), Ogre::Real(680));
 }
 

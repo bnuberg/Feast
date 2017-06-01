@@ -1,6 +1,6 @@
 #include "Dungeon.h"
 #include "GameManager.h"
-#include "EnemyManager.h";
+#include "EnemyManager.h"
 
 /** Constructor.\n
 */
@@ -16,9 +16,17 @@ Dungeon::~Dungeon(){}
 /** Returns the player spawn point.\n
 	@return Vector3 player spawn point
 */
-Vector3 Dungeon::GetPlayerSpawnPoint()
+Vector3 Dungeon::GetPlayerSpawnPoint() const
 {
 	return playerSpawnPoint;
+}
+
+/** Returns the radius from what point on entities fall.\n
+	@return Real length from center
+*/
+Real Dungeon::GetFallRange()
+{ 
+	return fallRange; 
 }
 
 /** Load Dungeon.mesh.\n

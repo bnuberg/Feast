@@ -8,8 +8,8 @@ class Dungeon
 public:
 	Dungeon(Ogre::SceneManager* sceneManager);
 	~Dungeon();
-	Vector3 GetPlayerSpawnPoint();
-	void PushOut();
+	Vector3 GetPlayerSpawnPoint() const;
+	Real GetFallRange();
 
 private:
 	void LoadScene(SceneManager* sceneManager);
@@ -17,5 +17,5 @@ private:
 	Vector3 playerSpawnPoint = Vector3(0, 0, -500);
 	const Vector3 dungeonSpawnPoint = Vector3(0, -320, 0);
 	const Vector3 dungeonScale = Vector3(32, 32, 32);
-	//Mesh map;
+	Real fallRange = 200;
 };
