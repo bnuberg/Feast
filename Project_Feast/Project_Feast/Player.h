@@ -3,6 +3,7 @@
 #include <iostream>
 #include <OgreFrameListener.h>
 #include <OgreEntity.h>
+#include <OgreTimer.h>
 #include "Equipment.h"
 
 class Player
@@ -34,6 +35,7 @@ public:
 	void Discard();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
+	void ChangeArmModifier(int modifier);
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
@@ -44,6 +46,8 @@ public:
 
 	bool isSmashing = false;
 	bool exists = false;
+	Ogre::Pass* commonPass;
+	Ogre::MaterialPtr common;
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
@@ -52,13 +56,28 @@ private:
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
+	Ogre::ParticleSystem* ModifierParticle;
 	float playerShoulderHeight = 160;
 
 	bool smashingDown = false;
 	bool ableToHeal;
 
+	bool keyPressed = false;
+	bool dodgeLeft = false;
+	bool dodgeRight = false;
+	bool ableToDodge = false;
+	bool CanPickUp = true;
+
 	float health;
 	float meat;
 	float maxHealth;
+	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
+
+	bool meatToHealth = false;
+
+	Ogre::Timer timer_;							// Ogre timer class object
+	Ogre::Timer dodge_timer_;
+	unsigned long dodge_cooldown_;			// The duration it takes for an enemy to spawn
+	unsigned long move_cooldown_;
 };

@@ -27,6 +27,7 @@ protected:
 	OgreBites::SdkCameraMan* mCameraMan;      // basic camera controller
 	LevelLoader levelLoader;
 	Ogre::OverlaySystem *mOverlaySystem;
+	
 		// OgreBites
 		
 		

@@ -92,6 +92,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbilityModifier.h" />
+    <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityAttack.h" />
@@ -117,24 +119,29 @@
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="MaterialLoader.h" />
     <ClInclude Include="Matth.h" />
     <ClInclude Include="Meat.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rarity.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="RangedAttackArm.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbilityAttackAOE.cpp" />
     <ClCompile Include="AbilityInterface.cpp" />
+    <ClCompile Include="AbilityModifier.cpp" />
     <ClCompile Include="AbilityMovement.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
@@ -154,14 +161,17 @@
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
     <ClCompile Include="Matth.cpp" />
     <ClCompile Include="Meat.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

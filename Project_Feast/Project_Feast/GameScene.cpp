@@ -38,7 +38,7 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
 	//---Create the scene---
-
+	materialLoader.LoadMaterials();
 	Dungeon* dungeon = new Dungeon(sceneManager);
 
 	// Create a player entity with the right mesh

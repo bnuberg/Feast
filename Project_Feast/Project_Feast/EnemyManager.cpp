@@ -5,7 +5,8 @@
 
 
 EnemyManager::EnemyManager()
-	:enemy_spawn_timer_(5000)
+	:enemy_spawn_timer_(5000),
+	bleedTick(1000)
 {
 	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 300);
 	enemySpawnPoints[1] = Ogre::Vector3(200, 0, 100);
@@ -21,7 +22,9 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
+	tutorial.Init();
 	timer_.reset();
+	bleedTimer.reset();
 	waveAliveTimer.reset();
 }
 
@@ -29,30 +32,41 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
-	if (enemy_list_.size() <= 0 && isWaveAlive)
+	if (!tutorial.isFinished)
 	{
-		isWaveAlive = false;
-		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
-		timer_.reset();
+		tutorial.Update();
 	}
-
-	if (isWaveAlive)
+	else
 	{
-		waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
-	}
+		// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+		if (enemy_list_.size() <= 0 && isWaveAlive)
+		{
+			isWaveAlive = false;
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
+			timer_.reset();
+		}
 
-	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
-	{
-		SpawnWave();
+		if (isWaveAlive)
+		{
+			waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
+		}
 
-		timer_.reset();
+		if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
+		{
+			SpawnWave();
+
+			timer_.reset();
+		}
 	}
 
 	std::list<Enemy>::iterator e = enemy_list_.begin();
 	while (e != enemy_list_.end())
 	{
 		e->Update(evt);
+		Ogre::LogManager::getSingletonPtr()->logMessage("enemyID" + Ogre::StringConverter::toString(e->enemyID));
+		Ogre::LogManager::getSingletonPtr()->logMessage("enemy modifier" + Ogre::StringConverter::toString(e->enemyEquipment.modifier));
+
+
 		// If the enemy is dead but not yet removed remove him.
 		if (e->is_dead_ && !e->is_dead2_)
 		{
@@ -74,18 +88,34 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		{
 			++e;
 		}
+		//
+
+
 	}
+
+}
+
+int EnemyManager::GetEnemyCount()
+{
+	return enemy_list_.size();
 }
 
 void EnemyManager::SpawnWave()
 {
+	waveCount++;
+
+	for (int i = 0; i < numberOfEnemies; i++)
+	{
+		enemyLevels[i] = waveCount;
+	}
+
+	int i = 0;
 	for each (Ogre::Vector3 position in enemySpawnPoints)
 	{
-		SpawnEnemy(position);
+		SpawnEnemy(position, enemyLevels[i++]);
 	}
 
 	waveAliveTimer.reset();
-	waveCount++;
 	isWaveAlive = true;
 }
 
@@ -117,27 +147,27 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 }
 
 // Spawns a new enemy and adds it to the manager
-void EnemyManager::SpawnEnemy(Ogre::Vector3 position)
+void EnemyManager::SpawnEnemy(Ogre::Vector3 position, int level)
 {
 	Enemy enemy;
 	enemy.setStartPosition(position);
-	enemy.Init();
+	enemy.Init(level);
 	enemy_list_.push_back(enemy);
 }
 
-void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position)
+void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position, int level)
 {
 	//				hp  spd dmg position scale
 	Enemy e = Enemy(20, 25, 10, position, 3.0f);
-	e.Init();
+	e.Init(level);
 	enemy_list_.push_back(e);
 }
 
-void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
+void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position, int level)
 {
 	position.y = 0;
 	Enemy e = Enemy(5, 75, 1, position, 0.5f);
-	e.Init();
+	e.Init(level);
 	enemy_list_.push_back(e);
 }
 
@@ -145,7 +175,7 @@ void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
 	@param The center point around which the enemies are damaged.
 	@param The distance from the point in which the enemies are damaged.
 */
-void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage)
+void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier)
 {
 	/*GameManager& mgr = GameManager::getSingleton();*/
 
@@ -161,6 +191,17 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			if (distance < killdistance)
 			{
 				e->GetDamaged(damage);
+
+				if (!e->is_bleeding && modifier == 1)
+				{
+					e->StartBleeding(damage);
+				}
+				if (!e->is_slowed && modifier == 2)
+				{
+					e->StartSlow();
+
+				}
+				
 			}
 
 		}

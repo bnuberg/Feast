@@ -13,16 +13,25 @@ public:
 	Enemy();
 	Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale = 1.0f);
 	~Enemy();
-	void Init();
+	void Init(int level);
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
 	Ogre::Vector3 DistanceToPlayer();
 	void SetEquipmentMesh(Ogre::String meshName);
 	void SetAttack();
 	void SetEquipment();
+	void StartBleeding(int damage);
+	void RemoveBleeding();
+	void BleedEnemy();
+	void StartSlow();
+	void RemoveSlow();
+	void SlowEnemy();
+	void Knockback();
 
 	bool is_dead_ = false;
 	bool is_dead2_ = false;
+	bool is_bleeding = false;
+	bool is_slowed = false;
 	Ogre::Entity* enemyEntity;
 	Ogre::SceneNode* enemy_node_;
 	EnemyEquipment enemyEquipment;
@@ -34,11 +43,23 @@ public:
 	void setStartPosition(Ogre::Vector3 position);
 
 	int enemyID;
+	int bleedTick;
+	int maxBleedTick;
+
 private:
 	Ogre::Timer timer_;
 	EnemyAI enemyAI;
 	
 	Ogre::Vector3 getStartPosition();
+
+	Ogre::ParticleSystem* bleedParticle;
+	Ogre::ParticleSystem* slowParticle;
+	Ogre::ParticleSystem* knockbackParticle;
+	Ogre::Timer bleedTimer;
+	unsigned long bleed_Timer_Max;
+	float bleedDamage;
+	Ogre::Timer slowTimer;
+	unsigned long slow_Timer_Max;
 
 	float getScale();
 	void setScale(float scale);
@@ -46,10 +67,12 @@ private:
 	float enemyHeight;
 	float enemyHealth;
 	float enemySpeed;
+	float enemyBaseSpeed;
 	float enemyMaxHealth;
 	float enemeyDamage;
 	float enemyMaxDamage;
 	float scale;
+	int level;
 	bool isAttacking = false;
 	bool attackDown = false;
 
@@ -57,13 +80,16 @@ private:
 	Ogre::Vector3 startPosition;
 	Ogre::SceneNode* rocketarmtargetNode;
 	
+	void SetStats();
 	void SetHealth(float startingHealth);
+	void SetSpeed(float speed);
 	void DoDamage(float damage);
 	void DropBodyPart();
 	void Die();
 	void InitiateAbility();
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
+	void Debuff();
 
 	Ogre::SceneNode* erocketarmtargetNode;
 	Ogre::SceneNode* erightarmOrigin;
