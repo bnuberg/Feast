@@ -47,5 +47,5 @@ protected:
 	bool DodgeCondition(Ogre::SceneNode* enemyNode);
 
 	bool hasDodged;
-	int chancePrecentage = 100;
+	int chancePrecentage = 35;
 };

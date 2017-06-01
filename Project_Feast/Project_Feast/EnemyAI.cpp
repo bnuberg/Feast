@@ -13,7 +13,7 @@ EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
 	attackTimer(0),
-	dodgeTime(1000),
+	dodgeTime(350),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
 {
@@ -150,7 +150,7 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 
 		if (dodgeTimer.getMilliseconds() < dodgeTime)
 		{
-			MoveDirection.z = -enemySpeed * 10;
+			MoveDirection.z = -enemySpeed * 15;
 			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 		}
 		else
@@ -177,11 +177,11 @@ float EnemyAI::setAggroR()
 {
 	if (enemyArmType == 0)
 	{
-		aggroRange = 600;
+		aggroRange = 1000;
 	}
 	else
 	{
-		aggroRange = 1000;
+		aggroRange = 1250;
 	}
 	return aggroRange;
 }
@@ -230,7 +230,6 @@ bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 	if (enemyArmType == 0 && playerArmType == 1)
 	{
 		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
-			Ogre::LogManager::getSingletonPtr()->logMessage("TRIGGERED");
 			return true;
 
 		}
