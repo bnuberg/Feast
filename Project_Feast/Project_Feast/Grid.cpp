@@ -60,6 +60,13 @@ int Grid::getIndexFromPosition(Ogre::Vector2 pos)
 	return (z * gridWidth + x);
 }
 
+Ogre::Vector2 Grid::getPositionFromIndex(int index)
+{
+	int x = (index % gridWidth) - xOffset;
+	int z = (index / gridWidth) - zOffset;
+	return Ogre::Vector2(x, z);
+}
+
 Grid::Grid(int width, int height)
 {
 	initialized = false;

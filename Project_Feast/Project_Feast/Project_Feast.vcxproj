@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />

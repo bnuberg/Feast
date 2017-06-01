@@ -34,6 +34,8 @@
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
+    <ClCompile Include="Grid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAbilityAttack.h" />
@@ -70,6 +72,8 @@
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="EnemyAI.h" />
+    <ClInclude Include="Grid.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">
@@ -133,9 +137,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyPatternManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyAI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

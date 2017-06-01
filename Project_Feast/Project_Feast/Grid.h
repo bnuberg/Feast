@@ -1,10 +1,6 @@
 #pragma once
-#include <OgreEntity.h>
-#include <OgreFrameListener.h>
 #include <OgreTimer.h>
 #include "GameManager.h"
-#include "EnemyManager.h"
-#include "Enemy.h"
 
 class Grid
 {
@@ -18,12 +14,13 @@ public:
 	int getWidth();
 	int getHeight();
 	int getIndexFromPosition(Ogre::Vector2 pos);
+	Ogre::Vector2 getPositionFromIndex(int index);
 private:
 //	static Grid* gridInstance;
 
 	int xOffset, zOffset;
 
-	bool * blockages = NULL;
+	bool * blockages = nullptr;
 
 	Grid(int width, int height);
 	~Grid();

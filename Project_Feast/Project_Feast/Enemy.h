@@ -26,6 +26,7 @@ public:
 	void SetEquipmentMesh(Ogre::String meshName);
 	void SetAttack();
 	void SetEquipment();
+	void setStartPosition(Ogre::Vector3 position);
 
 	Ogre::Vector3 startPosition;
 	bool is_dead_ = false;
@@ -38,16 +39,12 @@ public:
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
 
-private:
-	Ogre::Timer timer_;
-
 protected: 
-	
-	void setStartPosition(Ogre::Vector3 position);
-
 	int enemyID;
 
 private:
+	Ogre::Timer timer_;
+
 	Ogre::Vector3 getStartPosition();
 
 	float getScale();
@@ -71,12 +68,12 @@ private:
 	bool attackDown = false;
 
 	Ogre::Vector3 fakeStartPosition;
-	Ogre::Vector3 startPosition;
 	Ogre::SceneNode* rocketarmtargetNode;
 	
 	void SetHealth(float startingHealth);
 	void DoDamage(float damage);
 	void DropBodyPart();
+	void Move(const Ogre::FrameEvent& evt);
 	void Die();
 	void InitiateAbility();
 	void InitiateSmash();
