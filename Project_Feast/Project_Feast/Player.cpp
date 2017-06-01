@@ -8,9 +8,7 @@ move_cooldown_(200)
 {
 }
 
-Player::~Player()
-{
-}
+Player::~Player(){}
 
 /**	This function instantiates the nodes and the entities attached for the player
 as well as setting the base values for the player hp and such.
@@ -211,10 +209,17 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	IncreaseMeat(meat);
 
 	CheckLavaDrop(evt);
-
 	CheckHealth();
+
+	/*mgr.mSceneMgr->getSceneNode("TorsoNode")->yaw(0.05 * Ogre::Degree(sin(totalTime)));
+	mgr.mSceneMgr->getSceneNode("HeadNode")->yaw(0.2 * Ogre::Degree(sin(totalTime)));*/
+
+	totalTime += evt.timeSinceLastFrame;
 }
 
+/** Player logic of falling in lava and getting hurt.\n
+	@param evt is the frameEvent passed to be framerate independent.
+*/
 void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
 {
 	//Check if player needs to fall

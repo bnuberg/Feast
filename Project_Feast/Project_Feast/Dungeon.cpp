@@ -48,7 +48,7 @@ void Dungeon::LoadScene(SceneManager* sceneManager)
 	Entity* dungeonBoxEntity = mgr.mSceneMgr->createEntity("DungeonBoxmesh", boxMeshName);
 	SceneNode* dungeonBoxNode = sceneManager->getRootSceneNode()->createChildSceneNode("dungeonBox", startingPosition);
 	dungeonBoxNode->attachObject(dungeonBoxEntity);
-	dungeonBoxNode->setScale(2 * dungeonScale);
+	dungeonBoxNode->setScale(4 * dungeonScale);
 	dungeonBoxNode->translate(dungeonSpawnPoint, Node::TS_LOCAL);
 
 	/*Lava*/

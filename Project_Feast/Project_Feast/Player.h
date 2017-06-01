@@ -96,6 +96,8 @@ private:
 	Ogre::Real lavaHeight = -300;
 	Ogre::Real lavaDamage = 200;
 
+	Ogre::Real totalTime = 0;
+
 	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 100, 0);
 
 	bool meatToHealth = false;
