@@ -23,5 +23,7 @@ public:
 	Ogre::SceneNode* erightarmNode;
 	Ogre::Entity* eArmEntity;
 	GenerateBodyPart generateBodyPart;
+	Ogre::Pass* commonPass;
+	Ogre::MaterialPtr common;
 
 };

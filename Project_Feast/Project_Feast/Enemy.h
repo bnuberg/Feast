@@ -41,6 +41,7 @@ public:
 protected: 
 	int enemyID;
 
+
 private:
 	Ogre::Timer timer_;
 
