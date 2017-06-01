@@ -10,6 +10,7 @@
 #include <OgreTimer.h>
 #include "Enemy.h"
 #include "Meat.h"
+#include "Tutorial.h"
 
 /** Creates and tracks all the enemy instances and bodypart instances
 */
@@ -31,6 +32,9 @@ public:
 	bool isWaveAlive = false;
 	int waveCount = 0;
 	float waveTimeSpent;
+
+	int GetEnemyCount();
+	Tutorial tutorial;
 
 private:
 	void EnemyManager::SpawnWave();

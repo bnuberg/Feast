@@ -33,6 +33,7 @@ Real Dungeon::GetFallRange()
 */
 void Dungeon::LoadScene(SceneManager* sceneManager)
 {
+	
 	GameManager& mgr = GameManager::getSingleton();
 	Vector3 startingPosition = Vector3(0, 0, 0);
 

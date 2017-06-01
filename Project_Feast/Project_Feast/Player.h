@@ -12,6 +12,7 @@ public:
 	Player();
 	~Player();
 	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
+	void checkHealth();
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions
@@ -44,6 +45,8 @@ public:
 	int attack = 0;
 
 	bool exists = false;
+	Ogre::Pass* commonPass;
+	Ogre::MaterialPtr common;
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
@@ -56,11 +59,13 @@ private:
 
 	bool isSmashing = false;
 	bool smashingDown = false;
+	bool hasDied = false;
 
 	bool keyPressed = false;
 	bool dodgeLeft = false;
 	bool dodgeRight = false;
 	bool ableToDodge = false;
+	bool CanPickUp = true;
 
 	float health;
 	float meat;
@@ -91,6 +96,8 @@ private:
 	Ogre::Real lavaHeight = -300;
 
 	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 100, 0);
+
+	bool meatToHealth = false;
 
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer dodge_timer_;

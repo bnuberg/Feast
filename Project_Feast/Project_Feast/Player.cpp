@@ -17,12 +17,13 @@ as well as setting the base values for the player hp and such.
 */
 void Player::Init(Ogre::Vector3 spawnPoint)
 {
+	
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-
+	
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
-	SetHealth(10);
+	SetHealth(100);
 
 	// Add the node to the scene
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
@@ -36,6 +37,13 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);	//Used for camera
 	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
 	headNode->attachObject(headEntity);
+	// Create a player entity with the right mesh
+	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Body", "Body.mesh");
+	playerNode->attachObject(playerEntity);
+	
+	// player head, used to position the camera
+	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
+	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
 
 	Ogre::SceneNode* leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
 	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
@@ -72,6 +80,14 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	exists = true;
 	timer_.reset();
 	dodge_timer_.reset();
+}
+
+void Player::checkHealth()
+{
+	if (GetHealth() <= 0.0f)
+	{
+		Die();
+	}
 }
 
 void Player::Update(const Ogre::FrameEvent& evt)
@@ -154,6 +170,16 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
+	{
+		meatToHealth = true;
+		convertMeattoHealth();
+	}
+	else
+	{
+		meatToHealth = false;
+	}
+
 	// Rotate Player Yaw
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
@@ -192,6 +218,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	IncreaseMeat(meat);
 
 	CheckLavaDrop(evt);
+
+	checkHealth();
 }
 
 void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
@@ -220,6 +248,13 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 	rightarmNode->detachAllObjects();
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity(meshName);
 	rightarmNode->attachObject(rightarmEntity);
+
+	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	commonPass = common->getTechnique(0)->getPass(0);
+	commonPass->setAmbient(equipment.arm.r, equipment.arm.g, equipment.arm.b);
+	commonPass->setDiffuse(equipment.arm.r, equipment.arm.g, equipment.arm.b, 1);
+	commonPass->setEmissive(equipment.arm.r, equipment.arm.g, equipment.arm.b);
+	rightarmEntity->setMaterial(common);
 }
 
 void Player::InitiateAbility()
@@ -252,6 +287,30 @@ void Player::InitiateAbility()
 void Player::Die()
 {
 	// TODO: restart application/scene
+	if (!hasDied)
+	{
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
+		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+		material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+		Ogre::Rectangle2D* rect = new Ogre::Rectangle2D(true);
+		rect->setCorners(-1.0f, 1.0f, 1.0f, -1.0f);
+		rect->setMaterial("DeathScreen");
+		rect->setRenderQueueGroup(Ogre::RENDER_QUEUE_MAX);
+		rect->setBoundingBox(Ogre::AxisAlignedBox(-100000.0*Ogre::Vector3::UNIT_SCALE, 100000.0*Ogre::Vector3::UNIT_SCALE));
+
+		Ogre::AxisAlignedBox aabInf;
+		aabInf.setInfinite();
+		rect->setBoundingBox(aabInf);
+
+		GameManager& mgr = GameManager::getSingleton();
+		auto m_pSceneMgr = mgr.mSceneMgr;
+		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("DeathScreen");
+		node->attachObject(rect);
+	}
+	hasDied = true;
 }
 
 float Player::GetHealth()
@@ -343,19 +402,24 @@ void Player::SetSpeed()
 void Player::Pickup()
 {
 	GameManager& mgr = GameManager::getSingleton();
-
+	
 	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 200);
 
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E) && CanPickUp)
 	{
 		Ogre::LogManager::getSingletonPtr()->logMessage("fullmetal");
 		BodyPart bodypart = mgr.mBodyPartManager.ClosestBodyPart(playerPosition);
+		CanPickUp = false;
 
 		if (bodypart.tag == "Arm")
 		{
+
 			equipment.EquipArm();
 			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			equipment.arm.r = bodypart.r;
+			equipment.arm.g = bodypart.g;
+			equipment.arm.b = bodypart.b;
 			Ogre::LogManager::getSingletonPtr()->logMessage("player attackspeed" + std::to_string(bodypart.randAttackSpeed));
 			bodypart.pickedUp = true;
 			if (bodypart.type == 1)
@@ -382,6 +446,10 @@ void Player::Pickup()
 			bodypart.pickedUp = true;
 			SetSpeed();
 		}
+	}
+	else if (!mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E))
+	{
+		CanPickUp = true;
 	}
 }
 

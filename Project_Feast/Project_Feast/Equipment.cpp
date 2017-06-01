@@ -59,12 +59,8 @@ void Equipment::DiscardLeg(int spd)
 
 void Equipment::setPlayerArmStats(int dmg, int as)
 {
-	
-	if (once == false){
-		damage += dmg;
-		attackSpeed += as;
-		once = true;
-	}
+		arm.randDamage = dmg;
+		arm.randAttackSpeed = as;	
 }
 void Equipment::setPlayerLegStats(int spd)
 {

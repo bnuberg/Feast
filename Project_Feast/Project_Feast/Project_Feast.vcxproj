@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
@@ -103,6 +104,7 @@
     <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEquipment.h" />
+    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPatternManager.h" />
     <ClInclude Include="EntityTest.h" />
@@ -116,15 +118,18 @@
     <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MainCamera.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="MaterialLoader.h" />
     <ClInclude Include="Matth.h" />
     <ClInclude Include="Meat.h" />
     <ClInclude Include="MinimalOgre.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rarity.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="RangedAttackArm.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -137,12 +142,14 @@
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
@@ -152,14 +159,17 @@
     <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
     <ClCompile Include="Matth.cpp" />
     <ClCompile Include="Meat.cpp" />
     <ClCompile Include="MinimalOgre.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="RangedAttackArm.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

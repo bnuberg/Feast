@@ -34,6 +34,11 @@
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Rarity.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAbilityAttack.h" />
@@ -70,5 +75,75 @@
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="EnemyAI.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Rarity.h" />
+    <ClInclude Include="MaterialLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MinimalOgre.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyPart.cpp">
+      <Filter>Source Files\Bodyparts</Filter>
+    </ClCompile>
+    <ClCompile Include="Arm.cpp">
+      <Filter>Source Files\Bodyparts</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyPartManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Leg.cpp">
+      <Filter>Source Files\Bodyparts</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundSmashArm.cpp">
+      <Filter>Source Files\Bodyparts\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedAttackArm.cpp">
+      <Filter>Source Files\Bodyparts\Arms</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityInterface.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Equipment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Meat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPatternManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

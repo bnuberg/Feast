@@ -1,4 +1,5 @@
 #include "EnemyManager.h"
+#include "EnemyAI.h"
 #include "BodyPartManager.h"
 #include "GameManager.h"
 
@@ -20,6 +21,7 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Init()
 {
 	// Make sure the timer starts from 0
+	tutorial.Init();
 	timer_.reset();
 	waveAliveTimer.reset();
 }
@@ -28,6 +30,12 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
+	if (!tutorial.isFinished)
+	{
+		tutorial.Update();
+	}
+	else
+	{
 	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
 	if (enemy_list_.size() <= 0 && isWaveAlive)
 	{
@@ -46,6 +54,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		SpawnWave();
 
 		timer_.reset();
+	}
 	}
 
 	std::list<Enemy>::iterator e = enemy_list_.begin();
@@ -74,6 +83,11 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 			++e;
 		}
 	}
+}
+
+int EnemyManager::GetEnemyCount()
+{
+	return enemy_list_.size();
 }
 
 void EnemyManager::SpawnWave()
