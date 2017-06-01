@@ -13,9 +13,9 @@ public:
 
 private:
 	void LoadScene(SceneManager* sceneManager);
-	void SpawnEnemies();
-	const String meshName = "pPlane1.mesh";
-	Vector3 playerSpawnPoint = Vector3(1000, 0, 1000);
-	Vector3 enemySpawnPoints[5];
+	const String meshName = "arena.mesh";
+	Vector3 playerSpawnPoint = Vector3(0, 0, -500);
+	const Vector3 dungeonSpawnPoint = Vector3(0, -320, 0);
+	const Vector3 dungeonScale = Vector3(32, 32, 32);
 	//Mesh map;
 };
