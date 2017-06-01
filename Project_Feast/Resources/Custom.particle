@@ -43,7 +43,7 @@ particle_system BleedParticle
 //Slow particle
 particle_system SlowParticle
 {
-	quota	2000
+	quota	200
 	material	Examples/Flare
 	particle_width	4
 	particle_height	4
@@ -60,7 +60,7 @@ particle_system SlowParticle
 		colour_range_start	1 1 1 1
 		colour_range_end	1 1 1 1
 		direction	0 -1 0
-		emission_rate	100
+		emission_rate	10
 		position	0 10 0
 		velocity	20
 		velocity_min	20

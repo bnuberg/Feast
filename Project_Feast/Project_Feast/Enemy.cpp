@@ -174,7 +174,7 @@ void Enemy::StartBleeding(int damage)
 	bleedDamage = (damage / 2) / maxBleedTick;
 	
 	if (bleedParticle == NULL){
-		bleedParticle = mgr.mSceneMgr->createParticleSystem("bleed" + Ogre::StringConverter::toString(enemyID), "BleedParticle");
+		bleedParticle = mgr.mSceneMgr->createParticleSystem("bleeded" + Ogre::StringConverter::toString(enemyID), "BleedParticle");
 	}
 	enemy_node_->attachObject(bleedParticle);
 
@@ -183,7 +183,7 @@ void Enemy::StartBleeding(int damage)
 void Enemy::RemoveBleeding()
 {
 	is_bleeding = false;
-	enemy_node_->detachObject("bleed" + Ogre::StringConverter::toString(enemyID));
+	enemy_node_->detachObject("bleeded" + Ogre::StringConverter::toString(enemyID));
 }
 
 void Enemy::BleedEnemy()
@@ -213,7 +213,7 @@ void Enemy::StartSlow()
 	SetSpeed(enemyBaseSpeed / 2);
 
 	if (slowParticle == NULL){
-		slowParticle = mgr.mSceneMgr->createParticleSystem("slow" + Ogre::StringConverter::toString(enemyID), "SlowParticle");
+		slowParticle = mgr.mSceneMgr->createParticleSystem("slowed" + Ogre::StringConverter::toString(enemyID), "SlowParticle");
 	}
 	enemy_node_->attachObject(slowParticle);
 }
@@ -221,7 +221,7 @@ void Enemy::StartSlow()
 void Enemy::RemoveSlow()
 {
 	is_slowed = false;
-	enemy_node_->detachObject("slow" + Ogre::StringConverter::toString(enemyID));
+	enemy_node_->detachObject("slowed" + Ogre::StringConverter::toString(enemyID));
 	SetSpeed(enemyBaseSpeed);
 
 
