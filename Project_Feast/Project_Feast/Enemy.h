@@ -2,8 +2,10 @@
 #include <OISPrereqs.h>
 #include <OgreVector3.h>
 #include <OgreFrameListener.h>
+#include <OgreTimer.h>
 #include <OgreEntity.h>
 #include "EnemyEquipment.h"
+#include "EnemyAI.h"
 
 class Enemy
 {
@@ -14,6 +16,7 @@ public:
 	void Init(int level);
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
+	Ogre::Vector3 DistanceToPlayer();
 	void SetEquipmentMesh(Ogre::String meshName);
 	void SetAttack();
 	void SetEquipment();
@@ -43,8 +46,10 @@ public:
 	int bleedTick;
 	int maxBleedTick;
 
-
 private:
+	Ogre::Timer timer_;
+	EnemyAI enemyAI;
+	
 	Ogre::Vector3 getStartPosition();
 
 	Ogre::ParticleSystem* bleedParticle;
@@ -66,11 +71,8 @@ private:
 	float enemyMaxHealth;
 	float enemeyDamage;
 	float enemyMaxDamage;
-	float aggroRange;
-	float attackRange;
 	float scale;
 	int level;
-
 	bool isAttacking = false;
 	bool attackDown = false;
 
@@ -83,7 +85,6 @@ private:
 	void SetSpeed(float speed);
 	void DoDamage(float damage);
 	void DropBodyPart();
-	void Move(const Ogre::FrameEvent& evt);
 	void Die();
 	void InitiateAbility();
 	void InitiateSmash();

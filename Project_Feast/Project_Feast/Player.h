@@ -44,6 +44,7 @@ public:
 	int playerAttackSpeed;
 	int attack = 0;
 
+	bool isSmashing = false;
 	bool exists = false;
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
@@ -58,8 +59,8 @@ private:
 	Ogre::ParticleSystem* ModifierParticle;
 	float playerShoulderHeight = 160;
 
-	bool isSmashing = false;
 	bool smashingDown = false;
+	bool ableToHeal;
 
 	bool keyPressed = false;
 	bool dodgeLeft = false;
