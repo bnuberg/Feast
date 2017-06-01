@@ -36,6 +36,7 @@
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAbilityAttack.h" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Tutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MinimalOgre.cpp">

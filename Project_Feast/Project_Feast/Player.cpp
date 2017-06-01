@@ -229,6 +229,30 @@ void Player::InitiateAbility()
 void Player::Die()
 {
 	// TODO: restart application/scene
+	if (!hasDied)
+	{
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", "General");
+		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
+		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+		material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+		Ogre::Rectangle2D* rect = new Ogre::Rectangle2D(true);
+		rect->setCorners(-1.0f, 1.0f, 1.0f, -1.0f);
+		rect->setMaterial("DeathScreen");
+		rect->setRenderQueueGroup(Ogre::RENDER_QUEUE_MAX);
+		rect->setBoundingBox(Ogre::AxisAlignedBox(-100000.0*Ogre::Vector3::UNIT_SCALE, 100000.0*Ogre::Vector3::UNIT_SCALE));
+
+		Ogre::AxisAlignedBox aabInf;
+		aabInf.setInfinite();
+		rect->setBoundingBox(aabInf);
+
+		GameManager& mgr = GameManager::getSingleton();
+		auto m_pSceneMgr = mgr.mSceneMgr;
+		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("DeathScreen");
+		node->attachObject(rect);
+	}
+	hasDied = true;
 }
 
 float Player::GetHealth()

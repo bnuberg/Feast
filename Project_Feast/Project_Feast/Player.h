@@ -56,6 +56,7 @@ private:
 
 	bool isSmashing = false;
 	bool smashingDown = false;
+	bool hasDied = false;
 
 	bool keyPressed = false;
 	bool dodgeLeft = false;

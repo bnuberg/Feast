@@ -26,7 +26,7 @@ float  Matth::abs(const float value)
 */
 float Matth::acos(const float value)
 {
-	return PI / 2.0f - Matth::asin(value);
+	return PI / 2.0f - asin(value);
 }
 
 /** Inverse sine function, returns the inverse sine of the input in radians.
@@ -61,15 +61,15 @@ float Matth::atan2(const float y, const float x)
 {
 	if(x > 0)
 	{
-		return Matth::atan(y / x);
+		return atan(y / x);
 	}
 	if(x < 0 && y >= 0)
 	{
-		return Matth::atan(y / x) + PI;
+		return atan(y / x) + PI;
 	}
 	if(x < 0 && y < 0)
 	{
-		return Matth::atan(y / x) - PI;
+		return atan(y / x) - PI;
 	}
 	if(x == 0 && y > 0)
 	{
@@ -90,7 +90,7 @@ float Matth::atan2(const float y, const float x)
 */
 bool Matth::approximately(const float x, const float y)
 {
-	return (Matth::round(x) == Matth::round(y));
+	return (round(x) == round(y));
 }
 
 /** Average function, finds the average between two values.
@@ -129,7 +129,7 @@ float Matth::average(const int x, const int y)
 */
 int  Matth::ceili(const float value)
 {
-	return Matth::floori(value) + 1;
+	return floori(value) + 1;
 }
 
 /** Ceiling function, returns a float of the input rounded up.
@@ -138,7 +138,7 @@ int  Matth::ceili(const float value)
 */
 float Matth::ceil(const float value)
 {
-	return Matth::floori(value) + 1.0f;
+	return floori(value) + 1.0f;
 }
 
 /** Clamping function, returns the clamped value of the input between a specified maximum and a specified minimum.
@@ -177,7 +177,7 @@ float Matth::clamp(const float value, const float min, const float max)
 */
 float Matth::clamp01(const float value)
 {
-	return Matth::clamp(value, 0, 1);
+	return clamp(value, 0, 1);
 }
 
 // TODO
@@ -309,7 +309,7 @@ float Matth::exps(const int power)
 */
 int  Matth::floori(const float value)
 {
-	return (int)Matth::floor(value);
+	return static_cast<int>(floor(value));
 }
 
 /** Floor function, returns a floating point number rounded down.
@@ -330,7 +330,7 @@ float Matth::floor(const float value)
 */
 float Matth::linearToGammaSpace(const float value)
 {
-	return Matth::sqrt(value);// should really be pow 0.454545
+	return sqrt(value);// should really be pow 0.454545
 }
 
 /** Conversion function, converts a float from gamma space to linear space. Approximately.
@@ -339,7 +339,7 @@ float Matth::linearToGammaSpace(const float value)
 */
 float Matth::gammaToLinearSpace(const float value)
 {
-	return Matth::powm(value, 2);// should really be 2.2
+	return powm(value, 2);// should really be 2.2
 }
 
 /** Checking function, checks whether the input is a power of 2 and returns true if it is.\n
@@ -381,7 +381,7 @@ bool Matth::isPowerOfTwoe(const int value)
 */
 float Matth::lerp(const float start, const float end, const float value)
 {
-	return start + Matth::clamp(value, start, end) * (end - start);
+	return start + clamp(value, start, end) * (end - start);
 }
 
 // TODO
@@ -413,7 +413,7 @@ float Matth::lerpUnclamped(const float start, const float end, const float value
 */
 float Matth::inverseLerp(const float start, const float end, const float value)
 {
-	float f = Matth::clamp((value - start) / (end - start), 0.0f, 1.0f);
+	float f = clamp((value - start) / (end - start), 0.0f, 1.0f);
 	return f * f * (3.0f - 2.0f * f);
 }
 
@@ -425,7 +425,7 @@ float Matth::inverseLerp(const float start, const float end, const float value)
 */
 float Matth::log(const int value, const int base)
 {
-	return Matth::ln(value) / Matth::ln(base);
+	return ln(value) / ln(base);
 }
 
 /** Logarithm function, returns the logarithm of a specified integral value to a specified base.\n
@@ -436,7 +436,7 @@ float Matth::log(const int value, const int base)
 */
 float Matth::log(const int value, const float base)
 {
-	return Matth::ln(value) / Matth::ln(base);
+	return ln(value) / ln(base);
 }
 
 /** Logarithm function, returns the logarithm of a specified value to a specified base.\n
@@ -447,7 +447,7 @@ float Matth::log(const int value, const float base)
 */
 float Matth::log(const float value, const float base)
 {
-	return Matth::ln(value) / Matth::ln(base);
+	return ln(value) / ln(base);
 }
 
 /** Natural logarithm function, returns the natural logarithm of an integer.
@@ -457,7 +457,7 @@ float Matth::log(const float value, const float base)
 float Matth::ln(const int value)
 {
 	// Make sure second parameter is specified to prevent recurrsion
-	return Matth::ln(value, 3);
+	return ln(value, 3);
 }
 
 /** Natural logarithm function, returns the natural logarithm of a value.
@@ -556,7 +556,7 @@ int Matth::nextPowerOfTwo(const int value)
 */
 int Matth::nextPowerOfTwo(const float value)
 {
-	return Matth::nextPowerOfTwo((int)value);
+	return nextPowerOfTwo(static_cast<int>(value));
 }
 
 /** Search function, finds the closest power of two larger than the given value.\n
@@ -568,7 +568,7 @@ int Matth::nextPowerOfTwo(const float value)
 */
 int Matth::nextPowerOfTwoe(const float value)
 {
-	unsigned int v = (int)value;
+	unsigned int v = static_cast<int>(value);
 	v--;
 	v |= v >> 1;
 	v |= v >> 2;
@@ -598,7 +598,7 @@ float Matth::pingPong(const float value, const float length)
 */
 int  Matth::powi(const int x, const int y)
 {
-	return (int)Matth::pow((float)x, (float)y);
+	return static_cast<int>(pow(static_cast<float>(x), static_cast<float>(y)));
 }
 
 /** Power function, returns the power of a float to an integer.
@@ -608,7 +608,7 @@ int  Matth::powi(const int x, const int y)
 */
 float Matth::pow(const float x, const int y)
 {
-	return Matth::powm(x, (float)y);
+	return powm(x, static_cast<float>(y));
 }
 
 /** Power function, returns the power of a float to another.\n
@@ -619,7 +619,7 @@ float Matth::pow(const float x, const int y)
 */
 float Matth::powf(const float x, const float y)
 {
-	return Matth::exp(y * Matth::ln(x, 5));
+	return exp(y * ln(x, 5));
 }
 
 /** Power function, returns the power of a float to another (truncated).\n
@@ -635,7 +635,7 @@ float Matth::pows(const float x, const float y)
 	if (x == 0)
 		return 0.0f;
 
-	int z = (int)y;
+	int z = static_cast<int>(y);
 
 	float runningTotal = 1.0f;
 	for (int i = 0; i < z; i++)
@@ -669,7 +669,7 @@ float Matth::powm(int x, int y)
 		x = (x * x) % MOD;
 		y >>= 1;
 	}
-	return (float)result;
+	return static_cast<float>(result);
 }
 
 // TODO
@@ -685,7 +685,7 @@ float Matth::repeat(const float value, const float length)
 */
 int  Matth::roundi(const float value)
 {
-	return (int)Matth::round(value);
+	return static_cast<int>(round(value));
 }
 
 /** Rounding function, returns the value of the input rounded to the nearest integer.\n
@@ -695,10 +695,10 @@ int  Matth::roundi(const float value)
 */
 float Matth::round(const float value)
 {
-	int intValue = (int)value;
+	int intValue = static_cast<int>(value);
 	float tenths = value - intValue;
 	if(10 * tenths > 4)// I.e. Greater than or equal to 5
-		return Matth::ceil(value);
+		return ceil(value);
 	return intValue;
 }
 
@@ -776,7 +776,7 @@ bool Matth::isNegative(const float value)
 */
 int  Matth::sqrti(const int value)
 {
-	return (int)Matth::FIISRBOQ3C(value);
+	return static_cast<int>(FIISRBOQ3C(value));
 }
 
 /** Square root function, finds the square root of the input.\n
@@ -786,7 +786,7 @@ int  Matth::sqrti(const int value)
 */
 float Matth::sqrt(const int value)
 {
-	return Matth::FIISRBOQ3C(value);
+	return FIISRBOQ3C(value);
 }
 
 
@@ -843,7 +843,7 @@ float Matth::FIISRBOQ3C(const float value)
 float Matth::sqrtWithNaturalLog(const float value)
 {
 	// log(x^0.5) = 0.5 * log(x)
-	float logNum = Matth::ln(value, 100);
+	float logNum = ln(value, 100);
 	float halfLogNum = logNum / 2.0f;
-	return Matth::exp(halfLogNum);
+	return exp(halfLogNum);
 }

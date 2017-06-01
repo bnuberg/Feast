@@ -49,7 +49,6 @@ private:
 
 	float getScale();
 	void setScale(float scale);
-//	EnemyPatternManager* epm;
 
 	float enemyHeight;
 	float enemyHealth;

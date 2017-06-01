@@ -34,7 +34,7 @@ void EnemyAI::Update(const Ogre::FrameEvent& evt)
 Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /*+ Ogre::Vector3(0, 20, 0)*/;
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	return distanceVector;
 }
@@ -42,7 +42,7 @@ Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 Ogre::Vector3 EnemyAI::EnemyTarget()
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /* + Ogre::Vector3(0, 20, 0)*/;
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	return target;
 }
 //State selecter for the enemy behaviour
@@ -97,51 +97,44 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
 	float startDistance = startDistanceVector.length();
 
-
 	enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 	MoveDirection.z = enemySpeed;
 
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
-
 	if (startDistance <= enemySpeed / 2500)
 	{
 		enemyNode->setPosition(startPosition);
 	}
-	else
-	{
-	}
 }
 
-void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
+void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode)
+{
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
 	GameManager& mgr = GameManager::GetSingleton();
-	if (DistanceToPlayer(enemyNode).length() > attackRange){
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE)){
+	if (DistanceToPlayer(enemyNode).length() > attackRange)
+	{
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+		{
 			enemyAllowedToDodge = true;
 			dodgeTimer.reset();
 		}
-		if (enemyAllowedToDodge == true)
+		if (enemyAllowedToDodge) // TODO: Fix this logic
 		{
-
 			float dodgeChance = Ogre::Math::RangeRandom(0, 9);
-			/*if (dodgeChance > 8)
-			{*/
 
 			if (dodgeTimer.getMilliseconds() <= dodgeTime)
 			{
 				enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 				MoveDirection.z = enemySpeed * 5;
 				enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-
 			}
-			else if (dodgeTimer.getMilliseconds() >= dodgeTime)
+			else
 			{
 				enemyAllowedToDodge = false;
 				dodgeTimer.reset();
 			}
-			//}
 		}
 	}
 }
