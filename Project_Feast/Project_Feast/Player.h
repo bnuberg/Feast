@@ -56,20 +56,19 @@ private:
 
 	bool isSmashing = false;
 	bool smashingDown = false;
-	bool hasDied = false;
 
 	bool keyPressed = false;
 	bool dodgeLeft = false;
 	bool dodgeRight = false;
 	bool ableToDodge = false;
 
-	bool ableToHeal;
-
 	float health;
 	float meat;
 	float maxHealth;
 	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
+
+	bool meatToHealth = false;
 
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer dodge_timer_;

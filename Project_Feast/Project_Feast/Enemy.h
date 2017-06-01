@@ -39,6 +39,7 @@ public:
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
 
+	void setStartPosition(Ogre::Vector3 position);
 protected: 
 	int enemyID;
 
@@ -67,6 +68,7 @@ private:
 	bool attackDown = false;
 
 	Ogre::Vector3 fakeStartPosition;
+	Ogre::Vector3 startPosition;
 	Ogre::SceneNode* rocketarmtargetNode;
 	
 	void SetHealth(float startingHealth);

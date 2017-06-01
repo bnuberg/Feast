@@ -31,16 +31,8 @@ void InputManager::InitInput(Ogre::RenderWindow* mWindow)
 	mInputManager = OIS::InputManager::createInputSystem(pl);
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** We are here ***");
 
-	try
-	{
-		mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, false));
-		mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, false));
-	}
-	catch (std::exception &e)
-	{
-		// Fail quietly. Seems not to work if there is no mouse or track-pad plugged in.
-		std::cerr << e.what();
-	}
+	mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject(OIS::OISKeyboard, false));
+	mMouse = static_cast<OIS::Mouse*>(mInputManager->createInputObject(OIS::OISMouse, false));
 
 	windowResized(mWindow);
 

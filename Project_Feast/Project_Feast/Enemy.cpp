@@ -4,8 +4,9 @@
 #include <OgreEntity.h>
 #include "Player.h"
 #include "BodyPart.h"
-#include <OgreLogManager.h>
+
 #include "EnemyPatternManager.h"
+#include <OgreLogManager.h>
 #include "Grid.h"
 
 
@@ -17,6 +18,8 @@ Enemy::Enemy()
 	enemyMaxHealth(0),
 	enemeyDamage(0),
 	enemyMaxDamage(0),
+	aggroRange(0),
+	attackRange(0),
 	is_dead_(false),
 	is_dead2_(false),
 	scale(1)
@@ -97,7 +100,7 @@ void Enemy::Init()
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
-	rocketarmtargetNode = erightarmNode->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
+	rocketarmtargetNode = enemy_node_->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
 
 	// All nodes added, translate enemy to start position
 	enemy_node_->translate(startPosition, Ogre::Node::TS_LOCAL);
@@ -105,21 +108,42 @@ void Enemy::Init()
 
 	SetHealth(10);
 
+
+	//Set aggroRange and attackRange of the enemy
 	EnemyPatternManager enemyPatternManager;
 	enemyPatternManager.BasicEnemy();
 
 	timer_.reset();
 	attackRange = enemyPatternManager.setAttackR();
 	aggroRange = enemyPatternManager.setAggroR();
-	//Set aggroRange and attackRange of the enemy
+	attackRange = enemyPatternManager.setAttackR();
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
-	//EnemyAI enemyAI;
-	//enemyAI.StateSelecter(evt, enemy_node_);
-	//enemyAI.enemyDodge(evt, enemy_node_);
-	Move(evt);
+	 Move(evt);
+
+	 if (isAttacking)
+	 {
+		 if (attackDown)
+		 {
+			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 {
+				 enemyEquipment.arm.AbilityDamage();
+				 attackDown = false;
+				 enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition());
+			 }
+		 }
+		 else
+		 {
+			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			 {
+				 isAttacking = false;
+			 }
+		 }
+	 }
+
+	 InitiateAbility();
 }
 
 void Enemy::InitiateAbility()
@@ -136,6 +160,10 @@ void Enemy::InitiateAbility()
 		}
 		else if (enemyEquipment.arm.type == 1)
 		{
+			Ogre::LogManager::getSingletonPtr()->logMessage("Enemy.cpp global target");
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->_getDerivedPosition().x));
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->_getDerivedPosition().y));
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(rocketarmtargetNode->_getDerivedPosition().z));
 			enemyEquipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
 			enemyEquipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
 		}
