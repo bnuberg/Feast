@@ -22,21 +22,7 @@ void EnemyPatternManager::BasicEnemy()
 	//Enemy loses interest in player if the player moves out of aggro range for a certain amount of time
 }
 
-float EnemyPatternManager::setAggroR()
-{
 
-	return aggroRange;
-}
-
-float EnemyPatternManager::setAttackR()
-{
-
-	return attackRange;
-}
-unsigned long EnemyPatternManager::setAttackT()
-{
-	return attackTimer;
-}
 
 void EnemyPatternManager::attackPattern()
 {

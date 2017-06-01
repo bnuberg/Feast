@@ -39,7 +39,7 @@ void Enemy::Init()
 	
 	GameManager& mgr = GameManager::GetSingleton();
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
-	enemyAI.Init();
+	
 	
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
@@ -62,7 +62,7 @@ void Enemy::Init()
 	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 
 	//erightarmNode->attachObject(erightarmEntity);
-
+	enemyAI.SetArm(enemyEquipment.arm);
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
 	rocketarmtargetNode = erightarmNode->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
@@ -74,7 +74,7 @@ void Enemy::Init()
 	SetHealth(10);
 	timer_.reset();
 
-
+	enemyAI.Init();
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)

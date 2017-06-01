@@ -24,6 +24,8 @@ EnemyAI::~EnemyAI()
 }
 void EnemyAI::Init()
 {	
+	setAggroR();
+	setAttackR();
 	timer_.reset();
 	dodgeTimer.reset();
 }
@@ -121,8 +123,11 @@ void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enem
 	{
 		if (DodgeChance() > 100 - chancePrecentage)
 		{
-			dodgeTimer.reset();
-			enemyAllowedToDodge = true;
+			if (DodgeCondition(enemyNode))
+			{
+				dodgeTimer.reset();
+				enemyAllowedToDodge = true;
+			}
 		}
 
 		hasDodged = true;
@@ -159,7 +164,100 @@ int EnemyAI::DodgeChance()
 	std::random_device rd;
 	std::mt19937 mt(rd());
 	std::uniform_int_distribution<int> dist(1, 100);
-
-	Ogre::LogManager::getSingletonPtr()->logMessage("fucking random: " + std::to_string(dist(mt)));
 	return dist(mt);
+}
+
+void EnemyAI::SetArm(Arm arm)
+{
+	enemyArmType = arm.type;
+}
+
+
+float EnemyAI::setAggroR()
+{
+	if (enemyArmType == 0)
+	{
+		aggroRange = 600;
+	}
+	else
+	{
+		aggroRange = 1000;
+	}
+	return aggroRange;
+}
+
+float EnemyAI::setAttackR()
+{
+	if (enemyArmType == 0)
+	{
+		attackRange = 125;
+	}
+	else
+	{
+		attackRange = 500;
+	}
+	return attackRange;
+}
+
+unsigned long EnemyAI::setAttackT()
+{
+	if (enemyArmType == 0)
+	{
+
+	}
+	else
+	{
+
+	}
+	return attackTimer;
+}
+
+bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
+{
+	GameManager& mgr = GameManager::GetSingleton();
+	int playerArmType = mgr.player.equipment.arm.type;
+
+	if (enemyArmType == 0 && playerArmType == 0)
+	{
+		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
+			return true;
+
+		}
+		else
+			return false;
+	}
+
+	if (enemyArmType == 0 && playerArmType == 1)
+	{
+		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
+			Ogre::LogManager::getSingletonPtr()->logMessage("TRIGGERED");
+			return true;
+
+		}
+		else
+			return false;
+	}
+
+	if (enemyArmType == 1 && playerArmType == 0)
+	{
+		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
+			return true;
+
+		}
+		else
+			return false;
+
+	}
+
+	if (enemyArmType == 1 && playerArmType == 1)
+	{
+		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
+			return true;
+
+		}
+		else
+			return false;
+
+	}
+
 }
