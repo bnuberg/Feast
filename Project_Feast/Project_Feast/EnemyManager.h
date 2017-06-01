@@ -22,9 +22,9 @@ public:
 	~EnemyManager();
 	void EnemyManager::Init();
 	void EnemyManager::Update(const Ogre::FrameEvent& evt);
-	void SpawnEnemy(Ogre::Vector3 position);
-	void SpawnHeavyEnemy(Ogre::Vector3 position);
-	void SpawnLightEnemy(Ogre::Vector3 position);
+	void SpawnEnemy(Ogre::Vector3 position, int level);
+	void SpawnHeavyEnemy(Ogre::Vector3 position, int level);
+	void SpawnLightEnemy(Ogre::Vector3 position, int level);
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
 	void DamageEnemies();
 
@@ -41,7 +41,9 @@ public:
 
 private:
 	void EnemyManager::SpawnWave();
+	int numberOfEnemies = 5;
 	Ogre::Vector3 enemySpawnPoints[5];
+	int enemyLevels[5];
 	std::list<Enemy> enemy_list_;				// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer waveAliveTimer;

@@ -11,7 +11,7 @@ public:
 	Enemy();
 	Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale = 1.0f);
 	~Enemy();
-	void Init();
+	void Init(int level);
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
 	void SetEquipmentMesh(Ogre::String meshName);
@@ -69,6 +69,7 @@ private:
 	float aggroRange;
 	float attackRange;
 	float scale;
+	int level;
 
 	bool isAttacking = false;
 	bool attackDown = false;
@@ -77,6 +78,7 @@ private:
 	Ogre::Vector3 startPosition;
 	Ogre::SceneNode* rocketarmtargetNode;
 	
+	void SetStats();
 	void SetHealth(float startingHealth);
 	void SetSpeed(float speed);
 	void DoDamage(float damage);

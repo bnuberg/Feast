@@ -101,13 +101,20 @@ int EnemyManager::GetEnemyCount()
 
 void EnemyManager::SpawnWave()
 {
+	waveCount++;
+
+	for (int i = 0; i < numberOfEnemies; i++)
+	{
+		enemyLevels[i] = waveCount;
+	}
+
+	int i = 0;
 	for each (Ogre::Vector3 position in enemySpawnPoints)
 	{
-		SpawnEnemy(position);
+		SpawnEnemy(position, enemyLevels[i++]);
 	}
 
 	waveAliveTimer.reset();
-	waveCount++;
 	isWaveAlive = true;
 }
 
@@ -139,27 +146,27 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 }
 
 // Spawns a new enemy and adds it to the manager
-void EnemyManager::SpawnEnemy(Ogre::Vector3 position)
+void EnemyManager::SpawnEnemy(Ogre::Vector3 position, int level)
 {
 	Enemy enemy;
 	enemy.setStartPosition(position);
-	enemy.Init();
+	enemy.Init(level);
 	enemy_list_.push_back(enemy);
 }
 
-void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position)
+void EnemyManager::SpawnHeavyEnemy(Ogre::Vector3 position, int level)
 {
 	//				hp  spd dmg position scale
 	Enemy e = Enemy(20, 25, 10, position, 3.0f);
-	e.Init();
+	e.Init(level);
 	enemy_list_.push_back(e);
 }
 
-void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position)
+void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position, int level)
 {
 	position.y = 0;
 	Enemy e = Enemy(5, 75, 1, position, 0.5f);
-	e.Init();
+	e.Init(level);
 	enemy_list_.push_back(e);
 }
 

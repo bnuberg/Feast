@@ -31,9 +31,14 @@ public:
 	AbilityModifier abilityModifier;
 	int type;
 	Rarity rarity;
+<<<<<<< HEAD
 private:
 	int level = 0;
+=======
+	
+private:
 	Matth matth;
 
+>>>>>>> origin/Development
 };
 

@@ -407,15 +407,4 @@ void Player::Pickup()
 
 void Player::Discard()
 {
-	GameManager& mgr = GameManager::getSingleton();
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F))
-	{
-		equipment.DiscardArm(5, 2);
-		attack = 0;
-		ChangeRightArmMesh("cube.mesh");
-	}
-	else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_T))
-	{
-		equipment.DiscardLeg(50);
-	}
 }
