@@ -18,6 +18,7 @@ public:
 	void StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	void enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	void enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
+	bool AllowedToAttack();
 	void SetArm(Arm arm);
 	int DodgeChance();	
 
@@ -34,10 +35,11 @@ protected:
 	float dodgeChance;
 	unsigned long dodgeTime;
 	bool enemyAllowedToDodge = false;
+	bool inAttackState;
 	
 	float setAggroR();
 	float setAttackR();
-	unsigned long setAttackT();
+	float setEnemySpeed();
 
 	Ogre::Vector3 EnemyTarget();
 	

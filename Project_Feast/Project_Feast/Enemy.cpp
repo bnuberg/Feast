@@ -103,8 +103,10 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 			 }
 		 }
 	 }
-
-	 InitiateAbility();
+	 if (enemyAI.AllowedToAttack())
+	 {
+		 InitiateAbility();
+	 }
 	 Debuff();
 
 }
