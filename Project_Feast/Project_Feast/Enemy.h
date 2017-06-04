@@ -4,6 +4,7 @@
 #include <OgreFrameListener.h>
 #include <OgreEntity.h>
 #include "EnemyEquipment.h"
+#include "Healthbar.h"
 
 class Enemy
 {
@@ -24,6 +25,7 @@ public:
 	Ogre::SceneNode* enemy_node_;
 	EnemyEquipment enemyEquipment;
 	Ogre::SceneNode* erightarmNode;
+	Ogre::SceneNode* healthBarNode;
 
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
@@ -31,7 +33,7 @@ public:
 	void setStartPosition(Ogre::Vector3 position);
 
 	int enemyID;
-
+	Healthbar healthbar;
 
 private:
 	Ogre::Vector3 getStartPosition();
@@ -53,6 +55,7 @@ private:
 	bool attackDown = false;
 
 	Ogre::Vector3 fakeStartPosition;
+	Ogre::Vector3 healthBarPosition = Ogre::Vector3(0, 50, 0);
 	Ogre::Vector3 startPosition;
 	Ogre::SceneNode* rocketarmtargetNode;
 	
@@ -67,5 +70,6 @@ private:
 
 	Ogre::SceneNode* erocketarmtargetNode;
 	Ogre::SceneNode* erightarmOrigin;
+	
 };
 

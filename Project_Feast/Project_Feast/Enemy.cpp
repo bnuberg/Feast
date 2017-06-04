@@ -52,6 +52,9 @@ void Enemy::Init()
 	enemy_node_->setScale(scale, scale, scale);
 	enemy_node_->attachObject(enemyEntity);
 
+	healthBarNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("healthBarNode" + Ogre::StringConverter::toString(enemyID), healthBarPosition);
+	healthbar.Init(healthBarNode, healthBarPosition, mgr.mSceneMgr, enemyID);
+
 	// right arm origin
 	enemyHeight = 50;
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, enemyHeight, 0);
@@ -177,10 +180,12 @@ void Enemy::DoDamage(float damage)
 void Enemy::GetDamaged(float damage)
 {
 	enemyHealth -= damage;
+	healthbar.SetLength(enemyHealth, enemyMaxHealth);
 
 	if (enemyHealth <= 0)
 	{
 		is_dead_ = true;
+		healthbar.Destroy();
 	}
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Ogre.h"
 
+
 using namespace Ogre;
 
 class Dungeon
@@ -10,7 +11,6 @@ public:
 	~Dungeon();
 	Vector3 GetPlayerSpawnPoint();
 	void PushOut();
-
 private:
 	void LoadScene(SceneManager* sceneManager);
 	const String meshName = "arena.mesh";
