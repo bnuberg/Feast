@@ -13,7 +13,7 @@ class Rarity
 public:
 	Rarity();
 	~Rarity();
-	void RarityPicker();
+	void RarityPicker(int level);
 	void ApplyRarity(int aDamageMax, int aDamageMin, int aSpeedMax, int aSpeedMin);
 	RarityTypes rarityTypes;
 	int GetDamageValue();
@@ -21,6 +21,7 @@ public:
 	Ogre::Entity* SetRarityMaterial(Ogre::Entity* entity);
 	void LoadMaterials();
 	void ChangePass(float r, float g, float b);
+	int Random(int min, int max);
 	float R();
 	float G();
 	float B();
@@ -30,5 +31,11 @@ private:
 	int aSpeed;
 	int aDamage;
 	float rValue, gValue, bValue;
+
+	int commonRange = 1;
+	int uncommonRange = 2;
+	int rareRange = 3;
+	int epicRange = 4;
+	int legendaryRange = 6;
 };
 

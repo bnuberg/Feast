@@ -92,6 +92,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbilityModifier.h" />
+    <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="Healthbar.h" />
@@ -103,6 +105,7 @@
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPatternManager.h" />
@@ -134,12 +137,15 @@
   <ItemGroup>
     <ClCompile Include="AbilityAttackAOE.cpp" />
     <ClCompile Include="AbilityInterface.cpp" />
+    <ClCompile Include="AbilityModifier.cpp" />
     <ClCompile Include="AbilityMovement.cpp" />
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />

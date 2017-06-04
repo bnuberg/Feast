@@ -12,12 +12,13 @@ public:
 	EnemyPatternManager();
 	~EnemyPatternManager();
 	void BasicEnemy();
-	float setAggroR();
-	float setAttackR();
+
+	void attackPattern();
 
 private:
 	float aggroRange;
 	float attackRange;
+	unsigned long attackTimer;
 
 
 
