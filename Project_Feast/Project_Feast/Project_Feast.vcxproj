@@ -96,6 +96,7 @@
     <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="GenerateBodyPart.h" />
+    <ClInclude Include="Healthbar.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
     <ClInclude Include="AbilityInterface.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="GroundSmashArm.cpp" />
+    <ClCompile Include="Healthbar.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="InputManager.cpp" />

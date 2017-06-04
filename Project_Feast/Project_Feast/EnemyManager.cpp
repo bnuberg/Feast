@@ -81,6 +81,7 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 			// Remove all objects and take it out of the list
 			e->enemy_node_->detachAllObjects();
 			e->erightarmNode->detachAllObjects();
+			e->healthBarNode->detachAllObjects();
 			e->is_dead2_ = true;
 			enemy_list_.erase(e++);
 		}
