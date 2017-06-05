@@ -116,7 +116,8 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 }
 
 void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
-
+	//This method checks if the player is attacking
+	//It also checks what type off arm the player and enemy is using and dodges accordingly for a set percentage.
 	GameManager& mgr = GameManager::GetSingleton();
 
 	if (mgr.player.isSmashing && !hasDodged)
@@ -147,7 +148,7 @@ void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enem
 
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-
+	//This method executes the dodge for a set amount of time
 		if (dodgeTimer.getMilliseconds() < dodgeTime)
 		{
 			MoveDirection.z = -enemySpeed * 15;
@@ -161,6 +162,7 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 
 int EnemyAI::DodgeChance()
 {
+	//Returns a random number between 1 and 100. This is used for the dodge percentage
 	std::random_device rd;
 	std::mt19937 mt(rd());
 	std::uniform_int_distribution<int> dist(1, 100);
@@ -214,9 +216,11 @@ unsigned long EnemyAI::setAttackT()
 
 bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 {
+	//This method checks what arm the player and enemy are using and in what range they both are and the enemy dodges accordingly 
 	GameManager& mgr = GameManager::GetSingleton();
 	int playerArmType = mgr.player.equipment.arm.type;
 
+	//Enemy dodges when both are melee and the distance between both is less then 250
 	if (enemyArmType == 0 && playerArmType == 0)
 	{
 		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
@@ -227,6 +231,7 @@ bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 			return false;
 	}
 
+	//Enemy dodges when enemy is melee and player is range and the enemy is in the ranged attack radius
 	if (enemyArmType == 0 && playerArmType == 1)
 	{
 		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
@@ -237,6 +242,7 @@ bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 			return false;
 	}
 
+	//Enemy dodges when player is melee and enemy is ranged and the player is close range 
 	if (enemyArmType == 1 && playerArmType == 0)
 	{
 		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
@@ -248,6 +254,7 @@ bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 
 	}
 
+	//Enemy dodges when both are ranged and the enemy is in range of the player's attack
 	if (enemyArmType == 1 && playerArmType == 1)
 	{
 		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){

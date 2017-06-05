@@ -87,7 +87,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		keyPressed = false;
 	}
 
-	//Checks if player has enough meat, executes dodge method and decreases meat
+	//Removes meat and executes dodge method when player has enough meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
@@ -103,6 +103,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			dirVec.x -= move;
 	}
 
+	//Dodges to the left side
 	if (dodgeLeft)
 	{
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
@@ -112,6 +113,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
+	//Removes meat and executes dodge method when player has enough meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
@@ -127,6 +129,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			dirVec.x += move;
 	}
 
+	//Dodges to the right side
 	if (dodgeRight)
 	{
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
@@ -136,6 +139,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
+	//Heals player when key is pressed and decreases meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
 	{
 		meatToHealth = true;
