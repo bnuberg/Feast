@@ -4,6 +4,7 @@
 
 AbilityAttackAOE::AbilityAttackAOE()
 {
+
 }
 
 
@@ -15,13 +16,14 @@ void AbilityAttackAOE::Attack(Ogre::Vector3 target, int damage, int modifier)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
+
 	mgr.mEnemyManager.DamageEnemiesInCircle(target, attackRadius, damage, modifier);
+	SpawnAttackParticles(target);
 	/*Ogre::LogManager::getSingletonPtr()->logMessage("Arm Damage: " + std::to_string(damage));*/
 }
 
 void AbilityAttackAOE::AttackEnemy(Ogre::Vector3 target, int damage)
 {
-	
 	GameManager& mgr = GameManager::getSingleton();
 
 	Ogre::LogManager::getSingletonPtr()->logMessage("AbilityAttackAOE.cpp target");
@@ -43,4 +45,30 @@ void AbilityAttackAOE::AttackEnemy(Ogre::Vector3 target, int damage)
 	{
 		mgr.player.DecreaseHealth(damage); 
 	}
+}
+
+void AbilityAttackAOE::SpawnAttackParticles(Ogre::Vector3 target)
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	int i = 0;
+
+	if (attackParticle != NULL){
+		mgr.mSceneMgr->destroyParticleSystem("playerAttack");
+	}
+
+	attackParticle = mgr.mSceneMgr->createParticleSystem("playerAttack", "AttackWave");
+
+	if (playerAttackNode != NULL)
+	{
+		mgr.mSceneMgr->destroySceneNode("PlayerAttackNode");
+	}
+	
+	playerAttackNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerAttackNode", target);
+
+
+	i++;
+
+	playerAttackNode->attachObject(attackParticle);
+
 }
