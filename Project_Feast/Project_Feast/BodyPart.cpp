@@ -102,12 +102,12 @@ void BodyPart::AbilityDamage()
 {
 	if (equippedByEnemy)
 	{
-		attackType->AttackEnemy(globalTarget, randDamage);
+		attackType->AttackEnemy(globalTarget, randDamage, enemyID);
 
 	}
 	else
 	{
-		attackType->Attack(globalTarget, randDamage);
-		Ogre::LogManager::getSingletonPtr()->logMessage("AAAAAAA: " + std::to_string(randDamage));
+		attackType->Attack(globalTarget, randDamage, randModifier);
+		Ogre::LogManager::getSingletonPtr()->logMessage("AAAAAAA: " + std::to_string(randModifier));
 	}
 }

@@ -12,5 +12,6 @@ public:
 	MaterialLoader materialLoader;
 	void CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow* mWindow) override;
 	void Update();
+	
 };
 

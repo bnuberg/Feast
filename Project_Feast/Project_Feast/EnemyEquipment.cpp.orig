@@ -16,11 +16,19 @@ EnemyEquipment::~EnemyEquipment()
 
 }
 
-void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode, int enemyID, int level)
+<<<<<<< HEAD
+void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode, int level)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
-	AssignRandomBodypart(enemyID, level);
+	AssignRandomBodypart(level);
+=======
+void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode, int enemyID)
+{
+	GameManager& mgr = GameManager::GetSingleton();
+
+	AssignRandomBodypart(enemyID);
+>>>>>>> origin/Development
 
 	//TODO: tell enemy which arm they have
 	if (ModifierParticle != NULL)
@@ -43,7 +51,11 @@ void EnemyEquipment::SetEnemyArmStats(int dmg, int as)
 	//TODO: change attack stats of enemy to the arms dmg
 }
 
-void EnemyEquipment::AssignRandomBodypart(int enemyID, int level) 
+<<<<<<< HEAD
+void EnemyEquipment::AssignRandomBodypart(int level) 
+=======
+void EnemyEquipment::AssignRandomBodypart(int enemyID) 
+>>>>>>> origin/Development
 {
 	GameManager& mgr = GameManager::GetSingleton();
 	/*Placeholder for procedual generation
@@ -63,8 +75,6 @@ void EnemyEquipment::AssignRandomBodypart(int enemyID, int level)
 		break;
 	case 2:
 		ModifierParticle = mgr.mSceneMgr->createParticleSystem("slow" + Ogre::StringConverter::toString(enemyID) + "1", "SlowParticle");
-		break;
-	case 3:
 		break;
 	default:
 		break;

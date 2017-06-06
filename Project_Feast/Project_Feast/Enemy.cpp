@@ -8,13 +8,16 @@
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 #include "Grid.h"
+#include <OgreParticleSystem.h>
 
 
 int enemyCount = 0;
 
+
 Enemy::Enemy()
 	:enemyHealth(10),
 	enemySpeed(50),
+	enemyBaseSpeed(50),
 	enemyMaxHealth(0),
 	enemeyDamage(0),
 	enemyMaxDamage(0),
@@ -22,7 +25,11 @@ Enemy::Enemy()
 	attackRange(0),
 	is_dead_(false),
 	is_dead2_(false),
-	scale(1)
+	scale(1),
+	bleedTick(0),
+	maxBleedTick(5),
+	bleed_Timer_Max(1000),
+	slow_Timer_Max(5000)
 {
 }
 
@@ -31,7 +38,8 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 	setStartPosition(sPosition);
 	setScale(scale);
 	SetHealth(health);
-	enemySpeed = speed;
+	enemyBaseSpeed = speed;
+	SetSpeed(speed);
 	enemeyDamage = damage;
 	enemyMaxDamage = damage;
 }
@@ -41,8 +49,9 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init()
+void Enemy::Init(int lvl)
 {
+	
 	GameManager& mgr = GameManager::GetSingleton();
 
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
@@ -71,6 +80,8 @@ void Enemy::Init()
 	}
 
 	startPosition = (0, 0, 20);
+	level = lvl;
+	
 	
 	// Create an enemy entity with the right mesh
 	enemyEntity = mgr.mSceneMgr->createEntity("enemyTorso.mesh");
@@ -85,18 +96,17 @@ void Enemy::Init()
 	epm = new EnemyPatternManager();
 	epm->createTravelGrid();
 
+	healthBarNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("healthBarNode" + Ogre::StringConverter::toString(enemyID), healthBarPosition);
+	healthbar.Init(healthBarNode, healthBarPosition, mgr.mSceneMgr, enemyID);
+
 	// right arm origin
 	enemyHeight = 50;
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, enemyHeight, 0);
 	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode->setScale(0.2, 0.2, 0.2);
-	enemyEquipment.EnemyEquipArm(erightarmNode);
-	//SetEquipment();
-	//Ogre::Entity* erightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
-
-	//erightarmNode->attachObject(erightarmEntity);
-
+	enemyEquipment.EnemyEquipArm(erightarmNode, enemyID, level);
+	enemyAI.SetArm(enemyEquipment.arm);
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
 	rocketarmtargetNode = enemy_node_->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
@@ -116,12 +126,18 @@ void Enemy::Init()
 	attackRange = enemyPatternManager.setAttackR();
 	aggroRange = enemyPatternManager.setAggroR();
 	attackRange = enemyPatternManager.setAttackR();
+	SetStats();
+	timer_.reset();
+	enemyAI.Init();
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	 Move(evt);
 
+	
+	enemyAI.StateSelecter(evt, enemy_node_);
+	enemyAI.enemyDodgeCheck(evt, enemy_node_);
 	 if (isAttacking)
 	 {
 		 if (attackDown)
@@ -143,11 +159,14 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 	 }
 
 	 InitiateAbility();
+	 Debuff();
+
 }
 
 void Enemy::InitiateAbility()
 {
 	enemyEquipment.arm.equippedByEnemy = true;
+	enemyEquipment.arm.enemyID = enemyID;
 	if (!isAttacking)
 	{
 		//equipment.arm.type = 1;
@@ -176,10 +195,112 @@ void Enemy::InitiateAbility()
 	}
 }
 
+void Enemy::SetStats()
+{
+	SetHealth(10 * level);
+	enemySpeed = 40 + 5 * level;
+}
+
+void Enemy::Debuff()
+{
+	if (is_bleeding)
+	{
+		BleedEnemy();
+	}
+
+	if (is_slowed)
+	{
+		SlowEnemy();
+	}
+
+}
+
+void Enemy::StartBleeding(int damage)
+{
+	GameManager& mgr = GameManager::GetSingleton();
+	is_bleeding = true;
+	bleedTimer.reset();
+	bleedDamage = (damage / 2) / maxBleedTick;
+	
+	if (bleedParticle == NULL){
+		bleedParticle = mgr.mSceneMgr->createParticleSystem("bleeded" + Ogre::StringConverter::toString(enemyID), "BleedParticle");
+	}
+	enemy_node_->attachObject(bleedParticle);
+
+}
+
+void Enemy::RemoveBleeding()
+{
+	is_bleeding = false;
+	enemy_node_->detachObject("bleeded" + Ogre::StringConverter::toString(enemyID));
+}
+
+void Enemy::BleedEnemy()
+{
+	if (bleedTimer.getMilliseconds() >= bleed_Timer_Max)
+	{
+		GetDamaged(bleedDamage);
+		//Ogre::LogManager::getSingletonPtr()->logMessage("after bleed health" + Ogre::StringConverter::toString(enemyHealth));
+
+		bleedTimer.reset();
+		bleedTick++;
+
+	}
+
+	if (bleedTick >= maxBleedTick)
+	{
+		RemoveBleeding();
+	}
+}
+
+void Enemy::StartSlow()
+{
+
+	GameManager& mgr = GameManager::GetSingleton();
+	is_slowed = true;
+	slowTimer.reset();
+	SetSpeed(enemyBaseSpeed / 2);
+
+	if (slowParticle == NULL){
+		slowParticle = mgr.mSceneMgr->createParticleSystem("slowed" + Ogre::StringConverter::toString(enemyID), "SlowParticle");
+	}
+	enemy_node_->attachObject(slowParticle);
+}
+
+void Enemy::RemoveSlow()
+{
+	is_slowed = false;
+	enemy_node_->detachObject("slowed" + Ogre::StringConverter::toString(enemyID));
+	SetSpeed(enemyBaseSpeed);
+
+
+
+}
+
+void Enemy::SlowEnemy()
+{
+
+	if (slowTimer.getMilliseconds() >= slow_Timer_Max)
+	{
+		RemoveSlow();
+	}
+
+}
+
+void Enemy::Knockback()
+{
+
+}
+
 void Enemy::SetHealth(float startingHealth)
 {
 	enemyMaxHealth = startingHealth;
 	enemyHealth = enemyMaxHealth;
+}
+
+void Enemy::SetSpeed(float speed)
+{
+	enemySpeed = speed;
 }
 
 void Enemy::SetEquipmentMesh(Ogre::String meshName)
@@ -211,11 +332,15 @@ void Enemy::DoDamage(float damage)
 void Enemy::GetDamaged(float damage)
 {
 	enemyHealth -= damage;
+	healthbar.SetLength(enemyHealth, enemyMaxHealth);
 
 	if (enemyHealth <= 0)
 	{
 		is_dead_ = true;
+		healthbar.Destroy();
 	}
+
+
 }
 
 Ogre::Vector3 Enemy::getStartPosition()

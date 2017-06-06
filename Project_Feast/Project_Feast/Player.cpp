@@ -61,6 +61,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	rightarmNode->setScale(0.2, 0.2, 0.2);
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 	rightarmNode->attachObject(rightarmEntity);
+	//rightarmNode->attachObject(ModifierParticle);
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
@@ -112,7 +113,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		keyPressed = false;
 	}
 
-	//Checks if player has enough meat, executes dodge method and decreases meat
+	//Removes meat and executes dodge method when player has enough meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
@@ -128,6 +129,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			dirVec.x -= move;
 	}
 
+	//Dodges to the left side
 	if (dodgeLeft)
 	{
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
@@ -137,6 +139,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
+	//Removes meat and executes dodge method when player has enough meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 	{
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
@@ -152,6 +155,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			dirVec.x += move;
 	}
 
+	//Dodges to the right side
 	if (dodgeRight)
 	{
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
@@ -161,6 +165,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
+	//Heals player when key is pressed and decreases meat
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
 	{
 		meatToHealth = true;
@@ -207,6 +212,15 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
+	if (GetMeat() >= 10 && health != maxHealth){
+		ableToHeal = true;
+	}
+	else
+	{
+		ableToHeal = false;
+	}
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true){
+	}
 
 	CheckLavaDrop(evt);
 	CheckHealth();
@@ -239,6 +253,7 @@ void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
 			DecreaseHealth(lavaDamage * evt.timeSinceLastFrame);
 		}
 	}
+	
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -253,6 +268,40 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 	commonPass->setDiffuse(equipment.arm.r, equipment.arm.g, equipment.arm.b, 1);
 	commonPass->setEmissive(equipment.arm.r, equipment.arm.g, equipment.arm.b);
 	rightarmEntity->setMaterial(common);
+}
+
+void Player::ChangeArmModifier(int modifier)
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	switch (modifier)
+	{
+	case 0:
+		break;
+	case 1:
+		if (ModifierParticle != NULL){
+			ModifierParticle->clear();
+		}
+		mgr.mSceneMgr->destroyParticleSystem("playerBleed");
+		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerBleed", "BleedParticle");
+		rightarmNode->attachObject(ModifierParticle);
+
+
+		break;
+	case 2:
+		if (ModifierParticle != NULL){
+			ModifierParticle->clear();
+		}
+		mgr.mSceneMgr->destroyParticleSystem("playerSlow");
+		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerSlow", "SlowParticle");
+		rightarmNode->attachObject(ModifierParticle);
+
+		break;
+	default:
+		break;
+	}
+
+	
 }
 
 void Player::InitiateAbility()
@@ -412,9 +461,8 @@ void Player::Pickup()
 
 		if (bodypart.tag == "Arm")
 		{
-
 			equipment.EquipArm();
-			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed, bodypart.randModifier);
 			equipment.arm.r = bodypart.r;
 			equipment.arm.g = bodypart.g;
 			equipment.arm.b = bodypart.b;
@@ -423,11 +471,13 @@ void Player::Pickup()
 			if (bodypart.type == 1)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
+				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
+				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 0;
 
 			}
@@ -453,15 +503,4 @@ void Player::Pickup()
 
 void Player::Discard()
 {
-	GameManager& mgr = GameManager::getSingleton();
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F))
-	{
-		equipment.DiscardArm(5, 2);
-		attack = 0;
-		ChangeRightArmMesh("cube.mesh");
-	}
-	else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_T))
-	{
-		equipment.DiscardLeg(50);
-	}
 }
