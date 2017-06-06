@@ -12,7 +12,6 @@ public:
 	~EnemyAI();
 	void Init();
 	void Update(const Ogre::FrameEvent& evt);
-	void StateSelecter(const Ogre::FrameEvent& evt);
 	Ogre::Vector3 DistanceToPlayer(Ogre::SceneNode* enemyNode);
 	Ogre::Vector3 startPosition;
 	void StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);

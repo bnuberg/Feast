@@ -39,7 +39,7 @@ void EnemyAI::Update(const Ogre::FrameEvent& evt)
 Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /*+ Ogre::Vector3(0, 20, 0)*/;
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	return distanceVector;
 }
@@ -47,7 +47,7 @@ Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 Ogre::Vector3 EnemyAI::EnemyTarget()
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /* + Ogre::Vector3(0, 20, 0)*/;
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	return target;
 }
 //State selecter for the enemy behaviour
