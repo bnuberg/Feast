@@ -12,7 +12,6 @@
 EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
-	attackTimer(0),
 	dodgeTime(350),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
@@ -72,6 +71,10 @@ void EnemyAI::StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyN
 void EnemyAI::AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
 	inAttackState = false;
+	if (isAttacking)
+	{
+		return;
+	}
 	enemyNode->lookAt(EnemyTarget(), Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 	if (DistanceToPlayer(enemyNode).length()> attackRange)
@@ -90,6 +93,10 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 {
 	inAttackState = true;
 
+	if (isAttacking)
+	{
+		return;
+	}
 	MoveDirection.z = -enemySpeed;
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
@@ -100,6 +107,10 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
 	float startDistance = startDistanceVector.length();
 
+	if (isAttacking)
+	{
+		return;
+	}
 	enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 	MoveDirection.z = enemySpeed;
@@ -147,7 +158,10 @@ void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enem
 
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-
+	if (isAttacking)
+	{
+		return;
+	}
 		if (dodgeTimer.getMilliseconds() < dodgeTime)
 		{
 			MoveDirection.z = -enemySpeed * 15;
@@ -177,11 +191,11 @@ float EnemyAI::setAggroR()
 {
 	if (enemyArmType == 0)
 	{
-		aggroRange = 1000;
+		aggroRange = 1500;
 	}
 	else
 	{
-		aggroRange = 1250;
+		aggroRange = 1750;
 	}
 	return aggroRange;
 }
@@ -203,11 +217,7 @@ float EnemyAI::setEnemySpeed()
 {
 	if (enemyArmType == 0)
 	{
-		enemySpeed = 100;
-	}
-	else
-	{
-		enemySpeed = 50;
+		enemySpeed*=2;
 	}
 	return enemySpeed;
 }

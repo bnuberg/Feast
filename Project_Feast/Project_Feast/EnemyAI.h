@@ -19,15 +19,15 @@ public:
 	void enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode);
 	bool AllowedToAttack();
 	void SetArm(Arm arm);
-	int DodgeChance();	
+	int DodgeChance();
+	bool isAttacking;
+	float enemySpeed;
 
 private:
 	Ogre::Timer timer_;
 	Ogre::Timer dodgeTimer;
 
-protected:
 	int enemyArmType;
-	float enemySpeed;
 	float aggroRange;
 	float attackRange;
 	unsigned long attackTimer;
@@ -35,6 +35,7 @@ protected:
 	unsigned long dodgeTime;
 	bool enemyAllowedToDodge = false;
 	bool inAttackState;
+
 	
 	float setAggroR();
 	float setAttackR();

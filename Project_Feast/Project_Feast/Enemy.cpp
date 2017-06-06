@@ -16,6 +16,7 @@ Enemy::Enemy()
 	enemyMaxHealth(0),
 	enemeyDamage(0),
 	enemyMaxDamage(0),
+	attackTimer(2000),
 	is_dead_(false),
 	is_dead2_(false),
 	scale(1),
@@ -76,14 +77,14 @@ void Enemy::Init(int lvl)
 
 	SetStats();
 	timer_.reset();
+	attackDelay.reset();
 	enemyAI.Init();
 }
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
 	
-	enemyAI.StateSelecter(evt, enemy_node_);
-	enemyAI.enemyDodgeCheck(evt, enemy_node_);
+	
 	 if (isAttacking)
 	 {
 		 if (attackDown)
@@ -100,13 +101,24 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
 			 {
 				 isAttacking = false;
+				 attackDelay.reset();
 			 }
 		 }
 	 }
 	 if (enemyAI.AllowedToAttack())
 	 {
-		 InitiateAbility();
+		 if (attackDelay.getMilliseconds() > attackTimer)
+		 {
+			 InitiateAbility();
+		 }
 	 }
+
+	 enemyAI.isAttacking = isAttacking;
+		 enemyAI.StateSelecter(evt, enemy_node_); 
+		 enemyAI.enemyDodgeCheck(evt, enemy_node_);
+	 
+	
+
 	 Debuff();
 
 }
@@ -145,7 +157,7 @@ void Enemy::InitiateAbility()
 void Enemy::SetStats()
 {
 	SetHealth(10 * level);
-	enemySpeed = 40 + 5 * level;
+	enemyAI.enemySpeed = 50 + 5 * level;
 }
 
 void Enemy::Debuff()
