@@ -8,6 +8,11 @@
 #include <OgreLogManager.h>
 #include <random>
 
+/*
+We have chosen to split up the enemy class into enemy and enemyAI because the code related to movement and AI kept growing and growing and this way the code is easier to oversee.
+This class contains all of the code related to the enemy movement such as dodging according to what weapons the player and enemy are using
+It also contains the different states of the enemy and how they need to move in those states
+*/
 
 EnemyAI::EnemyAI()
 	:aggroRange(400),
