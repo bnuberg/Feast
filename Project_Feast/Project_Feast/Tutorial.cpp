@@ -41,7 +41,7 @@ void Tutorial::Update()
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && tutorialPart == 3)
 	{
-		mgr.mEnemyManager.SpawnEnemy(Ogre::Vector3(0, 0, -500));
+		mgr.mEnemyManager.SpawnEnemy(Ogre::Vector3(0, 0, -500), 1);
 		tutorialPart = 4;
 	}
 

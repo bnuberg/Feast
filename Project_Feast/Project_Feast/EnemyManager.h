@@ -10,6 +10,7 @@
 #include <OgreTimer.h>
 #include "Enemy.h"
 #include "Meat.h"
+#include "DamageOverTime.h"
 #include "Tutorial.h"
 
 /** Creates and tracks all the enemy instances and bodypart instances
@@ -21,14 +22,15 @@ public:
 	~EnemyManager();
 	void EnemyManager::Init();
 	void EnemyManager::Update(const Ogre::FrameEvent& evt);
-	void SpawnEnemy(Ogre::Vector3 position);
-	void SpawnHeavyEnemy(Ogre::Vector3 position);
-	void SpawnLightEnemy(Ogre::Vector3 position);
-	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage);
+	void SpawnEnemy(Ogre::Vector3 position, int level);
+	void SpawnHeavyEnemy(Ogre::Vector3 position, int level);
+	void SpawnLightEnemy(Ogre::Vector3 position, int level);
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
 	void DamageEnemies();
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	void BodypartToAdd();
 	int totalEnemyID = 0;
+	DamageOverTime DoT;
 	bool isWaveAlive = false;
 	int waveCount = 0;
 	float waveTimeSpent;
@@ -38,11 +40,18 @@ public:
 
 private:
 	void EnemyManager::SpawnWave();
+	int numberOfEnemies = 5;
 	Ogre::Vector3 enemySpawnPoints[5];
+	int enemyLevels[5];
 	std::list<Enemy> enemy_list_;				// List containing all enemies
 	Ogre::Timer timer_;							// Ogre timer class object
 	Ogre::Timer waveAliveTimer;
 	unsigned long enemy_spawn_timer_;			// The duration it takes for an enemy to spawn
+	Ogre::Timer bleedTimer;
+	unsigned long bleedTick;
+	Ogre::Timer bleed_duration_timer;
+	unsigned long bleed_duration;
 	std::vector<Meat> meatList;					// List containing all meat objects
+
 };
 

@@ -35,6 +35,7 @@ float EnemyPatternManager::setAggroR()
 	return aggroRange;
 }
 
+
 float EnemyPatternManager::setAttackR()
 {
 	return attackRange;
