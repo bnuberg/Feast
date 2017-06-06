@@ -2,7 +2,6 @@
 #include "EnemyAI.h"
 #include "GameManager.h"
 #include <OgreEntity.h>
-#include "Player.h"
 #include "BodyPart.h"
 
 #include "EnemyPatternManager.h"

@@ -1,11 +1,9 @@
 #pragma once
-#include <OISPrereqs.h>
 #include <OgreVector3.h>
 #include <OgreFrameListener.h>
 #include <OgreTimer.h>
 #include <OgreEntity.h>
 #include "EnemyEquipment.h"
-#include <OgreTimer.h>
 #include "Healthbar.h"
 #include "EnemyAI.h"
 
@@ -51,9 +49,6 @@ public:
 
 	bool operator == (const Enemy& e) const { return e.is_dead2_; }
 	bool operator != (const Enemy& e) const { return !operator==(e); }
-protected: 
-
-	void setStartPosition(Ogre::Vector3 position);
 
 	int enemyID;
 	Healthbar healthbar;
@@ -61,8 +56,6 @@ protected:
 	int maxBleedTick;
 
 private:
-	Ogre::Timer timer_;
-
 	Ogre::Timer timer_;
 	EnemyAI enemyAI;
 	
