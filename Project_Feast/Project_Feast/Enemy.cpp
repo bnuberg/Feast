@@ -30,7 +30,6 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 {
 	setStartPosition(sPosition);
 	setScale(scale);
-	//Init();
 	SetHealth(health);
 	enemySpeed = speed;
 	enemeyDamage = damage;
@@ -74,7 +73,7 @@ void Enemy::Init()
 	startPosition = (0, 0, 20);
 	
 	// Create an enemy entity with the right mesh
-	enemyEntity = mgr.mSceneMgr->createEntity("boletus.mesh");
+	enemyEntity = mgr.mSceneMgr->createEntity("enemyTorso.mesh");
 
 	// Add the node to the scene
 	enemy_node_ = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition);
