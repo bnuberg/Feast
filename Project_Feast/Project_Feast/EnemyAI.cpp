@@ -6,14 +6,13 @@
 #include "BodyPart.h"
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
-#include <random>
 
 
 EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
 	attackTimer(0),
-	dodgeTime(350),
+	dodgeTime(200),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
 {
@@ -24,10 +23,7 @@ EnemyAI::~EnemyAI()
 }
 void EnemyAI::Init()
 {	
-	setAggroR();
-	setAttackR();
 	timer_.reset();
-	dodgeTimer.reset();
 }
 
 void EnemyAI::Update(const Ogre::FrameEvent& evt)
@@ -55,7 +51,6 @@ void EnemyAI::StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyN
 	GameManager& mgr = GameManager::GetSingleton();
 	Ogre::Vector3 MoveDirection (0, 0, 0);
 
-	
 	// When the distance to the player is less than the aggro range it will aggro
 	if (DistanceToPlayer(enemyNode).length() <= aggroRange)
 	{
@@ -89,9 +84,11 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 	if (timer_.getMilliseconds() >= attackTimer)
 	{
 		//attack 
+
 		timer_.reset();
 	}
 	MoveDirection.z = -enemySpeed;
+
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
 //Idle state so the enemy will walk back to spawn when it's too far from the player.
@@ -112,45 +109,9 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	}
 }
 
-void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
-
-	GameManager& mgr = GameManager::GetSingleton();
-
-	if (mgr.player.isSmashing && !hasDodged)
-	{
-		if (DodgeChance() > 100 - chancePrecentage)
-		{
-			if (DodgeCondition(enemyNode))
-			{
-				dodgeTimer.reset();
-				enemyAllowedToDodge = true;
-			}
-		}
-
-		hasDodged = true;
-	}
-
-	if (!mgr.player.isSmashing)
-	{
-		hasDodged = false;
-	}
-
-	if (enemyAllowedToDodge)
-	{
-			enemyDodge(evt, enemyNode);	
-	}
-
-}
-
-void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode)
 {
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-
-		if (dodgeTimer.getMilliseconds() < dodgeTime)
-		{
-			MoveDirection.z = -enemySpeed * 15;
-			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 	GameManager& mgr = GameManager::GetSingleton();
 	if (DistanceToPlayer(enemyNode).length() > attackRange)
 	{
@@ -159,76 +120,9 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 			enemyAllowedToDodge = true;
 			dodgeTimer.reset();
 		}
-		else
 		if (enemyAllowedToDodge) // TODO: Fix this logic
 		{
-			enemyAllowedToDodge = false;
-		}
-}
-
-int EnemyAI::DodgeChance()
-{
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_int_distribution<int> dist(1, 100);
-	return dist(mt);
-}
 			float dodgeChance = Ogre::Math::RangeRandom(0, 9);
-
-void EnemyAI::SetArm(Arm arm)
-{
-	enemyArmType = arm.type;
-}
-
-
-float EnemyAI::setAggroR()
-{
-	if (enemyArmType == 0)
-	{
-		aggroRange = 1000;
-	}
-	else
-	{
-		aggroRange = 1250;
-	}
-	return aggroRange;
-}
-
-float EnemyAI::setAttackR()
-{
-	if (enemyArmType == 0)
-	{
-		attackRange = 125;
-	}
-	else
-	{
-		attackRange = 500;
-	}
-	return attackRange;
-}
-
-unsigned long EnemyAI::setAttackT()
-{
-	if (enemyArmType == 0)
-	{
-
-	}
-	else
-	{
-
-	}
-	return attackTimer;
-}
-
-bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
-{
-	GameManager& mgr = GameManager::GetSingleton();
-	int playerArmType = mgr.player.equipment.arm.type;
-
-	if (enemyArmType == 0 && playerArmType == 0)
-	{
-		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
-			return true;
 
 			if (dodgeTimer.getMilliseconds() <= dodgeTime)
 			{
@@ -242,40 +136,5 @@ bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 				dodgeTimer.reset();
 			}
 		}
-		else
-			return false;
 	}
-
-	if (enemyArmType == 0 && playerArmType == 1)
-	{
-		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
-			return true;
-
-		}
-		else
-			return false;
-	}
-
-	if (enemyArmType == 1 && playerArmType == 0)
-	{
-		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
-			return true;
-
-		}
-		else
-			return false;
-
-	}
-
-	if (enemyArmType == 1 && playerArmType == 1)
-	{
-		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
-			return true;
-
-		}
-		else
-			return false;
-
-	}
-
 }

@@ -51,17 +51,17 @@ void LevelLoader::InitScene2()
 void LevelLoader::UpdateScene()
 {
 	GameManager& mgr = GameManager::getSingleton();
-	switch (sceneEnum){
-	case MainMenu:
+	switch (sceneEnum)
 	{
-		
-		break;
-	}
-	case Level1:
-	{
-		gameScene.Update();
-		break;
-	}
+		case MainMenu:
+		{
+			break;
+		}
+		case Level1:
+		{
+			gameScene.Update();
+			break;
+		}
 
 	}
 }

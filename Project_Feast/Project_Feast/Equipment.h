@@ -18,7 +18,7 @@ public:
 	void EquipLeg();
 	void DiscardArm(int dmg, int as);
 	void DiscardLeg(int spd);
-	void setPlayerArmStats(int dmg, int as, int mod);
+	void setPlayerArmStats(int dmg, int as);
 	void setPlayerLegStats(int spd);
 	int damage;
 	int attackSpeed;

@@ -1,7 +1,6 @@
 #include "Rarity.h"
 #include <OgreTechnique.h>
 #include <OgreResourceGroupManager.h>
-#include <random>
 
 Rarity::Rarity()
 {
@@ -13,58 +12,37 @@ Rarity::~Rarity()
 {
 }
 
-void Rarity::RarityPicker(int level)
+void Rarity::RarityPicker()
 {
-	int randomRarity = Random(1, 100);
-	if (randomRarity > 95)
-	{
-		rarityTypes = Legendary;
-	}
-	else if (randomRarity > 85)
-	{
-		rarityTypes = Epic;
-	}
-	else if (randomRarity > 65)
-	{
-		rarityTypes = Rare;
-	}
-	else if (randomRarity > 40)
-	{
-		rarityTypes = Uncommon;
-	}
-	else
-	{
-		rarityTypes = Common;
-	}
-
+	rarityTypes = static_cast<RarityTypes>(rand() % 5);
 	switch (rarityTypes){
 	case Common:
 		{
-			ApplyRarity(level + 1 + commonRange, level + 1 - commonRange, 2, 1);
+			ApplyRarity(3, 1, 2, 1);
 			ChangePass(0.2, 0.2, 0.2);
 			break;
 		}
 	case Uncommon:
 		{
-			ApplyRarity(level * 2 + 2 + uncommonRange, level * 2 + 2 - uncommonRange, 4, 2);
+			ApplyRarity(5, 3, 4, 2);
 			ChangePass(1, 1, 1);
 			break;
 		}
 	case Rare:
 		{
-			ApplyRarity(level * 3 + 3 + rareRange, level * 3 + 3 - rareRange, 6, 4);
+			ApplyRarity(7, 5, 6, 4);
 			ChangePass(0, 0.2, 1);
 			break;
 		}
 	case Epic:
 		{
-			ApplyRarity(level * 4 + 4 + epicRange, level * 4 + 4 - epicRange, 8, 6);
+			ApplyRarity(9, 7, 8, 6);
 			ChangePass(0.3, 0, 0.8);
 			break;
 		}
 	case Legendary:
 		{
-			ApplyRarity(level * 6 + 6 + legendaryRange, level * 6 + 6 - legendaryRange, 12, 8);
+			ApplyRarity(15, 9, 12, 8);
 			ChangePass(0.8, 0.4, 0);
 			break;
 		}
@@ -73,17 +51,8 @@ void Rarity::RarityPicker(int level)
 
 void Rarity::ApplyRarity(int aDamageMax, int aDamageMin, int aSpeedMax, int aSpeedMin)
 {
-	aDamage = Random(aDamageMin, aDamageMax);
+	aDamage = rand() % (aDamageMax - aDamageMin + 1) + aDamageMin;
 	aSpeed = rand() % (aSpeedMax - aSpeedMin + 1) + aSpeedMin;
-}
-
-int Rarity::Random(int min, int max)
-{
-	std::random_device rd;
-	std::mt19937 mt(rd());
-	std::uniform_int_distribution<int> dist(min, max);
-
-	return dist(mt);
 }
 
 int Rarity::GetDamageValue()

@@ -14,7 +14,9 @@ public:
 	EnemyPatternManager();
 	~EnemyPatternManager();
 	void BasicEnemy();
-
+	float setAggroR();
+	float setAttackR();
+	unsigned long setAttackT();
 	void attackPattern();
 
 	// Boolean is for whether or not it is blocked - only call this once. - At this point a series of operations is performed to generate route.

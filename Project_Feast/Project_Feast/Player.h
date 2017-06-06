@@ -14,6 +14,7 @@ public:
 	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
 	void checkHealth();
 	void Update(const Ogre::FrameEvent& evt);
+	void Win();
 
 	// Meat functions
 	float GetMeat();
@@ -36,7 +37,6 @@ public:
 	void Discard();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
-	void ChangeArmModifier(int modifier);
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
@@ -45,7 +45,6 @@ public:
 	int playerAttackSpeed;
 	int attack = 0;
 
-	bool isSmashing = false;
 	bool exists = false;
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
@@ -53,16 +52,17 @@ private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
+	
 
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
-	Ogre::ParticleSystem* ModifierParticle;
 	float playerShoulderHeight = 160;
 
+	bool isSmashing = false;
 	bool smashingDown = false;
 	bool hasDied = false;
-	bool ableToHeal;
+	bool hasWon = false;
 
 	bool keyPressed = false;
 	bool dodgeLeft = false;

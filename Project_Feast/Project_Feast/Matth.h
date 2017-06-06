@@ -1,6 +1,4 @@
 #pragma once
-#include <random>
-
 
 /** @brief Matth Class used to implement maths functions quickly.
 	
@@ -169,6 +167,4 @@ public:
 	static float sqrt				(const float value, int prec = 8);
 	static float FIISRBOQ3C			(const float value);
 	static float sqrtWithNaturalLog (const float value);
-	static int random				(const int min, const int max);
-	static float random				(const float min, const float max);
 };

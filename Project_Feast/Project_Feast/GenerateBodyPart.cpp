@@ -1,7 +1,5 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
-#include "GameManager.h"
-#include <OgreLogManager.h>
 
 
 
@@ -18,14 +16,13 @@ GenerateBodyPart::~GenerateBodyPart()
 
 void GenerateBodyPart::SetRarity()
 {
-	rarity.RarityPicker(level);
+	rarity.RarityPicker();
 	
 	arm.randDamage = rarity.GetDamageValue();
 	arm.randSpeed = rarity.GetSpeedValue();
 	arm.r = rarity.R();
 	arm.g = rarity.G();
 	arm.b = rarity.B();
-
 }
 
 void GenerateBodyPart::SetAttackTemplate()
@@ -69,20 +66,19 @@ void GenerateBodyPart::SetMovementTemplates()
 
 void GenerateBodyPart::SetModifier()
 {
-	arm.randModifier = matth.random(1, 5);
 }
 
 void GenerateBodyPart::Combine()
 {
 	SetRarity();
-	SetModifier();
 	SetAttackTemplate();
 	SetMovementTemplates();
+	
 }
 
-Arm GenerateBodyPart::Generate(int lvl)
+Arm GenerateBodyPart::Generate()
 {
-	level = lvl;
+	
 	Combine();
 	return arm;
 }

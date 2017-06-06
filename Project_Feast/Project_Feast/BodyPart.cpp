@@ -107,7 +107,7 @@ void BodyPart::AbilityDamage()
 	}
 	else
 	{
-		attackType->Attack(globalTarget, randDamage, randModifier);
-		Ogre::LogManager::getSingletonPtr()->logMessage("AAAAAAA: " + std::to_string(randModifier));
+		attackType->Attack(globalTarget, randDamage);
+		Ogre::LogManager::getSingletonPtr()->logMessage("AAAAAAA: " + std::to_string(randDamage));
 	}
 }

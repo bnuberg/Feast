@@ -16,18 +16,13 @@ EnemyEquipment::~EnemyEquipment()
 
 }
 
-void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode, int enemyID, int level)
+void EnemyEquipment::EnemyEquipArm(Ogre::SceneNode* enemyNode)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 
-	AssignRandomBodypart(enemyID, level);
+	AssignRandomBodypart();
 
 	//TODO: tell enemy which arm they have
-	if (ModifierParticle != NULL)
-	{
-		enemyNode->attachObject(ModifierParticle);
-	}
-
 	eArmEntity = mgr.mSceneMgr->createEntity(arm.mesh);
 	enemyNode->attachObject(eArmEntity);
 	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -43,30 +38,14 @@ void EnemyEquipment::SetEnemyArmStats(int dmg, int as)
 	//TODO: change attack stats of enemy to the arms dmg
 }
 
-void EnemyEquipment::AssignRandomBodypart(int enemyID, int level) 
+void EnemyEquipment::AssignRandomBodypart() 
 {
-	GameManager& mgr = GameManager::GetSingleton();
 	/*Placeholder for procedual generation
 	Randomly makes number and assigns number to bodypart
 	*/
-	arm = generateBodyPart.Generate(level);
+	arm = generateBodyPart.Generate();
 	attackspeed = arm.randAttackSpeed;
 	damage = arm.randDamage;
-	modifier = arm.randModifier;
-
-	switch (modifier)
-	{
-	case 0:
-		break;
-	case 1:
-		ModifierParticle = mgr.mSceneMgr->createParticleSystem("bleed" + Ogre::StringConverter::toString(enemyID) + "1", "BleedParticle");
-		break;
-	case 2:
-		ModifierParticle = mgr.mSceneMgr->createParticleSystem("slow" + Ogre::StringConverter::toString(enemyID) + "1", "SlowParticle");
-		break;
-	default:
-		break;
-	}
 
 	/*Ogre::LogManager::getSingletonPtr()->logMessage("enemy attackspeed" +std::to_string(arm.randAttackSpeed));
 	if (arm.type == 0)

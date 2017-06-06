@@ -43,7 +43,6 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	rightarmNode->setScale(0.2, 0.2, 0.2);
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
 	rightarmNode->attachObject(rightarmEntity);
-	//rightarmNode->attachObject(ModifierParticle);
 
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
@@ -190,26 +189,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
 	IncreaseMeat(meat);
-	if (GetMeat() >= 10 && health != maxHealth){
-		ableToHeal = true;
-	}
-	else
-	{
-		ableToHeal = false;
-	}
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true){
-	}
 
 	checkHealth();
-	if (GetMeat() == 100)
-	{
-		move = 220;
-	}
-	else
-	{
-		move = 200;
-	}
-	
 }
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
@@ -224,40 +205,6 @@ void Player::ChangeRightArmMesh(Ogre::String meshName)
 	commonPass->setDiffuse(equipment.arm.r, equipment.arm.g, equipment.arm.b, 1);
 	commonPass->setEmissive(equipment.arm.r, equipment.arm.g, equipment.arm.b);
 	rightarmEntity->setMaterial(common);
-}
-
-void Player::ChangeArmModifier(int modifier)
-{
-	GameManager& mgr = GameManager::getSingleton();
-
-	switch (modifier)
-	{
-	case 0:
-		break;
-	case 1:
-		if (ModifierParticle != NULL){
-			ModifierParticle->clear();
-		}
-		mgr.mSceneMgr->destroyParticleSystem("playerBleed");
-		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerBleed", "BleedParticle");
-		rightarmNode->attachObject(ModifierParticle);
-
-
-		break;
-	case 2:
-		if (ModifierParticle != NULL){
-			ModifierParticle->clear();
-		}
-		mgr.mSceneMgr->destroyParticleSystem("playerSlow");
-		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerSlow", "SlowParticle");
-		rightarmNode->attachObject(ModifierParticle);
-
-		break;
-	default:
-		break;
-	}
-
-	
 }
 
 void Player::InitiateAbility()
@@ -290,7 +237,7 @@ void Player::InitiateAbility()
 void Player::Die()
 {
 	// TODO: restart application/scene
-	if (!hasDied)
+	if (!hasDied && !hasWon)
 	{
 		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
@@ -417,8 +364,9 @@ void Player::Pickup()
 
 		if (bodypart.tag == "Arm")
 		{
+
 			equipment.EquipArm();
-			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed, bodypart.randModifier);
+			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
 			equipment.arm.r = bodypart.r;
 			equipment.arm.g = bodypart.g;
 			equipment.arm.b = bodypart.b;
@@ -427,13 +375,11 @@ void Player::Pickup()
 			if (bodypart.type == 1)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
-				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
-				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 0;
 
 			}
@@ -459,4 +405,43 @@ void Player::Pickup()
 
 void Player::Discard()
 {
+	GameManager& mgr = GameManager::getSingleton();
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F))
+	{
+		equipment.DiscardArm(5, 2);
+		attack = 0;
+		ChangeRightArmMesh("cube.mesh");
+	}
+	else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_T))
+	{
+		equipment.DiscardLeg(50);
+	}
+}
+
+void Player::Win()
+{
+	if(!hasWon && !hasDied)
+	{
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("WinScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		material->getTechnique(0)->getPass(0)->createTextureUnitState("Win.png");
+		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+		material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+		Ogre::Rectangle2D* rect = new Ogre::Rectangle2D(true);
+		rect->setCorners(-1.0f, 1.0f, 1.0f, -1.0f);
+		rect->setMaterial("WinScreen");
+		rect->setRenderQueueGroup(Ogre::RENDER_QUEUE_MAX);
+		rect->setBoundingBox(Ogre::AxisAlignedBox(-100000.0*Ogre::Vector3::UNIT_SCALE, 100000.0*Ogre::Vector3::UNIT_SCALE));
+
+		Ogre::AxisAlignedBox aabInf;
+		aabInf.setInfinite();
+		rect->setBoundingBox(aabInf);
+
+		GameManager& mgr = GameManager::getSingleton();
+		auto m_pSceneMgr = mgr.mSceneMgr;
+		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("WinScreen");
+		node->attachObject(rect);
+	}
+	hasWon = true;
 }

@@ -25,16 +25,14 @@ void UI::Init()
 	Ogre::StringVector items;
 	items.push_back("Health");
 	items.push_back("Meat");
-	items.push_back("ArmDamage");
 	items.push_back("Wave");
 	items.push_back("Wave timer");
 
 	mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_TOPRIGHT, "DetailsPanel", 200, items);
 	mDetailsPanel->setParamValue(0, "Health");
 	mDetailsPanel->setParamValue(1, "Meat");
-	mDetailsPanel->setParamValue(2, "ArmDamage");
-	mDetailsPanel->setParamValue(3, "Wave");
-	mDetailsPanel->setParamValue(4, "WaveTime");
+	mDetailsPanel->setParamValue(2, "Wave");
+	mDetailsPanel->setParamValue(3, "WaveTime");
 
 	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
 	mLabel->hide();
@@ -115,9 +113,8 @@ void UI::ShowHud(Player player)
 		{
 			mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(player.GetHealth()));
 			mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(player.GetMeat()));
-			mDetailsPanel->setParamValue(2, Ogre::StringConverter::toString(player.equipment.arm.randDamage));
-			mDetailsPanel->setParamValue(3, Ogre::StringConverter::toString(mgr.mEnemyManager.waveCount));
-			mDetailsPanel->setParamValue(4, (Ogre::StringConverter::toString(mgr.mEnemyManager.waveTimeSpent) + "s"));
+			mDetailsPanel->setParamValue(2, Ogre::StringConverter::toString(mgr.mEnemyManager.waveCount));
+			mDetailsPanel->setParamValue(3, (Ogre::StringConverter::toString(mgr.mEnemyManager.waveTimeSpent) + "s"));
 		}
 	}
 }
