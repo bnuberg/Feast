@@ -64,6 +64,8 @@ void EnemyEquipment::AssignRandomBodypart(int enemyID, int level)
 	case 2:
 		ModifierParticle = mgr.mSceneMgr->createParticleSystem("slow" + Ogre::StringConverter::toString(enemyID) + "1", "SlowParticle");
 		break;
+	case 3:
+		break;
 	default:
 		break;
 	}

@@ -115,6 +115,7 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 void Enemy::InitiateAbility()
 {
 	enemyEquipment.arm.equippedByEnemy = true;
+	enemyEquipment.arm.enemyID = enemyID;
 	if (!isAttacking)
 	{
 		//equipment.arm.type = 1;

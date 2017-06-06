@@ -102,7 +102,7 @@ void BodyPart::AbilityDamage()
 {
 	if (equippedByEnemy)
 	{
-		attackType->AttackEnemy(globalTarget, randDamage);
+		attackType->AttackEnemy(globalTarget, randDamage, enemyID);
 
 	}
 	else
