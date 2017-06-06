@@ -23,9 +23,11 @@ public:
 	bool isAttacking;
 	float enemySpeed;
 
+
 private:
 	Ogre::Timer timer_;
 	Ogre::Timer dodgeTimer;
+	int DodgeChance();
 
 	int enemyArmType;
 	float aggroRange;
