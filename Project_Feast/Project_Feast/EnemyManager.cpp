@@ -38,25 +38,25 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	}
 	else
 	{
-		// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
-		if (enemy_list_.size() <= 0 && isWaveAlive)
-		{
-			isWaveAlive = false;
-			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
-			timer_.reset();
-		}
+	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+	if (enemy_list_.size() <= 0 && isWaveAlive)
+	{
+		isWaveAlive = false;
+		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
+		timer_.reset();
+	}
 
-		if (isWaveAlive)
-		{
-			waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
-		}
+	if (isWaveAlive)
+	{
+		waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
+	}
 
-		if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
-		{
-			SpawnWave();
+	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
+	{
+		SpawnWave();
 
-			timer_.reset();
-		}
+		timer_.reset();
+	}
 	}
 
 	std::list<Enemy>::iterator e = enemy_list_.begin();
@@ -72,26 +72,20 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		{
 			// Spawn meat
 			Meat meat;
-			meat.Spawn(e->enemy_node_->getPosition());
+			meat.Spawn(e->enemyNode->getPosition());
 			meatList.push_back(meat);
 
 			// Spawn bodypart
-			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
+			mgr.mBodyPartManager.DropArm(e->enemyNode->getPosition(), e->enemyEquipment.arm);
 
 			// Remove all objects and take it out of the list
-			e->enemy_node_->detachAllObjects();
-			e->erightarmNode->detachAllObjects();
-			e->healthBarNode->detachAllObjects();
-			e->is_dead2_ = true;
+			e->Die();
 			enemy_list_.erase(e++);
 		}
 		else
 		{
 			++e;
 		}
-		//
-
-
 	}
 
 }
@@ -189,7 +183,7 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 void EnemyManager::SpawnEnemy(Ogre::Vector3 position, int level)
 {
 	Enemy enemy;
-	enemy.setStartPosition(position);
+	enemy.SetStartPosition(position);
 	enemy.Init(level);
 	enemy_list_.push_back(enemy);
 }
@@ -224,7 +218,7 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 		// If the enemy isn't dead damage it
 		if (!e->is_dead_)
 		{
-			Ogre::Vector3 distanceVector = center - e->enemy_node_->getPosition();
+			Ogre::Vector3 distanceVector = center - e->enemyNode->getPosition();
 			float distance = distanceVector.length();
 
 			if (distance < killdistance)

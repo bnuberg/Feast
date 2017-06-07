@@ -1,13 +1,14 @@
 #pragma once
 
-#include <iostream>
-#include <OgreFrameListener.h>
 #include <OgreEntity.h>
 #include <OgreTimer.h>
 #include "Equipment.h"
 #include "Healthbar.h"
+#include "Entity.h"
 
-class Player
+/** Inherits from Entity for basic functions like health 
+*/
+class Player : public Entity
 {
 public:
 	Player();
@@ -16,19 +17,11 @@ public:
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions
-	float GetMeat();
+	float GetMeat() const;
 	void SetMeat(float startingMeat);
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
-	void convertMeattoHealth();
-
-	// Helalth functions
-	float GetHealth();
-	void SetHealth(float startingHealth);
-	void IncreaseHealth(float heal);
-	void DecreaseHealth(float dmg);
-	void IncreaseMaxHealth(float permaHeal);
-	void DecreaseMaxHealth(float permaDmg);
+	void ConvertMeattoHealth();
 
 	void SetAttack();
 	void SetSpeed();
@@ -53,16 +46,10 @@ public:
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
-	void Die();
-
-	Ogre::SceneNode* playerHealthBarNode;
-	Ogre::SceneNode* rocketarmtargetNode;
-	Ogre::SceneNode* rightarmNode;
-	Ogre::SceneNode* rightarmOrigin;
-	Ogre::ParticleSystem* ModifierParticle;
-	float playerShoulderHeight = 160;
+	void Die() override;
 
 	bool smashingDown = false;
+	bool hasDied = false;
 	bool ableToHeal;
 
 	bool keyPressed = false;
@@ -71,11 +58,40 @@ private:
 	bool ableToDodge = false;
 	bool CanPickUp = true;
 
-	float health;
 	float meat;
-	float maxHealth;
 	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
+
+	const float shouderHeight = 55;
+
+	const Ogre::Real characterScale = 4;
+
+	Ogre::SceneNode* torsoNode;
+	const char* torsoMeshName = "torso.mesh";
+	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
+
+	Ogre::SceneNode* headNode;
+	const char* headMeshName = "head.mesh";
+	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 10, 0);
+
+	Ogre::SceneNode* leftArmNode;
+	Ogre::SceneNode* rightArmNode;
+	const char* armMeshName = "hand.mesh";
+	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-7, 5, 0);
+	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(7, 5, 0);
+
+	Ogre::SceneNode* rocketArmTargetNode;
+	Ogre::SceneNode* rightArmOrigin;
+
+	Ogre::SceneNode* leftFootNode;
+	Ogre::SceneNode* rightFootNode;
+	const char* footMeshName = "foot.mesh";
+	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-3, -3, 0);
+	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
+
+	Ogre::ParticleSystem* ModifierParticle;
+
+	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 300, 0);
 
 	bool meatToHealth = false;
 

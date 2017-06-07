@@ -126,9 +126,6 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	{
 		enemyNode->setPosition(startPosition);
 	}
-	else
-	{
-	}
 }
 
 /** DodgeCheck checks if the player is attacking and executes a dodge for a set percentage of the attacks if true.

@@ -95,7 +95,9 @@
     <ClInclude Include="AbilityModifier.h" />
     <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GenerateBodyPart.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Healthbar.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
@@ -104,8 +106,8 @@
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyEquipment.h" />
+    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPatternManager.h" />
     <ClInclude Include="EntityTest.h" />
@@ -141,14 +143,16 @@
     <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Healthbar.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
