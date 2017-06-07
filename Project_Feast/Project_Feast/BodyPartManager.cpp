@@ -91,6 +91,7 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
+	show_label_ = false;
 	
 	std::vector<BodyPart>::iterator b = bodyPartsList.begin();
 	while(b != bodyPartsList.end())
