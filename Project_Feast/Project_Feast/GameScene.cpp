@@ -1,11 +1,8 @@
 #include "GameScene.h"
-#include <OgreLight.h>
 #include "GameManager.h"
 #include <SdkCameraMan.h>
-
 #include <OgreViewport.h>
 #include <OgreEntity.h>
-#include <OgreMeshManager.h>
 #include "SoundManager.h"
 #include "Dungeon.h"
 

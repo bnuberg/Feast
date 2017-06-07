@@ -3,15 +3,12 @@
 #include "GameManager.h"
 #include <OgreEntity.h>
 #include "BodyPart.h"
-
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 #include "Grid.h"
 #include "SoundManager.h"
 
-
 int enemyCount = 0;
-
 
 Enemy::Enemy()
 	:enemySpeed(50),
