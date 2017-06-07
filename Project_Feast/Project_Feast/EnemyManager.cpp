@@ -8,11 +8,11 @@ EnemyManager::EnemyManager()
 	:enemy_spawn_timer_(5000),
 	bleedTick(1000)
 {
-	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 300);
-	enemySpawnPoints[1] = Ogre::Vector3(200, 0, 100);
-	enemySpawnPoints[2] = Ogre::Vector3(-200, 0, 100);
-	enemySpawnPoints[3] = Ogre::Vector3(100, 0, 200);
-	enemySpawnPoints[4] = Ogre::Vector3(-100, 0, 200);
+	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 1500);
+	enemySpawnPoints[1] = Ogre::Vector3(1500, 0, 0);
+	enemySpawnPoints[2] = Ogre::Vector3(-1500, 0, 0);
+	enemySpawnPoints[3] = Ogre::Vector3(300, 0, -1200);
+	enemySpawnPoints[4] = Ogre::Vector3(-300, 0, -1200);
 }
 
 EnemyManager::~EnemyManager()
@@ -136,7 +136,7 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 		{
 			b->bodyPartNode->detachAllObjects();
 			b = meatList.erase(b);
-			return 5;
+			return 10;
 			/*bodyPartsList.erase(b++);*/
 		}
 		else

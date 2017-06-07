@@ -42,12 +42,12 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	Dungeon* dungeon = new Dungeon(sceneManager);
 
 	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
+	//Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
 
-	// Add the node to the scene
-	Ogre::Vector3 startingPosition = Ogre::Vector3(1000, -200, 50);
-	Ogre::SceneNode* playerNode = sceneManager->getRootSceneNode()->createChildSceneNode("hammerarm", startingPosition);
-	playerNode->attachObject(playerEntity);
+	//// Add the node to the scene
+	//Ogre::Vector3 startingPosition = Ogre::Vector3(1000, -200, 50);
+	//Ogre::SceneNode* playerNode = sceneManager->getRootSceneNode()->createChildSceneNode("hammerarm", startingPosition);
+	//playerNode->attachObject(playerEntity);
 
 	// Instantiate the player
 	mgr.player.Init(dungeon->GetPlayerSpawnPoint());
