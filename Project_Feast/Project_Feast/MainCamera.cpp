@@ -15,7 +15,7 @@ void MainCamera::CameraInstance()
 
 	mgr.mCamera = mgr.mSceneMgr->createCamera("MainCam");
 
-	mgr.mCamera->lookAt(0, 200, 300);
-	mgr.mCamera->setPosition(0, 0, 0);
+	mgr.mCamera->setPosition(0, 200, 20);
+	mgr.mCamera->lookAt(0, -200, 0);
 	mgr.mCamera->setNearClipDistance(5);
 }

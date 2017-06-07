@@ -40,6 +40,9 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 
 	// Bind the cameraman to the player
 	mgr.cameraMan->setTarget(sceneManager->getSceneNode("CameraNode"));
+	auto cameraNode = sceneManager->getSceneNode("CameraNode");
+	cameraNode->translate(0, 50, 10);
+	cameraNode->lookAt(Ogre::Vector3(0, -20, -40), Ogre::Node::TS_LOCAL);
 
 	mgr.ui.Init();
 }

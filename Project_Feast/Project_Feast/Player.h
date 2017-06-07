@@ -91,7 +91,7 @@ private:
 
 	Ogre::ParticleSystem* ModifierParticle;
 
-	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 100, 0);
+	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 300, 0);
 
 	bool meatToHealth = false;
 

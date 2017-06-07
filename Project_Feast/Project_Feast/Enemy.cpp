@@ -41,14 +41,12 @@ Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, f
 	enemyMaxDamage = damage;
 }
 
-
 Enemy::~Enemy()
 {
 }
 
 void Enemy::Init(int lvl)
 {
-	
 	GameManager& mgr = GameManager::GetSingleton();
 
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
@@ -127,9 +125,7 @@ void Enemy::Init(int lvl)
 	// All nodes added, translate enemy to start position
 	enemyNode->translate(startPosition, Ogre::Node::TS_LOCAL);
 
-
 	SetMaxHealth(10);
-
 
 	//Set aggroRange and attackRange of the enemy
 	EnemyPatternManager enemyPatternManager;
@@ -281,7 +277,6 @@ void Enemy::BleedEnemy()
 
 void Enemy::StartSlow()
 {
-
 	GameManager& mgr = GameManager::GetSingleton();
 	is_slowed = true;
 	slowTimer.reset();
@@ -298,19 +293,14 @@ void Enemy::RemoveSlow()
 	is_slowed = false;
 	enemyNode->detachObject("slowed" + Ogre::StringConverter::toString(enemyID));
 	SetSpeed(enemyBaseSpeed);
-
-
-
 }
 
 void Enemy::SlowEnemy()
 {
-
 	if (slowTimer.getMilliseconds() >= slow_Timer_Max)
 	{
 		RemoveSlow();
 	}
-
 }
 
 void Enemy::Knockback()
