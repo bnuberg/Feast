@@ -145,7 +145,7 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 void EnemyManager::SpawnEnemy(Ogre::Vector3 position, int level)
 {
 	Enemy enemy;
-	enemy.setStartPosition(position);
+	enemy.SetStartPosition(position);
 	enemy.Init(level);
 	enemy_list_.push_back(enemy);
 }

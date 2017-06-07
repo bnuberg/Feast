@@ -15,11 +15,9 @@ int enemyCount = 0;
 
 
 Enemy::Enemy()
-	:enemyHealth(10),
-	enemySpeed(50),
+	:enemySpeed(50),
 	enemyBaseSpeed(50),
-	enemyMaxHealth(0),
-	enemeyDamage(0),
+	enemyDamage(0),
 	enemyMaxDamage(0),
 	aggroRange(0),
 	attackRange(0),
@@ -31,16 +29,18 @@ Enemy::Enemy()
 	bleed_Timer_Max(1000),
 	slow_Timer_Max(5000)
 {
+	health = 10;
+	maxHealth = 0;
 }
 
 Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale)
 {
-	setStartPosition(sPosition);
+	SetStartPosition(sPosition);
 	SetScale(scale);
-	SetHealth(health);
+	SetMaxHealth(health);
 	enemyBaseSpeed = speed;
 	SetSpeed(speed);
-	enemeyDamage = damage;
+	enemyDamage = damage;
 	enemyMaxDamage = damage;
 }
 
@@ -131,7 +131,7 @@ void Enemy::Init(int lvl)
 	enemyNode->translate(startPosition, Ogre::Node::TS_LOCAL);
 
 
-	SetHealth(10);
+	SetMaxHealth(10);
 
 
 	//Set aggroRange and attackRange of the enemy
@@ -212,7 +212,7 @@ void Enemy::InitiateAbility()
 
 void Enemy::SetStats()
 {
-	SetHealth(10 * level);
+	SetMaxHealth(10 * level);
 	enemySpeed = 40 + 5 * level;
 }
 
@@ -305,12 +305,6 @@ void Enemy::Knockback()
 
 }
 
-void Enemy::SetHealth(float startingHealth)
-{
-	enemyMaxHealth = startingHealth;
-	enemyHealth = enemyMaxHealth;
-}
-
 void Enemy::SetSpeed(float speed)
 {
 	enemySpeed = speed;
@@ -337,17 +331,17 @@ void Enemy::SetEquipment()
 void Enemy::DoDamage(float damage)
 {
 	enemyMaxDamage = damage;
-	enemeyDamage = enemyMaxDamage;
+	enemyDamage = enemyMaxDamage;
 }
 
 void Enemy::GetDamaged(float damage)
 {
-	enemyHealth -= damage;
-	healthbar.SetLength(enemyHealth, enemyMaxHealth);
+	health -= damage;
+	healthbar.SetLength(health, maxHealth);
 
 	SoundManager::GetSingleton().PlaySound("EnemyHit.wav");
 
-	if (enemyHealth <= 0)
+	if (health <= 0)
 	{
 		is_dead_ = true;
 		healthbar.Destroy();
@@ -359,7 +353,7 @@ Ogre::Vector3 Enemy::GetStartPosition() const
 	return startPosition;
 }
 
-void Enemy::setStartPosition(Ogre::Vector3 position)
+void Enemy::SetStartPosition(Ogre::Vector3 position)
 {
 	startPosition = position;
 }

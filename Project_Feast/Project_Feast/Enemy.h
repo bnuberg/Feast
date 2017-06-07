@@ -6,10 +6,11 @@
 #include "EnemyEquipment.h"
 #include "Healthbar.h"
 #include "EnemyAI.h"
+#include "Entity.h"
 
 class EnemyPatternManager;
 
-class Enemy
+class Enemy : public Entity
 {
 public:
 	Enemy();
@@ -20,7 +21,6 @@ public:
 
 	int enemyNumber;
 
-	void Init();
 	void Init(int level);
 	void Update(const Ogre::FrameEvent& evt);
 	void GetDamaged(float damage);
@@ -28,7 +28,7 @@ public:
 	void SetEquipmentMesh(Ogre::String meshName);
 	void SetAttack();
 	void SetEquipment();
-	void setStartPosition(Ogre::Vector3 position);
+	void SetStartPosition(Ogre::Vector3 position);
 	void StartBleeding(int damage);
 	void RemoveBleeding();
 	void BleedEnemy();
@@ -74,11 +74,9 @@ private:
 	float GetScale() const;
 	void SetScale(float scale);
 
-	float enemyHealth;
 	float enemySpeed;
 	float enemyBaseSpeed;
-	float enemyMaxHealth;
-	float enemeyDamage;
+	float enemyDamage;
 	float enemyMaxDamage;
 	float aggroRange;
 	float attackRange;
@@ -97,7 +95,6 @@ private:
 	Ogre::SceneNode* rocketarmtargetNode;
 	
 	void SetStats();
-	void SetHealth(float startingHealth);
 	void SetSpeed(float speed);
 	void DoDamage(float damage);
 	void DropBodyPart();

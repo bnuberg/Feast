@@ -3,14 +3,14 @@
 #include <OgreEntity.h>
 #include <OgreTimer.h>
 #include "Equipment.h"
+#include "Entity.h"
 
-class Player
+class Player : public Entity
 {
 public:
 	Player();
 	~Player();
 	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
-	void CheckHealth();
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions
@@ -19,14 +19,6 @@ public:
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
 	void ConvertMeattoHealth();
-
-	// Helalth functions
-	float GetHealth();
-	void SetHealth(float startingHealth);
-	void IncreaseHealth(float heal);
-	void DecreaseHealth(float dmg);
-	void IncreaseMaxHealth(float permaHeal);
-	void DecreaseMaxHealth(float permaDmg);
 
 	void SetAttack();
 	void SetSpeed();
@@ -50,7 +42,7 @@ public:
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
-	void Die();
+	void Die() override;
 
 	bool smashingDown = false;
 	bool hasDied = false;
@@ -62,9 +54,7 @@ private:
 	bool ableToDodge = false;
 	bool CanPickUp = true;
 
-	float health;
 	float meat;
-	float maxHealth;
 	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
 
