@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="AbilityAttackAOE.cpp" />
-    <ClCompile Include="AbilityInterface.cpp" />
     <ClCompile Include="AbilityModifier.cpp" />
     <ClCompile Include="AbilityMovement.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -11,6 +10,7 @@
     <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
@@ -20,7 +20,6 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="GroundSmashArm.cpp" />
     <ClCompile Include="Healthbar.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
@@ -39,7 +38,6 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="RangedAttackArm.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -53,12 +51,12 @@
     <ClInclude Include="Healthbar.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
-    <ClInclude Include="AbilityInterface.h" />
     <ClInclude Include="AbilityMovement.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
     <ClInclude Include="BodyPartManager.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyManager.h" />
@@ -66,7 +64,6 @@
     <ClInclude Include="EntityTest.h" />
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="GroundSmashArm.h" />
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
@@ -84,7 +81,6 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="RangedAttackArm.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Entity.h" />

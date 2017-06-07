@@ -17,6 +17,7 @@ Enemy::Enemy()
 	enemyMaxDamage(0),
 	aggroRange(0),
 	attackRange(0),
+	attackTimer(2000),
 	is_dead_(false),
 	is_dead2_(false),
 	scale(1),
@@ -140,6 +141,7 @@ void Enemy::Init(int lvl)
 	attackRange = enemyPatternManager.setAttackR();
 	SetStats();
 	timer_.reset();
+	attackDelay.reset();
 	enemyAI.Init();
 }
 
@@ -149,29 +151,40 @@ void Enemy::Update(const Ogre::FrameEvent& evt)
 	
 	enemyAI.StateSelecter(evt, enemyNode);
 	enemyAI.enemyDodgeCheck(evt, enemyNode);
-	 if (isAttacking)
-	 {
-		 if (attackDown)
-		 {
-			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
-			 {
-				 enemyEquipment.arm.AbilityDamage();
-				 attackDown = false;
-				 enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition());
-			 }
-		 }
-		 else
-		 {
-			 if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
-			 {
-				 isAttacking = false;
-			 }
-		 }
-	 }
+	
+	if (isAttacking)
+	{
+		if (attackDown)
+		{
+			if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			{
+				enemyEquipment.arm.AbilityDamage();
+				attackDown = false;
+				enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition());
+			}
+		}
+		else
+		{
+			if (enemyEquipment.arm.AbilityUpdate(erightarmNode, evt))
+			{
+				isAttacking = false;
+				attackDelay.reset();
+			}
+		}
+	}
+	if (enemyAI.AllowedToAttack())
+	{
+		if (attackDelay.getMilliseconds() > attackTimer)
+		{
+			InitiateAbility();
+		}
+	}
 
-	 InitiateAbility();
-	 Debuff();
-
+	enemyAI.isAttacking = isAttacking;
+	enemyAI.StateSelecter(evt, enemyNode); 
+	enemyAI.enemyDodgeCheck(evt, enemyNode);
+	 
+	Debuff();
 }
 
 void Enemy::InitiateAbility()
@@ -206,10 +219,14 @@ void Enemy::InitiateAbility()
 	}
 }
 
+/**	Set the health and speed based on the level
+*/
 void Enemy::SetStats()
 {
 	SetMaxHealth(10 * level);
 	enemySpeed = 40 + 5 * level;
+	SetHealth(10 * level);
+	enemyAI.enemySpeed = 50 + 5 * level;
 }
 
 void Enemy::Debuff()

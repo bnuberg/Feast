@@ -3,6 +3,7 @@
 #include <OgreEntity.h>
 #include <OgreTimer.h>
 #include "Equipment.h"
+#include "Healthbar.h"
 #include "Entity.h"
 
 /** Inherits from Entity for basic functions like health 
@@ -32,7 +33,7 @@ public:
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
-	Ogre::Real move = 200;
+	Ogre::Real move = 300;
 	int playerDamage;
 	int playerAttackSpeed;
 	int attack = 0;
@@ -41,6 +42,7 @@ public:
 	bool exists = false;
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
+	Healthbar playerHealthbar;
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);

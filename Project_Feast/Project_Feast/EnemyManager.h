@@ -27,6 +27,9 @@ public:
 	void SpawnLightEnemy(Ogre::Vector3 position, int level);
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
 	void DamageEnemies();
+	int SetLevel();
+	int RandomPercent();
+
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
 	void BodypartToAdd();
 	int totalEnemyID = 0;
@@ -53,5 +56,7 @@ private:
 	unsigned long bleed_duration;
 	std::vector<Meat> meatList;					// List containing all meat objects
 
+	int waveDifficultyIncreaseChance = 60;
+	int waveDifficultyDecreaseChance = 40;
 };
 
