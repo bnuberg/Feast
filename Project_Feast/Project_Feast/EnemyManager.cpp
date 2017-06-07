@@ -72,14 +72,14 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		{
 			// Spawn meat
 			Meat meat;
-			meat.Spawn(e->enemy_node_->getPosition());
+			meat.Spawn(e->enemyNode->getPosition());
 			meatList.push_back(meat);
 
 			// Spawn bodypart
-			mgr.mBodyPartManager.DropArm(e->enemy_node_->getPosition(), e->enemyEquipment.arm);
+			mgr.mBodyPartManager.DropArm(e->enemyNode->getPosition(), e->enemyEquipment.arm);
 
 			// Remove all objects and take it out of the list
-			e->enemy_node_->detachAllObjects();
+			e->enemyNode->detachAllObjects();
 			e->erightarmNode->detachAllObjects();
 			e->healthBarNode->detachAllObjects();
 			e->is_dead2_ = true;
@@ -186,7 +186,7 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 		// If the enemy isn't dead damage it
 		if (!e->is_dead_)
 		{
-			Ogre::Vector3 distanceVector = center - e->enemy_node_->getPosition();
+			Ogre::Vector3 distanceVector = center - e->enemyNode->getPosition();
 			float distance = distanceVector.length();
 
 			if (distance < killdistance)

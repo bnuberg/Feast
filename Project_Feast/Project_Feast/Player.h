@@ -58,7 +58,6 @@ private:
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;
 	Ogre::ParticleSystem* ModifierParticle;
-	float playerShoulderHeight = 55;
 
 	bool smashingDown = false;
 	bool hasDied = false;
@@ -75,6 +74,8 @@ private:
 	float maxHealth;
 	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
+
+	const float playerShoulderHeight = 55;
 
 	const Ogre::Real characterScale = 4;
 

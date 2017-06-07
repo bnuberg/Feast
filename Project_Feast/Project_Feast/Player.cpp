@@ -32,7 +32,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	torsoNode->attachObject(torsoEntity);
 	torsoNode->setScale(characterScale, characterScale, -characterScale);
 
-	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);	//Used for camera
+	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
 	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
 	headNode->attachObject(headEntity);
 

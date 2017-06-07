@@ -42,7 +42,7 @@ public:
 	bool is_bleeding = false;
 	bool is_slowed = false;
 	Ogre::Entity* enemyEntity;
-	Ogre::SceneNode* enemy_node_;
+	Ogre::SceneNode* enemyNode;
 	EnemyEquipment enemyEquipment;
 	Ogre::SceneNode* erightarmNode;
 	Ogre::SceneNode* healthBarNode;
@@ -107,6 +107,24 @@ private:
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Debuff();
+
+	const float enemyShoulderHeight = 55;
+
+	const Ogre::Real characterScale = 4;
+
+	const char* torsoMeshName = "enemyTorso.mesh";
+	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
+
+	const char* headMeshName = "enemyHead.mesh";
+	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 10, 0);
+
+	const char* armMeshName = "enemyHand.mesh";
+	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-7, 5, 0);
+	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(7, 5, 0);
+
+	const char* footMeshName = "enemyFoot.mesh";
+	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-3, -3, 0);
+	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
 
 	Ogre::SceneNode* erocketarmtargetNode;
 	Ogre::SceneNode* erightarmOrigin;
