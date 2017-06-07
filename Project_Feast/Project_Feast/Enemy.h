@@ -10,6 +10,8 @@
 
 class EnemyPatternManager;
 
+/** Inherits from Entity for basic functions like health
+*/
 class Enemy : public Entity
 {
 public:

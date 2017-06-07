@@ -23,10 +23,10 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	SetMaxHealth(100);
 
 	// Add the node to the scene
-	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
+	entityNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
 
 	//Creates player parts with nodes and attach meshes
-	Ogre::SceneNode* torsoNode = playerNode->createChildSceneNode("TorsoNode", torsoSocketPosition);
+	Ogre::SceneNode* torsoNode = entityNode->createChildSceneNode("TorsoNode", torsoSocketPosition);
 	Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
 	torsoNode->attachObject(torsoEntity);
 	torsoNode->setScale(characterScale, characterScale, -characterScale);
@@ -39,8 +39,8 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
 	leftArmNode->attachObject(leftArmEntity);
 
-	rightArmOrigin = playerNode->createChildSceneNode("RightArmOrigin", Ogre::Vector3(28, 45, 0));
-	rightArmNode = playerNode->createChildSceneNode("RightArmNode", Ogre::Vector3(28, 45, 0));
+	rightArmOrigin = entityNode->createChildSceneNode("RightArmOrigin", Ogre::Vector3(28, 45, 0));
+	rightArmNode = entityNode->createChildSceneNode("RightArmNode", Ogre::Vector3(28, 45, 0));
 	rightArmOrigin->setScale(characterScale, characterScale, characterScale);
 	rightArmNode->setScale(characterScale, characterScale, characterScale);
 	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
@@ -54,21 +54,22 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
 	rightFootNode->attachObject(rightFootEntity);
 
-	Ogre::SceneNode* cameraNode = playerNode->createChildSceneNode("CameraNode", cameraPosition);
+	Ogre::SceneNode* cameraNode = entityNode->createChildSceneNode("CameraNode", cameraPosition);
 
 	// rocket arm target
 	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, -500);
-	rocketArmTargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("RocketArmTargetNode", rocketArmTargetOffset);
+	rocketArmTargetNode = entityNode->createChildSceneNode("RocketArmTargetNode", rocketArmTargetOffset);
 
-	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
+	entityNode->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 
 	exists = true;
 	timer_.reset();
 	dodge_timer_.reset();
 }
 
-
-
+/**	The update from the player, everything here about input, controls, movement
+@param evt is the frameEvent passed to be framerate independent.
+*/
 void Player::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
@@ -165,8 +166,8 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	}
 
 	// Rotate Player Yaw
-	mgr.mSceneMgr->getSceneNode("PlayerNode")->yaw(Ogre::Degree(-1 * currentX * rotate));
-	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+	entityNode->yaw(Ogre::Degree(-1 * currentX * rotate));
+	entityNode->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
 	Pickup();
 	Discard();
@@ -198,7 +199,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		}
 	}
 
-	float meat = mgr.mEnemyManager.IterateMeat(mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition(), 50);
+	float meat = mgr.mEnemyManager.IterateMeat(entityNode->getPosition(), 50);
 	IncreaseMeat(meat);
 	if (GetMeat() >= 10 && health != maxHealth){
 		ableToHeal = true;
@@ -215,35 +216,11 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 	/*mgr.mSceneMgr->getSceneNode("TorsoNode")->yaw(0.05 * Ogre::Degree(sin(totalTime)));
 	mgr.mSceneMgr->getSceneNode("HeadNode")->yaw(0.2 * Ogre::Degree(sin(totalTime)));*/
-
-	totalTime += evt.timeSinceLastFrame;
 }
 
-/** Player logic of falling in lava and getting hurt.\n
-	@param evt is the frameEvent passed to be framerate independent.
+/** Changes the mesh attached to the right arm, it first detaches all objects on the rightArm and then spawns a new one.
+@param meshName name of the mesh to load.
 */
-void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
-{
-	//Check if player needs to fall
-	GameManager& mgr = GameManager::getSingleton();
-	Ogre::Vector3 playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
-	if (!doomed && playerPosition.squaredLength() > dropRange * dropRange)
-	{
-		doomed = true;
-	}
-	if (doomed)
-	{
-		playerPosition = (playerPosition.squaredLength() > dropRange * dropRange) ? playerPosition : playerPosition.normalisedCopy() * dropRange;
-		mgr.mSceneMgr->getSceneNode("PlayerNode")->setPosition(playerPosition);
-		if (playerPosition.y > lavaHeight){ mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(Ogre::Vector3(0, -++fallingSpeed * 9.81f, 0) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); }
-		else
-		{
-			DecreaseHealth(lavaDamage * evt.timeSinceLastFrame);
-		}
-	}
-	
-}
-
 void Player::ChangeRightArmMesh(Ogre::String meshName)
 {
 	rightArmNode->detachAllObjects();
@@ -348,7 +325,7 @@ void Player::Die()
 	hasDied = true;
 }
 
-float Player::GetMeat()
+float Player::GetMeat() const
 {
 	return meat;
 }
@@ -396,7 +373,7 @@ void Player::Pickup()
 {
 	GameManager& mgr = GameManager::getSingleton();
 	
-	playerPosition = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
+	playerPosition = entityNode->getPosition();
 	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 200);
 
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_E) && CanPickUp)

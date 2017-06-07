@@ -5,6 +5,8 @@
 #include "Equipment.h"
 #include "Entity.h"
 
+/** Inherits from Entity for basic functions like health 
+*/
 class Player : public Entity
 {
 public:
@@ -14,7 +16,7 @@ public:
 	void Update(const Ogre::FrameEvent& evt);
 
 	// Meat functions
-	float GetMeat();
+	float GetMeat() const;
 	void SetMeat(float startingMeat);
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
@@ -86,15 +88,6 @@ private:
 	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
 
 	Ogre::ParticleSystem* ModifierParticle;
-
-	void CheckLavaDrop(const Ogre::FrameEvent& evt);
-	bool doomed = false;
-	Ogre::Real fallingSpeed = 0;
-	Ogre::Real dropRange = 1632;
-	Ogre::Real lavaHeight = -300;
-	Ogre::Real lavaDamage = 200;
-
-	Ogre::Real totalTime = 0;
 
 	Ogre::Vector3 cameraPosition = Ogre::Vector3(0, 100, 0);
 

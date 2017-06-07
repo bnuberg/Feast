@@ -7,7 +7,6 @@
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
 #include "Grid.h"
-#include <OgreParticleSystem.h>
 #include "SoundManager.h"
 
 

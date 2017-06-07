@@ -1,4 +1,5 @@
 #pragma once
+#include <OgreSceneNode.h>
 
 class Entity
 {
@@ -6,7 +7,7 @@ public:
 	/*Health functions*/
 	float GetHealth() const;
 	void SetHealth(float value);
-	
+	float GetMaxHealth() const;
 	void SetMaxHealth(float value);
 	void IncreaseHealth(float value);
 	void DecreaseHealth(float value);
@@ -17,5 +18,12 @@ public:
 protected:
 	float health;
 	float maxHealth;
+	Ogre::SceneNode* entityNode;
 
+	void CheckLavaDrop(const Ogre::FrameEvent& evt);
+	bool doomed = false;
+	Ogre::Real fallingSpeed = 0;
+	const Ogre::Real dropRange = 1632;
+	const Ogre::Real lavaHeight = -300;
+	const Ogre::Real lavaDamage = 200;
 };

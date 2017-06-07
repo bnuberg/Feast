@@ -24,16 +24,15 @@ Ogre::Vector3 Dungeon::GetPlayerSpawnPoint() const
 /** Returns the radius from what point on entities fall.\n
 	@return Real length from center
 */
-Ogre::Real Dungeon::GetFallRange()
+Ogre::Real Dungeon::GetFallRange() const
 { 
 	return fallRange; 
 }
 
 /** Load Dungeon.mesh, lava mesh, wall mesh, skybox and lights.\n
 */
-void Dungeon::LoadScene(Ogre::SceneManager* sceneManager)
+void Dungeon::LoadScene(Ogre::SceneManager* sceneManager) const
 {
-	
 	GameManager& mgr = GameManager::getSingleton();
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 

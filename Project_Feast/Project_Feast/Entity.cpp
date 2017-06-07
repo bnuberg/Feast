@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "GameManager.h"
 
 /**	Returns the current health value of this entity
 @return Current health value
@@ -88,4 +89,27 @@ void Entity::CheckHealth()
 void Entity::Die()
 {
 
+}
+
+/** Entity logic of falling in lava and getting hurt.\n
+@param evt is the frameEvent passed to be framerate independent.
+*/
+void Entity::CheckLavaDrop(const Ogre::FrameEvent& evt)
+{
+	GameManager& mgr = GameManager::getSingleton();
+	Ogre::Vector3 position = entityNode->getPosition();
+	if (!doomed && position.squaredLength() > dropRange * dropRange)
+	{
+		doomed = true;
+	}
+	if (doomed)
+	{
+		position = (position.squaredLength() > dropRange * dropRange) ? position : position.normalisedCopy() * dropRange;
+		entityNode->setPosition(position);
+		if (position.y > lavaHeight){ entityNode->translate(Ogre::Vector3(0, -++fallingSpeed * 9.81f, 0) * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); }
+		else
+		{
+			DecreaseHealth(lavaDamage * evt.timeSinceLastFrame);
+		}
+	}
 }
