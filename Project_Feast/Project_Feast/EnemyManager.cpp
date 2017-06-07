@@ -79,19 +79,13 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 			mgr.mBodyPartManager.DropArm(e->enemyNode->getPosition(), e->enemyEquipment.arm);
 
 			// Remove all objects and take it out of the list
-			e->enemyNode->detachAllObjects();
-			e->erightarmNode->detachAllObjects();
-			e->healthBarNode->detachAllObjects();
-			e->is_dead2_ = true;
+			e->Die();
 			enemy_list_.erase(e++);
 		}
 		else
 		{
 			++e;
 		}
-		//
-
-
 	}
 
 }

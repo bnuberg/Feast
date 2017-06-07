@@ -36,6 +36,7 @@ public:
 	void RemoveSlow();
 	void SlowEnemy();
 	void Knockback();
+	void Die();
 
 	bool is_dead_ = false;
 	bool is_dead2_ = false;
@@ -102,7 +103,8 @@ private:
 	void DoDamage(float damage);
 	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
-	void Die();
+	
+	void DetachBodyParts() const;
 	void InitiateAbility();
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
@@ -112,16 +114,22 @@ private:
 
 	const Ogre::Real characterScale = 4;
 
+	Ogre::SceneNode* torsoNode;
 	const char* torsoMeshName = "enemyTorso.mesh";
 	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
 
+	Ogre::SceneNode* headNode;
 	const char* headMeshName = "enemyHead.mesh";
 	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 10, 0);
 
+	Ogre::SceneNode* leftArmNode;
+	Ogre::SceneNode* rightArmNode;
 	const char* armMeshName = "enemyHand.mesh";
 	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-7, 5, 0);
 	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(7, 5, 0);
 
+	Ogre::SceneNode* leftFootNode;
+	Ogre::SceneNode* rightFootNode;
 	const char* footMeshName = "enemyFoot.mesh";
 	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-3, -3, 0);
 	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
