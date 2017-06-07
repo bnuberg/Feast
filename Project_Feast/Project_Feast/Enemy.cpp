@@ -158,6 +158,8 @@ void Enemy::InitiateAbility()
 	}
 }
 
+/**	Set the health and speed based on the level
+*/
 void Enemy::SetStats()
 {
 	SetHealth(10 * level);
