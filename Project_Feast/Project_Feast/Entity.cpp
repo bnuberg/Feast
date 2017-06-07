@@ -1,22 +1,27 @@
 #include "Entity.h"
 
 /*	Returns the current health value of this entity
-	@return Current health value 
+@return Current health value 
 */
 float Entity::GetHealth() const
 {
 	return health;
 }
 
-/** Checks the health and if he should die
+/*	Sets the players current health
+@parameter value the value you want the health to be
 */
-void Entity::CheckHealth()
+void Entity::SetHealth(float value)
 {
-	if (GetHealth() <= 0.0f)
-	{
-		SetHealth(0.0f);
-		Die();
-	}
+	health = (value < maxHealth) ? value : maxHealth;
+}
+
+/*	Returns the current max health value of this entity
+@return Current max health value
+*/
+float Entity::GetMaxHealth() const
+{
+	return maxHealth;
 }
 
 /*  Sets the max health of the player
@@ -26,14 +31,6 @@ void Entity::SetMaxHealth(float value)
 {
 	maxHealth = value;
 	health = maxHealth;
-}
-
-/*	Sets the players current health
-	@parameter value the value you want the health to be
-*/
-void Entity::SetHealth(float value)
-{
-	health = (value < maxHealth) ? value : maxHealth;
 }
 
 /*	Increases this entities health but clamps to maxHealth
@@ -58,7 +55,7 @@ void Entity::DecreaseHealth(float value)
 }
 
 /*	Increases this entities max health and heals with the same amount
-	@parameter value The amount you want the max health to increase
+@parameter value The amount you want the max health to increase
 */
 void Entity::IncreaseMaxHealth(float value)
 {
@@ -67,7 +64,7 @@ void Entity::IncreaseMaxHealth(float value)
 }
 
 /*	Decreases this entities max health and Damages with the same amount
-	@parameter value The amount you want the max health to decrease
+@parameter value The amount you want the max health to decrease
 */
 void Entity::DecreaseMaxHealth(float value)
 {
@@ -75,9 +72,20 @@ void Entity::DecreaseMaxHealth(float value)
 	DecreaseHealth(value);
 }
 
+/** Checks the health and if he should die
+*/
+void Entity::CheckHealth()
+{
+	if (GetHealth() <= 0.0f)
+	{
+		SetHealth(0.0f);
+		Die();
+	}
+}
+
 /* Function that is called when this entity dies
 */
 void Entity::Die()
 {
-	
+
 }
