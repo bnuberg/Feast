@@ -51,6 +51,7 @@ public:
 
 private:
 	Ogre::Timer timer_;
+	Ogre::Timer attackDelay;
 	EnemyAI enemyAI;
 	
 	Ogre::Vector3 getStartPosition();
@@ -63,6 +64,7 @@ private:
 	float bleedDamage;
 	Ogre::Timer slowTimer;
 	unsigned long slow_Timer_Max;
+	unsigned long attackTimer;
 
 	float getScale();
 	void setScale(float scale);

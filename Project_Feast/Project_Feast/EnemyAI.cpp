@@ -17,7 +17,6 @@ It also contains the different states of the enemy and how they need to move in 
 EnemyAI::EnemyAI()
 	:aggroRange(400),
 	attackRange(100),
-	attackTimer(0),
 	dodgeTime(350),
 	enemySpeed(50),
 	startPosition(0, 0, 0)
@@ -31,6 +30,7 @@ void EnemyAI::Init()
 {	
 	setAggroR();
 	setAttackR();
+	setEnemySpeed();
 	timer_.reset();
 	dodgeTimer.reset();
 }
@@ -43,7 +43,7 @@ void EnemyAI::Update(const Ogre::FrameEvent& evt)
 Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /*+ Ogre::Vector3(0, 20, 0)*/;
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
 	return distanceVector;
 }
@@ -51,7 +51,7 @@ Ogre::Vector3 EnemyAI::DistanceToPlayer(Ogre::SceneNode* enemyNode)
 Ogre::Vector3 EnemyAI::EnemyTarget()
 {
 	GameManager& mgr = GameManager::GetSingleton();
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition() /* + Ogre::Vector3(0, 20, 0)*/;
+	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
 	return target;
 }
 //State selecter for the enemy behaviour
@@ -75,6 +75,11 @@ void EnemyAI::StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyN
 //Aggro state so the enemy walks to the player when it is in range
 void EnemyAI::AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
+	inAttackState = false;
+	if (isAttacking)
+	{
+		return;
+	}
 	enemyNode->lookAt(EnemyTarget(), Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 	if (DistanceToPlayer(enemyNode).length()> attackRange)
@@ -91,10 +96,11 @@ void EnemyAI::AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirectio
 // Attack state so that the enemy stays withing a radius of the player and doesnt come closer
 void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
-	if (timer_.getMilliseconds() >= attackTimer)
+	inAttackState = true;
+
+	if (isAttacking)
 	{
-		//attack 
-		timer_.reset();
+		return;
 	}
 	MoveDirection.z = -enemySpeed;
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
@@ -102,9 +108,14 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 //Idle state so the enemy will walk back to spawn when it's too far from the player.
 void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode)
 {
+	inAttackState = false;
 	Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
 	float startDistance = startDistanceVector.length();
 
+	if (isAttacking)
+	{
+		return;
+	}
 	enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
 
 	MoveDirection.z = enemySpeed;
@@ -153,7 +164,11 @@ void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enem
 
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-	//This method executes the dodge for a set amount of time
+	if (isAttacking)
+	{
+		return;
+	}
+	//This method executes the dodge for a set amount 
 		if (dodgeTimer.getMilliseconds() < dodgeTime)
 		{
 			MoveDirection.z = -enemySpeed * 15;
@@ -184,11 +199,11 @@ float EnemyAI::setAggroR()
 {
 	if (enemyArmType == 0)
 	{
-		aggroRange = 1000;
+		aggroRange = 1500;
 	}
 	else
 	{
-		aggroRange = 1250;
+		aggroRange = 1750;
 	}
 	return aggroRange;
 }
@@ -206,17 +221,13 @@ float EnemyAI::setAttackR()
 	return attackRange;
 }
 
-unsigned long EnemyAI::setAttackT()
+float EnemyAI::setEnemySpeed()
 {
 	if (enemyArmType == 0)
 	{
-
+		enemySpeed*=2;
 	}
-	else
-	{
-
-	}
-	return attackTimer;
+	return enemySpeed;
 }
 
 bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
@@ -269,6 +280,20 @@ bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 		else
 			return false;
 
+	}
+
+}
+
+bool EnemyAI::AllowedToAttack()
+{
+	if (inAttackState)
+	{
+		return true;
+
+	}
+	else
+	{
+		return false;
 	}
 
 }
