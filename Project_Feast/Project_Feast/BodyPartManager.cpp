@@ -36,12 +36,12 @@ int BodyPartManager::Random()
 	
 	return dist(mt);
 }
-
+/**	This function checks for the closest bodypart around a certain point
+@param The center point/position around which is checked which body parts are close
+*/
 BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 {
 	BodyPart closestbodypart;
-	//float closest = 999999;
-
 	for (std::vector<BodyPart>::iterator b = bodyPartsList.begin(); b != bodyPartsList.end(); ++b)
 	{
 		if (b->isPickupAble == true)
@@ -51,12 +51,10 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 			/*Ogre::LogManager::getSingletonPtr()->logMessage(b->tag);*/
 			float distance = distanceVector.length();
 			
-			if (distance < 100)
+			if (distance < distanceThreshold)
 			{
 				b->pickedUp = true;
 				return *b;
-				/*Ogre::LogManager::getSingletonPtr()->logMessage(closestbodypart.tag);*/
-				//closest = distance;
 			}
 		}
 	}
@@ -69,11 +67,14 @@ void BodyPartManager::SpawnArm(Ogre::Vector3 position, Ogre::String bodypart)
 	arm.Spawn(position, bodypart);
 	bodyPartsList.push_back(arm);
 }
-
+/**	This function handles the actual body parts drops and chance to drop any body part
+@param The position at which the body part is dropped
+@param The arm object that is dropped
+*/
 void BodyPartManager::DropArm(Ogre::Vector3 position, Arm arm)
 {
 	int i = Random();
-	if (i > 8)
+	if (i > dropChance)
 	{
 		arm.Drop(position);
 		bodyPartsList.push_back(arm);

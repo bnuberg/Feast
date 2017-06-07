@@ -23,7 +23,7 @@ private:
 	void SpawnArm(Ogre::Vector3 position, Ogre::String bodypart);
 	void SpawnLeg(Ogre::Vector3 position);
 
-	
-
+	float distanceThreshold = 100;
+	float dropChance = 8;
 };
 
