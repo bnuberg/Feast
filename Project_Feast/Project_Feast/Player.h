@@ -40,7 +40,7 @@ public:
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
-	Ogre::Real move = 200;
+	Ogre::Real move = 300;
 	int playerDamage;
 	int playerAttackSpeed;
 	int attack = 0;

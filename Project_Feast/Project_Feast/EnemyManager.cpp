@@ -8,11 +8,11 @@ EnemyManager::EnemyManager()
 	:enemy_spawn_timer_(5000),
 	bleedTick(1000)
 {
-	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 300);
-	enemySpawnPoints[1] = Ogre::Vector3(200, 0, 100);
-	enemySpawnPoints[2] = Ogre::Vector3(-200, 0, 100);
-	enemySpawnPoints[3] = Ogre::Vector3(100, 0, 200);
-	enemySpawnPoints[4] = Ogre::Vector3(-100, 0, 200);
+	enemySpawnPoints[0] = Ogre::Vector3(0, 0, 1500);
+	enemySpawnPoints[1] = Ogre::Vector3(1500, 0, 0);
+	enemySpawnPoints[2] = Ogre::Vector3(-1500, 0, 0);
+	enemySpawnPoints[3] = Ogre::Vector3(300, 0, -1200);
+	enemySpawnPoints[4] = Ogre::Vector3(-300, 0, -1200);
 }
 
 EnemyManager::~EnemyManager()
@@ -101,13 +101,15 @@ int EnemyManager::GetEnemyCount()
 	return enemy_list_.size();
 }
 
+/**	Spawns the wave of enemies, resets the timer and updates the wavecount
+*/
 void EnemyManager::SpawnWave()
 {
 	waveCount++;
 
 	for (int i = 0; i < numberOfEnemies; i++)
 	{
-		enemyLevels[i] = waveCount;
+		enemyLevels[i] = SetLevel();
 	}
 
 	int i = 0;
@@ -118,6 +120,44 @@ void EnemyManager::SpawnWave()
 
 	waveAliveTimer.reset();
 	isWaveAlive = true;
+}
+
+/**	Sets the enemy level based on the time it took to complete the wave
+*/
+int EnemyManager::SetLevel()
+{
+	if (waveCount == 1)
+		return waveCount;
+
+	int level = waveCount; 
+
+	// if the wave was completed in less than a minute give a chance to increase the difficulty
+	if (waveAliveTimer.getMilliseconds() <= 60000)
+	{
+		if (RandomPercent() <= waveDifficultyIncreaseChance)
+		{
+			level++;
+		}
+	}
+	// if it took long than 2 minutes give a chance to make it easier
+	else if (waveAliveTimer.getMilliseconds() >= 120000)
+	{
+		if (RandomPercent() <= waveDifficultyDecreaseChance)
+		{
+			level--;
+		}
+	}
+
+	return level;
+}
+
+int EnemyManager::RandomPercent()
+{
+	//Returns a random number between 1 and 100.
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(1, 100);
+	return dist(mt);
 }
 
 float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
@@ -131,13 +171,11 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 		Ogre::Vector3 distanceVector = center - b->bodyPartNode->getPosition();
 
 		float distance = distanceVector.length();
-		/*Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(b->isPickupAble));*/
 		if (distance < pickupDistance)
 		{
 			b->bodyPartNode->detachAllObjects();
 			b = meatList.erase(b);
-			return 5;
-			/*bodyPartsList.erase(b++);*/
+			return 10;
 		}
 		else
 		{

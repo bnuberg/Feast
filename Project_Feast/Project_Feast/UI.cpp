@@ -1,6 +1,14 @@
 #include "UI.h"
 #include "GameManager.h"
 
+/*
+This class contains all the UI related code. It has the framestats inside, 
+the different popup messages for picking object up and the tutorial messages, 
+it also shows values like your health, meat, arm damage, current wave, and the wave timer.
+We have chosen to use the basic ogre UI inside this project, because this was one of the most feasible options.
+A lot of UI plugins are depricated and making a UI yourself takes a lot of time.
+We decided to refactor the main class and put UI into a seperate class becuase the main needs to be clean and UI has a lot of code for a few elements.
+*/
 
 UI::UI()
 {
