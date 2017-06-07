@@ -70,7 +70,6 @@ bool Main::go()
 		Ogre::String s(c);
 		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(s, "FileSystem", "General");
 	}
-
 	if (!(mRoot->restoreConfig() || mRoot->showConfigDialog()))
 		return false;
 	// Calls the Singleton GameManager 
@@ -80,7 +79,6 @@ bool Main::go()
 
 	new SoundManager(); //Instantiates the SoundManager
 	SoundManager::getSingleton().PlaySound("ActionMusic.wav", true); //Starts the music loop
-	Ogre::MaterialPtr commonMat = Ogre::MaterialManager::getSingleton().create("Hurt", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	mgr.mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC);
 	
 	// initialize the OverlaySystem (changed for 1.9)

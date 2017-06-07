@@ -32,12 +32,8 @@ void LevelLoader::LoadScene()
 			gameScene.CreateScene(mgr.mSceneMgr, mgr.mWindow);
 			break;
 		}
-	
 	}
-
-	
 }
-
 void LevelLoader::InitMainMenuScene()
 {
 	sceneEnum = SceneEnum::MainMenu;
