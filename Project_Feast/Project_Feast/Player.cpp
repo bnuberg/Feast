@@ -15,7 +15,6 @@ as well as setting the base values for the player hp and such.
 */
 void Player::Init(Ogre::Vector3 spawnPoint)
 {
-	
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
 	
@@ -40,8 +39,11 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
 	leftArmNode->attachObject(leftArmEntity);
 
-	rightArmOrigin = torsoNode->createChildSceneNode("RightArmOrigin", rightArmSocketPosition);
-	rightArmNode = torsoNode->createChildSceneNode("RightArmNode", rightArmSocketPosition);
+	rightArmOrigin = playerNode->createChildSceneNode("RightArmOrigin");
+	rightArmNode = playerNode->createChildSceneNode("RightArmNode", rightArmSocketPosition + torsoSocketPosition);
+	rightArmOrigin->setScale(characterScale, characterScale, characterScale);
+	rightArmOrigin->setPosition(rightArmSocketPosition + torsoSocketPosition);
+	rightArmNode->setScale(characterScale, characterScale, characterScale);
 	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
 	rightArmNode->attachObject(rightArmEntity);
 
@@ -56,8 +58,8 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::SceneNode* cameraNode = playerNode->createChildSceneNode("CameraNode", cameraPosition);
 
 	// rocket arm target
-	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, 150);
-	rocketArmTargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("RocketArmTargetNode", -rocketArmTargetOffset);
+	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, -150);
+	rocketArmTargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("RocketArmTargetNode", rocketArmTargetOffset);
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 
@@ -162,6 +164,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	{
 		meatToHealth = true;
 		ConvertMeattoHealth();
+		SoundManager::GetSingleton().PlaySound("Eat.wav");
 	}
 	else
 	{
@@ -408,6 +411,7 @@ void Player::IncreaseHealth(float heal)
 void Player::DecreaseHealth(float dmg)
 {
 	health -= dmg;
+	SoundManager::GetSingleton().PlaySound("Hurt.wav");
 	if (health <= 0)
 	{
 		health = 0;
