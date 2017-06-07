@@ -27,7 +27,7 @@ void UI::Init()
 	mInputContext.mMouse = mgr.mInputManager.mMouse;
 
 	mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mgr.mWindow, mInputContext, this);
-	mTrayMgr->showFrameStats(OgreBites::TL_TOPLEFT);
+	//mTrayMgr->showFrameStats(OgreBites::TL_TOPLEFT);
 	mTrayMgr->hideCursor();
 
 	Ogre::StringVector items;
