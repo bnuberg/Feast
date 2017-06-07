@@ -51,7 +51,7 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 			/*Ogre::LogManager::getSingletonPtr()->logMessage(b->tag);*/
 			float distance = distanceVector.length();
 			
-			if (distance < 200)
+			if (distance < 100)
 			{
 				b->pickedUp = true;
 				return *b;

@@ -1,5 +1,8 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
+#include "GameManager.h"
+#include <OgreLogManager.h>
+
 
 
 GenerateBodyPart::GenerateBodyPart()
@@ -13,13 +16,19 @@ GenerateBodyPart::~GenerateBodyPart()
 
 }
 
-void GenerateBodyPart::RandomStats()
+void GenerateBodyPart::SetRarity()
 {
-	arm.randDamage = rand() % (damageMax - damageMin + 1) + damageMin;
-	arm.randAttackSpeed = rand() % (attackSpeedMax - attackSpeedMin + 1) + attackSpeedMin;
+	rarity.RarityPicker(level);
+	
+	arm.randDamage = rarity.GetDamageValue();
+	arm.randSpeed = rarity.GetSpeedValue();
+	arm.r = rarity.R();
+	arm.g = rarity.G();
+	arm.b = rarity.B();
+
 }
 
-void GenerateBodyPart::PickAttackTemplate()
+void GenerateBodyPart::SetAttackTemplate()
 {
 	attackTypeEnum = static_cast<AttackTypeEnum>(rand() % TotalAttackTypes);
 	switch (attackTypeEnum){
@@ -32,7 +41,7 @@ void GenerateBodyPart::PickAttackTemplate()
 	
 }
 
-void GenerateBodyPart::PickMovementTemplates()
+void GenerateBodyPart::SetMovementTemplates()
 {
 	movementTypeEnum = static_cast<MovementTypeEnum>(rand() % TotalMovementTypes);
 
@@ -45,6 +54,7 @@ void GenerateBodyPart::PickMovementTemplates()
 			{
 				arm.type = 0;
 				arm.mesh = "cube.mesh";
+				
 				/*Ogre::LogManager::getSingletonPtr()->logMessage("Pepe");*/
 			}
 			else
@@ -57,17 +67,22 @@ void GenerateBodyPart::PickMovementTemplates()
 	}
 }
 
-void GenerateBodyPart::Combine()
+void GenerateBodyPart::SetModifier()
 {
-	RandomStats();
-	PickAttackTemplate();
-	PickMovementTemplates();
-	
+	arm.randModifier = matth.random(1, 5);
 }
 
-Arm GenerateBodyPart::Generate()
+void GenerateBodyPart::Combine()
 {
-	
+	SetRarity();
+	SetModifier();
+	SetAttackTemplate();
+	SetMovementTemplates();
+}
+
+Arm GenerateBodyPart::Generate(int lvl)
+{
+	level = lvl;
 	Combine();
 	return arm;
 }

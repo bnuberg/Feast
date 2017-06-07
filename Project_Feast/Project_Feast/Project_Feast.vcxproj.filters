@@ -34,6 +34,15 @@
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="Dungeon.cpp" />
+    <ClInclude Include="EnemyAI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="AbilityModifier.cpp" />
+    <ClCompile Include="DamageOverTime.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Rarity.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
+    <ClCompile Include="Healthbar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IAbilityAttack.h" />
@@ -70,5 +79,17 @@
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="Dungeon.h" />
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPatternManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="AbilityModifier.h" />
+    <ClInclude Include="DamageOverTime.h" />
+    <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Rarity.h" />
+    <ClInclude Include="MaterialLoader.h" />
+    <ClCompile Include="EnemyAI.cpp">
+    <ClInclude Include="Healthbar.h" />
   </ItemGroup>
 </Project>

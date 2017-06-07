@@ -29,7 +29,7 @@ void BodyPart::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 	{
 		type = 1;
 	}
-	Ogre::Entity *bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
+	bodyPartEntity = mgr.mSceneMgr->createEntity(mesh);
 
 	// Add the node to the scene
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
@@ -48,9 +48,18 @@ void BodyPart::Drop(Ogre::Vector3 position)
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
 	bodyPartNode->setScale(0.2, 0.2, 0.2);
+	
+	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	commonPass = common->getTechnique(0)->getPass(0);
+	commonPass->setAmbient(r, g, b);
+	commonPass->setDiffuse(r, g, b, 1);
+	commonPass->setEmissive(r, g, b);
+	bodyPartEntity->setMaterial(common);
 
+	Ogre::LogManager::getSingletonPtr()->logMessage("Damage: " + std::to_string(randDamage));
 
 }
+
 
 void BodyPart::AbilityTarget(Ogre::Vector3 abilityTarget)
 {
@@ -93,10 +102,12 @@ void BodyPart::AbilityDamage()
 {
 	if (equippedByEnemy)
 	{
-		attackType->AttackEnemy(globalTarget, randDamage);
+		attackType->AttackEnemy(globalTarget, randDamage, enemyID);
+
 	}
 	else
 	{
-		attackType->Attack(globalTarget, randDamage);
+		attackType->Attack(globalTarget, randDamage, randModifier);
+		Ogre::LogManager::getSingletonPtr()->logMessage("AAAAAAA: " + std::to_string(randModifier));
 	}
 }
