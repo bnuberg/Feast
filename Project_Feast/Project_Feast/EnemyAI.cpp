@@ -120,6 +120,11 @@ void EnemyAI::IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection
 	}
 }
 
+/** DodgeCheck checks if the player is attacking and executes a dodge for a set percentage of the attacks if true.
+*	@param evt contains information about the frame event
+*	@param enemyNode contains information about the node the enemy is attached to
+*/
+
 void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	//This method checks if the player is attacking
 	//It also checks what type off arm the player and enemy is using and dodges accordingly for a set percentage.
@@ -151,6 +156,11 @@ void EnemyAI::enemyDodgeCheck(const Ogre::FrameEvent& evt, Ogre::SceneNode* enem
 
 }
 
+/** Dodge function moves the enemy away from the player quickly
+*	@param evt contains information about the frame event
+*	@param enemyNode contains information about the node the enemy is attached to
+*/
+
 void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode){
 	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
 	//This method executes the dodge for a set amount of time
@@ -164,6 +174,10 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 			enemyAllowedToDodge = false;
 		}
 }
+
+/** Random number generator
+*	@return a random number between 1 and 100
+*/
 
 int EnemyAI::DodgeChance()
 {
@@ -218,6 +232,10 @@ unsigned long EnemyAI::setAttackT()
 	}
 	return attackTimer;
 }
+
+/** This method checks what type of arm the player and enemy are using and dodges accordingly
+*	@param enemyNode contains information about the node the enemy is attached to and is used for the position
+*/
 
 bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 {
