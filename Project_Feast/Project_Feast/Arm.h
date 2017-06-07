@@ -9,6 +9,5 @@ public:
 	Arm();
 	~Arm();
 
-	
 };
 

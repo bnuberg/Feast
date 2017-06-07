@@ -8,6 +8,7 @@
 #include <OgreLogManager.h>
 #include "Grid.h"
 #include <OgreParticleSystem.h>
+#include "SoundManager.h"
 
 
 int enemyCount = 0;
@@ -35,7 +36,7 @@ Enemy::Enemy()
 Enemy::Enemy(float health, float speed, float damage, Ogre::Vector3 sPosition, float scale)
 {
 	setStartPosition(sPosition);
-	setScale(scale);
+	SetScale(scale);
 	SetHealth(health);
 	enemyBaseSpeed = speed;
 	SetSpeed(speed);
@@ -55,7 +56,7 @@ void Enemy::Init(int lvl)
 
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
 
-	startPosition = getStartPosition();
+	startPosition = GetStartPosition();
 
 	enemyNumber = enemyCount++;
 
@@ -83,7 +84,7 @@ void Enemy::Init(int lvl)
 	// Add the node to the scene
 	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition);
 
-	//Creates player parts with nodes and attach meshes
+	//Creates enemy parts with nodes and attach meshes
 	torsoNode = enemyNode->createChildSceneNode("EnemyTorsoNode" + Ogre::StringConverter::toString(enemyID), torsoSocketPosition);
 	Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
 	torsoNode->attachObject(torsoEntity);
@@ -116,11 +117,10 @@ void Enemy::Init(int lvl)
 	healthbar.Init(healthBarNode, healthBarPosition, mgr.mSceneMgr, enemyID);
 
 	// right arm origin
-	enemyHeight = 50;
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, enemyHeight, 0);
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, shoulderHeight, 0);
 	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
 	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
-	erightarmNode->setScale(0.2, 0.2, 0.2);
+	erightarmNode->setScale(5, 5, 5);
 	enemyEquipment.EnemyEquipArm(erightarmNode, enemyID, level);
 	enemyAI.SetArm(enemyEquipment.arm);
 	// rocket arm target
@@ -188,8 +188,8 @@ void Enemy::InitiateAbility()
 		
 		if (enemyEquipment.arm.type == 0)
 		{
-			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, enemyHeight, 0));
-			enemyEquipment.arm.AbilityGlobalTarget(erightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, enemyHeight, 0));
+			enemyEquipment.arm.AbilityTarget(erightarmOrigin->getPosition() - Ogre::Vector3(0, shoulderHeight, 0));
+			enemyEquipment.arm.AbilityGlobalTarget(erightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, shoulderHeight, 0));
 		}
 		else if (enemyEquipment.arm.type == 1)
 		{
@@ -255,11 +255,9 @@ void Enemy::BleedEnemy()
 	if (bleedTimer.getMilliseconds() >= bleed_Timer_Max)
 	{
 		GetDamaged(bleedDamage);
-		//Ogre::LogManager::getSingletonPtr()->logMessage("after bleed health" + Ogre::StringConverter::toString(enemyHealth));
 
 		bleedTimer.reset();
 		bleedTick++;
-
 	}
 
 	if (bleedTick >= maxBleedTick)
@@ -334,8 +332,6 @@ void Enemy::SetEquipment()
 	bodypartName = enemyequipment.AssignRandomBodypart();
 	Ogre::LogManager::getSingletonPtr()->logMessage("bodypartname:" + bodypartName);
 	SetEquipmentMesh(bodypartName);*/
-
-
 }
 
 void Enemy::DoDamage(float damage)
@@ -349,16 +345,16 @@ void Enemy::GetDamaged(float damage)
 	enemyHealth -= damage;
 	healthbar.SetLength(enemyHealth, enemyMaxHealth);
 
+	SoundManager::GetSingleton().PlaySound("EnemyHit.wav");
+
 	if (enemyHealth <= 0)
 	{
 		is_dead_ = true;
 		healthbar.Destroy();
 	}
-
-
 }
 
-Ogre::Vector3 Enemy::getStartPosition()
+Ogre::Vector3 Enemy::GetStartPosition() const
 {
 	return startPosition;
 }
@@ -368,12 +364,12 @@ void Enemy::setStartPosition(Ogre::Vector3 position)
 	startPosition = position;
 }
 
-float Enemy::getScale()
+float Enemy::GetScale() const
 {
 	return scale;
 }
 
-void Enemy::setScale(float scale)
+void Enemy::SetScale(float scale)
 {
 	this->scale = scale;
 }
@@ -456,6 +452,9 @@ void Enemy::Die()
 	/*}*/
 }
 
+/**
+ * \brief Detaches all the body parts so that the body parts are removed from the scene
+ */
 void Enemy::DetachBodyParts() const
 {
 	enemyNode->detachAllObjects();

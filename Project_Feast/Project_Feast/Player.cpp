@@ -32,40 +32,32 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	torsoNode->attachObject(torsoEntity);
 	torsoNode->setScale(characterScale, characterScale, -characterScale);
 
-	Ogre::SceneNode* headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
+	headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
 	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
 	headNode->attachObject(headEntity);
 
-	Ogre::SceneNode* leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
+	leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
 	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
 	leftArmNode->attachObject(leftArmEntity);
 
-	Ogre::SceneNode* rightArmNode = torsoNode->createChildSceneNode("RightArmNode", rightArmSocketPosition);
+	rightArmOrigin = torsoNode->createChildSceneNode("RightArmOrigin", rightArmSocketPosition);
+	rightArmNode = torsoNode->createChildSceneNode("RightArmNode", rightArmSocketPosition);
 	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
 	rightArmNode->attachObject(rightArmEntity);
 
-	Ogre::SceneNode* leftFootNode = torsoNode->createChildSceneNode("LeftFootNode", leftFootSocketPosition);
+	leftFootNode = torsoNode->createChildSceneNode("LeftFootNode", leftFootSocketPosition);
 	Ogre::Entity* leftFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
 	leftFootNode->attachObject(leftFootEntity);
 
-	Ogre::SceneNode* rightFootNode = torsoNode->createChildSceneNode("RightFootNode", rightFootSocketPosition);
+	rightFootNode = torsoNode->createChildSceneNode("RightFootNode", rightFootSocketPosition);
 	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
 	rightFootNode->attachObject(rightFootEntity);
 
 	Ogre::SceneNode* cameraNode = playerNode->createChildSceneNode("CameraNode", cameraPosition);
 
-	// right arm origin
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);
-	rightarmOrigin = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmOrigin", rightarmoffset);
-	rightarmNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rightarmNode", rightarmoffset);
-	rightarmNode->setScale(0.2, 0.2, 0.2);
-	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity("cube.mesh");
-	rightarmNode->attachObject(rightarmEntity);
-	//rightarmNode->attachObject(ModifierParticle);
-
 	// rocket arm target
-	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
-	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", -rocketarmtargetoffset);
+	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, 150);
+	rocketArmTargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("RocketArmTargetNode", -rocketArmTargetOffset);
 
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
 
@@ -169,7 +161,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
 	{
 		meatToHealth = true;
-		convertMeattoHealth();
+		ConvertMeattoHealth();
 	}
 	else
 	{
@@ -194,16 +186,16 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	{
 		if (smashingDown)
 		{
-			if (equipment.arm.AbilityUpdate(rightarmNode, evt))
+			if (equipment.arm.AbilityUpdate(rightArmNode, evt))
 			{
 				equipment.arm.AbilityDamage();
 				smashingDown = false;
-				equipment.arm.AbilityTarget(rightarmOrigin->getPosition());
+				equipment.arm.AbilityTarget(rightArmOrigin->getPosition());
 			}
 		}
 		else
 		{
-			if (equipment.arm.AbilityUpdate(rightarmNode, evt))
+			if (equipment.arm.AbilityUpdate(rightArmNode, evt))
 			{
 				isSmashing = false;
 			}
@@ -258,9 +250,9 @@ void Player::CheckLavaDrop(const Ogre::FrameEvent& evt)
 
 void Player::ChangeRightArmMesh(Ogre::String meshName)
 {
-	rightarmNode->detachAllObjects();
+	rightArmNode->detachAllObjects();
 	Ogre::Entity* rightarmEntity = GameManager::getSingleton().mSceneMgr->createEntity(meshName);
-	rightarmNode->attachObject(rightarmEntity);
+	rightArmNode->attachObject(rightarmEntity);
 
 	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	commonPass = common->getTechnique(0)->getPass(0);
@@ -284,7 +276,7 @@ void Player::ChangeArmModifier(int modifier)
 		}
 		mgr.mSceneMgr->destroyParticleSystem("playerBleed");
 		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerBleed", "BleedParticle");
-		rightarmNode->attachObject(ModifierParticle);
+		rightArmNode->attachObject(ModifierParticle);
 
 
 		break;
@@ -294,7 +286,7 @@ void Player::ChangeArmModifier(int modifier)
 		}
 		mgr.mSceneMgr->destroyParticleSystem("playerSlow");
 		ModifierParticle = mgr.mSceneMgr->createParticleSystem("playerSlow", "SlowParticle");
-		rightarmNode->attachObject(ModifierParticle);
+		rightArmNode->attachObject(ModifierParticle);
 
 		break;
 	default:
@@ -312,13 +304,13 @@ void Player::InitiateAbility()
 		//equipment.arm.type = 1;
 		if (equipment.arm.type == 0)
 		{
-			equipment.arm.AbilityTarget(rightarmOrigin->getPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
-			equipment.arm.AbilityGlobalTarget(rightarmOrigin->_getDerivedPosition() - Ogre::Vector3(0, playerShoulderHeight, 0));
+			equipment.arm.AbilityTarget(rightArmOrigin->getPosition() - Ogre::Vector3(0, shouderHeight, 0));
+			equipment.arm.AbilityGlobalTarget(rightArmOrigin->_getDerivedPosition() - Ogre::Vector3(0, shouderHeight, 0));
 		}
 		else if (equipment.arm.type == 1)
 		{
-			equipment.arm.AbilityTarget(rocketarmtargetNode->getPosition());
-			equipment.arm.AbilityGlobalTarget(rocketarmtargetNode->_getDerivedPosition());
+			equipment.arm.AbilityTarget(rocketArmTargetNode->getPosition());
+			equipment.arm.AbilityGlobalTarget(rocketArmTargetNode->_getDerivedPosition());
 		}
 
 		isSmashing = true;
@@ -392,7 +384,7 @@ void Player::DecreaseMeat(float spendMeat)
 	}
 }
 
-void Player::convertMeattoHealth()
+void Player::ConvertMeattoHealth()
 {
 	DecreaseMeat(10);
 	IncreaseHealth(10);

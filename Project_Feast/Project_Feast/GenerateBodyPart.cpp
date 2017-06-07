@@ -1,15 +1,11 @@
 #include "GenerateBodyPart.h"
 #include "AbilityAttackAOE.h"
 #include "GameManager.h"
-#include <OgreLogManager.h>
-
-
 
 GenerateBodyPart::GenerateBodyPart()
 {
 
 }
-
 
 GenerateBodyPart::~GenerateBodyPart()
 {
@@ -25,20 +21,18 @@ void GenerateBodyPart::SetRarity()
 	arm.r = rarity.R();
 	arm.g = rarity.G();
 	arm.b = rarity.B();
-
 }
 
 void GenerateBodyPart::SetAttackTemplate()
 {
 	attackTypeEnum = static_cast<AttackTypeEnum>(rand() % TotalAttackTypes);
-	switch (attackTypeEnum){
-	case GroundSmash:
+	switch (attackTypeEnum)
+	{
+		case GroundSmash:
 		{
-			arm.attackType = new AbilityAttackAOE;
-			
+			arm.attackType = new AbilityAttackAOE;		
 		}
 	}
-	
 }
 
 void GenerateBodyPart::SetMovementTemplates()
@@ -46,23 +40,20 @@ void GenerateBodyPart::SetMovementTemplates()
 	movementTypeEnum = static_cast<MovementTypeEnum>(rand() % TotalMovementTypes);
 
 	switch(movementTypeEnum){
-	case TravelToPoint:
+		case TravelToPoint:
 		{
 			
 			arm.moveType = new AbilityMovement;
 			if (rand() % 2 == 0)
 			{
 				arm.type = 0;
-				arm.mesh = "cube.mesh";
-				
-				/*Ogre::LogManager::getSingletonPtr()->logMessage("Pepe");*/
+				arm.mesh = "handGroundPound.mesh";
 			}
 			else
 			{
 				arm.type = 1;
-				arm.mesh = "sphere.mesh";
+				arm.mesh = "handRocket.mesh";
 			}
-			/*Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(arm.type));*/
 		}
 	}
 }

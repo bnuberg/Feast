@@ -60,7 +60,7 @@ private:
 	Ogre::Timer timer_;
 	EnemyAI enemyAI;
 	
-	Ogre::Vector3 getStartPosition();
+	Ogre::Vector3 GetStartPosition() const;
 
 	Ogre::ParticleSystem* bleedParticle;
 	Ogre::ParticleSystem* slowParticle;
@@ -71,10 +71,9 @@ private:
 	Ogre::Timer slowTimer;
 	unsigned long slow_Timer_Max;
 
-	float getScale();
-	void setScale(float scale);
+	float GetScale() const;
+	void SetScale(float scale);
 
-	float enemyHeight;
 	float enemyHealth;
 	float enemySpeed;
 	float enemyBaseSpeed;
@@ -110,7 +109,7 @@ private:
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Debuff();
 
-	const float enemyShoulderHeight = 55;
+	const float shoulderHeight = 55;
 
 	const Ogre::Real characterScale = 4;
 

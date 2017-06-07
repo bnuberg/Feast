@@ -20,7 +20,7 @@ public:
 	void SetMeat(float startingMeat);
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
-	void convertMeattoHealth();
+	void ConvertMeattoHealth();
 
 	// Helalth functions
 	float GetHealth();
@@ -54,11 +54,6 @@ private:
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
 
-	Ogre::SceneNode* rocketarmtargetNode;
-	Ogre::SceneNode* rightarmNode;
-	Ogre::SceneNode* rightarmOrigin;
-	Ogre::ParticleSystem* ModifierParticle;
-
 	bool smashingDown = false;
 	bool hasDied = false;
 	bool ableToHeal;
@@ -75,23 +70,34 @@ private:
 	float dodgeMeatCost = 5;
 	float rightarmSpeed = 500;
 
-	const float playerShoulderHeight = 55;
+	const float shouderHeight = 55;
 
 	const Ogre::Real characterScale = 4;
 
+	Ogre::SceneNode* torsoNode;
 	const char* torsoMeshName = "torso.mesh";
 	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
 
+	Ogre::SceneNode* headNode;
 	const char* headMeshName = "head.mesh";
 	const Ogre::Vector3 headSocketPosition = Ogre::Vector3(0, 10, 0);
 
+	Ogre::SceneNode* leftArmNode;
+	Ogre::SceneNode* rightArmNode;
 	const char* armMeshName = "hand.mesh";
 	const Ogre::Vector3 leftArmSocketPosition = Ogre::Vector3(-7, 5, 0);
 	const Ogre::Vector3 rightArmSocketPosition = Ogre::Vector3(7, 5, 0);
 
+	Ogre::SceneNode* rocketArmTargetNode;
+	Ogre::SceneNode* rightArmOrigin;
+
+	Ogre::SceneNode* leftFootNode;
+	Ogre::SceneNode* rightFootNode;
 	const char* footMeshName = "foot.mesh";
 	const Ogre::Vector3 leftFootSocketPosition = Ogre::Vector3(-3, -3, 0);
 	const Ogre::Vector3 rightFootSocketPosition = Ogre::Vector3(3, -3, 0);
+
+	Ogre::ParticleSystem* ModifierParticle;
 
 	void CheckLavaDrop(const Ogre::FrameEvent& evt);
 	bool doomed = false;

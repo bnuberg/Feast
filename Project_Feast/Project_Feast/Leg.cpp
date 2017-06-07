@@ -4,7 +4,7 @@
 
 Leg::Leg()
 {
-	mesh = "cube.mesh";
+	mesh = "foot.mesh";
 	tag = "Leg";
 	
 }
