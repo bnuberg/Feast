@@ -2,7 +2,23 @@
 #include <OgreEntity.h>
 #include <OgreMaterialManager.h>
 #include <OgrePass.h>
+/** @brief The Rarity class handles assigning a raritytype to body parts.
+ 
 
+Detailed description:
+*It generates a Rarity then based on the rarity it will assign specific damage
+*and attack speed values, it will also assign the right material corresponding the rarity. 
+*This information is then passed on to the generator class that generates body parts.
+
+Architectual information:
+Rarity contains an enumeration so we can easily check and assign rarity types when generating body parts.
+It then uses a state machine to check for each rarity case and applies the corresponding values.
+Rarity is an element in the chain of the body part generation.
+
+
+@author Brian Nuberg
+@date June 2017
+*/
 
 enum RarityTypes
 {
@@ -14,7 +30,7 @@ public:
 	Rarity();
 	~Rarity();
 	void RarityPicker(int level);
-	void ApplyRarity(int aDamageMax, int aDamageMin, int aSpeedMax, int aSpeedMin);
+	void ApplyRarityValues(int aDamageMax, int aDamageMin, int aSpeedMax, int aSpeedMin);
 	RarityTypes rarityTypes;
 	int GetDamageValue();
 	int GetSpeedValue();

@@ -13,10 +13,10 @@ Healthbar::~Healthbar()
 {
 }
 
-void Healthbar::Init(Ogre::SceneNode* sceneNode, Ogre::Vector3 position, Ogre::SceneManager* sceneManager, int enemyID)
+void Healthbar::Init(Ogre::SceneNode* sceneNode, Ogre::Vector3 position, Ogre::SceneManager* sceneManager, int ID)
 {
 	
-	billBoardSet = sceneManager->createBillboardSet("billBoardSet" + Ogre::StringConverter::toString(enemyID));
+	billBoardSet = sceneManager->createBillboardSet("billBoardSet" + Ogre::StringConverter::toString(ID));
 
 	Ogre::MaterialPtr healthBarMaterial = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	Ogre::Pass* healthBarPass = healthBarMaterial->getTechnique(0)->getPass(0);

@@ -40,43 +40,51 @@ void Rarity::RarityPicker(int level)
 	switch (rarityTypes){
 	case Common:
 		{
-			ApplyRarity(level + 1 + commonRange, level + 1 - commonRange, 2, 1);
+			ApplyRarityValues(level + 1 + commonRange, level + 1 - commonRange, 2, 1);
 			ChangePass(0.2, 0.2, 0.2);
 			break;
 		}
 	case Uncommon:
 		{
-			ApplyRarity(level * 2 + 2 + uncommonRange, level * 2 + 2 - uncommonRange, 4, 2);
+			ApplyRarityValues(level * 2 + 2 + uncommonRange, level * 2 + 2 - uncommonRange, 4, 2);
 			ChangePass(1, 1, 1);
 			break;
 		}
 	case Rare:
 		{
-			ApplyRarity(level * 3 + 3 + rareRange, level * 3 + 3 - rareRange, 6, 4);
+			ApplyRarityValues(level * 3 + 3 + rareRange, level * 3 + 3 - rareRange, 6, 4);
 			ChangePass(0, 0.2, 1);
 			break;
 		}
 	case Epic:
 		{
-			ApplyRarity(level * 4 + 4 + epicRange, level * 4 + 4 - epicRange, 8, 6);
+			ApplyRarityValues(level * 4 + 4 + epicRange, level * 4 + 4 - epicRange, 8, 6);
 			ChangePass(0.3, 0, 0.8);
 			break;
 		}
 	case Legendary:
 		{
-			ApplyRarity(level * 6 + 6 + legendaryRange, level * 6 + 6 - legendaryRange, 12, 8);
+			ApplyRarityValues(level * 6 + 6 + legendaryRange, level * 6 + 6 - legendaryRange, 12, 8);
 			ChangePass(0.8, 0.4, 0);
 			break;
 		}
 	}
 }
-
-void Rarity::ApplyRarity(int aDamageMax, int aDamageMin, int aSpeedMax, int aSpeedMin)
+/**	This function Applies the damage based on rarity
+@param The maximum damage possible for a specific rarity
+@param The minimum damage possible for a specific rarity
+@param The maximum attack speed possible for a specific rarity
+@param The minimum attack speed possible for a specific rarity
+*/
+void Rarity::ApplyRarityValues(int aDamageMax, int aDamageMin, int aSpeedMax, int aSpeedMin)
 {
 	aDamage = Random(aDamageMin, aDamageMax);
-	aSpeed = rand() % (aSpeedMax - aSpeedMin + 1) + aSpeedMin;
+	aSpeed = Random (aSpeedMin, aSpeedMax);
 }
-
+/**	This function uses a random device (mt19937 theory) for better random generation than rand() within a certain range and the returns the value
+@param The maximum random range
+@param The minimum random range
+*/
 int Rarity::Random(int min, int max)
 {
 	std::random_device rd;
