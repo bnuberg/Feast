@@ -5,6 +5,7 @@
 #include <OgreEntity.h>
 #include <OgreTimer.h>
 #include "Equipment.h"
+#include "Healthbar.h"
 
 class Player
 {
@@ -48,11 +49,13 @@ public:
 	bool exists = false;
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
+	Healthbar playerHealthbar;
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die();
 
+	Ogre::SceneNode* playerHealthBarNode;
 	Ogre::SceneNode* rocketarmtargetNode;
 	Ogre::SceneNode* rightarmNode;
 	Ogre::SceneNode* rightarmOrigin;

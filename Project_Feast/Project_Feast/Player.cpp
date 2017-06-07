@@ -35,6 +35,8 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	// player head, used to position the camera
 	Ogre::Vector3 headOffset = Ogre::Vector3(0, 220, 0);
 	Ogre::SceneNode* playerHeadNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("PlayerHeadNode", startingPosition + headOffset);
+	playerHealthBarNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("playerHealthBarNode", startingPosition + Ogre::Vector3(0,30,0));
+	playerHealthbar.Init(playerHealthBarNode, startingPosition + Ogre::Vector3(0, 180, 0), mgr.mSceneMgr, 9999);
 
 	// right arm origin
 	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, playerShoulderHeight, 0);
@@ -48,9 +50,9 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	// rocket arm target
 	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, 500);
 	rocketarmtargetNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("rocketarmtargetNode", startingPosition - rocketarmtargetoffset);
-
+	
 	mgr.mSceneMgr->getSceneNode("PlayerNode")->translate(spawnPoint, Ogre::Node::TS_LOCAL);
-
+	equipment.arm.type = 0;
 	exists = true;
 	timer_.reset();
 	dodge_timer_.reset();
@@ -334,6 +336,7 @@ void Player::SetHealth(float startingHealth)
 void Player::IncreaseHealth(float heal)
 {
 	health += heal;
+	playerHealthbar.SetLength(health, maxHealth);
 	if (health > maxHealth)
 	{
 		health = maxHealth;
@@ -343,9 +346,11 @@ void Player::IncreaseHealth(float heal)
 void Player::DecreaseHealth(float dmg)
 {
 	health -= dmg;
+	playerHealthbar.SetLength(health, maxHealth);
 	if (health <= 0)
 	{
 		health = 0;
+		/*playerHealthbar.Destroy();*/
 		Die();
 	}
 }
