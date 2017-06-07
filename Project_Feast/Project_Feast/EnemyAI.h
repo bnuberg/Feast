@@ -27,7 +27,7 @@ public:
 private:
 	Ogre::Timer timer_;
 	Ogre::Timer dodgeTimer;
-	int DodgeChance();
+	//int DodgeChance();
 
 	int enemyArmType;
 	float aggroRange;
