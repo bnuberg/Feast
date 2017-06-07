@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <OgreFrameListener.h>
 #include <OgreEntity.h>
 #include <OgreTimer.h>
 #include "Equipment.h"
