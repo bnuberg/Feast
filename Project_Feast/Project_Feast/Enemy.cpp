@@ -143,7 +143,7 @@ void Enemy::Init(int lvl)
 
 void Enemy::Update(const Ogre::FrameEvent& evt)
 {
-	Move(evt);
+	//Move(evt);
 	
 	enemyAI.StateSelecter(evt, enemyNode);
 	enemyAI.enemyDodgeCheck(evt, enemyNode);
@@ -379,59 +379,59 @@ void Enemy::DropBodyPart()
 	}
 }
 
-void Enemy::Move(const Ogre::FrameEvent& evt)
-{
-	GameManager& mgr = GameManager::GetSingleton();
-
-	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
-
-	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-
-	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
-	float distance = distanceVector.length();
-
-	if (distance <= aggroRange)
-	{
-		epm->updateStartAndEndPositions(enemyNode->getPosition(), target, enemyNumber);
-		std::vector<Ogre::Vector3> route = epm->getRoute();
-		
-		if (route.size() > 0)
-		{
-			enemyNode->lookAt(route[0], Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-		}
-		else
-		{
-			enemyNode->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-			Ogre::LogManager::getSingletonPtr()->logMessage("Route not found.");
-		}
-
-		if (distance > attackRange)
-		{
-			MoveDirection.z = enemySpeed;
-		}
-		else
-		{
-			MoveDirection.z = -enemySpeed;
-		}
-		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-	}
-	else if (enemyNode->getPosition() != startPosition)
-	{
-		Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
-		float startDistance = startDistanceVector.length();
-
-		enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-
-		MoveDirection.z = enemySpeed;
-
-		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-
-		if (startDistance <= enemySpeed / 2500)
-		{
-			enemyNode->setPosition(startPosition);
-		}
-	}
-}
+//void Enemy::Move(const Ogre::FrameEvent& evt)
+//{
+//	GameManager& mgr = GameManager::GetSingleton();
+//
+//	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
+//
+//	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
+//
+//	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
+//	float distance = distanceVector.length();
+//
+//	if (distance <= aggroRange)
+//	{
+//		epm->updateStartAndEndPositions(enemyNode->getPosition(), target, enemyNumber);
+//		std::vector<Ogre::Vector3> route = epm->getRoute();
+//		
+//		if (route.size() > 0)
+//		{
+//			enemyNode->lookAt(route[0], Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+//		}
+//		else
+//		{
+//			enemyNode->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+//			Ogre::LogManager::getSingletonPtr()->logMessage("Route not found.");
+//		}
+//
+//		if (distance > attackRange)
+//		{
+//			MoveDirection.z = enemySpeed;
+//		}
+//		else
+//		{
+//			MoveDirection.z = -enemySpeed;
+//		}
+//		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+//	}
+//	else if (enemyNode->getPosition() != startPosition)
+//	{
+//		Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
+//		float startDistance = startDistanceVector.length();
+//
+//		enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
+//
+//		MoveDirection.z = enemySpeed;
+//
+//		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+//
+//		if (startDistance <= enemySpeed / 2500)
+//		{
+//			enemyNode->setPosition(startPosition);
+//		}
+//	}
+//}
 
 void Enemy::Die()
 {
