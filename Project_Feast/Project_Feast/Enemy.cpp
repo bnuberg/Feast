@@ -244,7 +244,7 @@ void Enemy::StartBleeding(int damage)
 	GameManager& mgr = GameManager::GetSingleton();
 	is_bleeding = true;
 	bleedTimer.reset();
-	bleedDamage = (damage / 2) / maxBleedTick;
+	bleedDamage = (damage) / maxBleedTick;
 	
 	if (bleedParticle == NULL){
 		bleedParticle = mgr.mSceneMgr->createParticleSystem("bleeded" + Ogre::StringConverter::toString(enemyID), "BleedParticle");
