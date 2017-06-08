@@ -38,12 +38,12 @@ void MainMenuScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWi
 	mTrayMgrMenu = new OgreBites::SdkTrayManager("MainMenu", mgr.mWindow, mInputContext, this);
 	mTrayMgrMenu->hideCursor();
 	mTrayMgrMenu->setListener(this);
-	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("MainMenu2", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-	material->getTechnique(0)->getPass(0)->createTextureUnitState("Hell.jpg");
+	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("MainMenu", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	material->getTechnique(0)->getPass(0)->createTextureUnitState("Krossroads.png");
 	material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
 	material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
 	material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
-	mTrayMgrMenu->showBackdrop("MainMenu2");
+	mTrayMgrMenu->showBackdrop("MainMenu");
 	gameName = mTrayMgrMenu->createLabel(OgreBites::TL_TOP, "Feast", "Feast", 100);
 	startLabel = mTrayMgrMenu->createLabel(OgreBites::TL_CENTER, "Start", "Press Enter to start", 200);
 
