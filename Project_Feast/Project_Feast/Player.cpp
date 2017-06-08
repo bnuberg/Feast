@@ -57,11 +57,11 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::SceneNode* cameraNode = entityNode->createChildSceneNode("CameraNode", cameraPosition);
 
 	// rocket arm target
-	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, -500);
+	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, -400);
 	rocketArmTargetNode = entityNode->createChildSceneNode("RocketArmTargetNode", rocketArmTargetOffset);
 
 	entityNode->translate(spawnPoint, Ogre::Node::TS_LOCAL);
-
+	equipment.arm.randDamage = 2;
 	exists = true;
 	timer_.reset();
 	dodge_timer_.reset();
