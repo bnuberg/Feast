@@ -35,6 +35,9 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
 	headNode->attachObject(headEntity);
 
+	playerHealthBarNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("playerHealthBarNode", startingPosition + Ogre::Vector3(0, 100, 0));
+	playerHealthbar.Init(playerHealthBarNode, startingPosition + Ogre::Vector3(0, 70, 0), mgr.mSceneMgr, 999);
+
 	leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
 	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
 	leftArmNode->attachObject(leftArmEntity);
@@ -211,8 +214,10 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true){
 	}
 
+	playerHealthbar.SetLength(health, maxHealth);
 	CheckLavaDrop(evt);
 	CheckHealth();
+
 
 	/*mgr.mSceneMgr->getSceneNode("TorsoNode")->yaw(0.05 * Ogre::Degree(sin(totalTime)));
 	mgr.mSceneMgr->getSceneNode("HeadNode")->yaw(0.2 * Ogre::Degree(sin(totalTime)));*/
@@ -357,6 +362,7 @@ void Player::ConvertMeattoHealth()
 	DecreaseMeat(10);
 	IncreaseHealth(10);
 }
+
 
 void Player::SetAttack()
 {
