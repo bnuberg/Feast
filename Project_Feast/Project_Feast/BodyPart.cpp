@@ -84,7 +84,7 @@ Ogre::Vector3 BodyPart::GetAbilityGlobalTarget()
 
 bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
 {
-	return moveType->Move(node, evt);
+	return moveType->Move(node, evt, equippedByEnemy);
 }
 
 bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, Ogre::String string)
@@ -95,7 +95,7 @@ bool BodyPart::AbilityUpdate(Ogre::SceneNode* node, const Ogre::FrameEvent& evt,
 		return moveType->MoveGlobal(node, evt);
 	}
 	else
-		return moveType->Move(node, evt);
+		return moveType->Move(node, evt, equippedByEnemy);
 }
 
 void BodyPart::AbilityDamage()

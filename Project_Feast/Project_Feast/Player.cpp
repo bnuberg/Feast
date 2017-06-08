@@ -74,83 +74,91 @@ void Player::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	// Get and set mouse information at the start of the update
-	OIS::MouseState ms = mgr.mInputManager.mMouse->getMouseState();
-	float currentX = ms.X.rel;
-
-	static Ogre::Real rotate = .13;
-
-	//Move ninja
-	Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
-
-	// Forwards and backwards
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_W))
-		dirVec.z -= move;
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
-		dirVec.z += move;
-
-	// Null check 
-	if (GetMeat() >= dodgeMeatCost)
-		ableToDodge = true;
-	else
-		ableToDodge = false;
-
-	//Sets the variable false after a set amount of time
-	if (timer_.getMilliseconds() >= dodge_cooldown_)
+	if (!isSmashing)
 	{
-		keyPressed = false;
-	}
+		// Get and set mouse information at the start of the update
+		OIS::MouseState ms = mgr.mInputManager.mMouse->getMouseState();
+		float currentX = ms.X.rel;
 
-	//Removes meat and executes dodge method when player has enough meat
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
-	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
-		{
-			timer_.reset();
-			dodge_timer_.reset();
-			dodgeLeft = true;
-			DecreaseMeat(dodgeMeatCost);
-			keyPressed = true;
-		}
+		static Ogre::Real rotate = .13;
 
+		//Move ninja
+		Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
+
+		// Forwards and backwards
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_W))
+			dirVec.z -= move;
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
+			dirVec.z += move;
+
+		// Null check 
+		if (GetMeat() >= dodgeMeatCost)
+			ableToDodge = true;
 		else
-			dirVec.x -= move;
-	}
+			ableToDodge = false;
 
-	//Dodges to the left side
-	if (dodgeLeft)
-	{
-		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		//Sets the variable false after a set amount of time
+		if (timer_.getMilliseconds() >= dodge_cooldown_)
 		{
-			dirVec.x -= move * 5;
-			dodgeRight = false;
-		}
-	}
-
-	//Removes meat and executes dodge method when player has enough meat
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
-		{
-			timer_.reset();
-			dodge_timer_.reset();
-			dodgeRight = true;
-			DecreaseMeat(dodgeMeatCost);
-			keyPressed = true;
+			keyPressed = false;
 		}
 
-		else
-			dirVec.x += move;
-	}
-
-	//Dodges to the right side
-	if (dodgeRight)
-	{
-		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+		//Removes meat and executes dodge method when player has enough meat
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 		{
-			dirVec.x += move * 5;
-			dodgeLeft = false;
+			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
+			{
+				timer_.reset();
+				dodge_timer_.reset();
+				dodgeLeft = true;
+				DecreaseMeat(dodgeMeatCost);
+				keyPressed = true;
+			}
+
+			else
+				dirVec.x -= move;
 		}
+
+		//Dodges to the left side
+		if (dodgeLeft)
+		{
+			if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+			{
+				dirVec.x -= move * 5;
+				dodgeRight = false;
+			}
+		}
+
+		//Removes meat and executes dodge method when player has enough meat
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
+		{
+			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
+			{
+				timer_.reset();
+				dodge_timer_.reset();
+				dodgeRight = true;
+				DecreaseMeat(dodgeMeatCost);
+				keyPressed = true;
+			}
+
+			else
+				dirVec.x += move;
+		}
+
+		//Dodges to the right side
+		if (dodgeRight)
+		{
+			if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+			{
+				dirVec.x += move * 5;
+				dodgeLeft = false;
+			}
+		}
+
+
+		// Rotate Player Yaw
+		entityNode->yaw(Ogre::Degree(-1 * currentX * rotate));
+		entityNode->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 	}
 
 	//Heals player when key is pressed and decreases meat
@@ -165,9 +173,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		meatToHealth = false;
 	}
 
-	// Rotate Player Yaw
-	entityNode->yaw(Ogre::Degree(-1 * currentX * rotate));
-	entityNode->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 
 	Pickup();
 	Discard();
