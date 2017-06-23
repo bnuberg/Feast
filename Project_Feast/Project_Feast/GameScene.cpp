@@ -1,23 +1,14 @@
 #include "GameScene.h"
-#include <OgreLight.h>
 #include "GameManager.h"
 #include <SdkCameraMan.h>
-
 #include <OgreViewport.h>
 #include <OgreEntity.h>
-#include <OgreMeshManager.h>
 #include "SoundManager.h"
 #include "Dungeon.h"
 
+GameScene::GameScene(){}
 
-GameScene::GameScene()
-{
-}
-
-
-GameScene::~GameScene()
-{
-}
+GameScene::~GameScene(){}
 
 void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow* mWindow)
 {
@@ -41,28 +32,17 @@ void GameScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow
 	materialLoader.LoadMaterials();
 	Dungeon* dungeon = new Dungeon(sceneManager);
 
-	// Create a player entity with the right mesh
-	Ogre::Entity* playerEntity = GameManager::getSingleton().mSceneMgr->createEntity("Hammermesh", "RightArm_Hammer.mesh");
-
-	// Add the node to the scene
-	Ogre::Vector3 startingPosition = Ogre::Vector3(1000, -200, 50);
-	Ogre::SceneNode* playerNode = sceneManager->getRootSceneNode()->createChildSceneNode("hammerarm", startingPosition);
-	playerNode->attachObject(playerEntity);
-
 	// Instantiate the player
 	mgr.player.Init(dungeon->GetPlayerSpawnPoint());
 
 	// Initialize the enemy manager
 	mgr.mEnemyManager.Init();
 
-	// Create an ambient light
-	sceneManager->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
-	Ogre::Light* light = sceneManager->createLight("MainLight");
-	light->setPosition(20, 80, 50);
-
 	// Bind the cameraman to the player
-	mgr.cameraMan->setTarget(sceneManager->getSceneNode("PlayerHeadNode"));
-	//mCameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(1.0472), Ogre::Real(500));
+	mgr.cameraMan->setTarget(sceneManager->getSceneNode("CameraNode"));
+	auto cameraNode = sceneManager->getSceneNode("CameraNode");
+	cameraNode->translate(0, 50, 10);
+	cameraNode->lookAt(Ogre::Vector3(0, -20, -40), Ogre::Node::TS_LOCAL);
 
 	mgr.ui.Init();
 }
@@ -72,9 +52,6 @@ void GameScene::Update()
 	GameManager& mgr = GameManager::getSingleton();
 
 	mgr.ui.ShowHud(mgr.player);
-	
-	//Ogre::Real dist = (mgr.mCamera->getPosition() - mCameraMan->getTarget()->_getDerivedPosition()).length();
-	//mCameraMan->setYawPitchDist(mgr.mCamera->getOrientation().getYaw(), Ogre::Radian(1.0472), dist);
-	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.349066), Ogre::Real(380));
+	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.2), Ogre::Real(680));
 }
 

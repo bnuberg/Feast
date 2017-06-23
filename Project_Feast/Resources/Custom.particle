@@ -84,3 +84,47 @@ particle_system SlowParticle
 		randomness	10
 	}
 }
+
+particle_system AttackWave
+{
+    material        Examples/Aureola
+    particle_width  2
+    particle_height 2
+    cull_each       false
+    quota           1
+    billboard_type  perpendicular_common
+    common_direction 0 1 0
+    common_up_vector 0 0 1
+
+    // Area emitter
+    emitter Box
+    {
+        angle           0
+        emission_rate   5000
+        time_to_live    4
+	duration	1
+        position        0 5 0
+        colour_range_start  1 1 1 0.0
+        colour_range_end    1 1 1 0.0
+        width           1
+        height          1
+        depth           3
+    }
+	
+	affector Scaler
+	{
+		rate 100
+	}
+
+    // Fader
+    affector ColourFader2
+    {
+        red1 +0.4
+        green1 +0.4
+        blue1 +0.4
+        alpha1 +0.7
+
+        state_change 3.5
+    }
+
+}

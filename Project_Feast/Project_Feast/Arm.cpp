@@ -1,12 +1,10 @@
 #include "Arm.h"
 #include "GameManager.h"
 
-
 Arm::Arm()
 {
-	mesh = "sphere.mesh";
-	tag = "Arm";
-	
+	mesh = "handRocket.mesh";
+	tag = "Arm";	
 }
 
 

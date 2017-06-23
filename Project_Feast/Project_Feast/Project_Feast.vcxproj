@@ -95,11 +95,12 @@
     <ClInclude Include="AbilityModifier.h" />
     <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GenerateBodyPart.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Healthbar.h" />
     <ClInclude Include="IAbilityAttack.h" />
     <ClInclude Include="AbilityAttackAOE.h" />
-    <ClInclude Include="AbilityInterface.h" />
     <ClInclude Include="AbilityMovement.h" />
     <ClInclude Include="Arm.h" />
     <ClInclude Include="BodyPart.h" />
@@ -113,7 +114,6 @@
     <ClInclude Include="EntityTest.h" />
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="GroundSmashArm.h" />
     <ClInclude Include="IAbilityMovement.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IScene.h" />
@@ -131,13 +131,11 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="RangedAttackArm.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbilityAttackAOE.cpp" />
-    <ClCompile Include="AbilityInterface.cpp" />
     <ClCompile Include="AbilityModifier.cpp" />
     <ClCompile Include="AbilityMovement.cpp" />
     <ClCompile Include="Arm.cpp" />
@@ -151,12 +149,13 @@
     <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityTest.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenerateBodyPart.cpp" />
     <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="GroundSmashArm.cpp" />
+    <ClCompile Include="Healthbar.cpp" />
     <ClCompile Include="IAbilityAttack.cpp" />
     <ClCompile Include="IAbilityMovement.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -174,7 +173,6 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="RangedAttackArm.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>

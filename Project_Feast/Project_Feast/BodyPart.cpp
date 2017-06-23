@@ -34,7 +34,7 @@ void BodyPart::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 	// Add the node to the scene
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
-	bodyPartNode->setScale(0.2, 0.2, 0.2);
+	bodyPartNode->setScale(5, 5, 5);
 	
 }
 
@@ -47,7 +47,7 @@ void BodyPart::Drop(Ogre::Vector3 position)
 	// Add the node to the scene
 	bodyPartNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode(position);
 	bodyPartNode->attachObject(bodyPartEntity);
-	bodyPartNode->setScale(0.2, 0.2, 0.2);
+	bodyPartNode->setScale(5, 5, 5);
 	
 	common = Ogre::MaterialManager::getSingleton().create("Common", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 	commonPass = common->getTechnique(0)->getPass(0);
@@ -102,7 +102,7 @@ void BodyPart::AbilityDamage()
 {
 	if (equippedByEnemy)
 	{
-		attackType->AttackEnemy(globalTarget, randDamage);
+		attackType->AttackEnemy(globalTarget, randDamage, enemyID);
 
 	}
 	else

@@ -27,7 +27,7 @@ SoundManager& SoundManager::GetSingleton(void)
 *	@param fileName is the name
 *	@param loop is if the sound should loop
 */
-void SoundManager::PlaySound(char* fileName, bool loop)
+void SoundManager::PlaySound(char* fileName, bool loop) const
 {
 	char result[100];
 	strcpy(result, path);
@@ -41,7 +41,7 @@ void SoundManager::PlaySound(char* fileName, bool loop)
 *	@param loop is if the sound should loop
 *	@param effect the sound effect you want on the soundclip
 */
-void SoundManager::PlaySoundWithEffect(char* fileName, bool loop, Effects effect)
+void SoundManager::PlaySoundWithEffect(char* fileName, bool loop, Effects effect) const
 {
 	char result[100];
 	strcpy(result, path);

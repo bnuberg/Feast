@@ -35,6 +35,7 @@ public:
 	int randSpeed;
 	int type;
 	bool equippedByEnemy;
+	int enemyID;
 	IAbilityMovement *moveType;
 	IAbilityAttack *attackType;
 	Ogre::Pass* commonPass;

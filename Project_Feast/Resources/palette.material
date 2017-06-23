@@ -1,5 +1,3 @@
-// palette genrated by blender2ogre 0.6.0
-
 material palette 
 {
     receive_shadows on 
@@ -32,7 +30,7 @@ material palette
 
             texture_unit 
             {
-                texture arena.png
+                texture palette.png
                 tex_address_mode wrap
                 scale 1.0 1.0
                 colour_op modulate

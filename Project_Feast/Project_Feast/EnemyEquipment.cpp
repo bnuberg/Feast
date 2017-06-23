@@ -47,44 +47,21 @@ void EnemyEquipment::AssignRandomBodypart()
 	attackspeed = arm.randAttackSpeed;
 	damage = arm.randDamage;
 
-	/*Ogre::LogManager::getSingletonPtr()->logMessage("enemy attackspeed" +std::to_string(arm.randAttackSpeed));
-	if (arm.type == 0)
+	switch (modifier)
 	{
-		arm.mesh = "cube.mesh";
-		attackspeed = arm.randAttackSpeed;
-		damage = arm.randDamage;
-		enemyBodypart = "groundSmash";
+	case 0:
+		break;
+	case 1:
+		ModifierParticle = mgr.mSceneMgr->createParticleSystem("bleed" + Ogre::StringConverter::toString(enemyID) + "1", "BleedParticle");
+		break;
+	case 2:
+		ModifierParticle = mgr.mSceneMgr->createParticleSystem("slow" + Ogre::StringConverter::toString(enemyID) + "1", "SlowParticle");
+		break;
+	case 3:
+		break;
+	default:
+		break;
 	}
-
-	else
-	{
-		arm.mesh = "sphere.mesh";
-		attackspeed = arm.randAttackSpeed;
-		damage = arm.randDamage;
-		enemyBodypart = "rangedAttack";
-	}
-*/
-
-
-
-
-	/*Ogre::String bodypartName;
-
-	float bodypartToSpawn = Ogre::Math::RangeRandom(0, 2);
-
-	if (bodypartToSpawn < 1)// set bodypart to groundstomp
-	{
-		//bodypartName = "sphere.mesh";
-		arm.mesh = "cube.mesh";
-		enemyBodypart = "groundSmash";
-	}
-
-	else//set bodypart to rangeattack
-	{
-		//bodypartName = "cube.mesh";
-		arm.mesh = "sphere.mesh";
-		enemyBodypart = "rangedAttack";
-	}*/
 
 }
 
