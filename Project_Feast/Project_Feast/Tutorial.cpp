@@ -19,8 +19,9 @@ void Tutorial::Init()
 void Tutorial::Update()
 {
 	GameManager& mgr = GameManager::getSingleton();
-
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && tutorialPart == 1)
+	auto ms = mgr.mInputManager.mMouse->getMouseState();
+	
+	if (ms.buttonDown(OIS::MB_Left) && tutorialPart == 1)
 	{
 		tutorialPart = 2;
 	}
