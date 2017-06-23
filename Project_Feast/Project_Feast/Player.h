@@ -53,10 +53,10 @@ private:
 	bool ableToHeal;
 
 	bool keyPressed = false;
-	bool dodgeLeft = false;
-	bool dodgeRight = false;
 	bool ableToDodge = false;
 	bool CanPickUp = true;
+
+	Ogre::Vector3 dodgeDirection;
 
 	float meat;
 	float dodgeMeatCost = 5;

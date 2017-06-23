@@ -91,14 +91,15 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		// Forwards and backwards
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_W))
 			dirVec.z -= move;
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
+		else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
 			dirVec.z += move;
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
+			dirVec.x -= move;
+		else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
+			dirVec.x += move;
 
 		// Null check 
-		if (GetMeat() >= dodgeMeatCost)
-			ableToDodge = true;
-		else
-			ableToDodge = false;
+		ableToDodge = GetMeat() >= dodgeMeatCost ? true : false;
 
 		//Sets the variable false after a set amount of time
 		if (timer_.getMilliseconds() >= dodge_cooldown_)
@@ -106,58 +107,19 @@ void Player::Update(const Ogre::FrameEvent& evt)
 			keyPressed = false;
 		}
 
-		//Removes meat and executes dodge method when player has enough meat
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge) && !dirVec.isZeroLength())
 		{
-			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge))
-			{
-				timer_.reset();
-				dodge_timer_.reset();
-				dodgeLeft = true;
-				DecreaseMeat(dodgeMeatCost);
-				keyPressed = true;
-			}
-
-			else
-				dirVec.x -= move;
+			timer_.reset();
+			dodge_timer_.reset();
+			DecreaseMeat(dodgeMeatCost);
+			dodgeDirection = dirVec.normalisedCopy();
+			keyPressed = true;
 		}
 
-		//Dodges to the left side
-		if (dodgeLeft)
+		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
 		{
-			if (dodge_timer_.getMilliseconds() <= move_cooldown_)
-			{
-				dirVec.x -= move * 5;
-				dodgeRight = false;
-			}
+			dirVec += 1000 * dodgeDirection;
 		}
-
-		//Removes meat and executes dodge method when player has enough meat
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-		{
-			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge))
-			{
-				timer_.reset();
-				dodge_timer_.reset();
-				dodgeRight = true;
-				DecreaseMeat(dodgeMeatCost);
-				keyPressed = true;
-			}
-
-			else
-				dirVec.x += move;
-		}
-
-		//Dodges to the right side
-		if (dodgeRight)
-		{
-			if (dodge_timer_.getMilliseconds() <= move_cooldown_)
-			{
-				dirVec.x += move * 5;
-				dodgeLeft = false;
-			}
-		}
-
 
 		// Rotate Player Yaw
 		entityNode->yaw(Ogre::Degree(-1 * currentX * rotate));
