@@ -17,7 +17,7 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
-	
+
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetMaxHealth(100);
@@ -76,11 +76,11 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 void Player::Update(const Ogre::FrameEvent& evt)
 {
 	GameManager& mgr = GameManager::getSingleton();
+	OIS::MouseState ms = mgr.mInputManager.mMouse->getMouseState();
 
 	if (!isSmashing)
 	{
 		// Get and set mouse information at the start of the update
-		OIS::MouseState ms = mgr.mInputManager.mMouse->getMouseState();
 		float currentX = ms.X.rel;
 
 		static Ogre::Real rotate = .13;
@@ -109,7 +109,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		//Removes meat and executes dodge method when player has enough meat
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
 		{
-			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
+			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge))
 			{
 				timer_.reset();
 				dodge_timer_.reset();
@@ -135,7 +135,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 		//Removes meat and executes dodge method when player has enough meat
 		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
 		{
-			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT) && (!keyPressed) && (ableToDodge))
+			if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge))
 			{
 				timer_.reset();
 				dodge_timer_.reset();
@@ -181,7 +181,7 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	Discard();
 
 	// Execute attack
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
+	if (ms.buttonDown(OIS::MB_Left))
 	{
 		InitiateAbility();
 	}
@@ -276,7 +276,7 @@ void Player::ChangeArmModifier(int modifier)
 		break;
 	}
 
-	
+
 }
 
 void Player::InitiateAbility()
@@ -383,7 +383,7 @@ void Player::SetSpeed()
 void Player::Pickup()
 {
 	GameManager& mgr = GameManager::getSingleton();
-	
+
 	playerPosition = entityNode->getPosition();
 	mgr.mBodyPartManager.IterateBodyParts(playerPosition, 200);
 

@@ -47,8 +47,8 @@ void UI::Init()
 	mLabel = mTrayMgr->createLabel(OgreBites::TL_CENTER, "Text", "Press 'E' to interact", 200);
 	mLabel->hide();
 
-	mTutorialLabel1 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel1", "Press space to attack", 250);
-	mTutorialLabel2 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel2", "Use shift + 'a' or 'd' to dash", 300);
+	mTutorialLabel1 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel1", "Press LMB to attack", 250);
+	mTutorialLabel2 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel2", "Use space + 'a' or 'd' to dash", 300);
 	mTutorialLabel3 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel3", "You've been damaged, use 'f' to heal", 350);
 	mTutorialLabel4 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel4", "An enemy has spawned, attack him", 330);
 	mTutorialLabel5 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel5", "The first wave will spawn in a few seconds, get ready!", 500);

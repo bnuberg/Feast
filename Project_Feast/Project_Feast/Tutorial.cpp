@@ -32,7 +32,7 @@ void Tutorial::Update()
 
 	if ((mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A) || mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D)) && tutorialPart == 2)
 	{
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_LSHIFT))
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE))
 		{
 			tutorialPart = 3;
 			mgr.player.DecreaseHealth(9);
