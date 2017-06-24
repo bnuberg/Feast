@@ -4,6 +4,7 @@
 
 
 BodyPartManager::BodyPartManager()
+	:despawnMax(3000)
 {
 }
 
@@ -120,6 +121,27 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 		else
 		{
 			++b;
+		}
+	}
+}
+
+void BodyPartManager::DespawnBodyparts()
+{
+	EnemyManager enemyManager;
+
+	if (despawnTimer.getMilliseconds() >= despawnMax)
+	{
+		std::vector<BodyPart>::iterator b = bodyPartsList.begin();
+		while (b != bodyPartsList.end())
+		{
+			enemyManager.SpawnMeat(b->bodyPartNode->getPosition());
+			b->bodyPartNode->detachAllObjects();
+			b = bodyPartsList.erase(b++);
+		}
+
+		if (b == bodyPartsList.end())
+		{
+			despawnActive = false;
 		}
 	}
 }
