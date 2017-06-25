@@ -38,18 +38,6 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Rarity.cpp" />
     <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="RangedAttackArm.cpp" />
-    <ClCompile Include="UI.cpp" />
-    <ClCompile Include="GenerateBodyPart.cpp" />
-    <ClCompile Include="IAbilityMovement.cpp" />
-    <ClCompile Include="Dungeon.cpp" />
-    <ClCompile Include="EnemyAI.cpp" />
-    <ClCompile Include="Grid.cpp" />
-    <ClInclude Include="EnemyAI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClCompile Include="AbilityModifier.cpp" />
-    <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -93,29 +81,8 @@
     <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="RangedAttackArm.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="GenerateBodyPart.h" />
-    <ClInclude Include="IAbilityMovement.h" />
-    <ClInclude Include="Dungeon.h" />
-    <ClInclude Include="EnemyAI.h" />
-    <ClInclude Include="Grid.h" />
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Entity.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="MinimalOgre.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyPatternManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClInclude Include="AbilityModifier.h" />
-    <ClInclude Include="DamageOverTime.h" />
-    <ClInclude Include="Tutorial.h" />
-    <ClInclude Include="Rarity.h" />
-    <ClInclude Include="MaterialLoader.h" />
-    <ClCompile Include="EnemyAI.cpp">
   </ItemGroup>
 </Project>

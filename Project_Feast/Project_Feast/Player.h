@@ -15,7 +15,6 @@ public:
 	~Player();
 	void Init(Ogre::Vector3 spawnPoint = Ogre::Vector3(0, 0, 0));
 	void Update(const Ogre::FrameEvent& evt);
-	void Win();
 
 	// Meat functions
 	float GetMeat() const;
@@ -30,6 +29,7 @@ public:
 	void Discard();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
+	void ChangeArmModifier(int modifier);
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
@@ -38,6 +38,7 @@ public:
 	int playerAttackSpeed;
 	int attack = 0;
 
+	bool isSmashing = false;
 	bool exists = false;
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;

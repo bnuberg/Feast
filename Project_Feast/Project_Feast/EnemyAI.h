@@ -3,6 +3,7 @@
 #include <OgreVector3.h>
 #include <OgreFrameListener.h>
 #include <OgreTimer.h>
+#include "Arm.h"
 
 class EnemyAI
 {
@@ -43,7 +44,7 @@ private:
 	float setEnemySpeed();
 
 	Ogre::Vector3 EnemyTarget();
-
+	
 	void IdleState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
 	void AggroState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);
 	void AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirection, Ogre::SceneNode* enemyNode);

@@ -40,9 +40,10 @@ public:
 	void Knockback();
 	void Die();
 
-	Ogre::Vector3 startPosition;
 	bool is_dead_ = false;
 	bool is_dead2_ = false;
+	bool is_bleeding = false;
+	bool is_slowed = false;
 	Ogre::Entity* enemyEntity;
 	Ogre::SceneNode* enemyNode;
 	EnemyEquipment enemyEquipment;
@@ -56,7 +57,6 @@ public:
 	Healthbar healthbar;
 	int bleedTick;
 	int maxBleedTick;
-
 
 private:
 	Ogre::Timer timer_;
@@ -108,6 +108,7 @@ private:
 	void InitiateAbility();
 	void InitiateSmash();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
+	void Debuff();
 
 	const float shoulderHeight = 55;
 

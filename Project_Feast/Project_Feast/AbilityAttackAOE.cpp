@@ -33,11 +33,6 @@ void AbilityAttackAOE::AttackEnemy(Ogre::Vector3 target, int damage, int enemyID
 {
 	GameManager& mgr = GameManager::getSingleton();
 
-	Ogre::LogManager::getSingletonPtr()->logMessage("AbilityAttackAOE.cpp target");
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.x));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.y));
-	Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(target.z));
-
 	Ogre::SceneNode* playerNode = mgr.mSceneMgr->getSceneNode("PlayerNode");
 
 	// Calculate the distance between the attack target and the player location

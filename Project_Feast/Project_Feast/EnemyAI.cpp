@@ -6,6 +6,7 @@
 #include "BodyPart.h"
 #include "EnemyPatternManager.h"
 #include <OgreLogManager.h>
+#include <random>
 
 /*
 We have chosen to split up the enemy class into enemy and enemyAI because the code related to movement and AI kept growing and growing and this way the code is easier to oversee.
@@ -31,6 +32,7 @@ void EnemyAI::Init()
 	setAttackR();
 	setEnemySpeed();
 	timer_.reset();
+	dodgeTimer.reset();
 }
 
 void EnemyAI::Update(const Ogre::FrameEvent& evt)
@@ -58,6 +60,7 @@ void EnemyAI::StateSelecter(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyN
 	GameManager& mgr = GameManager::GetSingleton();
 	Ogre::Vector3 MoveDirection (0, 0, 0);
 
+	
 	// When the distance to the player is less than the aggro range it will aggro
 	if (DistanceToPlayer(enemyNode).length() <= aggroRange)
 	{
@@ -100,7 +103,6 @@ void EnemyAI::AttackState(const Ogre::FrameEvent& evt, Ogre::Vector3 MoveDirecti
 		return;
 	}
 	MoveDirection.z = -enemySpeed;
-
 	enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 }
 //Idle state so the enemy will walk back to spawn when it's too far from the player.

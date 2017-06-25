@@ -108,7 +108,6 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyAI.h" />
-    <ClInclude Include="EnemyEquipment.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemyPatternManager.h" />
     <ClInclude Include="EntityTest.h" />
@@ -146,7 +145,6 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
-    <ClCompile Include="EnemyEquipment.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemyPatternManager.cpp" />
     <ClCompile Include="Entity.cpp" />

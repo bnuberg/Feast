@@ -20,7 +20,11 @@ Enemy::Enemy()
 	attackTimer(2000),
 	is_dead_(false),
 	is_dead2_(false),
-	scale(1)
+	scale(1),
+	bleedTick(0),
+	maxBleedTick(5),
+	bleed_Timer_Max(1000),
+	slow_Timer_Max(5000)
 {
 	health = 10;
 	maxHealth = 0;
@@ -41,7 +45,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init()
+void Enemy::Init(int lvl)
 {
 	GameManager& mgr = GameManager::GetSingleton();
 

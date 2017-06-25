@@ -2,8 +2,8 @@
 #include "BodyPart.h"
 #include "Arm.h"
 #include "Rarity.h"
-
-
+#include "AbilityModifier.h"
+#include "Matth.h"
 enum AttackTypeEnum
 {
 	GroundSmash,
@@ -24,12 +24,16 @@ public:
 	void SetMovementTemplates();
 	void SetModifier();
 	void Combine();
-	Arm Generate();
+	Arm Generate(int level);
 	AttackTypeEnum attackTypeEnum;
 	MovementTypeEnum movementTypeEnum;
 	Arm arm;
+	AbilityModifier abilityModifier;
 	int type;
 	Rarity rarity;
-	
+private:
+	int level = 0;
+	Matth matth;
+
 };
 

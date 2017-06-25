@@ -271,7 +271,7 @@ void Player::InitiateAbility()
 void Player::Die()
 {
 	// TODO: restart application/scene
-	if (!hasDied && !hasWon)
+	if (!hasDied)
 	{
 		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
@@ -357,9 +357,8 @@ void Player::Pickup()
 
 		if (bodypart.tag == "Arm")
 		{
-
 			equipment.EquipArm();
-			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed);
+			equipment.setPlayerArmStats(bodypart.randDamage, bodypart.randAttackSpeed, bodypart.randModifier);
 			equipment.arm.r = bodypart.r;
 			equipment.arm.g = bodypart.g;
 			equipment.arm.b = bodypart.b;
@@ -368,11 +367,13 @@ void Player::Pickup()
 			if (bodypart.type == 1)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
+				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 1;
 			}
 			else if (bodypart.type == 0)
 			{
 				ChangeRightArmMesh(bodypart.mesh);
+				ChangeArmModifier(bodypart.randModifier);
 				equipment.arm.type = 0;
 
 			}
@@ -398,43 +399,4 @@ void Player::Pickup()
 
 void Player::Discard()
 {
-	GameManager& mgr = GameManager::getSingleton();
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F))
-	{
-		equipment.DiscardArm(5, 2);
-		attack = 0;
-		ChangeRightArmMesh("cube.mesh");
-	}
-	else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_T))
-	{
-		equipment.DiscardLeg(50);
-	}
-}
-
-void Player::Win()
-{
-	if(!hasWon && !hasDied)
-	{
-		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("WinScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-		material->getTechnique(0)->getPass(0)->createTextureUnitState("Win.png");
-		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
-		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
-		material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
-
-		Ogre::Rectangle2D* rect = new Ogre::Rectangle2D(true);
-		rect->setCorners(-1.0f, 1.0f, 1.0f, -1.0f);
-		rect->setMaterial("WinScreen");
-		rect->setRenderQueueGroup(Ogre::RENDER_QUEUE_MAX);
-		rect->setBoundingBox(Ogre::AxisAlignedBox(-100000.0*Ogre::Vector3::UNIT_SCALE, 100000.0*Ogre::Vector3::UNIT_SCALE));
-
-		Ogre::AxisAlignedBox aabInf;
-		aabInf.setInfinite();
-		rect->setBoundingBox(aabInf);
-
-		GameManager& mgr = GameManager::getSingleton();
-		auto m_pSceneMgr = mgr.mSceneMgr;
-		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("WinScreen");
-		node->attachObject(rect);
-	}
-	hasWon = true;
 }
