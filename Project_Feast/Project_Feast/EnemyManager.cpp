@@ -100,17 +100,20 @@ int EnemyManager::GetEnemyCount()
 void EnemyManager::SpawnWave()
 {
 	waveCount++;
+	int enemyCount = waveCount + 1;
+	if (enemyCount > numberOfEnemies)
+		enemyCount = numberOfEnemies;
 
-	for (int i = 0; i < numberOfEnemies; i++)
+	for (int i = 0; i < enemyCount; i++)
 	{
-		enemyLevels[i] = SetLevel();
+		SpawnEnemy(enemySpawnPoints[i], SetLevel());
 	}
 
-	int i = 0;
+	/*int i = 0;
 	for each (Ogre::Vector3 position in enemySpawnPoints)
 	{
 		SpawnEnemy(position, enemyLevels[i++]);
-	}
+	}*/
 
 	waveAliveTimer.reset();
 	isWaveAlive = true;
