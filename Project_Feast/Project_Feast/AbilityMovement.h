@@ -14,7 +14,7 @@ public:
 	void SetGlobalTarget(Ogre::Vector3 globalTarget) override;
 	Ogre::Vector3 GetTarget() override;
 	Ogre::Vector3 GetGlobalTarget() override;
-	bool Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt) override;
+	bool Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, bool equipped) override;
 	bool MoveGlobal(Ogre::SceneNode* node, const Ogre::FrameEvent& evt) override;
 private:
 	Ogre::Vector3 target;
