@@ -27,6 +27,7 @@ public:
 	void SpawnLightEnemy(Ogre::Vector3 position, int level);
 	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
 	void DamageEnemies();
+	void SpawnMeat(Ogre::Vector3 position);
 	int SetLevel();
 	int RandomPercent();
 
