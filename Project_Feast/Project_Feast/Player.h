@@ -23,7 +23,7 @@ public:
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
 	void ConvertMeattoHealth();
-
+	void SetHealth();
 	void SetAttack();
 	void SetSpeed();
 	void Pickup();
@@ -52,10 +52,10 @@ private:
 	bool ableToHeal;
 
 	bool keyPressed = false;
-	bool dodgeLeft = false;
-	bool dodgeRight = false;
 	bool ableToDodge = false;
 	bool CanPickUp = true;
+
+	Ogre::Vector3 dodgeDirection;
 
 	float meat;
 	float dodgeMeatCost = 5;
@@ -68,6 +68,7 @@ private:
 	Ogre::SceneNode* torsoNode;
 	const char* torsoMeshName = "torso.mesh";
 	const Ogre::Vector3 torsoSocketPosition = Ogre::Vector3(0, 25, 0);
+	Ogre::SceneNode* playerHealthBarNode;
 
 	Ogre::SceneNode* headNode;
 	const char* headMeshName = "head.mesh";

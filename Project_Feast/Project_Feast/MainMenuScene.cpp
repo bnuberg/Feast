@@ -1,7 +1,7 @@
 #include "MainMenuScene.h"
 #include <OgreLight.h>
 #include <SdkCameraMan.h>
-
+#include "LevelLoader.h"
 
 
 MainMenuScene::MainMenuScene()
@@ -16,6 +16,7 @@ MainMenuScene::~MainMenuScene()
 void MainMenuScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow* mWindow)
 {
 	GameManager& mgr = GameManager::getSingleton();
+
 	mainCamera->CameraInstance();
 
 	mgr.cameraMan = new OgreBites::SdkCameraMan(mgr.mCamera);   // create a default camera controller
@@ -31,14 +32,27 @@ void MainMenuScene::CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWi
 	Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
-	
-	// Create an ambient light
-	sceneManager->setAmbientLight(Ogre::ColourValue(.5, .5, .5));
-	Ogre::Light* light = sceneManager->createLight("MainLight");
-	light->setPosition(20, 80, 50);
-	
+	mInputContext.mKeyboard = mgr.mInputManager.mKeyboard;
+	mInputContext.mMouse = mgr.mInputManager.mMouse;
+
+	mTrayMgrMenu = new OgreBites::SdkTrayManager("MainMenu", mgr.mWindow, mInputContext, this);
+	mTrayMgrMenu->hideCursor();
+	mTrayMgrMenu->setListener(this);
+	Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("MainMenu", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	material->getTechnique(0)->getPass(0)->createTextureUnitState("Krossroads.png");
+	material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+	material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+	material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+	mTrayMgrMenu->showBackdrop("MainMenu");
+	gameName = mTrayMgrMenu->createLabel(OgreBites::TL_TOP, "Feast", "Feast", 100);
+	startLabel = mTrayMgrMenu->createLabel(OgreBites::TL_CENTER, "Start", "Press Enter to start", 200);
+
 }
 
 void MainMenuScene::Update()
 {
+	
 }
+
+
+

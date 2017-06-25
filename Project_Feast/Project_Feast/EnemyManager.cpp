@@ -12,6 +12,7 @@ EnemyManager::EnemyManager()
 	enemySpawnPoints[2] = Ogre::Vector3(-1500, 0, 0);
 	enemySpawnPoints[3] = Ogre::Vector3(300, 0, -1200);
 	enemySpawnPoints[4] = Ogre::Vector3(-300, 0, -1200);
+	//BodyPartManager bodyPartManager;
 }
 
 EnemyManager::~EnemyManager()
@@ -37,11 +38,18 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	else
 	{
 	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+
 	if (enemy_list_.size() <= 0 && isWaveAlive)
 	{
 		isWaveAlive = false;
+		mgr.mBodyPartManager.despawnTimer.reset();
+		mgr.mBodyPartManager.despawnActive = true;
 		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
 		timer_.reset();
+	}
+	if (mgr.mBodyPartManager.despawnActive)
+	{
+		mgr.mBodyPartManager.DespawnBodyparts();
 	}
 
 	if (isWaveAlive)
@@ -65,9 +73,8 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		if (e->is_dead_ && !e->is_dead2_)
 		{
 			// Spawn meat
-			Meat meat;
-			meat.Spawn(e->enemyNode->getPosition());
-			meatList.push_back(meat);
+			SpawnMeat(e->enemyNode->getPosition());
+			
 
 			// Spawn bodypart
 			mgr.mBodyPartManager.DropArm(e->enemyNode->getPosition(), e->enemyEquipment.arm);
@@ -83,6 +90,13 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	}
 }
 
+void EnemyManager::SpawnMeat(Ogre::Vector3 position)
+{
+	Meat meat;
+	meat.Spawn(position);
+	meatList.push_back(meat);
+}
+
 int EnemyManager::GetEnemyCount()
 {
 	return enemy_list_.size();
@@ -93,17 +107,20 @@ int EnemyManager::GetEnemyCount()
 void EnemyManager::SpawnWave()
 {
 	waveCount++;
+	int enemyCount = waveCount + 1;
+	if (enemyCount > numberOfEnemies)
+		enemyCount = numberOfEnemies;
 
-	for (int i = 0; i < numberOfEnemies; i++)
+	for (int i = 0; i < enemyCount; i++)
 	{
-		enemyLevels[i] = SetLevel();
+		SpawnEnemy(enemySpawnPoints[i], SetLevel());
 	}
 
-	int i = 0;
+	/*int i = 0;
 	for each (Ogre::Vector3 position in enemySpawnPoints)
 	{
-		SpawnEnemy(position);
-	}
+		SpawnEnemy(position, enemyLevels[i++]);
+	}*/
 
 	waveAliveTimer.reset();
 	waveCount++;

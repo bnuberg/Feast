@@ -15,7 +15,7 @@ LevelLoader::~LevelLoader()
 
 void LevelLoader::InitLevelLoader()
 {
-	sceneEnum = SceneEnum::Level1;
+	sceneEnum = SceneEnum::MainMenu;
 }
 
 void LevelLoader::LoadScene()
@@ -45,25 +45,32 @@ void LevelLoader::InitMainMenuScene()
 
 void LevelLoader::InitScene2()
 {
+
 	sceneEnum = SceneEnum::Level1;
 }
 
 void LevelLoader::UpdateScene()
 {
 	GameManager& mgr = GameManager::getSingleton();
-	switch (sceneEnum)
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_RETURN) && sceneEnum == MainMenu)
 	{
-		case MainMenu:
-		{
-			break;
-		}
-		case Level1:
-		{
-			gameScene.Update();
-			break;
-		}
+		MainMenuScene.startLabel = 0;
+		delete MainMenuScene.mTrayMgrMenu;
+		MainMenuScene.mTrayMgrMenu = 0;
+		sceneEnum = Level1;
+		LoadScene();
 
 	}
+	if (sceneEnum == MainMenu)
+	{
+		MainMenuScene.Update();
+	}
+	else if (sceneEnum == Level1)
+	{
+		/*Ogre::LogManager::getSingletonPtr()->logMessage("Update this");*/
+		gameScene.Update();
+	}
+	
 }
 
 

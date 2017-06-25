@@ -6,14 +6,18 @@
 
 
 
-class MainMenuScene: IScene
+class MainMenuScene : IScene, OgreBites::SdkTrayListener
 {
 public:
 	MainMenuScene();
 	~MainMenuScene();
-	MainCamera* mainCamera;
-	
 	void CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow* mWindow) override;
 	void Update();
+
+	MainCamera* mainCamera;
+	OgreBites::SdkTrayManager* mTrayMgrMenu;
+	OgreBites::InputContext mInputContext;
+	OgreBites::Label* gameName;
+	OgreBites::Label* startLabel;
 };
 

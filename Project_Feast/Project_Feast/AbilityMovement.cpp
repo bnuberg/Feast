@@ -30,13 +30,19 @@ Ogre::Vector3 AbilityMovement::GetGlobalTarget()
 	return globalTarget;
 }
 
-bool AbilityMovement::Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt)
+bool AbilityMovement::Move(Ogre::SceneNode* node, const Ogre::FrameEvent& evt, bool equipped)
 {
 	Ogre::Vector3 distanceVector = target - node->getPosition();
 	float distance = distanceVector.length();
-	float movementSpeed = 400;
+	
+	float movementSpeed = 800;
 
-	if (distance <= movementSpeed / 100)
+	if (equipped)
+	{
+		movementSpeed = 500;
+	}
+
+	if (distance <= movementSpeed / 50)
 	{
 		node->setPosition(target);
 		return true;

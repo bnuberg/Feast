@@ -176,7 +176,7 @@ void EnemyAI::enemyDodge(const Ogre::FrameEvent& evt, Ogre::SceneNode* enemyNode
 	//This method executes the dodge for a set amount 
 		if (dodgeTimer.getMilliseconds() < dodgeTime)
 		{
-			MoveDirection.z = -enemySpeed * 15;
+			MoveDirection.z = -enemySpeed * 8;
 			enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 		}
 		else

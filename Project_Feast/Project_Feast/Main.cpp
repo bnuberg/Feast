@@ -103,15 +103,17 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 	//Need to capture/update each device
 	mgr.mInputManager.mKeyboard->capture();
-	mgr.mInputManager.mMouse->capture();	
-	mgr.mEnemyManager.Update(evt);
-	mgr.ui.mTrayMgr->frameRenderingQueued(evt);
-
+	mgr.mInputManager.mMouse->capture();
+	if (levelLoader.sceneEnum == Level1){
+		mgr.mEnemyManager.Update(evt);
+		mgr.ui.mTrayMgr->frameRenderingQueued(evt);
+	}
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 	if (!processUnbufferedInput(evt))
 		return false;
 	levelLoader.UpdateScene();
+	
 	/*mCameraMan->frameRenderingQueued(evt);*/
 	return true;
 }
