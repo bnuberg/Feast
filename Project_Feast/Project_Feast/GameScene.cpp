@@ -54,5 +54,6 @@ void GameScene::Update()
 	/*Ogre::LogManager::getSingletonPtr()->logMessage("Update this");*/
 	mgr.ui.ShowHud(mgr.player);
 	mgr.cameraMan->setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.1), Ogre::Real(680));
+	
 }
 

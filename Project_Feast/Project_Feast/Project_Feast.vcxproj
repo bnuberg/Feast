@@ -94,6 +94,7 @@
   <ItemGroup>
     <ClInclude Include="AbilityModifier.h" />
     <ClInclude Include="DamageOverTime.h" />
+    <ClInclude Include="DeathScene.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GenerateBodyPart.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
     <ClCompile Include="DamageOverTime.cpp" />
+    <ClCompile Include="DeathScene.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyEquipment.cpp" />

@@ -32,6 +32,11 @@ void LevelLoader::LoadScene()
 			gameScene.CreateScene(mgr.mSceneMgr, mgr.mWindow);
 			break;
 		}
+	case DeathScreen:
+		{
+			deathScene.CreateScene(mgr.mSceneMgr, mgr.mWindow);
+			break;
+		}
 	
 	}
 
@@ -69,6 +74,10 @@ void LevelLoader::UpdateScene()
 	{
 		/*Ogre::LogManager::getSingletonPtr()->logMessage("Update this");*/
 		gameScene.Update();
+	}
+	else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_RETURN) && sceneEnum == DeathScreen)
+	{
+		mgr.reset = true;
 	}
 	
 }

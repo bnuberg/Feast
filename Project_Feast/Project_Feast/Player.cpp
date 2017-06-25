@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "GameManager.h"
 #include "SoundManager.h"
+#include "LevelLoader.h"
 
 Player::Player()
 :dodge_cooldown_(800),
@@ -273,7 +274,9 @@ void Player::Die()
 	// TODO: restart application/scene
 	if (!hasDied)
 	{
-		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		LevelLoader levelLoader;
+		levelLoader.sceneEnum = DeathScreen;
+		/*Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
 		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
 		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
@@ -292,7 +295,7 @@ void Player::Die()
 		GameManager& mgr = GameManager::getSingleton();
 		auto m_pSceneMgr = mgr.mSceneMgr;
 		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("DeathScreen");
-		node->attachObject(rect);
+		node->attachObject(rect);*/
 	}
 	hasDied = true;
 }
