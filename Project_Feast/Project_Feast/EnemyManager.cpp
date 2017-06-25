@@ -13,7 +13,7 @@ EnemyManager::EnemyManager()
 	enemySpawnPoints[2] = Ogre::Vector3(-1500, 0, 0);
 	enemySpawnPoints[3] = Ogre::Vector3(300, 0, -1200);
 	enemySpawnPoints[4] = Ogre::Vector3(-300, 0, -1200);
-	BodyPartManager bodyPartManager;
+	//BodyPartManager bodyPartManager;
 }
 
 EnemyManager::~EnemyManager()
