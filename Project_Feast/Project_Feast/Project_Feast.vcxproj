@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A1C33975-9B35-445C-84A1-C8D99697C90C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Project_Feast</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\irrKlang\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\irrKlang\lib\Win32-visualStudio;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost;$(OGRE_HOME)\include\OGRE\Overlay;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(OGRE_HOME)\lib\$(Configuration);$(OGRE_HOME)\boost\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;OgreOverlay_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost;$(OGRE_HOME)\include\OGRE\Overlay;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(OGRE_HOME)\lib\$(Configuration);$(OGRE_HOME)\boost\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;OIS.lib;OgreOverlay.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AbilityModifier.h" />
+    <ClInclude Include="DamageOverTime.h" />
+    <ClInclude Include="DeathScene.h" />
+    <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="GenerateBodyPart.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Healthbar.h" />
+    <ClInclude Include="IAbilityAttack.h" />
+    <ClInclude Include="AbilityAttackAOE.h" />
+    <ClInclude Include="AbilityMovement.h" />
+    <ClInclude Include="Arm.h" />
+    <ClInclude Include="BodyPart.h" />
+    <ClInclude Include="BodyPartManager.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyEquipment.h" />
+    <ClInclude Include="EnemyAI.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemyPatternManager.h" />
+    <ClInclude Include="EntityTest.h" />
+    <ClInclude Include="Equipment.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="IAbilityMovement.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IScene.h" />
+    <ClInclude Include="Leg.h" />
+    <ClInclude Include="LevelLoader.h" />
+    <ClInclude Include="MainCamera.h" />
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="MaterialLoader.h" />
+    <ClInclude Include="Matth.h" />
+    <ClInclude Include="Meat.h" />
+    <ClInclude Include="MinimalOgre.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Rarity.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="MainMenuScene.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="UI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AbilityAttackAOE.cpp" />
+    <ClCompile Include="AbilityModifier.cpp" />
+    <ClCompile Include="AbilityMovement.cpp" />
+    <ClCompile Include="Arm.cpp" />
+    <ClCompile Include="BodyPart.cpp" />
+    <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="DamageOverTime.cpp" />
+    <ClCompile Include="DeathScene.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyEquipment.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemyPatternManager.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityTest.cpp" />
+    <ClCompile Include="Equipment.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GenerateBodyPart.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Healthbar.cpp" />
+    <ClCompile Include="IAbilityAttack.cpp" />
+    <ClCompile Include="IAbilityMovement.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IScene.cpp" />
+    <ClCompile Include="Leg.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
+    <ClCompile Include="MainCamera.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
+    <ClCompile Include="Matth.cpp" />
+    <ClCompile Include="Meat.cpp" />
+    <ClCompile Include="MinimalOgre.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Rarity.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="UI.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
