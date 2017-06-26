@@ -26,6 +26,7 @@ public:
 	Ogre::Camera* mCamera;
 	Ogre::RenderWindow* mWindow;
 	OgreBites::SdkCameraMan* cameraMan;
+	bool reset = false;
 };
 
 

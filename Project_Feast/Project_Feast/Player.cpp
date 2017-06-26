@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "GameManager.h"
 #include "SoundManager.h"
+#include "LevelLoader.h"
 
 Player::Player()
 :dodge_cooldown_(800),
@@ -21,49 +22,60 @@ void Player::Init(Ogre::Vector3 spawnPoint)
 	// Instantiate player variables
 	Ogre::Vector3 startingPosition = Ogre::Vector3(0, 0, 0);
 	SetMaxHealth(100);
+	if (mgr.reset == false){
+		// Add the node to the scene
+		entityNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
 
-	// Add the node to the scene
-	entityNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", startingPosition);
+		//Creates player parts with nodes and attach meshes
+		Ogre::SceneNode* torsoNode = entityNode->createChildSceneNode("TorsoNode", torsoSocketPosition);
+		Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
+		torsoNode->attachObject(torsoEntity);
+		torsoNode->setScale(characterScale, characterScale, -characterScale);
 
-	//Creates player parts with nodes and attach meshes
-	Ogre::SceneNode* torsoNode = entityNode->createChildSceneNode("TorsoNode", torsoSocketPosition);
-	Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
-	torsoNode->attachObject(torsoEntity);
-	torsoNode->setScale(characterScale, characterScale, -characterScale);
+		headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
+		Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
+		headNode->attachObject(headEntity);
 
-	headNode = torsoNode->createChildSceneNode("HeadNode", headSocketPosition);
-	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
-	headNode->attachObject(headEntity);
+		playerHealthBarNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("playerHealthBarNode", startingPosition + Ogre::Vector3(0, 100, 0));
+		playerHealthbar.Init(playerHealthBarNode, startingPosition + Ogre::Vector3(0, 70, 0), mgr.mSceneMgr, 999);
 
-	playerHealthBarNode = mgr.mSceneMgr->getSceneNode("PlayerNode")->createChildSceneNode("playerHealthBarNode", startingPosition + Ogre::Vector3(0, 100, 0));
-	playerHealthbar.Init(playerHealthBarNode, startingPosition + Ogre::Vector3(0, 70, 0), mgr.mSceneMgr, 999);
+		leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
+		Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
+		leftArmNode->attachObject(leftArmEntity);
 
-	leftArmNode = torsoNode->createChildSceneNode("LeftArmNode", leftArmSocketPosition);
-	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
-	leftArmNode->attachObject(leftArmEntity);
+		rightArmOrigin = entityNode->createChildSceneNode("RightArmOrigin", Ogre::Vector3(28, 45, 0));
+		rightArmNode = entityNode->createChildSceneNode("RightArmNode", Ogre::Vector3(28, 45, 0));
+		rightArmOrigin->setScale(characterScale, characterScale, characterScale);
+		rightArmNode->setScale(characterScale, characterScale, characterScale);
+		Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
+		rightArmNode->attachObject(rightArmEntity);
 
-	rightArmOrigin = entityNode->createChildSceneNode("RightArmOrigin", Ogre::Vector3(28, 45, 0));
-	rightArmNode = entityNode->createChildSceneNode("RightArmNode", Ogre::Vector3(28, 45, 0));
-	rightArmOrigin->setScale(characterScale, characterScale, characterScale);
-	rightArmNode->setScale(characterScale, characterScale, characterScale);
-	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
-	rightArmNode->attachObject(rightArmEntity);
+		leftFootNode = torsoNode->createChildSceneNode("LeftFootNode", leftFootSocketPosition);
+		Ogre::Entity* leftFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
+		leftFootNode->attachObject(leftFootEntity);
 
-	leftFootNode = torsoNode->createChildSceneNode("LeftFootNode", leftFootSocketPosition);
-	Ogre::Entity* leftFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
-	leftFootNode->attachObject(leftFootEntity);
+		rightFootNode = torsoNode->createChildSceneNode("RightFootNode", rightFootSocketPosition);
+		Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
+		rightFootNode->attachObject(rightFootEntity);
 
-	rightFootNode = torsoNode->createChildSceneNode("RightFootNode", rightFootSocketPosition);
-	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
-	rightFootNode->attachObject(rightFootEntity);
+		Ogre::SceneNode* cameraNode = entityNode->createChildSceneNode("CameraNode", cameraPosition);
 
-	Ogre::SceneNode* cameraNode = entityNode->createChildSceneNode("CameraNode", cameraPosition);
+		// rocket arm target
+		Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, -400);
+		rocketArmTargetNode = entityNode->createChildSceneNode("RocketArmTargetNode", rocketArmTargetOffset);
 
-	// rocket arm target
-	Ogre::Vector3 rocketArmTargetOffset = Ogre::Vector3(0, 0, -400);
-	rocketArmTargetNode = entityNode->createChildSceneNode("RocketArmTargetNode", rocketArmTargetOffset);
+		entityNode->translate(spawnPoint, Ogre::Node::TS_LOCAL);
+		returnPosition = entityNode->getPosition();
+	}
+	else if (mgr.reset)
+	{
 
-	entityNode->translate(spawnPoint, Ogre::Node::TS_LOCAL);
+		hasDied = false;
+		doomed = false;
+		entityNode->setPosition(spawnPoint);
+		
+		
+	}
 	equipment.arm.randDamage = 2;
 	exists = true;
 	timer_.reset();
@@ -273,7 +285,7 @@ void Player::Die()
 	// TODO: restart application/scene
 	if (!hasDied)
 	{
-		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		/*Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
 		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
 		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
@@ -292,7 +304,7 @@ void Player::Die()
 		GameManager& mgr = GameManager::getSingleton();
 		auto m_pSceneMgr = mgr.mSceneMgr;
 		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("DeathScreen");
-		node->attachObject(rect);
+		node->attachObject(rect);*/
 	}
 	hasDied = true;
 }

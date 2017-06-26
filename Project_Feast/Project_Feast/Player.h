@@ -103,4 +103,5 @@ private:
 	Ogre::Timer dodge_timer_;
 	unsigned long dodge_cooldown_;			// The duration it takes for an enemy to spawn
 	unsigned long move_cooldown_;
+	Ogre::Vector3 returnPosition;
 };
