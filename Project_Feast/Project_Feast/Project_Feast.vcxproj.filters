@@ -41,6 +41,7 @@
     <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="DeathScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbilityModifier.h" />
@@ -84,5 +85,6 @@
     <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="DeathScene.h" />
   </ItemGroup>
 </Project>

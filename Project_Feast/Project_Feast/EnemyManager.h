@@ -38,10 +38,10 @@ public:
 	bool isWaveAlive = false;
 	int waveCount = 0;
 	float waveTimeSpent;
-
+	bool resetEnemies = false;
 	int GetEnemyCount();
 	Tutorial tutorial;
-
+	std::list<Enemy>::iterator e;
 private:
 	void EnemyManager::SpawnWave();
 	int numberOfEnemies = 5;

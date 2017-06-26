@@ -107,7 +107,13 @@ bool Main::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	if (levelLoader.sceneEnum == Level1){
 		mgr.mEnemyManager.Update(evt);
 		mgr.ui.mTrayMgr->frameRenderingQueued(evt);
+		if (mgr.player.hasDied && mgr.reset == false)
+		{
+			levelLoader.sceneEnum = DeathScreen;
+			levelLoader.LoadScene();
+		}
 	}
+	
 	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_ESCAPE))
 		return false;
 	if (!processUnbufferedInput(evt))

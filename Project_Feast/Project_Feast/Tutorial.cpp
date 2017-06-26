@@ -14,6 +14,12 @@ Tutorial::~Tutorial()
 void Tutorial::Init()
 {
 	tutorialPart++;
+	GameManager& mgr = GameManager::getSingleton();
+	if (mgr.reset)
+	{
+		tutorialPart = 0;
+		tutorialPart++;
+	}
 }
 
 void Tutorial::Update()

@@ -43,13 +43,14 @@ public:
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
 	Healthbar playerHealthbar;
+	bool hasDied = false;
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
 	void Die() override;
 
 	bool smashingDown = false;
-	bool hasDied = false;
+	
 	bool ableToHeal;
 
 	bool keyPressed = false;
@@ -100,4 +101,5 @@ private:
 	Ogre::Timer dodge_timer_;
 	unsigned long dodge_cooldown_;			// The duration it takes for an enemy to spawn
 	unsigned long move_cooldown_;
+	Ogre::Vector3 returnPosition;
 };
