@@ -44,7 +44,7 @@ public:
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
 	Healthbar playerHealthbar;
-	bool hasDied = false;
+	
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
