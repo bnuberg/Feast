@@ -1,12 +1,10 @@
 #include "Arm.h"
 #include "GameManager.h"
 
-
 Arm::Arm()
 {
-	mesh = "sphere.mesh";
-	tag = "Arm";
-	Stats();
+	mesh = "handRocket.mesh";
+	tag = "Arm";	
 }
 
 
@@ -14,14 +12,5 @@ Arm::~Arm()
 {
 }
 
-void Arm::Stats()
-{
-	randDamage = rand() % (damageMax - damageMin + 1) + damageMin;
-	randAttackSpeed = rand() % (attackSpeedMax - attackSpeedMin + 1) + attackSpeedMin;
-}
 
-void Arm::Ability()
-{
-
-}
 

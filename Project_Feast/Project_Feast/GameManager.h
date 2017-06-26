@@ -6,6 +6,8 @@
 #include "BodyPartManager.h"
 #include <OgreSceneManager.h>
 #include <OgreCamera.h>
+#include "UI.h"
+#include <SdkCameraMan.h>
 
 
 class GameManager: public Ogre::Singleton<GameManager>
@@ -18,11 +20,12 @@ public:
 	InputManager mInputManager;
 	EnemyManager mEnemyManager;
 	BodyPartManager mBodyPartManager;
-
+	UI ui;
+	Player player;
 	Ogre::SceneManager* mSceneMgr;
 	Ogre::Camera* mCamera;
 	Ogre::RenderWindow* mWindow;
-	
+	OgreBites::SdkCameraMan* cameraMan;
 };
 
 

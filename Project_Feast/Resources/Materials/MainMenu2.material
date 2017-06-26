@@ -1,0 +1,16 @@
+/// Just a simple red quad blended over the scene
+material MainMenu2
+{
+    technique
+    {
+       pass
+        {
+          ambient 1.0 1.0 1.0 1
+
+			texture_unit
+			{
+				texture Hell.jpg
+			}
+        }
+    }
+}

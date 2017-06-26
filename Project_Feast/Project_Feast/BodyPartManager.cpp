@@ -4,6 +4,7 @@
 
 
 BodyPartManager::BodyPartManager()
+	:despawnMax(4000)
 {
 }
 
@@ -12,16 +13,17 @@ BodyPartManager::~BodyPartManager()
 {
 }
 // TODO UPDATE FUNCTION
-void BodyPartManager::Spawn(Ogre::Vector3 position)
+void BodyPartManager::Spawn(Ogre::Vector3 position, Ogre::String bodypart)
 {
+
 	int i = Random();
 	Ogre::LogManager::getSingletonPtr()->logMessage(Ogre::StringConverter::toString(i));
 	if ( i > 8)
 	{
-		if (rand() % 2 == 0)
-			SpawnArm(position);
-		else
-			SpawnLeg(position);
+		/*if (rand() % 2 == 0)*/
+			SpawnArm(position, bodypart);
+		/*else
+			SpawnLeg(position);*/
 	}
 	// TODO Change spawn rate of bodyparts to 10-20%
 	
@@ -50,7 +52,7 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 			/*Ogre::LogManager::getSingletonPtr()->logMessage(b->tag);*/
 			float distance = distanceVector.length();
 			
-			if (distance < 200)
+			if (distance < 100)
 			{
 				b->pickedUp = true;
 				return *b;
@@ -62,17 +64,27 @@ BodyPart BodyPartManager::ClosestBodyPart(Ogre::Vector3 center)
 	return closestbodypart;
 }
 
-void BodyPartManager::SpawnArm(Ogre::Vector3 position)
+void BodyPartManager::SpawnArm(Ogre::Vector3 position, Ogre::String bodypart)
 {
 	Arm arm;
-	arm.Spawn(position);
+	arm.Spawn(position, bodypart);
 	bodyPartsList.push_back(arm);
+}
+
+void BodyPartManager::DropArm(Ogre::Vector3 position, Arm arm)
+{
+	int i = Random();
+	if (i > 8)
+	{
+		arm.Drop(position);
+		bodyPartsList.push_back(arm);
+	}
 }
 
 void BodyPartManager::SpawnLeg(Ogre::Vector3 position)
 {
 	Leg leg;
-	leg.Spawn(position);
+	leg.Spawn(position, "");
 	bodyPartsList.push_back(leg);
 }
 
@@ -80,6 +92,7 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 {
 	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
+	show_label_ = false;
 	
 	std::vector<BodyPart>::iterator b = bodyPartsList.begin();
 	while(b != bodyPartsList.end())
@@ -108,6 +121,27 @@ void BodyPartManager::IterateBodyParts(Ogre::Vector3 center, float pickupDistanc
 		else
 		{
 			++b;
+		}
+	}
+}
+
+void BodyPartManager::DespawnBodyparts()
+{
+	GameManager& mgr = GameManager::getSingleton();
+
+	if (despawnTimer.getMilliseconds() >= despawnMax)
+	{
+		std::vector<BodyPart>::iterator b = bodyPartsList.begin();
+		while (b != bodyPartsList.end())
+		{
+			mgr.mEnemyManager.SpawnMeat(b->bodyPartNode->getPosition());
+			b->bodyPartNode->detachAllObjects();
+			b = bodyPartsList.erase(b++);
+		}
+
+		if (b == bodyPartsList.end())
+		{
+			despawnActive = false;
 		}
 	}
 }

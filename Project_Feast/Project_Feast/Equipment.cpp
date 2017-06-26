@@ -3,7 +3,9 @@
 
 Equipment::Equipment()
 {
-	
+	for (int i = 0; i < 100; i++){
+		arm = generateArm.Generate(1);
+	}
 }
 
 
@@ -53,14 +55,11 @@ void Equipment::DiscardLeg(int spd)
 	// TODO discard bodyparts
 }
 
-void Equipment::setPlayerArmStats(int dmg, int as)
+void Equipment::setPlayerArmStats(int dmg, int as, int mod)
 {
-	
-	if (once == false){
-		damage += dmg;
-		attackSpeed += as;
-		once = true;
-	}
+		arm.randDamage = dmg;
+		arm.randAttackSpeed = as;	
+		arm.randModifier = mod;
 }
 void Equipment::setPlayerLegStats(int spd)
 {
