@@ -45,32 +45,36 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	}
 	else
 	{
-	// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
+		// When the timer reaches the spawn timer, spawn an enemy wave and reset the timer
 
-	if (enemy_list_.size() <= 0 && isWaveAlive)
-	{
-		isWaveAlive = false;
-		mgr.mBodyPartManager.despawnTimer.reset();
-		mgr.mBodyPartManager.despawnActive = true;
-		Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
-		timer_.reset();
-	}
-	if (mgr.mBodyPartManager.despawnActive)
-	{
-		mgr.mBodyPartManager.DespawnBodyparts();
-	}
+		if (enemy_list_.size() <= 0 && isWaveAlive)
+		{
+			isWaveAlive = false;
+			mgr.mBodyPartManager.despawnTimer.reset();
+			mgr.mBodyPartManager.despawnActive = true;
+			Ogre::LogManager::getSingletonPtr()->logMessage(std::to_string(waveTimeSpent));
+			timer_.reset();
+		}
+		if (mgr.mBodyPartManager.despawnActive)
+		{
+			mgr.mBodyPartManager.DespawnBodyparts();
+		}
 
-	if (isWaveAlive)
-	{
-		waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
-	}
+		if (isWaveAlive)
+		{
+			waveTimeSpent = waveAliveTimer.getMilliseconds() / 1000;
+		}
 
-	if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
-	{
-		SpawnWave();
+		if (timer_.getMilliseconds() >= enemy_spawn_timer_ && !isWaveAlive)
+		{
+			SpawnWave();
 
-		timer_.reset();
-	}
+			timer_.reset();
+		}
+		if (waveCount >= 5)
+		{
+			mgr.player.Win();
+		}
 	}
 
 	e = enemy_list_.begin();

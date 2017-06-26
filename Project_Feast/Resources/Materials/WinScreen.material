@@ -1,0 +1,16 @@
+/// Load a simple texture without lighting
+material WinScreen
+{
+    technique
+    {
+       pass
+        {
+          ambient 1.0 1.0 1.0 1
+
+			texture_unit
+			{
+				texture Win.png
+			}
+        }
+    }
+}

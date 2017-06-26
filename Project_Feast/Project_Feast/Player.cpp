@@ -285,7 +285,7 @@ void Player::Die()
 	// TODO: restart application/scene
 	if (!hasDied)
 	{
-		/*Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("DeathScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		material->getTechnique(0)->getPass(0)->createTextureUnitState("Death.png");
 		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
 		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
@@ -304,7 +304,7 @@ void Player::Die()
 		GameManager& mgr = GameManager::getSingleton();
 		auto m_pSceneMgr = mgr.mSceneMgr;
 		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("DeathScreen");
-		node->attachObject(rect);*/
+		node->attachObject(rect);
 	}
 	hasDied = true;
 }
@@ -411,4 +411,32 @@ void Player::Pickup()
 
 void Player::Discard()
 {
+}
+
+void Player::Win()
+{
+	if (!hasWon)
+	{
+		Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("WinScreen", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		material->getTechnique(0)->getPass(0)->createTextureUnitState("Win.png");
+		material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+		material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+		material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+		Ogre::Rectangle2D* rect = new Ogre::Rectangle2D(true);
+		rect->setCorners(-1.0f, 1.0f, 1.0f, -1.0f);
+		rect->setMaterial("WinScreen");
+		rect->setRenderQueueGroup(Ogre::RENDER_QUEUE_MAX);
+		rect->setBoundingBox(Ogre::AxisAlignedBox(-100000.0*Ogre::Vector3::UNIT_SCALE, 100000.0*Ogre::Vector3::UNIT_SCALE));
+
+		Ogre::AxisAlignedBox aabInf;
+		aabInf.setInfinite();
+		rect->setBoundingBox(aabInf);
+
+		GameManager& mgr = GameManager::getSingleton();
+		auto m_pSceneMgr = mgr.mSceneMgr;
+		Ogre::SceneNode* node = m_pSceneMgr->getRootSceneNode()->createChildSceneNode("WinScreen");
+		node->attachObject(rect);
+	}
+	hasWon = true;
 }

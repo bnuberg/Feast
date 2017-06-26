@@ -27,6 +27,7 @@ public:
 	void SetSpeed();
 	void Pickup();
 	void Discard();
+	void Win();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
 	void ChangeArmModifier(int modifier);
@@ -51,6 +52,7 @@ private:
 
 	bool smashingDown = false;
 	
+	bool hasWon = false;
 	bool ableToHeal;
 
 	bool keyPressed = false;
