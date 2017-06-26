@@ -27,6 +27,7 @@ public:
 	void SetSpeed();
 	void Pickup();
 	void Discard();
+	void Win();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
 	void ChangeArmModifier(int modifier);
@@ -43,6 +44,7 @@ public:
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
 	Healthbar playerHealthbar;
+	
 private:
 	void InitiateAbility();
 	void GroundSmashAttack(const Ogre::FrameEvent& evt, Ogre::Vector3 localStrikeTarget, Ogre::Vector3 globalStrikeTarget);
@@ -50,6 +52,7 @@ private:
 
 	bool smashingDown = false;
 	bool hasDied = false;
+	bool hasWon = false;
 	bool ableToHeal;
 
 	bool keyPressed = false;

@@ -54,6 +54,6 @@ void Tutorial::Update()
 
 	if (tutorialPart == 5 && finishedTimer.getMilliseconds() >= countdown)
 	{
-		isFinished = true;
+		isFinished = true;	
 	}
 }
