@@ -8,7 +8,7 @@
 #include "UI.h"
 #include "LevelLoader.h"
 
-class Main : public Ogre::FrameListener, Ogre::WindowEventListener, OgreBites::SdkTrayListener, Ogre::Root
+class Main : public Ogre::FrameListener, Ogre::WindowEventListener, OgreBites::SdkTrayListener
 {
 public:
 	Main();

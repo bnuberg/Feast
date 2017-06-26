@@ -15,10 +15,11 @@ public:
 	void DecreaseMaxHealth(float value);
 	void CheckHealth();
 	virtual void Die();
+	Ogre::SceneNode* entityNode;
 protected:
 	float health;
 	float maxHealth;
-	Ogre::SceneNode* entityNode;
+	
 
 	void CheckLavaDrop(const Ogre::FrameEvent& evt);
 	bool doomed = false;

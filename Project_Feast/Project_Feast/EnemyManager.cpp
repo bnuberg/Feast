@@ -27,6 +27,12 @@ void EnemyManager::Init()
 	timer_.reset();
 	bleedTimer.reset();
 	waveAliveTimer.reset();
+	GameManager& mgr = GameManager::getSingleton();
+	if (mgr.reset)
+	{
+		resetEnemies = true;
+		waveCount = 0;
+	}
 }
 
 void EnemyManager::Update(const Ogre::FrameEvent& evt)
@@ -67,14 +73,18 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 	}
 	}
 
-	std::list<Enemy>::iterator e = enemy_list_.begin();
+	e = enemy_list_.begin();
 	while (e != enemy_list_.end())
 	{
 		e->Update(evt);
 		Ogre::LogManager::getSingletonPtr()->logMessage("enemyID" + Ogre::StringConverter::toString(e->enemyID));
 		Ogre::LogManager::getSingletonPtr()->logMessage("enemy modifier" + Ogre::StringConverter::toString(e->enemyEquipment.modifier));
-
-
+		if (resetEnemies)
+		{
+		
+			e->GetDamaged(1000);
+			
+		}
 		// If the enemy is dead but not yet removed remove him.
 		if (e->is_dead_ && !e->is_dead2_)
 		{
@@ -93,6 +103,10 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		{
 			++e;
 		}
+	}
+	if (e == enemy_list_.end())
+	{
+		resetEnemies = false;
 	}
 
 }

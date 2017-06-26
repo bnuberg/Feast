@@ -10,8 +10,12 @@ public:
 	~DeathScene();
 	void CreateScene(Ogre::SceneManager* sceneManager, Ogre::RenderWindow* mWindow) override;
 	void Update();
-	OgreBites::SdkTrayManager* mTrayMgrDeath;
+	Ogre::Rectangle2D* rect;
+	bool doOnce = false;
+	bool doOnce2 = false;
+	Ogre::SceneNode* node;
+	/*OgreBites::SdkTrayManager* mTrayMgrDeath;
 	OgreBites::InputContext mInputContext;
-	OgreBites::Label* resetLabel;
+	OgreBites::Label* resetLabel;*/
 };
 
