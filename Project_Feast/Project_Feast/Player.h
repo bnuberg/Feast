@@ -22,7 +22,6 @@ public:
 	void IncreaseMeat(float incMeat);
 	void DecreaseMeat(float spendMeat);
 	void ConvertMeattoHealth();
-	void SetHealth();
 	void SetAttack();
 	void SetSpeed();
 	void Pickup();
@@ -41,6 +40,7 @@ public:
 
 	bool isSmashing = false;
 	bool exists = false;
+	bool hasDied = false;
 	Ogre::Pass* commonPass;
 	Ogre::MaterialPtr common;
 	Healthbar playerHealthbar;
