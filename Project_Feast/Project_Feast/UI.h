@@ -2,7 +2,6 @@
 #include <SdkTrays.h>
 #include "Player.h"
 
-
 class UI : OgreBites::SdkTrayListener
 {
 public:
@@ -20,6 +19,5 @@ public:
 	OgreBites::Label* mTutorialLabel3;
 	OgreBites::Label* mTutorialLabel4;
 	OgreBites::Label* mTutorialLabel5;
-	
 };
 

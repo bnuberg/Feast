@@ -7,7 +7,8 @@
 #include "Entity.h"
 #include "GameManager.h"
 
-/** Inherits from Entity for basic functions like health 
+/** Inherits from Entity for basic functions like health
+ * The player is the user controlled character in the world
 */
 class Player : public Entity
 {

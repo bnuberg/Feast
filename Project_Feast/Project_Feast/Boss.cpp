@@ -1,12 +1,13 @@
 #include "Boss.h"
 #include "GameManager.h"
 
-
+/**
+ This class contains all the boss related code. We inherit from enemy because we need the same basic moveset and health functions as the enemy.
+*/
 Boss::Boss()
 {
 	SetMaxHealth(30);
 }
-
 
 Boss::~Boss()
 {

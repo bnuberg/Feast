@@ -6,6 +6,7 @@
 #include <OgreSceneManager.h>
 #include <OgreCamera.h>
 #include "UI.h"
+#include "Player.h"
 #include <SdkCameraMan.h>
 
 class GameManager: public Ogre::Singleton<GameManager>
