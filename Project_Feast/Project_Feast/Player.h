@@ -27,7 +27,6 @@ public:
 	void SetAttack();
 	void SetSpeed();
 	void Pickup();
-	void Discard();
 	void Win();
 
 	void ChangeRightArmMesh(Ogre::String meshName);
@@ -108,4 +107,8 @@ private:
 	Ogre::Vector3 returnPosition;
 
 	Ogre::Vector3 GetWalkInput();
+	void TryDodging(Ogre::Vector3& velocity);
+	void TryEating();
+	void PickupMeat();
+	void Smash(const Ogre::FrameEvent& evt);
 };

@@ -89,97 +89,25 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	GameManager& mgr = GameManager::getSingleton();
 	OIS::MouseState ms = mgr.mInputManager.mMouse->getMouseState();
 
-	if (!isSmashing)
+	Ogre::Vector3 velocity = GetWalkInput(); //Get walking input of the user
+
+	if (!isSmashing) //Lock movement when smashing
 	{
-		// Get and set mouse information at the start of the update
-		float currentX = ms.X.rel;
-
-		static Ogre::Real rotate = .13;
-
-		//Move player
-		//Ogre::Vector3 velocity = GetWalkInput();
-		Ogre::Vector3 velocity = Ogre::Vector3::ZERO;
-
-		// Null check 
-		ableToDodge = GetMeat() >= dodgeMeatCost ? true : false;
-
-		//Sets the variable false after a set amount of time
-		if (timer_.getMilliseconds() >= dodge_cooldown_) keyPressed = false;
-
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge) && !velocity.isZeroLength())
-		{
-			timer_.reset();
-			dodge_timer_.reset();
-			DecreaseMeat(dodgeMeatCost);
-			dodgeDirection = velocity.normalisedCopy();
-			keyPressed = true;
-		}
-
-		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
-		{
-			velocity += 1000 * dodgeDirection;
-		}
-
-		// Rotate Player Yaw
-		entityNode->yaw(Ogre::Degree(-1 * currentX * rotate));
-		entityNode->translate(velocity * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+		TryDodging(velocity);
+		float currentX = ms.X.rel; //Get's mouse information
+		static Ogre::Real rotate = .13; //Rotate constant
+		entityNode->yaw(Ogre::Degree(-1 * currentX * rotate)); // Rotate Player Yaw
+		entityNode->translate(velocity * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL); //Moves player with the velocity
 	}
 
-	//Heals player when key is pressed and decreases meat
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
-	{
-		meatToHealth = true;
-		ConvertMeattoHealth();
-		SoundManager::GetSingleton().PlaySound("Eat.wav");
-	}
-	else
-	{
-		meatToHealth = false;
-	}
+	TryEating(); //Check eating input and eat if possible
+	Pickup();	 //Pickup logic
 
-	Pickup();
-	Discard();
+	if (ms.buttonDown(OIS::MB_Left)) InitiateAbility(); //Execute attack
 
-	// Execute attack
-	if (ms.buttonDown(OIS::MB_Left))
-	{
-		InitiateAbility();
-	}
+	Smash(evt);
 
-	// Ground smash attack
-	if (isSmashing)
-	{
-		if (smashingDown)
-		{
-			if (equipment.arm.AbilityUpdate(rightArmNode, evt))
-			{
-				equipment.arm.AbilityDamage();
-				smashingDown = false;
-				equipment.arm.AbilityTarget(rightArmOrigin->getPosition());
-			}
-		}
-		else
-		{
-			if (equipment.arm.AbilityUpdate(rightArmNode, evt))
-			{
-				isSmashing = false;
-			}
-		}
-	}
-
-	float meat = mgr.mEnemyManager.IterateMeat(entityNode->getPosition(), 50);
-	IncreaseMeat(meat);
-	if (GetMeat() >= 10 && health != maxHealth){
-		ableToHeal = true;
-	}
-	else
-	{
-		ableToHeal = false;
-	}
-	
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true)
-	{
-	}
+	PickupMeat();
 
 	playerHealthbar.SetLength(health, maxHealth);
 	CheckLavaDrop(evt);
@@ -334,6 +262,8 @@ void Player::SetSpeed()
 	move = equipment.speed;
 }
 
+/** Checks if any body parts are close then checks the pickup button before attempting to pick the item up
+*/
 void Player::Pickup()
 {
 	GameManager& mgr = GameManager::getSingleton();
@@ -389,10 +319,6 @@ void Player::Pickup()
 	}
 }
 
-void Player::Discard()
-{
-}
-
 void Player::Win()
 {
 	if (!hasWon)
@@ -426,14 +352,88 @@ void Player::Win()
 */
 Ogre::Vector3 Player::GetWalkInput()
 {
-	//GameManager& mgr = GameManager::getSingleton();
+	auto keyboard = GameManager::getSingleton().mInputManager.mKeyboard;
 
 	Ogre::Vector3 velocity = Ogre::Vector3::ZERO;
-	if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_W)) velocity.z--;
-	else if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_S)) velocity.z++;
+	if (keyboard->isKeyDown(OIS::KC_W)) velocity.z--;
+	else if (keyboard->isKeyDown(OIS::KC_S)) velocity.z++;
 	
-	if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_A)) velocity.x--;
-	else if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_D)) velocity.x++;
+	if (keyboard->isKeyDown(OIS::KC_A)) velocity.x--;
+	else if (keyboard->isKeyDown(OIS::KC_D)) velocity.x++;
 
 	return move * velocity;
+}
+
+/** Dodge logic
+*/
+void Player::TryDodging(Ogre::Vector3& velocity)
+{
+	ableToDodge = (GetMeat() >= dodgeMeatCost); //Checks if the player has enough meat
+
+	if (timer_.getMilliseconds() >= dodge_cooldown_) keyPressed = false; //Sets the variable false after a set amount of time
+
+	if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge) && !velocity.isZeroLength())
+	{
+		timer_.reset();
+		dodge_timer_.reset();
+		DecreaseMeat(dodgeMeatCost);
+		dodgeDirection = velocity.normalisedCopy();
+		keyPressed = true;
+	}
+
+	if (dodge_timer_.getMilliseconds() <= move_cooldown_)
+	{
+		velocity += 1000 * dodgeDirection;
+	}
+}
+
+/** Eating logic, checks eating button and if you have enough meat to eat
+*/
+void Player::TryEating()
+{
+	//Heals player when key is pressed and decreases meat
+	if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && meat >= 10 && !meatToHealth)
+	{
+		meatToHealth = true;
+		ConvertMeattoHealth();
+		SoundManager::GetSingleton().PlaySound("Eat.wav");
+	}
+	else
+	{
+		meatToHealth = false;
+	}
+}
+
+/** Tries to pickup meet and checks if the player is able to heal
+*/
+void Player::PickupMeat()
+{
+	float meat = GameManager::getSingleton().mEnemyManager.IterateMeat(entityNode->getPosition(), 50);
+	IncreaseMeat(meat);
+	ableToHeal = GetMeat() >= 10 && health != maxHealth;
+}
+
+/** Sees if the player is smashing and then uses the ability 
+*/
+void Player::Smash(const Ogre::FrameEvent& evt)
+{
+	// Ground smash attack
+	if (!isSmashing) return;
+
+	if (smashingDown)
+	{
+		if (equipment.arm.AbilityUpdate(rightArmNode, evt))
+		{
+			equipment.arm.AbilityDamage();
+			smashingDown = false;
+			equipment.arm.AbilityTarget(rightArmOrigin->getPosition());
+		}
+	}
+	else
+	{
+		if (equipment.arm.AbilityUpdate(rightArmNode, evt))
+		{
+			isSmashing = false;
+		}
+	}
 }
