@@ -7,6 +7,7 @@
 #include "Healthbar.h"
 #include "EnemyAI.h"
 #include "Entity.h"
+#include "GameManager.h"
 
 class EnemyPatternManager;
 
@@ -114,6 +115,7 @@ private:
 	const Ogre::Real characterScale = 4;
 
 	void AddBodyObjects();
+	void CreateAttackArms();
 
 	Ogre::SceneNode* torsoNode;
 	const char* torsoMeshName = "enemyTorso.mesh";

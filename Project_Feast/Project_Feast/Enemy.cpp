@@ -50,32 +50,7 @@ void Enemy::Init(int lvl)
 	GameManager& mgr = GameManager::GetSingleton();
 
 	enemyID = ++mgr.mEnemyManager.totalEnemyID;
-
-	startPosition = GetStartPosition();
-
 	enemyNumber = enemyCount++;
-
-	int width = 21;
-	int height = 21;
-	int wo2 = width / 2;
-	int ho2 = height / 2;
-
-	Grid * blockageGrid = Grid::getInstance(width, height);
-
-	if (!blockageGrid->initialized)
-	{
-		for (int i = -wo2; i <= wo2; i++)
-		{
-			for (int j = -ho2; j <= ho2; j++)
-			{
-				if (i % 3 == 0 && j % 3 != 0)
-				{
-					blockageGrid->setBlockageAt(Ogre::Vector2(i, j));
-				}
-			}
-		}
-	}
-
 	level = lvl;
 	
 	// Add the node to the scene
@@ -90,20 +65,7 @@ void Enemy::Init(int lvl)
 	healthBarNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("healthBarNode" + Ogre::StringConverter::toString(enemyID), healthBarPosition);
 	healthbar.Init(healthBarNode, healthBarPosition, mgr.mSceneMgr, enemyID);
 
-	// right arm origin
-	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, shoulderHeight, 0);
-	erightarmOrigin = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
-	erightarmNode = mgr.mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
-	erightarmNode->setScale(5, 5, 5);
-	enemyEquipment.EnemyEquipArm(erightarmNode, enemyID, level);
-	enemyAI.SetArm(enemyEquipment.arm);
-	// rocket arm target
-	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
-	rocketarmtargetNode = enemyNode->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
-
-	// All nodes added, translate enemy to start position
-	enemyNode->translate(startPosition, Ogre::Node::TS_LOCAL);
-
+	CreateAttackArms();
 	SetMaxHealth(10);
 
 	//Set aggroRange and attackRange of the enemy
@@ -298,16 +260,6 @@ void Enemy::SetEquipmentMesh(Ogre::String meshName)
 	erightarmNode->attachObject(erightarmEntity);
 }
 
-void Enemy::SetEquipment()
-{
-	/*Ogre::String bodypartName;
-
-	EnemyEquipment enemyequipment;
-	bodypartName = enemyequipment.AssignRandomBodypart();
-	Ogre::LogManager::getSingletonPtr()->logMessage("bodypartname:" + bodypartName);
-	SetEquipmentMesh(bodypartName);*/
-}
-
 void Enemy::DoDamage(float damage)
 {
 	enemyMaxDamage = damage;
@@ -399,4 +351,25 @@ void Enemy::DetachBodyParts() const
 	rightArmNode->detachAllObjects();
 	leftFootNode->detachAllObjects();
 	rightFootNode->detachAllObjects();	
+}
+
+/** Create and attach the fighting arm on the enemy 
+*/
+void Enemy::CreateAttackArms()
+{
+	// right arm origin
+	Ogre::Vector3 rightarmoffset = Ogre::Vector3(30, shoulderHeight, 0);
+	erightarmOrigin = GameManager::getSingleton().mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmOrigin" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
+	erightarmNode = GameManager::getSingleton().mSceneMgr->getSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID))->createChildSceneNode("erightarmNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition + rightarmoffset);
+	erightarmNode->setScale(5, 5, 5);
+	enemyEquipment.EnemyEquipArm(erightarmNode, enemyID, level);
+	enemyAI.SetArm(enemyEquipment.arm);
+	// rocket arm target
+	Ogre::Vector3 rocketarmtargetoffset = Ogre::Vector3(0, 0, -500);
+	rocketarmtargetNode = enemyNode->createChildSceneNode(fakeStartPosition - rocketarmtargetoffset);
+
+	startPosition = GetStartPosition(); //Location where the enemy should spawn
+
+	// All nodes added, translate enemy to start position
+	enemyNode->translate(startPosition, Ogre::Node::TS_LOCAL);
 }
