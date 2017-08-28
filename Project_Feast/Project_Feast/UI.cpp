@@ -14,14 +14,12 @@ UI::UI()
 {
 }
 
-
 UI::~UI()
 {
 }
 
 void UI::Init()
 {
-	Ogre::Root& root = Ogre::Root::getSingleton();
 	GameManager& mgr = GameManager::getSingleton();
 	mInputContext.mKeyboard = mgr.mInputManager.mKeyboard;
 	mInputContext.mMouse = mgr.mInputManager.mMouse;
@@ -52,7 +50,6 @@ void UI::Init()
 	mTutorialLabel3 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel3", "You've been damaged, use 'f' to heal", 350);
 	mTutorialLabel4 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel4", "An enemy has spawned, attack him", 330);
 	mTutorialLabel5 = mTrayMgr->createLabel(OgreBites::TL_CENTER, "mTutorialLabel5", "The first wave will spawn in a few seconds, get ready!", 500);
-	
 }
 
 void UI::ShowHud(Player player)

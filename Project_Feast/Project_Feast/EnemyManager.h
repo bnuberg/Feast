@@ -25,14 +25,13 @@ public:
 	void SpawnEnemy(Ogre::Vector3 position, int level);
 	void SpawnHeavyEnemy(Ogre::Vector3 position, int level);
 	void SpawnLightEnemy(Ogre::Vector3 position, int level);
-	void DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier);
+	void DamageEnemiesInCircle(Ogre::Vector3 center, float killDistance, int damage, int modifier);
 	void DamageEnemies();
 	void SpawnMeat(Ogre::Vector3 position);
 	int SetLevel();
 	int RandomPercent();
 
 	float IterateMeat(Ogre::Vector3 center, float pickupDistance);
-	void BodypartToAdd();
 	int totalEnemyID = 0;
 	DamageOverTime DoT;
 	bool isWaveAlive = false;

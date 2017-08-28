@@ -1,5 +1,4 @@
 #include "EnemyManager.h"
-#include "EnemyAI.h"
 #include "BodyPartManager.h"
 #include "GameManager.h"
 
@@ -94,7 +93,6 @@ void EnemyManager::Update(const Ogre::FrameEvent& evt)
 		{
 			// Spawn meat
 			SpawnMeat(e->enemyNode->getPosition());
-			
 
 			// Spawn bodypart
 			mgr.mBodyPartManager.DropArm(e->enemyNode->getPosition(), e->enemyEquipment.arm);
@@ -133,19 +131,13 @@ void EnemyManager::SpawnWave()
 {
 	waveCount++;
 	int enemyCount = waveCount + 1;
-	if (enemyCount > numberOfEnemies)
-		enemyCount = numberOfEnemies;
+	
+	if (enemyCount > numberOfEnemies) enemyCount = numberOfEnemies;
 
 	for (int i = 0; i < enemyCount; i++)
 	{
 		SpawnEnemy(enemySpawnPoints[i], SetLevel());
 	}
-
-	/*int i = 0;
-	for each (Ogre::Vector3 position in enemySpawnPoints)
-	{
-		SpawnEnemy(position, enemyLevels[i++]);
-	}*/
 
 	waveAliveTimer.reset();
 	isWaveAlive = true;
@@ -155,8 +147,7 @@ void EnemyManager::SpawnWave()
 */
 int EnemyManager::SetLevel()
 {
-	if (waveCount == 1)
-		return waveCount;
+	if (waveCount == 1) return waveCount;
 
 	int level = waveCount; 
 
@@ -206,10 +197,7 @@ float EnemyManager::IterateMeat(Ogre::Vector3 center, float pickupDistance)
 			b = meatList.erase(b);
 			return 10;
 		}
-		else
-		{
-			++b;
-		}
+		++b;
 	}
 	return 0;
 }
@@ -243,7 +231,7 @@ void EnemyManager::SpawnLightEnemy(Ogre::Vector3 position, int level)
 	@param The center point around which the enemies are damaged.
 	@param The distance from the point in which the enemies are damaged.
 */
-void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistance, int damage, int modifier)
+void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killDistance, int damage, int modifier)
 {
 	/*GameManager& mgr = GameManager::getSingleton();*/
 
@@ -256,7 +244,7 @@ void EnemyManager::DamageEnemiesInCircle(Ogre::Vector3 center, float killdistanc
 			Ogre::Vector3 distanceVector = center - e->enemyNode->getPosition();
 			float distance = distanceVector.length();
 
-			if (distance < killdistance)
+			if (distance < killDistance)
 			{
 				e->GetDamaged(damage);
 

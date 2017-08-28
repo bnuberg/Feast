@@ -16,6 +16,6 @@ public:
 	Ogre::Timer finishedTimer;
 	unsigned long countdown = 5000;
 
-	bool isFinished = false;
+	bool isFinished = true;
 };
 

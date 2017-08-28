@@ -5,6 +5,7 @@
 #include "Equipment.h"
 #include "Healthbar.h"
 #include "Entity.h"
+#include "GameManager.h"
 
 /** Inherits from Entity for basic functions like health 
 */
@@ -33,7 +34,7 @@ public:
 
 	Ogre::Vector3 playerPosition;
 	Equipment equipment;
-	Ogre::Real move = 300;
+	Ogre::Real move = 350;
 	int playerDamage;
 	int playerAttackSpeed;
 	int attack = 0;
@@ -104,4 +105,6 @@ private:
 	unsigned long dodge_cooldown_;			// The duration it takes for an enemy to spawn
 	unsigned long move_cooldown_;
 	Ogre::Vector3 returnPosition;
+
+	Ogre::Vector3 GetWalkInput();
 };

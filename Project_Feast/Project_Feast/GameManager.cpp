@@ -6,8 +6,6 @@ GameManager::GameManager()
 	:mSceneMgr(0),
 	mCamera(0),
 	mWindow(0)
-	
-	
 {
 	
 }
@@ -17,11 +15,13 @@ GameManager::~GameManager()
 	
 }
 
-GameManager* GameManager::GetSingletonPtr(void)
+GameManager* GameManager::GetSingletonPtr()
 {
 	return msSingleton;
 }
-GameManager& GameManager::GetSingleton(void)
+
+GameManager& GameManager::GetSingleton()
 {
-	assert(msSingleton); return (*msSingleton);
+	assert(msSingleton); 
+	return *msSingleton;
 }

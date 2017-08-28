@@ -93,6 +93,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbilityModifier.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="DamageOverTime.h" />
     <ClInclude Include="DeathScene.h" />
     <ClInclude Include="Dungeon.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="Arm.cpp" />
     <ClCompile Include="BodyPart.cpp" />
     <ClCompile Include="BodyPartManager.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="DamageOverTime.cpp" />
     <ClCompile Include="DeathScene.cpp" />
     <ClCompile Include="Dungeon.cpp" />

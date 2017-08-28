@@ -16,7 +16,6 @@ as well as setting the base values for the player hp and such.
 */
 void Player::Init(Ogre::Vector3 spawnPoint)
 {
-	// Create a reference to the game manager
 	GameManager& mgr = GameManager::getSingleton();
 
 	// Instantiate player variables
@@ -97,45 +96,33 @@ void Player::Update(const Ogre::FrameEvent& evt)
 
 		static Ogre::Real rotate = .13;
 
-		//Move ninja
-		Ogre::Vector3 dirVec = Ogre::Vector3::ZERO;
-
-		// Forwards and backwards
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_W))
-			dirVec.z -= move;
-		else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_S))
-			dirVec.z += move;
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_A))
-			dirVec.x -= move;
-		else if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_D))
-			dirVec.x += move;
+		//Move player
+		//Ogre::Vector3 velocity = GetWalkInput();
+		Ogre::Vector3 velocity = Ogre::Vector3::ZERO;
 
 		// Null check 
 		ableToDodge = GetMeat() >= dodgeMeatCost ? true : false;
 
 		//Sets the variable false after a set amount of time
-		if (timer_.getMilliseconds() >= dodge_cooldown_)
-		{
-			keyPressed = false;
-		}
+		if (timer_.getMilliseconds() >= dodge_cooldown_) keyPressed = false;
 
-		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge) && !dirVec.isZeroLength())
+		if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_SPACE) && (!keyPressed) && (ableToDodge) && !velocity.isZeroLength())
 		{
 			timer_.reset();
 			dodge_timer_.reset();
 			DecreaseMeat(dodgeMeatCost);
-			dodgeDirection = dirVec.normalisedCopy();
+			dodgeDirection = velocity.normalisedCopy();
 			keyPressed = true;
 		}
 
 		if (dodge_timer_.getMilliseconds() <= move_cooldown_)
 		{
-			dirVec += 1000 * dodgeDirection;
+			velocity += 1000 * dodgeDirection;
 		}
 
 		// Rotate Player Yaw
 		entityNode->yaw(Ogre::Degree(-1 * currentX * rotate));
-		entityNode->translate(dirVec * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
+		entityNode->translate(velocity * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 	}
 
 	//Heals player when key is pressed and decreases meat
@@ -149,7 +136,6 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	{
 		meatToHealth = false;
 	}
-
 
 	Pickup();
 	Discard();
@@ -190,16 +176,14 @@ void Player::Update(const Ogre::FrameEvent& evt)
 	{
 		ableToHeal = false;
 	}
-	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true){
+	
+	if (mgr.mInputManager.mKeyboard->isKeyDown(OIS::KC_F) && ableToHeal == true)
+	{
 	}
 
 	playerHealthbar.SetLength(health, maxHealth);
 	CheckLavaDrop(evt);
 	CheckHealth();
-
-
-	/*mgr.mSceneMgr->getSceneNode("TorsoNode")->yaw(0.05 * Ogre::Degree(sin(totalTime)));
-	mgr.mSceneMgr->getSceneNode("HeadNode")->yaw(0.2 * Ogre::Degree(sin(totalTime)));*/
 }
 
 /** Changes the mesh attached to the right arm, it first detaches all objects on the rightArm and then spawns a new one.
@@ -273,10 +257,6 @@ void Player::InitiateAbility()
 		isSmashing = true;
 		smashingDown = true;
 		SoundManager::GetSingleton().PlaySound("SpellCasting.wav");
-	}
-	else
-	{
-		// TODO: attack in progress
 	}
 }
 
@@ -439,4 +419,21 @@ void Player::Win()
 		node->attachObject(rect);
 	}
 	hasWon = true;
+}
+
+/** Gets forward and sidewards movement. So the WASD
+* @return Walking input as a vector3
+*/
+Ogre::Vector3 Player::GetWalkInput()
+{
+	//GameManager& mgr = GameManager::getSingleton();
+
+	Ogre::Vector3 velocity = Ogre::Vector3::ZERO;
+	if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_W)) velocity.z--;
+	else if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_S)) velocity.z++;
+	
+	if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_A)) velocity.x--;
+	else if (GameManager::getSingleton().mInputManager.mKeyboard->isKeyDown(OIS::KC_D)) velocity.x++;
+
+	return move * velocity;
 }

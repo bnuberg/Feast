@@ -57,6 +57,7 @@ public:
 	Healthbar healthbar;
 	int bleedTick;
 	int maxBleedTick;
+	float scale;
 
 private:
 	Ogre::Timer timer_;
@@ -84,7 +85,6 @@ private:
 	float enemyMaxDamage;
 	float aggroRange;
 	float attackRange;
-	float scale;
 
 	std::vector<Ogre::Vector3> positions;
 	std::vector<bool> blockages;
@@ -101,7 +101,6 @@ private:
 	void SetStats();
 	void SetSpeed(float speed);
 	void DoDamage(float damage);
-	void DropBodyPart();
 	void Move(const Ogre::FrameEvent& evt);
 	
 	void DetachBodyParts() const;
@@ -113,6 +112,8 @@ private:
 	const float shoulderHeight = 55;
 
 	const Ogre::Real characterScale = 4;
+
+	void AddBodyObjects();
 
 	Ogre::SceneNode* torsoNode;
 	const char* torsoMeshName = "enemyTorso.mesh";

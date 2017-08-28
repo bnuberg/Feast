@@ -69,7 +69,9 @@ void Enemy::Init(int lvl)
 			for (int j = -ho2; j <= ho2; j++)
 			{
 				if (i % 3 == 0 && j % 3 != 0)
+				{
 					blockageGrid->setBlockageAt(Ogre::Vector2(i, j));
+				}
 			}
 		}
 	}
@@ -80,30 +82,7 @@ void Enemy::Init(int lvl)
 	enemyNode = mgr.mSceneMgr->getRootSceneNode()->createChildSceneNode("EnemyNode" + Ogre::StringConverter::toString(enemyID), fakeStartPosition);
 
 	//Creates enemy parts with nodes and attach meshes
-	torsoNode = enemyNode->createChildSceneNode("EnemyTorsoNode" + Ogre::StringConverter::toString(enemyID), torsoSocketPosition);
-	Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
-	torsoNode->attachObject(torsoEntity);
-	torsoNode->setScale(scale * characterScale, scale * characterScale, scale * characterScale);
-
-	headNode = torsoNode->createChildSceneNode("EnemyHeadNode" + Ogre::StringConverter::toString(enemyID), headSocketPosition);
-	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
-	headNode->attachObject(headEntity);
-
-	leftArmNode = torsoNode->createChildSceneNode("EnemyLeftArmNode" + Ogre::StringConverter::toString(enemyID), leftArmSocketPosition);
-	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
-	leftArmNode->attachObject(leftArmEntity);
-
-	rightArmNode = torsoNode->createChildSceneNode("EnemyRightArmNode" + Ogre::StringConverter::toString(enemyID), rightArmSocketPosition);
-	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
-	rightArmNode->attachObject(rightArmEntity);
-
-	leftFootNode = torsoNode->createChildSceneNode("EnemyLeftFootNode" + Ogre::StringConverter::toString(enemyID), leftFootSocketPosition);
-	Ogre::Entity* leftFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
-	leftFootNode->attachObject(leftFootEntity);
-
-	rightFootNode = torsoNode->createChildSceneNode("EnemyRightFootNode" + Ogre::StringConverter::toString(enemyID), rightFootSocketPosition);
-	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
-	rightFootNode->attachObject(rightFootEntity);
+	AddBodyObjects();
 
 	epm = new EnemyPatternManager();
 	epm->createTravelGrid();
@@ -209,10 +188,6 @@ void Enemy::InitiateAbility()
 		isAttacking = true;
 		attackDown = true;
 	}
-	else
-	{
-		// TODO: attack in progress
-	}
 }
 
 /**	Set the health and speed based on the level
@@ -225,6 +200,8 @@ void Enemy::SetStats()
 	enemyAI.enemySpeed = 50 + 5 * level;
 }
 
+/** Checks if this enemy should bleed or be slowed
+*/
 void Enemy::Debuff()
 {
 	if (is_bleeding)
@@ -371,82 +348,41 @@ void Enemy::SetScale(float scale)
 	this->scale = scale;
 }
 
-void Enemy::DropBodyPart()
-{
-	if (is_dead_)
-	{
-		// TODO drop body-part logic
-	}
-}
-
-//void Enemy::Move(const Ogre::FrameEvent& evt)
-//{
-//	GameManager& mgr = GameManager::GetSingleton();
-//
-//	Ogre::Vector3 target = mgr.mSceneMgr->getSceneNode("PlayerNode")->getPosition();
-//
-//	Ogre::Vector3 MoveDirection = Ogre::Vector3::ZERO;
-//
-//	Ogre::Vector3 distanceVector = target - enemyNode->getPosition();
-//	float distance = distanceVector.length();
-//
-//	if (distance <= aggroRange)
-//	{
-//		epm->updateStartAndEndPositions(enemyNode->getPosition(), target, enemyNumber);
-//		std::vector<Ogre::Vector3> route = epm->getRoute();
-//		
-//		if (route.size() > 0)
-//		{
-//			enemyNode->lookAt(route[0], Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-//		}
-//		else
-//		{
-//			enemyNode->lookAt(target, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-//			Ogre::LogManager::getSingletonPtr()->logMessage("Route not found.");
-//		}
-//
-//		if (distance > attackRange)
-//		{
-//			MoveDirection.z = enemySpeed;
-//		}
-//		else
-//		{
-//			MoveDirection.z = -enemySpeed;
-//		}
-//		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-//	}
-//	else if (enemyNode->getPosition() != startPosition)
-//	{
-//		Ogre::Vector3 startDistanceVector = startPosition - enemyNode->getPosition();
-//		float startDistance = startDistanceVector.length();
-//
-//		enemyNode->lookAt(startPosition, Ogre::Node::TS_PARENT, Ogre::Vector3::UNIT_Z);
-//
-//		MoveDirection.z = enemySpeed;
-//
-//		enemyNode->translate(MoveDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
-//
-//		if (startDistance <= enemySpeed / 2500)
-//		{
-//			enemyNode->setPosition(startPosition);
-//		}
-//	}
-//}
-
 void Enemy::Die()
 {
 	DetachBodyParts();
 	is_dead2_ = true;
-	/*GameManager& mgr = GameManager::GetSingleton();
-	
-	BodyPart bodyPart;
-	if (isDead){
-		bodyPart.Spawn();
-		isDead = false;*/
+}
 
-		/*mgr.mSceneMgr->getSceneNode("Enemy")->removeAndDestroyAllChildren();
-		mgr.mSceneMgr->destroySceneNode(mgr.mSceneMgr->getSceneNode("Enemy"));*/
-	/*}*/
+/**
+* \brief Attaches all the body parts so that the body parts are shown from the scene
+*/
+void Enemy::AddBodyObjects()
+{
+	torsoNode = enemyNode->createChildSceneNode("EnemyTorsoNode" + Ogre::StringConverter::toString(enemyID), torsoSocketPosition);
+	Ogre::Entity* torsoEntity = GameManager::getSingleton().mSceneMgr->createEntity(torsoMeshName);
+	torsoNode->attachObject(torsoEntity);
+	torsoNode->setScale(scale * characterScale, scale * characterScale, scale * characterScale);
+
+	headNode = torsoNode->createChildSceneNode("EnemyHeadNode" + Ogre::StringConverter::toString(enemyID), headSocketPosition);
+	Ogre::Entity* headEntity = GameManager::getSingleton().mSceneMgr->createEntity(headMeshName);
+	headNode->attachObject(headEntity);
+
+	leftArmNode = torsoNode->createChildSceneNode("EnemyLeftArmNode" + Ogre::StringConverter::toString(enemyID), leftArmSocketPosition);
+	Ogre::Entity* leftArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
+	leftArmNode->attachObject(leftArmEntity);
+
+	rightArmNode = torsoNode->createChildSceneNode("EnemyRightArmNode" + Ogre::StringConverter::toString(enemyID), rightArmSocketPosition);
+	Ogre::Entity* rightArmEntity = GameManager::getSingleton().mSceneMgr->createEntity(armMeshName);
+	rightArmNode->attachObject(rightArmEntity);
+
+	leftFootNode = torsoNode->createChildSceneNode("EnemyLeftFootNode" + Ogre::StringConverter::toString(enemyID), leftFootSocketPosition);
+	Ogre::Entity* leftFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
+	leftFootNode->attachObject(leftFootEntity);
+
+	rightFootNode = torsoNode->createChildSceneNode("EnemyRightFootNode" + Ogre::StringConverter::toString(enemyID), rightFootSocketPosition);
+	Ogre::Entity* rightFootEntity = GameManager::getSingleton().mSceneMgr->createEntity(footMeshName);
+	rightFootNode->attachObject(rightFootEntity);
 }
 
 /**

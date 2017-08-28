@@ -1,11 +1,8 @@
 #include "EnemyAI.h"
 #include "Enemy.h"
 #include "GameManager.h"
-#include <OgreEntity.h>
 #include "Player.h"
 #include "BodyPart.h"
-#include "EnemyPatternManager.h"
-#include <OgreLogManager.h>
 #include <random>
 
 /*
@@ -244,71 +241,43 @@ float EnemyAI::setEnemySpeed()
 /** This method checks what type of arm the player and enemy are using and dodges accordingly
 *	@param enemyNode contains information about the node the enemy is attached to and is used for the position
 */
-
 bool EnemyAI::DodgeCondition(Ogre::SceneNode* enemyNode)
 {
 	//This method checks what arm the player and enemy are using and in what range they both are and the enemy dodges accordingly 
-	GameManager& mgr = GameManager::GetSingleton();
-	int playerArmType = mgr.player.equipment.arm.type;
+	int playerArmType = GameManager::GetSingleton().player.equipment.arm.type;
 
 	//Enemy dodges when both are melee and the distance between both is less then 250
 	if (enemyArmType == 0 && playerArmType == 0)
 	{
-		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
-			return true;
-
-		}
-		else
-			return false;
+		return (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250);
 	}
 
 	//Enemy dodges when enemy is melee and player is range and the enemy is in the ranged attack radius
 	if (enemyArmType == 0 && playerArmType == 1)
 	{
-		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
-			return true;
-
-		}
-		else
-			return false;
+		return( DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550);
 	}
 
 	//Enemy dodges when player is melee and enemy is ranged and the player is close range 
 	if (enemyArmType == 1 && playerArmType == 0)
 	{
-		if (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250){
-			return true;
-
-		}
-		else
-			return false;
-
+		return (DistanceToPlayer(enemyNode).length() > 0 && DistanceToPlayer(enemyNode).length() < 250);
 	}
 
 	//Enemy dodges when both are ranged and the enemy is in range of the player's attack
 	if (enemyArmType == 1 && playerArmType == 1)
 	{
-		if (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550){
-			return true;
-
-		}
-		else
-			return false;
-
+		return (DistanceToPlayer(enemyNode).length() > 450 && DistanceToPlayer(enemyNode).length() < 550);
 	}
-
+	return false;
 }
 
+
+/**
+ * \brief Returns if the enemy is currently attack
+ * \return inAttackState
+ */
 bool EnemyAI::AllowedToAttack()
 {
-	if (inAttackState)
-	{
-		return true;
-
-	}
-	else
-	{
-		return false;
-	}
-
+	return inAttackState;
 }
